@@ -4,10 +4,12 @@ import Link from "next/link";
 
 import { getStoreCategories } from "@/app/actions/storefront";
 import { CartButton } from "@/components/storefront/cart-button";
+import { LanguageSwitcher } from "@/components/storefront/language-switcher";
 import { MobileMenu } from "@/components/storefront/mobile-menu";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18nConfig";
 import { getDictionary } from "@/lib/i18n";
+import { languageOptions } from "@/lib/locale/language-options";
 import { localized } from "@/lib/localized";
 import { getSiteSettings } from "@/lib/site-settings-server";
 import { formatCurrency } from "@/lib/utils/format";
@@ -84,6 +86,7 @@ export async function SiteHeader({ lang }: { lang: string }) {
           </Link>
 
           <div className="flex items-center justify-end gap-0.5">
+            <LanguageSwitcher lang={lang} label={dictionary.store.footer.language} options={languageOptions()} />
             <Button asChild variant="ghost" size="icon" aria-label={text.search}>
               <Link href={`/${lang}/shop`}>
                 <SearchIcon />

@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Suspense } from "react";
 
 import { getStoreCategories } from "@/app/actions/storefront";
 import { LanguageSwitcher } from "@/components/storefront/language-switcher";
-import { LOCALES, type Locale } from "@/i18nConfig";
+import type { Locale } from "@/i18nConfig";
 import { getDictionary } from "@/lib/i18n";
 import { countryName } from "@/lib/locale/countries";
+import { languageOptions } from "@/lib/locale/language-options";
 import { localized } from "@/lib/localized";
 import { getSiteSettings } from "@/lib/site-settings-server";
 
@@ -17,7 +17,6 @@ export async function SiteFooter({ lang }: { lang: string }) {
   ]);
   const text = dictionary.store.footer;
   const locale = lang as Locale;
-  const language_names = new Intl.DisplayNames([lang], { type: "language" });
 
   const shop_links = [
     { href: `/${lang}/shop`, label: dictionary.store.header.shop_all },
@@ -113,14 +112,7 @@ export async function SiteFooter({ lang }: { lang: string }) {
                 {text.payments}: {payment_methods.join(" · ")}
               </span>
             )}
-            {/* useSearchParams inside: needs a Suspense boundary on static pages. */}
-            <Suspense>
-              <LanguageSwitcher
-                lang={lang}
-                label={text.language}
-                options={LOCALES.map((value) => ({ value, label: language_names.of(value) ?? value }))}
-              />
-            </Suspense>
+            <LanguageSwitcher lang={lang} label={text.language} options={languageOptions()} variant="footer" />
           </div>
         </div>
       </div>
