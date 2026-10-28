@@ -48,6 +48,11 @@ const eslintConfig = defineConfig([
     rules: { "no-restricted-imports": "off" },
   },
   {
+    // Command-line tools (seed, import, create-admin) report progress on stdout.
+    files: ["scripts/**"],
+    rules: { "no-console": "off" },
+  },
+  {
     // console.warn/error only inside logging helpers and CLI scripts.
     files: ["**/*.{ts,tsx}"],
     ignores: ["lib/server-log.ts"],

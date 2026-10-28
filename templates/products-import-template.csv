@@ -1,0 +1,9 @@
+handle,title_en,title_es,title_it,description_en,description_es,description_it,category,price,compare_at_price,status,featured,tags,size,color,color_hex,sku,variant_price,stock,image_urls
+linen-shirt,Linen shirt,Camisa de lino,Camicia di lino,Breathable linen shirt with a relaxed fit.,Camisa de lino transpirable de corte relajado.,Camicia in lino traspirante dalla vestibilità comoda.,men,59.00,,active,no,summer|linen,S,White,#f5f5f0,LINEN-SHIRT-WHITE-S,,10,
+linen-shirt,,,,,,,,,,,,,M,White,#f5f5f0,LINEN-SHIRT-WHITE-M,,12,
+linen-shirt,,,,,,,,,,,,,L,White,#f5f5f0,LINEN-SHIRT-WHITE-L,,8,
+linen-shirt,,,,,,,,,,,,,M,Sand,#d8c7a5,LINEN-SHIRT-SAND-M,,5,
+wool-coat,Wool coat,Abrigo de lana,Cappotto di lana,"Double-breasted wool coat, fully lined.\nDry clean only.","Abrigo cruzado de lana, totalmente forrado.\nLimpieza en seco.","Cappotto doppiopetto in lana, completamente foderato.\nSolo lavaggio a secco.",women,189.00,229.00,active,yes,winter|wool,S,Camel,#b98a5a,WOOL-COAT-CAMEL-S,,4,
+wool-coat,,,,,,,,,,,,,M,Camel,#b98a5a,WOOL-COAT-CAMEL-M,,6,
+wool-coat,,,,,,,,,,,,,M,Black,#1c1c1c,WOOL-COAT-BLACK-M,199.00,3,
+leather-belt,Leather belt,Cinturón de cuero,Cintura in pelle,Full-grain leather belt with a brass buckle.,Cinturón de cuero de plena flor con hebilla de latón.,Cintura in pelle pieno fiore con fibbia in ottone.,accessories,45.00,,draft,no,leather,One size,Brown,#5b3a24,LEATHER-BELT-BROWN,,20,

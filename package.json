@@ -12,7 +12,8 @@
     "pb": "node scripts/pocketbase.mjs",
     "typegen": "node scripts/typegen.mjs",
     "create-admin": "node scripts/create-admin.mjs",
-    "seed": "node scripts/seed.mjs"
+    "seed": "node scripts/seed.mjs",
+    "import-products": "node scripts/import-products.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.105.0",
