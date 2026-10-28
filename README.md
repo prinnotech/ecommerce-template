@@ -24,7 +24,11 @@ Accounts that already exist are left untouched. To add or promote another admin 
 
 ## Importing products from CSV
 
-1. Copy `templates/products-import-template.csv` and fill it in (one row per variant; rows with the same `handle` are one product).
+In the dashboard: **Products → Import CSV** (or **Categories → Import CSV**). The page has a "Download template" button, shows a preview, and imports with a progress bar.
+
+From the command line instead:
+
+1. Download the template from the import page and fill it in (one row per variant; rows with the same `handle` are one product).
 2. With PocketBase running: `npm run import-products -- path/to/products.csv`
 
 Columns:

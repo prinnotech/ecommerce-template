@@ -1,4 +1,4 @@
-// Imports products and variants from a CSV file (see templates/products-import-template.csv).
+// Imports products and variants from a CSV file (template: Dashboard → Products → Import CSV → Download template).
 // Usage: npm run import-products -- path/to/products.csv
 // One row per variant; rows with the same handle are one product, whose fields come from its
 // first row. Re-running updates existing products (by handle) and variants (by SKU).
