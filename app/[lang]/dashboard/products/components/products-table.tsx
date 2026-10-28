@@ -1,6 +1,6 @@
 "use client";
 
-import { ImageIcon, PlusIcon, SearchIcon } from "lucide-react";
+import { ImageIcon, PlusIcon, SearchIcon, UploadIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -75,12 +75,20 @@ export function ProductsTable({ lang, currency, can_edit, dictionary, errors }: 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-tight">{text.title}</h1>
         {can_edit && (
-          <Button asChild>
-            <Link href={`/${lang}/dashboard/products/new`}>
-              <PlusIcon />
-              {text.add}
-            </Link>
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="outline">
+              <Link href={`/${lang}/dashboard/products/import`}>
+                <UploadIcon />
+                {text.import}
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link href={`/${lang}/dashboard/products/new`}>
+                <PlusIcon />
+                {text.add}
+              </Link>
+            </Button>
+          </div>
         )}
       </div>
 

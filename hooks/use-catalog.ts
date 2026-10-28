@@ -23,8 +23,10 @@ import {
   type AdminProduct,
   type AdminProductImage,
 } from "@/app/actions/products";
+import { importCategories, importProducts } from "@/app/actions/catalog-import";
 import { unwrap } from "@/lib/action-result";
 import { query_keys } from "@/lib/query-keys";
+import type { ImportCategoriesInput, ImportProductsInput } from "@/lib/schemas/catalog-import";
 import type {
   CategoryInput,
   ImageOrderInput,
@@ -176,4 +178,25 @@ export function useReorderProductImages() {
     mutationFn: async (input: ImageOrderInput) => unwrap(await reorderProductImages(input)),
     onSuccess: (images, input) => setImages(input.product_id, images),
   });
+}
+
+// ---------- CSV import ----------
+
+// One request per chunk; the import page loops over chunks and invalidates the lists once at the end
+// (useInvalidateCatalog), so the dashboard doesn't refetch after every few products.
+export function useImportProducts() {
+  return useMutation({ mutationFn: async (input: ImportProductsInput) => unwrap(await importProducts(input)) });
+}
+
+export function useImportCategories() {
+  return useMutation({ mutationFn: async (input: ImportCategoriesInput) => unwrap(await importCategories(input)) });
+}
+
+export function useInvalidateCatalog() {
+  const query_client = useQueryClient();
+  return () =>
+    Promise.all([
+      query_client.invalidateQueries({ queryKey: query_keys.admin_products_all }),
+      query_client.invalidateQueries({ queryKey: query_keys.admin_categories }),
+    ]);
 }

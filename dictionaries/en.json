@@ -484,7 +484,8 @@
         "remove_image": "Remove image",
         "image_after_create": "Save the category first to add an image.",
         "save": "Save category"
-      }
+      },
+      "import": "Import CSV"
     },
     "products": {
       "meta_title": "Products",
@@ -512,7 +513,8 @@
       "results": "{count} products",
       "page_of": "Page {page} of {total}",
       "previous": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "import": "Import CSV"
     },
     "editor": {
       "new_title": "Add product",
@@ -586,6 +588,80 @@
       "saved": "Variants saved.",
       "empty": "No variants yet. Generate them from sizes and colors, or add one.",
       "total_stock": "{stock} in stock"
+    },
+    "import": {
+      "meta_title": "Import",
+      "title": "Import from CSV",
+      "subtitle": "Add or update many products or categories at once from a spreadsheet.",
+      "back_products": "Products",
+      "back_categories": "Categories",
+      "tab_products": "Products",
+      "tab_categories": "Categories",
+      "step_file": "1. Choose a CSV file",
+      "file_hint_products": "One row per variant (size/color). Rows with the same handle are one product. Missing categories are created.",
+      "file_hint_categories": "One row per category. Use the parent column to put a category inside another one.",
+      "choose_file": "Click to choose a CSV file",
+      "choose_file_hint": "UTF-8 CSV, comma separated, up to 100 MB",
+      "file_too_large": "This file is larger than 100 MB. Split it into smaller files.",
+      "template": "Download template",
+      "step_review": "2. Check and import",
+      "rows_read": "{count} rows read.",
+      "stats": {
+        "products": "Products",
+        "variants": "Variants",
+        "images": "Image links",
+        "categories": "Categories",
+        "new_categories": "New categories",
+        "problems": "Rows with problems"
+      },
+      "problems_title": "{count} problems found. These products or categories will be skipped:",
+      "line": "Line {line}",
+      "problems": {
+        "missing_columns": "missing columns",
+        "empty_file": "the file is empty",
+        "invalid_handle": "invalid handle (use lowercase letters, numbers and hyphens)",
+        "missing_title": "a title is needed in at least one language",
+        "invalid_price": "invalid price",
+        "invalid_compare_at": "the compare-at price must be higher than the price",
+        "invalid_status": "status must be draft, active or archived",
+        "invalid_sku": "missing or too long SKU",
+        "duplicate_sku": "SKU used twice in the file",
+        "invalid_stock": "stock must be a whole number",
+        "invalid_color": "color_hex must look like #1a2b3c",
+        "invalid_parent": "invalid parent handle",
+        "invalid_row": "invalid value"
+      },
+      "update_existing": "Update existing items",
+      "update_existing_hint": "Items whose handle already exists are updated. Turn off to skip them.",
+      "download_images": "Download images",
+      "download_images_hint": "Images are copied from the image_urls links, only for products without images. Slower; turn off to import text and prices first.",
+      "start_products": "Import {count} products",
+      "start_categories": "Import {count} categories",
+      "running_title": "Importing…",
+      "keep_open": "Keep this page open until the import finishes.",
+      "progress": "{done} of {total} done",
+      "stop": "Stop",
+      "done_title": "Import finished",
+      "stopped_title": "Import stopped",
+      "error_title": "Import interrupted",
+      "outcomes": {
+        "created": "Created",
+        "updated": "Updated",
+        "skipped": "Skipped",
+        "failed": "Failed"
+      },
+      "missing_images": "{count} products were imported but some images couldn't be downloaded.",
+      "failed_title": "Not imported",
+      "reasons": {
+        "exists": "already exists",
+        "sku_taken": "a SKU belongs to another product",
+        "category_forbidden": "you can't create categories",
+        "images_failed": "some images couldn't be downloaded",
+        "generic": "unexpected error"
+      },
+      "view_products": "View products",
+      "view_categories": "View categories",
+      "import_another": "Import another file"
     }
   },
   "store": {

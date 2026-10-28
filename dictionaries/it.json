@@ -484,7 +484,8 @@
         "remove_image": "Rimuovi immagine",
         "image_after_create": "Salva prima la categoria per aggiungere un'immagine.",
         "save": "Salva categoria"
-      }
+      },
+      "import": "Importa CSV"
     },
     "products": {
       "meta_title": "Prodotti",
@@ -512,7 +513,8 @@
       "results": "{count} prodotti",
       "page_of": "Pagina {page} di {total}",
       "previous": "Precedente",
-      "next": "Successiva"
+      "next": "Successiva",
+      "import": "Importa CSV"
     },
     "editor": {
       "new_title": "Aggiungi prodotto",
@@ -586,6 +588,80 @@
       "saved": "Varianti salvate.",
       "empty": "Ancora nessuna variante. Generale da taglie e colori, o aggiungine una.",
       "total_stock": "{stock} disponibili"
+    },
+    "import": {
+      "meta_title": "Importa",
+      "title": "Importa da CSV",
+      "subtitle": "Aggiungi o aggiorna molti prodotti o categorie in una volta sola da un foglio di calcolo.",
+      "back_products": "Prodotti",
+      "back_categories": "Categorie",
+      "tab_products": "Prodotti",
+      "tab_categories": "Categorie",
+      "step_file": "1. Scegli un file CSV",
+      "file_hint_products": "Una riga per variante (taglia/colore). Le righe con lo stesso handle sono un solo prodotto. Le categorie mancanti vengono create.",
+      "file_hint_categories": "Una riga per categoria. Usa la colonna parent per mettere una categoria dentro un'altra.",
+      "choose_file": "Clicca per scegliere un file CSV",
+      "choose_file_hint": "CSV UTF-8 separato da virgole, fino a 100 MB",
+      "file_too_large": "Il file supera i 100 MB. Dividilo in file più piccoli.",
+      "template": "Scarica il modello",
+      "step_review": "2. Controlla e importa",
+      "rows_read": "{count} righe lette.",
+      "stats": {
+        "products": "Prodotti",
+        "variants": "Varianti",
+        "images": "Link immagini",
+        "categories": "Categorie",
+        "new_categories": "Nuove categorie",
+        "problems": "Righe con problemi"
+      },
+      "problems_title": "{count} problemi trovati. Questi prodotti o categorie verranno saltati:",
+      "line": "Riga {line}",
+      "problems": {
+        "missing_columns": "colonne mancanti",
+        "empty_file": "il file è vuoto",
+        "invalid_handle": "handle non valido (usa lettere minuscole, numeri e trattini)",
+        "missing_title": "serve un titolo in almeno una lingua",
+        "invalid_price": "prezzo non valido",
+        "invalid_compare_at": "il prezzo di confronto deve essere più alto del prezzo",
+        "invalid_status": "lo stato deve essere draft, active o archived",
+        "invalid_sku": "SKU mancante o troppo lungo",
+        "duplicate_sku": "SKU ripetuto nel file",
+        "invalid_stock": "lo stock deve essere un numero intero",
+        "invalid_color": "color_hex deve essere nel formato #1a2b3c",
+        "invalid_parent": "handle della categoria padre non valido",
+        "invalid_row": "valore non valido"
+      },
+      "update_existing": "Aggiorna gli elementi esistenti",
+      "update_existing_hint": "Gli elementi con un handle già esistente vengono aggiornati. Disattiva per saltarli.",
+      "download_images": "Scarica le immagini",
+      "download_images_hint": "Le immagini vengono copiate dai link di image_urls, solo per i prodotti senza immagini. Più lento; disattiva per importare prima testi e prezzi.",
+      "start_products": "Importa {count} prodotti",
+      "start_categories": "Importa {count} categorie",
+      "running_title": "Importazione in corso…",
+      "keep_open": "Tieni aperta questa pagina finché l'importazione non è finita.",
+      "progress": "{done} di {total} completati",
+      "stop": "Interrompi",
+      "done_title": "Importazione completata",
+      "stopped_title": "Importazione interrotta",
+      "error_title": "Importazione interrotta per un errore",
+      "outcomes": {
+        "created": "Creati",
+        "updated": "Aggiornati",
+        "skipped": "Saltati",
+        "failed": "Non riusciti"
+      },
+      "missing_images": "{count} prodotti sono stati importati, ma alcune immagini non sono state scaricate.",
+      "failed_title": "Non importati",
+      "reasons": {
+        "exists": "esiste già",
+        "sku_taken": "uno SKU appartiene a un altro prodotto",
+        "category_forbidden": "non puoi creare categorie",
+        "images_failed": "alcune immagini non sono state scaricate",
+        "generic": "errore imprevisto"
+      },
+      "view_products": "Vedi prodotti",
+      "view_categories": "Vedi categorie",
+      "import_another": "Importa un altro file"
     }
   },
   "store": {

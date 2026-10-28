@@ -1,7 +1,8 @@
 "use client";
 
-import { ImageIcon, PlusIcon } from "lucide-react";
+import { ImageIcon, PlusIcon, UploadIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -72,10 +73,18 @@ export function CategoryList({ lang, dictionary, common, errors, validation }: C
           <h1 className="text-2xl font-semibold tracking-tight">{dictionary.title}</h1>
           <p className="text-muted-foreground text-sm">{dictionary.subtitle}</p>
         </div>
-        <Button onClick={() => setDialog("new")}>
-          <PlusIcon />
-          {dictionary.add}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="outline">
+            <Link href={`/${lang}/dashboard/products/import?type=categories`}>
+              <UploadIcon />
+              {dictionary.import}
+            </Link>
+          </Button>
+          <Button onClick={() => setDialog("new")}>
+            <PlusIcon />
+            {dictionary.add}
+          </Button>
+        </div>
       </div>
 
       <Card className="py-0">
