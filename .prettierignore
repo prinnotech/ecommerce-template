@@ -1,0 +1,9 @@
+.next
+node_modules
+package-lock.json
+pb_data
+components/ui
+types/pocketbase-types.ts
+*.md
+app/globals.css
+lib/utils.ts
