@@ -1,9 +1,9 @@
-# PocketBase service for Railway (or any Docker host).
+﻿# PocketBase service for Railway (or any Docker host).
 # Railway: set RAILWAY_DOCKERFILE_PATH=pocketbase.Dockerfile and mount a volume at /pb/pb_data.
 # Only the schema ships (pb_migrations, pb_hooks); the database lives in the volume.
 FROM alpine:3.22
 
-ARG PB_VERSION=0.41.0
+ARG PB_VERSION=0.40.6
 ARG TARGETARCH=amd64
 
 RUN apk add --no-cache ca-certificates unzip wget \
