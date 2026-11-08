@@ -2,8 +2,8 @@
 node_modules
 package-lock.json
 pb_data
-components/ui
-types/pocketbase-types.ts
+packages/ui/components/ui
+packages/backend-pocketbase/pocketbase-types.ts
 *.md
-app/globals.css
-lib/utils.ts
+packages/ui/styles/globals.css
+packages/ui/lib/utils.ts

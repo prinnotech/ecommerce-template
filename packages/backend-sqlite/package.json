@@ -1,0 +1,7 @@
+{
+  "name": "@repo/backend-sqlite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SQLite implementation of the backend contract: node:sqlite through the shared SQL code, built-in auth and local image storage."
+}

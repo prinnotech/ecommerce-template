@@ -1,0 +1,82 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "pocketbase",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "pb"
+      ],
+      "port": 8090
+    },
+    {
+      "name": "store",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev:store"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "admin",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev:admin"
+      ],
+      "port": 3001
+    },
+    {
+      "name": "store-3100",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "-w",
+        "@repo/store",
+        "--",
+        "-p",
+        "3100"
+      ],
+      "port": 3100
+    },
+    {
+      "name": "admin-test",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "-w",
+        "@repo/admin",
+        "--",
+        "-p",
+        "3201"
+      ],
+      "port": 3201,
+      "env": {
+        "NEXT_PUBLIC_POCKETBASE_URL": "http://127.0.0.1:8099",
+        "NEXT_PUBLIC_SITE_URL": "http://localhost:3100"
+      }
+    },
+    {
+      "name": "store-test",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "-w",
+        "@repo/store",
+        "--",
+        "-p",
+        "3100"
+      ],
+      "port": 3100,
+      "env": {
+        "NEXT_PUBLIC_POCKETBASE_URL": "http://127.0.0.1:8099",
+        "NEXT_PUBLIC_SITE_URL": "http://localhost:3100"
+      }
+    }
+  ]
+}

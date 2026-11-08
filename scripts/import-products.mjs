@@ -4,7 +4,7 @@
 // first row. Re-running updates existing products (by handle) and variants (by SKU).
 import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
-import PocketBase from "pocketbase";
+import { getSeedBackend } from "./seed-backend.mjs";
 
 if (existsSync(".env.local")) process.loadEnvFile(".env.local");
 
@@ -95,36 +95,24 @@ for (const record of records) {
   products.get(record.handle).push(record);
 }
 
-const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL ?? "http://127.0.0.1:8090");
-pb.autoCancellation(false);
-await pb
-  .collection("_superusers")
-  .authWithPassword(process.env.POCKETBASE_SUPERUSER_EMAIL ?? "", process.env.POCKETBASE_SUPERUSER_PASSWORD ?? "");
+const backend = await getSeedBackend();
 
 const errors = [];
 const stats = { products_created: 0, products_updated: 0, variants_created: 0, variants_updated: 0, images: 0 };
 const category_ids = new Map();
 
 async function categoryId(slug) {
-  if (!slug) return "";
+  if (!slug) return null;
   if (category_ids.has(slug)) return category_ids.get(slug);
   if (!SLUG.test(slug)) throw new Error(`invalid category handle "${slug}"`);
-  let category = await pb
-    .collection("categories")
-    .getFirstListItem(pb.filter("slug = {:slug}", { slug }))
-    .catch(() => null);
-  if (!category) {
-    const name = titleCase(slug);
-    category = await pb.collection("categories").create({
-      slug,
-      name: Object.fromEntries(LOCALES.map((locale) => [locale, name])),
-      is_active: true,
-      sort_order: 0,
-    });
-    console.log(`  + category ${slug}`);
-  }
-  category_ids.set(slug, category.id);
-  return category.id;
+  const name = titleCase(slug);
+  const id = await backend.upsertCategory({
+    slug,
+    name: Object.fromEntries(LOCALES.map((locale) => [locale, name])),
+    sort_order: 0,
+  });
+  category_ids.set(slug, id);
+  return id;
 }
 
 async function loadImage(source) {
@@ -177,23 +165,14 @@ for (const [handle, rows] of products) {
       } catch (error) {
         variant_problems.push(`line ${row.line}: ${error.message}`);
       }
-      if (sku) {
-        const owner = await pb
-          .collection("product_variants")
-          .getFirstListItem(pb.filter("sku = {:sku}", { sku }), { expand: "product" })
-          .catch(() => null);
-        if (owner && owner.expand?.product?.slug !== handle) {
-          variant_problems.push(`line ${row.line}: SKU ${sku} belongs to another product`);
-        }
-      }
     }
     if (variant_problems.length > 0) throw new Error(`product skipped:\n    ${variant_problems.join("\n    ")}`);
 
-    const fields = {
+    const { id: product_id, is_new } = await backend.upsertProduct({
       slug: handle,
       title,
       description: localized(first, "description", (text) => text.replace(/\\n/g, "\n")),
-      category: await categoryId(first.category),
+      category_id: await categoryId(first.category),
       price,
       compare_at_price,
       status,
@@ -202,31 +181,20 @@ for (const [handle, rows] of products) {
         .split("|")
         .map((tag) => tag.trim())
         .filter(Boolean),
-    };
+    });
+    if (is_new) stats.products_created++;
+    else stats.products_updated++;
+    console.log(`${is_new ? "+" : "~"} ${handle}`);
 
-    let product = await pb
-      .collection("products")
-      .getFirstListItem(pb.filter('slug = {:slug} && deleted_at = ""', { slug: handle }))
-      .catch(() => null);
-    if (product) {
-      product = await pb.collection("products").update(product.id, fields);
-      stats.products_updated++;
-      console.log(`~ ${handle}`);
-    } else {
-      product = await pb.collection("products").create(fields);
-      stats.products_created++;
-      console.log(`+ ${handle}`);
-    }
-
-    // Images only for products without any, so re-imports don't duplicate them.
+    // Images only for new products, so re-imports don't duplicate them. PocketBase only.
     const image_sources = (first.image_urls ?? "")
       .split("|")
       .map((source) => source.trim())
       .filter(Boolean);
-    if (image_sources.length > 0 && (product.images ?? []).length === 0) {
+    if (image_sources.length > 0 && is_new && backend.name === "pocketbase") {
       for (const source of image_sources.slice(0, 10)) {
         try {
-          await pb.collection("products").update(product.id, { "images+": await loadImage(source) });
+          await backend.addProductImage(product_id, await loadImage(source));
           stats.images++;
         } catch (error) {
           errors.push(`line ${first.line} (${handle}): ${error.message}`);
@@ -242,29 +210,20 @@ for (const [handle, rows] of products) {
         if (!Number.isInteger(stock) || stock < 0) throw new Error(`invalid stock "${row.stock}"`);
         if (row.color_hex && !/^#[0-9a-fA-F]{6}$/.test(row.color_hex))
           throw new Error(`invalid color_hex "${row.color_hex}"`);
-        const variant_fields = {
-          product: product.id,
+        const owner_id = await backend.variantProductId(sku);
+        if (owner_id && owner_id !== product_id) throw new Error(`SKU ${sku} belongs to another product`);
+        await backend.upsertVariant({
+          product_id,
+          sku,
           size: row.size ?? "",
           color: row.color ?? "",
           color_hex: row.color_hex ?? "",
-          sku,
           price_override: toCents(row.variant_price) ?? 0,
           stock,
-          is_active: true,
           sort_order: index,
-        };
-        const existing = await pb
-          .collection("product_variants")
-          .getFirstListItem(pb.filter("sku = {:sku}", { sku }))
-          .catch(() => null);
-        if (existing && existing.product !== product.id) throw new Error(`SKU ${sku} belongs to another product`);
-        if (existing) {
-          await pb.collection("product_variants").update(existing.id, variant_fields);
-          stats.variants_updated++;
-        } else {
-          await pb.collection("product_variants").create(variant_fields);
-          stats.variants_created++;
-        }
+        });
+        if (owner_id) stats.variants_updated++;
+        else stats.variants_created++;
       } catch (error) {
         errors.push(`line ${row.line} (${handle}): ${error.message}`);
       }
@@ -273,6 +232,8 @@ for (const [handle, rows] of products) {
     errors.push(`line ${first.line} (${handle}): ${error.response?.message ?? error.message}`);
   }
 }
+
+await backend.close();
 
 console.log(
   `\nDone: ${stats.products_created} products created, ${stats.products_updated} updated; ` +

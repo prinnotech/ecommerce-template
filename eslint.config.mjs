@@ -18,17 +18,22 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   globalIgnores([
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
+    "**/.next/**",
+    "**/out/**",
+    "**/build/**",
+    "**/next-env.d.ts",
+    "templates/**",
     // Generated.
-    "types/pocketbase-types.ts",
+    "packages/backend-pocketbase/pocketbase-types.ts",
     // PocketBase runtime (JSVM globals, not part of the Next.js app).
     "pb_data/**",
     "pb_migrations/**",
     "pb_hooks/**",
   ]),
+  {
+    // Monorepo: the Next.js apps live in apps/*.
+    settings: { next: { rootDir: ["apps/*/"] } },
+  },
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
@@ -39,12 +44,20 @@ const eslintConfig = defineConfig([
       "no-console": ["error", { allow: ["warn", "error"] }],
       "no-restricted-imports": [
         "error",
-        { paths: [{ name: "pocketbase", message: "Use the helpers in lib/pocketbase/ instead." }] },
+        {
+          paths: [
+            {
+              name: "pocketbase",
+              message:
+                "Only packages/backend-pocketbase talks to PocketBase. Use getBackend() from @repo/core/backend.",
+            },
+          ],
+        },
       ],
     },
   },
   {
-    files: ["lib/pocketbase/**", "scripts/**"],
+    files: ["packages/backend-pocketbase/**", "scripts/**"],
     rules: { "no-restricted-imports": "off" },
   },
   {
@@ -55,21 +68,22 @@ const eslintConfig = defineConfig([
   {
     // console.warn/error only inside logging helpers and CLI scripts.
     files: ["**/*.{ts,tsx}"],
-    ignores: ["lib/server-log.ts"],
+    // backend-sqlite/email.ts writes the reset link to the log when no email service is set up.
+    ignores: ["**/lib/server-log.ts", "packages/backend-sqlite/email.ts"],
     rules: { "no-console": "error" },
   },
   {
     files: ["**/*.{ts,tsx}"],
-    ignores: ["lib/pocketbase/**"],
+    ignores: ["packages/backend-pocketbase/**"],
     rules: { "no-restricted-syntax": ["error", NO_AUTH_STORE_IS_VALID] },
   },
   {
-    files: ["app/**/page.tsx", "app/**/layout.tsx"],
+    files: ["**/app/**/page.tsx", "**/app/**/layout.tsx"],
     rules: { "no-restricted-syntax": ["error", NO_AUTH_STORE_IS_VALID, NO_USE_CLIENT] },
   },
   {
     files: ["**/*.{ts,tsx}"],
-    ignores: ["components/ui/**"],
+    ignores: ["**/components/ui/**"],
     languageOptions: {
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },

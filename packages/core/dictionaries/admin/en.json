@@ -1,0 +1,2291 @@
+{
+  "dashboard": {
+    "meta_title": "Dashboard",
+    "nav": {
+      "label": "Dashboard navigation",
+      "home": "Home",
+      "settings": "Settings",
+      "view_store": "View store",
+      "sign_out": "Sign out",
+      "account_menu": "Account menu",
+      "toggle_sidebar": "Toggle sidebar",
+      "products": "Products",
+      "categories": "Categories",
+      "orders": "Orders",
+      "messages": "Messages",
+      "unread": {
+        "one": "{count} unread",
+        "other": "{count} unread"
+      },
+      "customers": "Customers",
+      "import": "Import",
+      "roles": "Roles",
+      "staff": "Staff",
+      "activity": "Activity",
+      "themes": "Online store",
+      "pages": "Pages",
+      "inventory": "Inventory",
+      "drafts": "Drafts",
+      "discounts": "Discounts",
+      "abandoned": "Abandoned checkouts",
+      "analytics": "Analytics",
+      "collections": "Collections",
+      "gift_cards": "Gift cards",
+      "reviews": "Reviews"
+    },
+    "home": {
+      "title": "Home",
+      "welcome": "Welcome back, {name}.",
+      "settings_title": "Store settings",
+      "settings_body": "Name, contact details, currency, shipping, payments and legal pages.",
+      "products_title": "Products",
+      "products_body": "Add products, photos, sizes, colors and stock.",
+      "range_label": "Date range",
+      "ranges": {
+        "last_7_days": "Last 7 days",
+        "last_30_days": "Last 30 days",
+        "last_90_days": "Last 90 days"
+      },
+      "kpis": {
+        "gross_sales": "Gross sales",
+        "orders": "Orders",
+        "average_order_value": "Average order value",
+        "to_fulfill": "To fulfill",
+        "to_fulfill_hint": "Orders waiting to be shipped",
+        "cod_to_collect": "Cash to collect",
+        "cod_to_collect_hint": "Cash on delivery not yet collected",
+        "vs_previous": "vs previous period"
+      },
+      "chart": {
+        "title": "Sales",
+        "description": "Gross sales per day, {range}.",
+        "orders": {
+          "one": "{count} order",
+          "other": "{count} orders"
+        },
+        "table_date": "Date",
+        "table_sales": "Sales",
+        "table_orders": "Orders",
+        "empty": "No sales in this period yet."
+      },
+      "recent_orders": "Recent orders",
+      "top_products": "Top products",
+      "sold": {
+        "one": "{count} sold",
+        "other": "{count} sold"
+      },
+      "low_stock": "Low stock",
+      "units_left": {
+        "one": "{count} left",
+        "other": "{count} left"
+      },
+      "no_low_stock": "Everything is well stocked.",
+      "no_orders": "No orders yet.",
+      "view_all": "View all",
+      "out_of_stock": "Out of stock",
+      "sizes_sold_out": {
+        "one": "{count} size sold out",
+        "other": "{count} sizes sold out"
+      },
+      "sizes_low": {
+        "one": "{count} size low",
+        "other": "{count} sizes low"
+      },
+      "unread_messages": "Unread messages",
+      "unread_messages_hint": "Waiting for a reply"
+    }
+  },
+  "settings": {
+    "meta_title": "Settings",
+    "title": "Settings",
+    "subtitle": "Everything about your store that changes without a code deploy.",
+    "read_only": "You can view these settings but not change them.",
+    "categories": {
+      "general": "General",
+      "contact": "Contact",
+      "localization": "Localization",
+      "shipping": "Shipping",
+      "taxes": "Taxes",
+      "payments": "Payments",
+      "content": "Pages",
+      "storefront": "Storefront",
+      "domains": "Domains"
+    },
+    "sections": {
+      "general": "Store details",
+      "languages": "Languages",
+      "shipping": "Shipping",
+      "taxes": "Taxes",
+      "payments": "Payments",
+      "legal": "Legal",
+      "domains": "Domains",
+      "staff": "Staff",
+      "roles": "Roles",
+      "activity": "Activity",
+      "notifications": "Notifications",
+      "email": "Email sending",
+      "profile": "Profile",
+      "tracking": "Tracking",
+      "api_keys": "API keys"
+    },
+    "saved_all": "Settings saved.",
+    "assets": {
+      "empty": "No image",
+      "upload": "Upload image",
+      "replace": "Replace",
+      "remove": "Remove"
+    },
+    "saved": "{setting} saved.",
+    "reset": "Restore default",
+    "reset_done": "{setting} restored to its default.",
+    "updated_at": "Updated {date}",
+    "invalid": "This value isn't valid. Check the format and try again.",
+    "long_text_hint": "Plain text. Separate paragraphs with a blank line. Start a line with ## for a heading, or with - for a list item.",
+    "shipping_rates": {
+      "rate_legend": "Shipping rate {number}",
+      "name": "Name",
+      "price": "Price",
+      "min_days": "Min. days",
+      "max_days": "Max. days",
+      "add": "Add shipping rate",
+      "remove": "Remove shipping rate"
+    },
+    "items": {
+      "site_name": {
+        "label": "Store name",
+        "description": "Shown in the header, page titles, emails and the dashboard."
+      },
+      "site_description": {
+        "label": "Store description",
+        "description": "Short tagline used by search engines and link previews."
+      },
+      "site_logo_url": {
+        "label": "Logo",
+        "description": "Image shown in the header instead of the store name. Leave empty to use the name."
+      },
+      "site_favicon_url": {
+        "label": "Favicon",
+        "description": "Browser tab icon. Square PNG, JPG or SVG."
+      },
+      "maintenance_mode": {
+        "label": "Maintenance notice",
+        "description": "Shows a notice at the top of every page."
+      },
+      "site_contact": {
+        "label": "Contact details",
+        "description": "Shown on the contact page and in the footer.",
+        "fields": {
+          "email": "Email",
+          "phone": "Phone",
+          "whatsapp": "WhatsApp"
+        }
+      },
+      "store_address": {
+        "label": "Store address",
+        "description": "Your business address, shown on the contact page and legal pages.",
+        "fields": {
+          "street": "Street",
+          "city": "City",
+          "region": "State / province",
+          "postal_code": "Postal code",
+          "country": "Country"
+        }
+      },
+      "social_links": {
+        "label": "Social links",
+        "description": "Full profile URLs. Empty links are hidden.",
+        "fields": {
+          "instagram": "Instagram",
+          "facebook": "Facebook",
+          "tiktok": "TikTok"
+        }
+      },
+      "currency": {
+        "label": "Currency",
+        "description": "The currency your prices are set and charged in."
+      },
+      "default_locale": {
+        "label": "Default language",
+        "description": "Used when a visitor's browser language isn't supported."
+      },
+      "timezone": {
+        "label": "Time zone",
+        "description": "Used for order dates and reports."
+      },
+      "shipping_rates": {
+        "label": "Shipping rates",
+        "description": "The methods customers choose at checkout. Countries in a shipping zone below get that zone's rates instead."
+      },
+      "free_shipping_threshold": {
+        "label": "Free shipping from",
+        "description": "Order subtotal from which shipping is free. 0 turns it off."
+      },
+      "tax_rate": {
+        "label": "Tax rate (%)",
+        "description": "Percentage applied at checkout, for example 22."
+      },
+      "tax_included": {
+        "label": "Prices include tax",
+        "description": "On: product prices already include tax. Off: tax is added at checkout."
+      },
+      "payment_methods": {
+        "label": "Payment methods",
+        "description": "Edited in Settings → Payments.",
+        "fields": {
+          "card": "Card",
+          "cash_on_delivery": "Cash on delivery"
+        }
+      },
+      "privacy_policy": {
+        "label": "Privacy policy",
+        "description": "The text of the Privacy policy page."
+      },
+      "terms_and_conditions": {
+        "label": "Terms and conditions",
+        "description": "The text of the Terms and conditions page."
+      },
+      "returns_days": {
+        "label": "Return window (days)",
+        "description": "Shown on product pages and the home page. 0 hides it."
+      },
+      "primary_domain_store": {
+        "label": "Primary store domain",
+        "description": "Every other store address redirects here. Set it from Settings → Domains."
+      },
+      "primary_domain_admin": {
+        "label": "Primary admin domain",
+        "description": "Every other admin address redirects here. Set it from Settings → Domains."
+      },
+      "navigation": {
+        "label": "Navigation",
+        "description": "Header menu and footer, edited in Online store → Themes → Customize → Navigation."
+      },
+      "stripe_publishable_key": {
+        "label": "Stripe publishable key",
+        "description": "Edited in Settings → Payments."
+      },
+      "smtp": {
+        "label": "Email sending",
+        "description": "Edited in Settings → Email sending."
+      },
+      "notifications": {
+        "label": "Notifications",
+        "description": "Edited in Settings → Notifications."
+      },
+      "low_stock_threshold": {
+        "label": "Low stock threshold",
+        "description": "Variants at or below this stock show as low stock."
+      },
+      "shipping_zones": {
+        "label": "Shipping zones",
+        "description": "Countries with their own rates and tax. Customers anywhere else get the rates above."
+      },
+      "ship_only_to_zones": {
+        "label": "Only ship to these zones",
+        "description": "On: customers outside every zone can't order (the checkout says so)."
+      },
+      "tracking": {
+        "label": "Tracking",
+        "description": "Ad and analytics tags (Settings → Tracking)."
+      }
+    },
+    "groups": {
+      "store": "Store",
+      "selling": "Selling",
+      "customers": "Customers and emails",
+      "team": "Team",
+      "legal": "Legal",
+      "you": "You"
+    },
+    "shipping_zones": {
+      "empty": "No zones yet: every country gets the rates above.",
+      "zone_legend": "Zone {number}",
+      "remove": "Remove zone",
+      "name": "Name",
+      "countries": "Countries",
+      "search_countries": "Add countries: type a name",
+      "remove_country": "Remove {name}",
+      "in_other_zone": "in another zone",
+      "tax_rate": "Tax rate (%)",
+      "tax_default": "Default",
+      "tax_hint": "Empty = the default tax rate (Settings → Taxes).",
+      "rates": "Rates in this zone",
+      "add": "Add zone"
+    }
+  },
+  "permissions": {
+    "dashboard": {
+      "view": "View dashboard"
+    },
+    "products": {
+      "view": "View products",
+      "edit": "Edit products"
+    },
+    "categories": {
+      "view": "View categories",
+      "edit": "Edit categories"
+    },
+    "orders": {
+      "view": "View orders",
+      "edit": "Edit orders",
+      "refund": "Refund orders"
+    },
+    "customers": {
+      "view": "View customers",
+      "edit": "Edit customers"
+    },
+    "messages": {
+      "view": "View messages"
+    },
+    "settings": {
+      "view": "View settings",
+      "edit": "Edit settings"
+    },
+    "users": {
+      "view": "View staff",
+      "invite": "Invite staff",
+      "edit": "Edit staff",
+      "deactivate": "Deactivate staff"
+    },
+    "roles": {
+      "view": "View roles",
+      "edit": "Edit roles"
+    },
+    "audit": {
+      "view": "View activity log"
+    },
+    "themes": {
+      "view": "View themes",
+      "edit": "Edit and publish themes"
+    },
+    "pages": {
+      "view": "View pages",
+      "edit": "Create and edit pages"
+    },
+    "inventory": {
+      "view": "View inventory",
+      "edit": "Change stock"
+    },
+    "draft_orders": {
+      "view": "View draft orders",
+      "edit": "Create and edit draft orders"
+    },
+    "discounts": {
+      "view": "View discounts",
+      "edit": "Create and edit discounts"
+    },
+    "analytics": {
+      "view": "View analytics"
+    },
+    "collections": {
+      "view": "View collections",
+      "edit": "Create and edit collections"
+    },
+    "gift_cards": {
+      "view": "View gift cards",
+      "edit": "Issue and change gift cards"
+    },
+    "reviews": {
+      "view": "See reviews",
+      "edit": "Approve, hide, reply to and delete reviews"
+    },
+    "api_keys": {
+      "view": "See API keys",
+      "edit": "Create and revoke API keys"
+    }
+  },
+  "roles": {
+    "meta_title": "Roles",
+    "title": "Roles",
+    "subtitle": "Each role grants a set of permissions. Members can have several roles.",
+    "add": "Add role",
+    "add_title": "New role",
+    "name": "Name",
+    "description": "Description",
+    "members": "Members",
+    "permissions": "Permissions",
+    "save": "Save",
+    "saved": "Role saved.",
+    "created": "Role created.",
+    "delete": "Delete",
+    "delete_title": "Delete this role?",
+    "delete_body": "A role still assigned to members can't be deleted.",
+    "deleted": "Role deleted.",
+    "system": "System role",
+    "full_access": "Full access",
+    "full_access_hint": "Grants every permission. Only admins can assign it.",
+    "empty": "No roles yet."
+  },
+  "activity": {
+    "meta_title": "Activity",
+    "title": "Activity",
+    "subtitle": "Who did what in the admin, including refused attempts.",
+    "search_placeholder": "Search by member or action",
+    "columns": {
+      "time": "When",
+      "actor": "Member",
+      "action": "Action",
+      "result": "Result"
+    },
+    "denied": "Refused",
+    "allowed": "Done",
+    "result_filter": "Result",
+    "all_results": "All",
+    "denied_only": "Refused only",
+    "empty": "No activity yet.",
+    "results": {
+      "one": "{count} entry",
+      "other": "{count} entries"
+    },
+    "actions": {
+      "activate_or_deactivate_a_team_member": "Activated or deactivated a team member",
+      "add_an_order_note": "Added an order note",
+      "change_a_team_member": "Changed a team member",
+      "change_an_admin_s_access": "Changed an admin's access",
+      "change_an_order_status": "Changed an order status",
+      "change_marketing_consent": "Changed marketing consent",
+      "change_the_status_of_products": "Changed the status of products",
+      "create_a_category": "Created a category",
+      "create_a_product": "Created a product",
+      "create_a_role": "Created a role",
+      "create_a_role_with_full_access": "Created a role with full access",
+      "delete_a_category": "Deleted a category",
+      "delete_a_product": "Deleted a product",
+      "delete_a_role": "Deleted a role",
+      "delete_a_role_with_full_access": "Deleted a role with full access",
+      "delete_a_saved_view": "Deleted a saved view",
+      "delete_products": "Deleted products",
+      "edit_a_customer_note": "Edited a customer note",
+      "edit_a_role": "Edited a role",
+      "edit_a_role_with_full_access": "Edited a role with full access",
+      "export_orders": "Exported orders",
+      "fulfill_an_order": "Fulfilled an order",
+      "fulfill_orders": "Fulfilled orders",
+      "import_categories": "Imported categories",
+      "import_products": "Imported products",
+      "invite_a_team_member": "Invited a team member",
+      "invite_a_team_member_with_admin_access": "Invited a team member with admin access",
+      "mark_an_order_as_paid": "Marked an order as paid",
+      "move_products_to_a_category": "Moved products to a category",
+      "refund_an_order": "Refunded an order",
+      "remove_a_category_image": "Removed a category image",
+      "remove_a_product_image": "Removed a product image",
+      "reorder_categories": "Reordered categories",
+      "reorder_product_images": "Reordered product images",
+      "reset_a_site_setting": "Reset a store setting",
+      "save_a_view": "Saved a view",
+      "search_the_admin": "Searched the admin",
+      "set_an_image_color": "Set an image color",
+      "update_a_category": "Updated a category",
+      "update_a_contact_message": "Updated a contact message",
+      "update_a_product": "Updated a product",
+      "update_a_site_setting": "Updated a store setting",
+      "update_an_order_s_internal_note": "Updated an order's internal note",
+      "update_contact_messages": "Updated contact messages",
+      "update_order_tracking": "Updated order tracking",
+      "update_product_variants": "Updated product variants",
+      "upload_a_category_image": "Uploaded a category image",
+      "upload_a_logo_or_favicon": "Uploaded a logo or favicon",
+      "upload_a_product_image": "Uploaded a product image",
+      "view_a_customer": "Opened a customer",
+      "view_a_customer_note": "Opened a customer note",
+      "view_a_product": "Opened a product",
+      "view_an_order": "Opened an order",
+      "view_categories": "Viewed categories",
+      "view_contact_messages": "Viewed contact messages",
+      "view_customers": "Viewed customers",
+      "view_orders": "Viewed orders",
+      "view_products": "Viewed products",
+      "view_roles": "Viewed roles",
+      "view_sales_reports": "Viewed sales reports",
+      "view_saved_views": "Viewed saved views",
+      "view_site_settings": "Viewed store settings",
+      "view_the_activity_log": "Viewed the activity log",
+      "view_the_team": "Viewed the team",
+      "add_a_domain": "Added a domain",
+      "remove_a_domain": "Removed a domain",
+      "set_the_primary_domain": "Set the primary domain",
+      "clear_the_primary_domain": "Stopped redirecting to the primary domain",
+      "check_a_domain": "Checked a domain",
+      "view_domains": "Viewed domains",
+      "view_themes": "Viewed themes",
+      "open_a_theme": "Opened a theme",
+      "add_a_theme": "Added a theme",
+      "duplicate_a_theme": "Duplicated a theme",
+      "rename_a_theme": "Renamed a theme",
+      "delete_a_theme": "Deleted a theme",
+      "edit_a_theme": "Edited a theme",
+      "publish_a_theme": "Published a theme",
+      "restore_a_theme_version": "Restored a theme version",
+      "discard_theme_changes": "Discarded theme changes",
+      "view_pages": "Viewed pages",
+      "create_a_page": "Created a page",
+      "edit_a_page": "Edited a page",
+      "delete_a_page": "Deleted a page",
+      "upload_an_image": "Uploaded an image",
+      "view_the_media_library": "Viewed the media library",
+      "edit_the_navigation": "Edited the navigation",
+      "view_navigation": "Viewed the navigation",
+      "edit_payment_methods": "Edited payment methods",
+      "change_the_stripe_keys": "Changed the Stripe keys",
+      "view_payment_settings": "Viewed payment settings",
+      "view_email_settings": "Viewed email settings",
+      "change_the_email_settings": "Changed the email settings",
+      "send_a_test_email": "Sent a test email",
+      "view_notifications": "Viewed notifications",
+      "edit_notifications": "Edited notifications",
+      "preview_an_email": "Previewed an email",
+      "view_the_email_log": "Viewed the email log",
+      "view_inventory": "Viewed inventory",
+      "change_stock": "Changed stock",
+      "view_stock_history": "Viewed stock history",
+      "view_draft_orders": "Viewed draft orders",
+      "view_a_draft_order": "Viewed a draft order",
+      "create_a_draft_order": "Created a draft order",
+      "edit_a_draft_order": "Edited a draft order",
+      "delete_a_draft_order": "Deleted a draft order",
+      "send_a_draft_order_invoice": "Sent a draft order invoice",
+      "complete_a_draft_order": "Turned a draft into an order",
+      "search_products_for_a_draft_order": "Searched products for a draft order",
+      "search_customers_for_a_draft_order": "Searched customers for a draft order",
+      "view_discounts": "Viewed discounts",
+      "view_a_discount": "Viewed a discount",
+      "create_a_discount": "Created a discount",
+      "edit_a_discount": "Edited a discount",
+      "delete_a_discount": "Deleted a discount",
+      "view_abandoned_checkouts": "Viewed abandoned checkouts",
+      "send_an_abandoned_checkout_email": "Sent an abandoned checkout email",
+      "view_tracking_settings": "Viewed tracking settings",
+      "change_the_tracking_settings": "Changed the tracking settings",
+      "view_analytics": "Viewed analytics",
+      "view_collections": "Viewed collections",
+      "view_a_collection": "Viewed a collection",
+      "create_a_collection": "Created a collection",
+      "edit_a_collection": "Edited a collection",
+      "delete_a_collection": "Deleted a collection",
+      "view_gift_cards": "Viewed gift cards",
+      "view_a_gift_card": "Viewed a gift card",
+      "issue_a_gift_card": "Issued a gift card",
+      "change_a_gift_card": "Changed a gift card",
+      "view_reviews": "Viewed reviews",
+      "moderate_a_review": "Moderated a review",
+      "reply_to_a_review": "Replied to a review",
+      "delete_a_review": "Deleted a review",
+      "view_api_keys": "Viewed API keys",
+      "create_an_api_key": "Created an API key",
+      "revoke_an_api_key": "Revoked an API key"
+    }
+  },
+  "staff": {
+    "meta_title": "Staff",
+    "title": "Staff",
+    "subtitle": "Who can sign in to the admin and what they can do.",
+    "invite": "Invite",
+    "invite_title": "Invite a team member",
+    "edit_title": "Edit member",
+    "name": "Name",
+    "email": "Email",
+    "roles": "Roles",
+    "admin": "Admin",
+    "active": "Active",
+    "deactivated": "Deactivated",
+    "invite_sent": "Invitation sent.",
+    "save": "Save",
+    "saved": "Saved.",
+    "empty": "No team members yet.",
+    "deactivate": "Deactivate",
+    "reactivate": "Reactivate"
+  },
+  "profile": {
+    "meta_title": "Profile",
+    "title": "Profile",
+    "subtitle": "Your name, language and password.",
+    "details_title": "Details",
+    "name": "Full name",
+    "email": "Email",
+    "language": "Language",
+    "save": "Save changes",
+    "saved": "Profile updated.",
+    "password_title": "Password",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "confirm_password": "Confirm new password",
+    "change_password": "Change password",
+    "password_changed": "Password changed.",
+    "password_hint": "At least 8 characters."
+  },
+  "catalog": {
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "archived": "Archived"
+    },
+    "categories": {
+      "meta_title": "Categories",
+      "title": "Categories",
+      "subtitle": "Group products so customers can browse the store.",
+      "add": "Add category",
+      "add_title": "New category",
+      "edit": "Edit",
+      "edit_title": "Edit category",
+      "delete": "Delete",
+      "delete_title": "Delete this category?",
+      "delete_body": "This can't be undone. Categories with products or subcategories can't be deleted.",
+      "empty": "No categories yet.",
+      "saved": "Category saved.",
+      "deleted": "Category deleted.",
+      "visible": "Visible",
+      "hidden": "Hidden",
+      "drag": "Drag to reorder",
+      "more": "More actions",
+      "product_count": {
+        "one": "{count} product",
+        "other": "{count} products"
+      },
+      "columns": {
+        "name": "Name",
+        "slug": "URL handle",
+        "products": "Products",
+        "status": "Status"
+      },
+      "form": {
+        "name": "Name",
+        "slug": "URL handle",
+        "slug_hint": "Used in the address: /shop/{slug}",
+        "description": "Description",
+        "parent": "Parent category",
+        "no_parent": "None (top level)",
+        "sort_order": "Sort order",
+        "sort_order_hint": "Lower numbers come first.",
+        "is_active": "Visible in the store",
+        "image": "Image",
+        "upload_image": "Upload image",
+        "replace_image": "Replace image",
+        "remove_image": "Remove image",
+        "image_after_create": "Save the category first to add an image.",
+        "save": "Save category"
+      },
+      "import": "Import CSV"
+    },
+    "products": {
+      "meta_title": "Products",
+      "title": "Products",
+      "add": "Add product",
+      "search": "Search products",
+      "search_placeholder": "Search by title, handle or tag",
+      "status_filter": "Status",
+      "all": "All",
+      "category_filter": "Category",
+      "all_categories": "All categories",
+      "empty": "No products yet. Add your first product to start selling.",
+      "empty_filtered": "No products match these filters.",
+      "columns": {
+        "product": "Product",
+        "status": "Status",
+        "inventory": "Inventory",
+        "price": "Price",
+        "category": "Category",
+        "updated": "Updated"
+      },
+      "inventory_value": "{stock} in stock · {variants} variants",
+      "no_variants": "No variants",
+      "untitled": "Untitled",
+      "results": {
+        "one": "{count} product",
+        "other": "{count} products"
+      },
+      "page_of": "Page {page} of {total}",
+      "previous": "Previous",
+      "next": "Next",
+      "import": "Import CSV",
+      "bulk_publish": "Publish",
+      "bulk_archive": "Archive",
+      "bulk_move": "Move to category",
+      "bulk_delete": "Delete",
+      "bulk_delete_title": "Delete the selected products?",
+      "bulk_delete_body": "They disappear from the store and the dashboard. Past orders keep their copies.",
+      "move_title": "Move products to a category",
+      "move_hint": "Choose a category for the selected products.",
+      "no_category": "No category",
+      "bulk_updated": {
+        "one": "{count} product updated",
+        "other": "{count} products updated"
+      }
+    },
+    "editor": {
+      "new_title": "Add product",
+      "back": "Products",
+      "save": "Save",
+      "saved": "Product saved.",
+      "created": "Product created. Now add images and variants.",
+      "discard": "Discard",
+      "unsaved": "Unsaved changes",
+      "delete": "Delete product",
+      "delete_title": "Delete this product?",
+      "delete_body": "It disappears from the store and the dashboard. Past orders keep their copy.",
+      "deleted": "Product deleted.",
+      "sections": {
+        "details": "Details",
+        "media": "Media",
+        "pricing": "Pricing",
+        "status": "Status",
+        "organization": "Organization",
+        "variants": "Variants"
+      },
+      "title": "Title",
+      "description": "Description",
+      "description_hint": "Plain text. Separate paragraphs with a blank line.",
+      "slug": "URL handle",
+      "slug_hint": "Used in the address: /shop/{slug}",
+      "price": "Price",
+      "compare_at_price": "Compare-at price",
+      "compare_at_hint": "Original price shown crossed out. Leave 0 for none.",
+      "status_hint": "Only active products are visible in the store.",
+      "category": "Category",
+      "no_category": "No category",
+      "featured": "Featured on the home page",
+      "tags": "Tags",
+      "tags_hint": "Separate tags with commas.",
+      "media_hint": "JPG, PNG, WebP or AVIF, up to 10 MB each. The first image is the main one.",
+      "upload": "Add images",
+      "uploading": "Uploading {current} of {total}…",
+      "main_image": "Main",
+      "move_left": "Move earlier",
+      "move_right": "Move later",
+      "remove_image": "Remove image",
+      "no_images": "No images yet.",
+      "after_create": "Save the product first to add images and variants.",
+      "image_alt": "Image {number} of {title}",
+      "gift_card": "Gift card",
+      "gift_card_hint": "Paying for it issues a gift card worth the price (one per unit) and emails the code. Use variants for the amounts."
+    },
+    "variants": {
+      "hint": "Each combination of size and color is a variant with its own stock and SKU.",
+      "generator_title": "Generate variants",
+      "sizes": "Sizes",
+      "sizes_hint": "Separate with commas, e.g. XS, S, M, L, XL",
+      "colors": "Colors",
+      "color_name": "Color name",
+      "color_value": "Swatch",
+      "add_color": "Add color",
+      "remove_color": "Remove color",
+      "generate": "Add missing combinations",
+      "generated": {
+        "one": "{count} variant added. Remember to save.",
+        "other": "{count} variants added. Remember to save."
+      },
+      "add_variant": "Add variant",
+      "columns": {
+        "color": "Color",
+        "size": "Size",
+        "sku": "SKU",
+        "price": "Price",
+        "stock": "Stock",
+        "active": "Active"
+      },
+      "price_hint": "0 uses the product price.",
+      "remove": "Remove variant",
+      "save": "Save variants",
+      "saved": "Variants saved.",
+      "empty": "No variants yet. Generate them from sizes and colors, or add one.",
+      "total_stock": "{stock} in stock",
+      "sizes_count": {
+        "one": "{count} size",
+        "other": "{count} sizes"
+      },
+      "no_color": "No color",
+      "bulk_stock": "Set all stock",
+      "bulk_price": "Set all price"
+    },
+    "import": {
+      "meta_title": "Import",
+      "title": "Import from CSV",
+      "subtitle": "Add or update many products or categories at once from a spreadsheet.",
+      "back_products": "Products",
+      "back_categories": "Categories",
+      "tab_products": "Products",
+      "tab_categories": "Categories",
+      "step_file": "1. Choose a CSV file",
+      "file_hint_products": "One row per variant (size/color). Rows with the same handle are one product. Missing categories are created.",
+      "file_hint_categories": "One row per category. Use the parent column to put a category inside another one.",
+      "choose_file": "Click to choose a CSV file",
+      "choose_file_hint": "UTF-8 CSV, comma separated, up to 100 MB",
+      "file_too_large": "This file is larger than 100 MB. Split it into smaller files.",
+      "template": "Download template",
+      "step_review": "2. Check and import",
+      "rows_read": {
+        "one": "{count} row read.",
+        "other": "{count} rows read."
+      },
+      "stats": {
+        "products": "Products",
+        "variants": "Variants",
+        "images": "Image links",
+        "categories": "Categories",
+        "new_categories": "New categories",
+        "problems": "Rows with problems"
+      },
+      "problems_title": {
+        "one": "{count} problem found. These products or categories will be skipped:",
+        "other": "{count} problems found. These products or categories will be skipped:"
+      },
+      "line": "Line {line}",
+      "problems": {
+        "missing_columns": "missing columns",
+        "empty_file": "the file is empty",
+        "invalid_handle": "invalid handle (use lowercase letters, numbers and hyphens)",
+        "missing_title": "a title is needed in at least one language",
+        "invalid_price": "invalid price",
+        "invalid_compare_at": "the compare-at price must be higher than the price",
+        "invalid_status": "status must be draft, active or archived",
+        "invalid_sku": "missing or too long SKU",
+        "duplicate_sku": "SKU used twice in the file",
+        "invalid_stock": "stock must be a whole number",
+        "invalid_color": "color_hex must look like #1a2b3c",
+        "invalid_parent": "invalid parent handle",
+        "invalid_row": "invalid value"
+      },
+      "update_existing": "Update existing items",
+      "update_existing_hint": "Items whose handle already exists are updated. Turn off to skip them.",
+      "download_images": "Download images",
+      "download_images_hint": "Images are copied from the image_urls links, only for products without images. Slower; turn off to import text and prices first.",
+      "start_products": {
+        "one": "Import {count} product",
+        "other": "Import {count} products"
+      },
+      "start_categories": {
+        "one": "Import {count} category",
+        "other": "Import {count} categories"
+      },
+      "running_title": "Importing…",
+      "keep_open": "Keep this page open until the import finishes.",
+      "progress": "{done} of {total} done",
+      "stop": "Stop",
+      "done_title": "Import finished",
+      "stopped_title": "Import stopped",
+      "error_title": "Import interrupted",
+      "outcomes": {
+        "created": "Created",
+        "updated": "Updated",
+        "skipped": "Skipped",
+        "failed": "Failed"
+      },
+      "missing_images": {
+        "one": "{count} product was imported but some images couldn't be downloaded.",
+        "other": "{count} products were imported but some images couldn't be downloaded."
+      },
+      "failed_title": "Not imported",
+      "reasons": {
+        "exists": "already exists",
+        "sku_taken": "a SKU belongs to another product",
+        "category_forbidden": "you can't create categories",
+        "images_failed": "some images couldn't be downloaded",
+        "generic": "unexpected error"
+      },
+      "view_products": "View products",
+      "view_categories": "View categories",
+      "import_another": "Import another file"
+    }
+  },
+  "orders_admin": {
+    "meta_title": "Orders",
+    "title": "Orders",
+    "search": "Search orders",
+    "search_placeholder": "Order #, email, name or phone",
+    "tabs_label": "Fulfillment status",
+    "all": "All",
+    "open": "Open",
+    "payment_filter": "Payment status",
+    "all_payments": "All payments",
+    "views": {
+      "all": "All",
+      "unfulfilled": "Unfulfilled",
+      "unpaid": "Unpaid",
+      "open": "Open",
+      "archived": "Archived"
+    },
+    "bulk_fulfill": "Mark as fulfilled",
+    "bulk_fulfilled": {
+      "one": "{count} order marked as fulfilled",
+      "other": "{count} orders marked as fulfilled"
+    },
+    "export": "Export",
+    "export_filename": "orders.csv",
+    "columns": {
+      "order": "Order",
+      "date": "Date",
+      "customer": "Customer",
+      "payment": "Payment",
+      "status": "Status",
+      "items": "Items",
+      "total": "Total"
+    },
+    "items_count": {
+      "one": "{count} item",
+      "other": "{count} items"
+    },
+    "empty": "No orders yet. They will appear here as soon as customers check out.",
+    "empty_filtered": "No orders match these filters.",
+    "results": {
+      "one": "{count} order",
+      "other": "{count} orders"
+    },
+    "page_of": "Page {page} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "detail": {
+      "back": "Orders",
+      "placed": "Placed {date}",
+      "actions": "Actions",
+      "more_actions": "More actions",
+      "mark_processing": "Mark as processing",
+      "mark_shipped": "Mark as shipped",
+      "mark_delivered": "Mark as delivered",
+      "mark_paid": "Mark as paid",
+      "cancel": "Cancel order",
+      "cancel_title": "Cancel order #{number}?",
+      "cancel_body": "The customer will see this order as cancelled. This can't be undone.",
+      "refund": "Refund",
+      "restock": "Put the items back in stock",
+      "confirm": "Confirm",
+      "keep": "Keep order",
+      "updated": "Order updated.",
+      "items": "Items",
+      "sku": "SKU {sku}",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "cod_fee": "Payment fee",
+      "taxes": "Taxes",
+      "taxes_included": "Taxes (included)",
+      "total": "Total",
+      "customer": "Customer",
+      "guest": "Guest checkout",
+      "order_count": {
+        "one": "{count} order",
+        "other": "{count} orders"
+      },
+      "contact": "Contact",
+      "shipping_address": "Shipping address",
+      "billing_address": "Billing address",
+      "same_as_shipping": "Same as shipping address",
+      "shipping_method": "Shipping method",
+      "tracking": "Tracking",
+      "carrier": "Carrier",
+      "tracking_number": "Tracking number",
+      "tracking_url": "Tracking link",
+      "save_tracking": "Save tracking",
+      "save_and_ship": "Save and mark as shipped",
+      "tracking_saved": "Tracking saved.",
+      "fulfill": "Fulfill",
+      "fulfill_title": "Fulfill order #{number}",
+      "fulfill_body": "Add the carrier and tracking number so the customer can follow the shipment.",
+      "edit_tracking": "Edit tracking",
+      "unfulfilled": "Unfulfilled",
+      "fulfilled": "Fulfilled",
+      "no_tracking": "No tracking number yet.",
+      "paid_amount": "Paid",
+      "balance_due": "Balance due",
+      "payment": "Payment",
+      "payment_attempts": "Payment attempts",
+      "timeline": "Timeline",
+      "note_label": "Add a note",
+      "note_placeholder": "Write a note…",
+      "visible_to_customer": "Visible to the customer",
+      "post": "Post",
+      "note_added": "Note added.",
+      "internal_note": "Internal note",
+      "internal_note_hint": "Only staff can see this.",
+      "save": "Save",
+      "saved": "Saved.",
+      "customer_note": "Note from customer",
+      "by": "by {name}",
+      "internal": "Internal",
+      "events": {
+        "created": "Order placed",
+        "status_changed": "Status changed from {from} to {to}",
+        "payment_status_changed": "Payment marked as {to}",
+        "note": "Note",
+        "shipped": "Marked as shipped",
+        "email_sent": "Email sent",
+        "refund": "Refunded: payment {to}"
+      },
+      "payment_record": {
+        "pending": "Pending",
+        "succeeded": "Succeeded",
+        "failed": "Failed",
+        "refunded": "Refunded"
+      },
+      "source_title": "Source",
+      "source": "Source",
+      "medium": "Medium",
+      "campaign": "Campaign",
+      "landing_page": "Landing page",
+      "referrer": "Referrer",
+      "source_direct": "Direct or unknown",
+      "gift_card_paid": "Paid with gift card"
+    }
+  },
+  "messages": {
+    "meta_title": "Messages",
+    "title": "Messages",
+    "tabs_label": "Message folders",
+    "tabs": {
+      "inbox": "Inbox",
+      "new": "Unread",
+      "read": "Read",
+      "archived": "Archived"
+    },
+    "empty": "No messages here.",
+    "select": "Select a message to read it.",
+    "no_subject": "(No subject)",
+    "received": "Received {date}",
+    "reply": "Reply by email",
+    "mark_unread": "Mark as unread",
+    "archive": "Archive",
+    "unarchive": "Move to inbox",
+    "unread": "Unread",
+    "mark_read": "Mark as read",
+    "bulk_updated": {
+      "one": "{count} message updated",
+      "other": "{count} messages updated"
+    },
+    "back": "All messages",
+    "results": {
+      "one": "{count} message",
+      "other": "{count} messages"
+    },
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "customers": {
+    "meta_title": "Customers",
+    "title": "Customers",
+    "subtitle": "Everyone who has an account or has placed an order.",
+    "search": "Search customers",
+    "search_placeholder": "Search by name, email or phone",
+    "types": {
+      "all": "All",
+      "registered": "Account",
+      "guest": "Guest",
+      "subscribed": "Subscribers"
+    },
+    "columns": {
+      "customer": "Customer",
+      "type": "Type",
+      "orders": "Orders",
+      "spent": "Total spent",
+      "last_order": "Last order"
+    },
+    "no_orders_yet": "No orders yet",
+    "empty": "No customers yet. They appear here when someone signs up or places an order.",
+    "results": {
+      "one": "{count} customer",
+      "other": "{count} customers"
+    },
+    "since": "Customer since {date}",
+    "guest_since": "Guest checkout, first order on {date}",
+    "stats": {
+      "orders": "Orders",
+      "spent": "Total spent",
+      "average": "Average order",
+      "last_order": "Last order"
+    },
+    "orders_title": "Orders",
+    "no_orders": "This customer hasn't placed an order yet.",
+    "contact_title": "Contact",
+    "email_verified": "Email verified",
+    "email_not_verified": "Email not verified",
+    "addresses_title": "Addresses",
+    "no_addresses": "No saved addresses.",
+    "default_address": "Default",
+    "note_title": "Staff note",
+    "note_hint": "Only staff can see this.",
+    "note_placeholder": "Add a note about this customer…",
+    "saved": "Saved.",
+    "marketing_title": "Marketing",
+    "marketing_label": "Accepts marketing",
+    "marketing_hint": "Whether the customer agreed to receive marketing emails.",
+    "sort": {
+      "last_order": "Last order",
+      "total_spent": "Total spent",
+      "order_count": "Number of orders",
+      "created_at": "Date added"
+    },
+    "order_count": {
+      "one": "{count} order",
+      "other": "{count} orders"
+    }
+  },
+  "admin_ui": {
+    "back": "Back",
+    "more_actions": "More actions",
+    "index_table": {
+      "search": "Search",
+      "search_label": "Search {resource}",
+      "filter": "Filter",
+      "add_filter": "Add filter",
+      "clear_filters": "Clear all",
+      "remove_filter": "Remove filter {name}",
+      "select_all": "Select all rows on this page",
+      "select_row": "Select row",
+      "selected": {
+        "one": "{count} selected",
+        "other": "{count} selected"
+      },
+      "deselect": "Deselect",
+      "sort": "Sort",
+      "sort_ascending": "Ascending",
+      "sort_descending": "Descending",
+      "previous": "Previous page",
+      "next": "Next page",
+      "page_of": "Page {page} of {total}",
+      "loading": "Loading",
+      "no_results_title": "No results",
+      "no_results_body": "Try changing the filters or the search."
+    },
+    "save_bar": {
+      "unsaved": "Unsaved changes",
+      "discard": "Discard",
+      "save": "Save",
+      "saving": "Saving",
+      "leave_warning": "You have unsaved changes. Leave this page anyway?"
+    },
+    "confirm": {
+      "cancel": "Cancel"
+    },
+    "images": {
+      "add": "Add images",
+      "drop_hint": "or drop images here",
+      "uploading": "Uploading",
+      "remove": "Remove image",
+      "move_earlier": "Move earlier",
+      "move_later": "Move later",
+      "main": "Main image",
+      "color": "Shown for",
+      "all_colors": "All colors",
+      "empty": "No images yet"
+    },
+    "seo": {
+      "card_title": "Search engine listing",
+      "card_hint": "How this can appear in Google and when shared. Empty fields use the title and description.",
+      "preview": "Search result preview",
+      "preview_language": "Preview language",
+      "title": "Page title",
+      "title_hint": "Up to about {max} characters show in search results.",
+      "description": "Meta description",
+      "description_hint": "One or two sentences that make people click.",
+      "no_title": "Add a title",
+      "no_description": "Add a description"
+    }
+  },
+  "admin_shell": {
+    "search_placeholder": "Search",
+    "search_shortcut": "Ctrl K",
+    "search_dialog_title": "Search the admin",
+    "search_input_label": "Search orders, products and customers",
+    "search_hint": "Type at least 2 characters.",
+    "searching": "Searching",
+    "no_results": "No results for “{query}”",
+    "groups": {
+      "orders": "Orders",
+      "products": "Products",
+      "customers": "Customers"
+    },
+    "order_label": "Order #{number}",
+    "account_menu": "Account menu",
+    "language": "Language",
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "view_store": "View store",
+    "sign_out": "Sign out",
+    "profile": "Profile",
+    "open_menu": "Open menu",
+    "login_subtitle": "Sign in to manage your store."
+  },
+  "domains": {
+    "meta_title": "Domains",
+    "title": "Domains",
+    "subtitle": "Connect your own domain and choose where customers and staff land.",
+    "add": "Connect domain",
+    "targets": {
+      "store": "Store",
+      "admin": "Admin"
+    },
+    "target_hint": {
+      "store": "Where customers shop.",
+      "admin": "Where your team signs in."
+    },
+    "current_address": "Current address",
+    "primary": "Primary",
+    "primary_hint": "Every other address of this app redirects to {domain}.",
+    "no_primary": "No primary domain: every address of this app works on its own.",
+    "stop_redirecting": "Stop redirecting",
+    "empty": "No domains yet.",
+    "statuses": {
+      "pending": "Waiting for DNS",
+      "verifying": "Verifying",
+      "active": "Active",
+      "error": "Error"
+    },
+    "status_hints": {
+      "pending": "Add the DNS records below at your domain registrar. Changes can take from a few minutes to 48 hours.",
+      "verifying": "DNS looks right. The host is verifying the domain and issuing the SSL certificate.",
+      "active": "Connected and secure (HTTPS).",
+      "error": "Something went wrong at the hosting provider."
+    },
+    "checked": "Checked {time}",
+    "check_now": "Check now",
+    "set_primary": "Set as primary",
+    "remove": "Remove",
+    "more": "Domain actions",
+    "records_title": "DNS records",
+    "records_hint": "Create these at the company where you bought the domain (GoDaddy, Namecheap, Cloudflare, Aruba…).",
+    "records_none": "No records to show yet. In manual mode, set HOSTING_STORE_TARGET_HOST / HOSTING_ADMIN_TARGET_HOST so the records can be listed.",
+    "columns": {
+      "type": "Type",
+      "name": "Name",
+      "value": "Value"
+    },
+    "copy": "Copy {field}",
+    "copied": "Copied.",
+    "show_records": "DNS records",
+    "hide_records": "Hide records",
+    "add_title": "Connect a domain",
+    "add_body": "Use a domain or subdomain you own, like shop.example.com. You'll get the DNS records to create next.",
+    "hostname": "Domain",
+    "hostname_placeholder": "shop.example.com",
+    "target": "Used for",
+    "add_submit": "Connect",
+    "added": "Domain added. Now create its DNS records.",
+    "primary_set": "Primary domain updated. Redirects start within a minute.",
+    "primary_cleared": "Redirects stopped.",
+    "remove_title": "Remove {domain}?",
+    "remove_body": "It is disconnected from the hosting provider and stops working for this store.",
+    "removed": "Domain removed.",
+    "setup": {
+      "railway": "Connected to Railway: domains are attached to your services automatically.",
+      "vercel": "Connected to Vercel: domains are attached to your projects automatically.",
+      "manual": "Manual setup: also add each domain in your hosting provider's dashboard. Set HOSTING_PROVIDER (railway or vercel) and a token to do it from here.",
+      "missing": "HOSTING_PROVIDER is {provider}, but these variables are missing: {names}. Using manual setup until they're set."
+    },
+    "url_reminder": "After changing the primary domain, update NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_ADMIN_URL and redeploy, so links and emails use it."
+  },
+  "themes": {
+    "meta_title": "Themes",
+    "title": "Themes",
+    "subtitle": "Choose how your store looks. Customize a theme, then publish it when it's ready.",
+    "view_store": "View store",
+    "current_title": "Current theme",
+    "live": "Live",
+    "customize": "Customize",
+    "published_on": "Published {date}",
+    "never_published": "Not published yet",
+    "unpublished_changes": "Unpublished changes",
+    "template_label": "Template: {name}",
+    "edited": "Edited on {time}",
+    "library_title": "Theme library",
+    "library_hint": "Themes you've added. Customize them and publish one when it's ready.",
+    "library_empty": "No other themes yet. Add a template from the gallery below.",
+    "gallery_title": "Templates",
+    "gallery_hint": "Start from a design and make it yours. Adding a template doesn't change your store until you publish it.",
+    "sections_count": {
+      "one": "{count} section",
+      "other": "{count} sections"
+    },
+    "add": "Add to library",
+    "added": "{name} added to your library.",
+    "more": "More actions",
+    "publish": "Publish",
+    "publish_title": "Publish {name}?",
+    "publish_body": "It replaces the current theme on your store right away. You can publish the old one again at any time.",
+    "published": "{name} is now live.",
+    "published_slow": "{name} is now live. Store pages update within a minute.",
+    "rename": "Rename",
+    "rename_title": "Rename theme",
+    "name_label": "Name",
+    "save": "Save",
+    "renamed": "Theme renamed.",
+    "duplicate": "Duplicate",
+    "duplicated": "Copy added to your library.",
+    "copy_name": "{name} (copy)",
+    "delete": "Delete",
+    "delete_title": "Delete {name}?",
+    "delete_body": "The theme and its versions are deleted. Your store isn't affected.",
+    "deleted": "Theme deleted.",
+    "templates": {
+      "atelier": "Editorial and calm: serif headings, soft neutrals, the logo next to the menu.",
+      "minimal": "Lots of white space, one clean typeface, square corners and outlined buttons.",
+      "bold": "Streetwear energy: condensed capitals, a strong accent colour and a dark header.",
+      "classic": "Warm boutique look: an elegant serif, cream tones, a centred logo and framed products."
+    },
+    "editor": {
+      "back": "Themes",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "save_failed": "Not saved",
+      "read_only": "View only",
+      "discard": "Discard changes",
+      "discard_title": "Discard unpublished changes?",
+      "discard_body": "The editor goes back to the version that's published for this theme. This can't be undone.",
+      "discarded": "Changes discarded.",
+      "history": "Versions",
+      "history_empty": "No published versions yet.",
+      "history_hint": "Restoring puts a version in the editor. Publish to make it live.",
+      "restore": "Restore",
+      "restored": "Version restored. Publish to make it live.",
+      "tab_sections": "Sections",
+      "tab_settings": "Theme settings",
+      "home_page": "Home page",
+      "add_section": "Add section",
+      "max_sections": "A home page can have up to {count} sections.",
+      "section_types": {
+        "hero": "Hero",
+        "trust_badges": "Trust badges",
+        "category_tiles": "Category tiles",
+        "product_grid": "Product grid",
+        "image_with_text": "Image with text",
+        "rich_text": "Text",
+        "newsletter": "Newsletter",
+        "faq": "FAQ",
+        "gallery": "Image gallery",
+        "video": "Video",
+        "spacer": "Spacer",
+        "page_header": "Page title",
+        "contact_form": "Contact form",
+        "product_main": "Product",
+        "related_products": "You may also like"
+      },
+      "hide": "Hide",
+      "show": "Show",
+      "hidden": "Hidden",
+      "move_up": "Move up",
+      "move_down": "Move down",
+      "drag": "Drag to reorder",
+      "remove_section": "Remove section",
+      "all_sections": "All sections",
+      "device_desktop": "Desktop",
+      "device_mobile": "Mobile",
+      "preview_language": "Preview language",
+      "preview_label": "Store preview",
+      "preview_off_title": "Live preview is off",
+      "preview_off_body": "Set THEME_PREVIEW_SECRET (any random text of at least 16 characters) in both apps' environment and restart them. Your changes are still saved.",
+      "fields": {
+        "heading": "Heading",
+        "subtitle": "Subtitle",
+        "body": "Text",
+        "image_url": "Image",
+        "image_hint": "A link to an image (https://…) or a path on your store, like /images/hero.jpg.",
+        "primary_button": "Main button",
+        "secondary_button": "Second button",
+        "button": "Button",
+        "button_label": "Label",
+        "button_href": "Link",
+        "button_hint": "A page of your store (/shop, /about) or a full address. Leave the label empty to hide the button.",
+        "alignment": "Text alignment",
+        "alignment_center": "Centred",
+        "alignment_left": "Left",
+        "size": "Height",
+        "size_medium": "Medium",
+        "size_large": "Large",
+        "image_position": "Image position",
+        "position_left": "Left",
+        "position_right": "Right",
+        "categories": "Categories",
+        "categories_hint": "None selected: the first top-level categories.",
+        "limit": "How many",
+        "source": "Products",
+        "source_featured": "Featured products",
+        "source_newest": "Newest products",
+        "source_category": "One category",
+        "category": "Category",
+        "choose_category": "Choose a category",
+        "show_view_all": "Show a “View all” link",
+        "body_hint": "Leave a blank line between paragraphs. Lines starting with “- ” become a list.",
+        "no_settings": "This section is built from your store settings (shipping, returns and payment methods).",
+        "faq_items": "Questions",
+        "add_question": "Add question",
+        "remove_item": "Remove",
+        "question": "Question",
+        "answer": "Answer",
+        "columns": "Columns",
+        "images": "Images",
+        "add_image": "Add image",
+        "caption": "Caption",
+        "video_url": "Video link",
+        "video_hint": "A YouTube or Vimeo link, or the address of a video file (mp4, webm).",
+        "size_small": "Small",
+        "show_divider": "Show a line",
+        "eyebrow": "Small text above the title",
+        "show_details": "Show contact details next to the form",
+        "show_details_hint": "Email, phone and address from Settings → General.",
+        "product_main_hint": "Photos, price, sizes and the add-to-cart button. Move it, and add sections above or below it.",
+        "show_assurances": "Show delivery, returns and payment reassurances",
+        "collection": "Collection",
+        "choose_collection": "Choose a collection",
+        "source_collection": "A collection"
+      },
+      "settings": {
+        "colors": "Colours",
+        "light": "Light mode",
+        "dark": "Dark mode",
+        "color_background": "Background",
+        "color_foreground": "Text",
+        "color_primary": "Buttons and accents",
+        "color_muted": "Soft surfaces",
+        "contrast_warning": "Text may be hard to read on this background (contrast {ratio}:1, aim for at least 4.5:1).",
+        "typography": "Typography",
+        "heading_font": "Headings",
+        "body_font": "Body text",
+        "uppercase": "Headings in capitals",
+        "shape": "Shape",
+        "radius": "Corners",
+        "radius_none": "Square",
+        "radius_small": "Slightly rounded",
+        "radius_medium": "Rounded",
+        "radius_large": "Very rounded",
+        "buttons": "Buttons",
+        "buttons_solid": "Filled",
+        "buttons_pill": "Pill",
+        "buttons_outline": "Outlined",
+        "header": "Header",
+        "header_layout": "Layout",
+        "layout_inline": "Logo left, menu beside it",
+        "layout_centered": "Logo centred, menu below",
+        "layout_inverted": "Dark bar, logo left",
+        "utility_bar": "Contact bar above the header",
+        "utility_bar_hint": "Shows the phone and email from Settings → General.",
+        "announcement": "Announcement bar",
+        "announcement_hint": "Leave it empty to show the free-shipping message (when free shipping is on).",
+        "product_card": "Product cards",
+        "card_plain": "Plain",
+        "card_framed": "Framed",
+        "card_minimal": "Minimal",
+        "card_bold": "Bold",
+        "logo_hint": "The logo and favicon are in Settings → General."
+      },
+      "tab_navigation": "Navigation",
+      "page_label": "Page to edit",
+      "pages": {
+        "home": "Home page",
+        "product": "Product page",
+        "about": "About",
+        "contact": "Contact"
+      },
+      "theme_pages": "Theme pages",
+      "custom_pages": "Your pages",
+      "custom_page_hint": "Pages are saved as you type and aren't part of the theme. Publish or hide them in Online store → Pages.",
+      "navigation": {
+        "live_hint": "Menus are saved as you type and are live right away, for every theme.",
+        "header_menu": "Header menu",
+        "header_automatic": "No menu yet: the store shows “Shop all” and your top categories.",
+        "menu_items": "Menu links",
+        "add_link": "Add link",
+        "add_sublink": "Add a link to the submenu",
+        "submenu": "Submenu (optional)",
+        "remove_link": "Remove link",
+        "link_label": "Label",
+        "link_href": "Link",
+        "link_hint": "Start typing to pick a page or category, or paste a full address.",
+        "footer": "Footer",
+        "footer_about": "Text under the store name",
+        "footer_about_hint": "Leave it empty to use the store description from Settings → General.",
+        "footer_automatic": "No columns yet: the footer shows a Shop and a Help column.",
+        "footer_columns": "Columns",
+        "add_column": "Add column",
+        "column_title": "Column title",
+        "column_links": "Links",
+        "show_contact": "Show contact details",
+        "show_payments": "Show payment methods",
+        "store_links": {
+          "shop": "Shop all",
+          "newest": "New arrivals",
+          "about": "About",
+          "contact": "Contact",
+          "account": "Account",
+          "privacy": "Privacy policy",
+          "terms": "Terms and conditions"
+        }
+      },
+      "media": {
+        "upload": "Upload",
+        "uploading": "Uploading…",
+        "uploaded": "Image uploaded.",
+        "library": "Choose uploaded",
+        "library_title": "Uploaded images",
+        "library_body": "Pick an image you've uploaded before. JPG, PNG, WebP or AVIF, up to 10 MB.",
+        "library_empty": "No images uploaded yet.",
+        "choose": "Use {name}"
+      }
+    }
+  },
+  "custom_pages": {
+    "meta_title": "Pages",
+    "title": "Pages",
+    "subtitle": "Extra pages for your store, like a size guide or a lookbook, built from the same sections as your theme.",
+    "add": "Add page",
+    "empty_title": "No pages yet",
+    "empty_body": "Create a page, then build it in the theme editor.",
+    "list_title": "Your pages",
+    "published": "Published",
+    "hidden": "Hidden",
+    "edited": "Edited on {date}",
+    "edit_content": "Edit content",
+    "more": "More actions",
+    "view": "View on the store",
+    "settings": "Settings",
+    "delete": "Delete",
+    "delete_title": "Delete {name}?",
+    "delete_body": "The page and its address stop working. Menus that link to it need updating.",
+    "deleted": "Page deleted.",
+    "created": "Page created. Add its content now.",
+    "saved": "Page saved.",
+    "settings_title": "Page settings",
+    "settings_body": "Name, address, visibility and search engine text.",
+    "add_title": "Add page",
+    "add_body": "It starts hidden: publish it once its content is ready.",
+    "title_label": "Title",
+    "slug_label": "Address",
+    "slug_hint": "Lowercase letters, numbers and hyphens, like size-guide.",
+    "published_label": "Published",
+    "published_hint": "Hidden pages can only be seen in the theme editor.",
+    "seo_title": "Search engine title",
+    "seo_description": "Search engine description",
+    "seo_hint": "Leave them empty to use the page title.",
+    "add_submit": "Create page"
+  },
+  "payments": {
+    "title": "Payments",
+    "subtitle": "Choose how customers can pay. They see the enabled methods at checkout, in this order.",
+    "methods_title": "Payment methods",
+    "methods_hint": "Manual methods (bank transfer, pay in store…) place the order as unpaid; you mark it paid when the money arrives.",
+    "add_manual": "Add manual method",
+    "add_stripe": "Add card payments (Stripe)",
+    "new_manual_name": "Bank transfer",
+    "types": {
+      "stripe": "Card (Stripe)",
+      "cash_on_delivery": "Cash on delivery",
+      "manual": "Manual"
+    },
+    "edit_hint": {
+      "stripe": "The name customers see for card payments.",
+      "cash_on_delivery": "Customers pay the courier when the order arrives.",
+      "manual": "Customers pay outside the store, for example by bank transfer."
+    },
+    "name": "Name at checkout",
+    "instructions": "Instructions",
+    "instructions_hint": {
+      "stripe": "",
+      "cash_on_delivery": "Shown at checkout and on the thank-you page.",
+      "manual": "Shown at checkout, on the thank-you page and in the confirmation email: bank details, reference to use…"
+    },
+    "fee": "Extra fee",
+    "fee_hint": "Added to the order total when this method is chosen. 0 = none.",
+    "fee_value": "+{amount} fee",
+    "apply": "Apply",
+    "edit": "Edit",
+    "remove": "Remove",
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "enabled": "{name} enabled",
+    "saved": "Payment methods saved.",
+    "stripe": {
+      "title": "Stripe",
+      "description": "Card payments, Apple Pay and Google Pay through Stripe Checkout.",
+      "connected": "Connected",
+      "not_connected": "Not connected",
+      "needs_keys": "Needs Stripe keys",
+      "publishable_key": "Publishable key",
+      "publishable_hint": "Stripe → Developers → API keys. Starts with pk_test_ or pk_live_.",
+      "secret_key": "Secret key",
+      "webhook_secret": "Webhook signing secret",
+      "not_set": "Not set yet.",
+      "saved_hint": "Saved (encrypted). Type a new one to replace it.",
+      "from_env": "Set on the server (environment variable).",
+      "webhook_title": "Webhook",
+      "webhook_steps": "In Stripe → Developers → Webhooks, add an endpoint with this address, then paste its signing secret below.",
+      "webhook_events": "Events:",
+      "copy": "Copy address",
+      "save": "Save Stripe keys",
+      "saved": "Stripe keys saved.",
+      "encryption_missing": "To save secret keys here, set SETTINGS_ENCRYPTION_KEY (16+ random characters) in the admin's and the store's environment."
+    }
+  },
+  "email_sending": {
+    "title": "Email sending",
+    "subtitle": "The mail server your store sends order emails from.",
+    "configured": "Set up",
+    "not_configured": "Not set up",
+    "server_title": "SMTP server",
+    "server_hint": "From your email provider (Gmail, Outlook, your hosting, Brevo, Mailgun…).",
+    "host": "Server",
+    "port": "Port",
+    "security": "Encryption",
+    "security_options": {
+      "starttls": "STARTTLS (usually port 587)",
+      "tls": "SSL/TLS (usually port 465)",
+      "none": "None (testing only)"
+    },
+    "username": "Username",
+    "password": "Password",
+    "password_saved": "Saved (encrypted). Type a new one to replace it.",
+    "password_not_set": "Not set yet.",
+    "password_env": "Set on the server (SMTP_PASSWORD).",
+    "encryption_missing": "To save the password here, set SETTINGS_ENCRYPTION_KEY (16+ random characters) in the admin's and the store's environment.",
+    "sender_title": "Sender",
+    "sender_hint": "What customers see in their inbox. Use an address your server is allowed to send from.",
+    "from_name": "Name (empty = store name)",
+    "from_email": "Email address",
+    "save": "Save",
+    "saved": "Email settings saved.",
+    "test_title": "Send a test email",
+    "test_hint": "Uses the saved settings.",
+    "test_to": "Send to",
+    "test_send": "Send test",
+    "test_sent": "Test email sent to {email}."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "The emails your store sends, and when. Edit their text in each language.",
+    "smtp_missing": "Emails aren't sent yet: set up the mail server first.",
+    "smtp_link": "Email sending",
+    "customer_title": "Emails",
+    "customer_hint": "Switch an email off to stop sending it.",
+    "edit": "Edit",
+    "view": "View",
+    "enabled": "{name} on",
+    "subject": "Subject",
+    "body": "Message",
+    "body_hint": "Plain text. A blank line starts a new paragraph. Lines with an empty placeholder are left out. Order emails add the items and totals below.",
+    "placeholders": "Placeholders",
+    "preview": "Preview",
+    "preview_language": "Preview language",
+    "send_test": "Send me a test",
+    "test_sent": "Test sent to {email}.",
+    "reset": "Back to the default text",
+    "staff_title": "Staff notifications",
+    "staff_hint": "Who gets the “New order” email.",
+    "staff_recipients": "Email addresses (separated by commas)",
+    "invalid_emails": "One of these isn't a valid email address.",
+    "log_title": "Email log",
+    "log_hint": "The latest emails the store sent.",
+    "log_empty": "No emails yet.",
+    "log_status": {
+      "sent": "Sent",
+      "failed": "Failed",
+      "skipped": "Not sent"
+    },
+    "saved": "Notifications saved.",
+    "templates": {
+      "order_confirmation": {
+        "title": "Order confirmation",
+        "when": "To the customer, when an order is placed."
+      },
+      "payment_received": {
+        "title": "Payment received",
+        "when": "To the customer, when an unpaid order is marked paid."
+      },
+      "order_shipped": {
+        "title": "Order shipped",
+        "when": "To the customer, when the order ships (with tracking)."
+      },
+      "order_delivered": {
+        "title": "Order delivered",
+        "when": "To the customer, when the order is marked delivered."
+      },
+      "order_cancelled": {
+        "title": "Order cancelled",
+        "when": "To the customer, when the order is cancelled."
+      },
+      "order_refunded": {
+        "title": "Refund",
+        "when": "To the customer, when the order is refunded."
+      },
+      "draft_invoice": {
+        "title": "Draft order invoice",
+        "when": "To the customer, from a draft order, with a payment link."
+      },
+      "staff_new_order": {
+        "title": "New order (staff)",
+        "when": "To the staff addresses below, when an order is placed."
+      },
+      "abandoned_checkout": {
+        "title": "Abandoned checkout",
+        "when": "To the customer, when they left the checkout without ordering."
+      },
+      "gift_card": {
+        "title": "Gift card",
+        "when": "To the buyer (or the person you issue it to), with the code."
+      }
+    },
+    "placeholder_labels": {
+      "store_name": "Store name",
+      "customer_name": "Customer name",
+      "order_number": "Order number",
+      "order_total": "Order total",
+      "order_link": "Link to the order",
+      "payment_method": "Payment method",
+      "payment_instructions": "How to pay (manual methods)",
+      "shipping_method": "Shipping method",
+      "tracking_number": "Tracking number",
+      "tracking_link": "Tracking link",
+      "carrier": "Carrier",
+      "invoice_link": "Payment link (draft orders)",
+      "checkout_link": "Link back to the checkout",
+      "refund_amount": "Amount refunded",
+      "gift_card_code": "Gift card code",
+      "gift_card_balance": "Gift card value",
+      "gift_card_expires": "Gift card expiry date"
+    },
+    "abandoned_title": "Abandoned checkouts",
+    "abandoned_hint": "Remind customers who typed their email at checkout but didn't order.",
+    "abandoned_delay": "Send automatically after (hours)",
+    "abandoned_delay_hint": "0 = only by hand, from Orders → Abandoned checkouts. Automatic sending needs the cron job (see the deploy guide)."
+  },
+  "inventory": {
+    "title": "Inventory",
+    "subtitle": "Stock for every variant. Low stock means {threshold} or fewer (Settings → Store details).",
+    "views": {
+      "all": "All",
+      "low": "Low stock",
+      "out": "Out of stock"
+    },
+    "search_placeholder": "Search by product, SKU, size or colour",
+    "columns": {
+      "product": "Product",
+      "sku": "SKU",
+      "status": "",
+      "available": "Available"
+    },
+    "results": {
+      "one": "{count} variant",
+      "other": "{count} variants"
+    },
+    "empty": "No variants match.",
+    "default_variant": "Default",
+    "low_stock": "Low stock",
+    "out_of_stock": "Out of stock",
+    "inactive": "Hidden",
+    "available_for": "Available: {name}",
+    "adjust": "Adjust",
+    "history": "History",
+    "history_empty": "No changes yet.",
+    "current": "In stock now",
+    "mode": "Change",
+    "mode_add": "Add or remove",
+    "mode_set": "Set to",
+    "quantity_add": "Quantity (negative removes)",
+    "quantity_set": "New stock",
+    "reason": "Reason",
+    "note": "Note",
+    "reasons": {
+      "received": "Received",
+      "correction": "Correction",
+      "damaged": "Damaged",
+      "returned": "Returned",
+      "other": "Other",
+      "order": "Order",
+      "restock": "Restocked from an order",
+      "draft_order": "Draft order"
+    },
+    "new_stock": "New stock: {stock}",
+    "stock_after": "→ {stock}",
+    "save": "Save",
+    "saved": "Stock updated."
+  },
+  "draft_orders": {
+    "title": "Drafts",
+    "create": "Create order",
+    "all": "All",
+    "status": {
+      "open": "Open",
+      "invoice_sent": "Invoice sent",
+      "completed": "Completed"
+    },
+    "columns": {
+      "draft": "Draft",
+      "date": "Date",
+      "customer": "Customer",
+      "status": "Status",
+      "total": "Total"
+    },
+    "search_placeholder": "Search by draft number, name or email",
+    "results": {
+      "one": "{count} draft",
+      "other": "{count} drafts"
+    },
+    "empty_title": "Create orders by hand",
+    "empty_body": "For phone or in-store orders, wholesale or a custom item: send the customer an invoice to pay online, or mark it paid.",
+    "products": "Products",
+    "search_products": "Search products",
+    "no_products": "No products found.",
+    "in_stock": "{stock} in stock",
+    "custom_item": "Add custom item",
+    "custom_item_hint": "An item that isn't in the catalog. It doesn't change stock.",
+    "item_name": "Item name",
+    "price": "Price",
+    "quantity": "Quantity",
+    "add_item": "Add item",
+    "custom_line": "Custom item",
+    "no_lines": "No items yet. Search for a product or add a custom item.",
+    "not_available": "Not available in this quantity any more",
+    "quantity_for": "Quantity: {name}",
+    "remove_line": "Remove {name}",
+    "shipping_and_discount": "Shipping and discount",
+    "own_shipping_price": "Custom shipping price",
+    "discount": "Discount",
+    "no_discount": "No discount",
+    "discount_percent": "Percentage",
+    "discount_fixed": "Fixed amount",
+    "discount_value": "Value",
+    "discount_reason": "Reason",
+    "payment": "Payment",
+    "totals_after_save": "Totals update when you save.",
+    "invoice_link": "Invoice link",
+    "copy_link": "Copy link",
+    "customer": "Customer",
+    "search_customers": "Search customers",
+    "no_customers": "No customers found.",
+    "linked_account": "Linked to the customer's account.",
+    "unlink": "Unlink",
+    "customer_name": "Name",
+    "language": "Language",
+    "language_hint": "For the invoice and the order emails.",
+    "shipping_address": "Shipping address",
+    "add_address": "Add address",
+    "clear": "Remove",
+    "note": "Note",
+    "send_invoice": "Send invoice",
+    "resend_invoice": "Send invoice again",
+    "invoice_sent": "Invoice sent to {email}.",
+    "smtp_missing": "Set up email sending first (Settings → Email sending).",
+    "payment_pending": "Payment pending",
+    "mark_paid": "Mark as paid",
+    "completed": "Order created.",
+    "completed_note": "This draft became order",
+    "save_first": "Save your changes before sending the invoice or creating the order.",
+    "saved": "Draft saved.",
+    "delete": "Delete draft",
+    "delete_title": "Delete this draft?",
+    "delete_body": "The draft and its invoice link stop working. This can't be undone."
+  },
+  "discounts": {
+    "title": "Discounts",
+    "new_title": "New discount",
+    "create": "Create discount",
+    "all": "All",
+    "status": {
+      "active": "Active",
+      "scheduled": "Scheduled",
+      "expired": "Expired",
+      "used_up": "Used up",
+      "disabled": "Off"
+    },
+    "columns": {
+      "code": "Code",
+      "status": "Status",
+      "value": "Discount",
+      "used": "Used"
+    },
+    "search_placeholder": "Search by code or name",
+    "results": {
+      "one": "{count} discount",
+      "other": "{count} discounts"
+    },
+    "empty_title": "Give customers a code",
+    "empty_body": "Percentage off, a fixed amount or free shipping, for the whole order or some products, with dates and limits.",
+    "types": {
+      "percent": "Percentage",
+      "fixed": "Fixed amount",
+      "free_shipping": "Free shipping"
+    },
+    "value_off": "{amount} off",
+    "code_title": "Discount code",
+    "code_hint": "Customers type it at checkout. Letters, numbers, - and _.",
+    "code": "Code",
+    "generate": "Generate",
+    "internal_title": "Name (optional)",
+    "internal_title_hint": "Only staff see it, e.g. \"Summer sale\".",
+    "value_title": "Value",
+    "type": "Type",
+    "percent": "Percentage (1–100)",
+    "amount": "Amount",
+    "applies_to": "Applies to",
+    "applies": {
+      "all": "The whole order",
+      "products": "Specific products",
+      "categories": "Specific categories"
+    },
+    "search_products": "Search products",
+    "remove_target": "Remove {name}",
+    "requirements_title": "Requirements and limits",
+    "minimum": "Minimum order subtotal",
+    "usage_limit": "Limit the total number of uses",
+    "once_per_customer": "One use per customer (by email)",
+    "dates_title": "Active dates",
+    "dates_hint": "Times are in the store's time zone ({zone}).",
+    "starts_at": "Starts",
+    "starts_at_hint": "Empty = right away.",
+    "ends_at": "Ends",
+    "ends_at_hint": "Empty = no end date.",
+    "summary_title": "Summary",
+    "summary": {
+      "whole_order": "On the whole order",
+      "products": {
+        "one": "On {count} product",
+        "other": "On {count} products"
+      },
+      "categories": {
+        "one": "On {count} category",
+        "other": "On {count} categories"
+      },
+      "minimum": "Minimum order {amount}",
+      "no_minimum": "No minimum",
+      "limit": "{count} uses in total",
+      "no_limit": "No usage limit",
+      "once_per_customer": "Once per customer"
+    },
+    "used": "Used {count} times",
+    "created": "Created {date}",
+    "status_title": "Status",
+    "is_active": "Active",
+    "invalid": {
+      "code": "3–50 characters: letters, numbers, - and _.",
+      "value": "Enter a value (percentages from 1 to 100).",
+      "applies_to": "Choose at least one.",
+      "ends_at": "The end must be after the start."
+    },
+    "saved": "Discount saved.",
+    "delete": "Delete discount",
+    "delete_title": "Delete this discount?",
+    "delete_body": "The code stops working at checkout. Past orders keep their discount. This can't be undone."
+  },
+  "abandoned": {
+    "title": "Abandoned checkouts",
+    "subtitle": "Customers who typed their email at checkout at least an hour ago and didn't order.",
+    "views": {
+      "all": "All",
+      "not_sent": "Not reminded",
+      "sent": "Reminded"
+    },
+    "columns": {
+      "customer": "Customer",
+      "date": "Left at",
+      "recovery": "Reminder",
+      "total": "Total"
+    },
+    "search_placeholder": "Search by email",
+    "results": {
+      "one": "{count} checkout",
+      "other": "{count} checkouts"
+    },
+    "empty": "No abandoned checkouts.",
+    "recovery_sent": "Sent {date}",
+    "recovery_not_sent": "Not sent",
+    "send": "Send reminder",
+    "send_again": "Send again",
+    "sent_toast": "Reminder sent to {email}.",
+    "smtp_missing": "Reminders can't be sent yet: set up the mail server first.",
+    "smtp_link": "Email sending",
+    "automatic_on": "Reminders also go out automatically {hours} h after the email was typed.",
+    "automatic_off": "Reminders are only sent by hand.",
+    "automatic_link": "Change in Notifications"
+  },
+  "tracking": {
+    "title": "Tracking",
+    "subtitle": "Measure visits and ads. Every tag waits for the visitor's cookie consent.",
+    "google_title": "Google",
+    "google_hint": "Google Tag Manager, Google Analytics 4 and Google Ads.",
+    "meta_title": "Meta (Facebook and Instagram)",
+    "meta_hint": "The Pixel in the browser plus the Conversions API from the server, with the same event id so Meta counts each event once.",
+    "fields": {
+      "gtm_id": "Google Tag Manager container",
+      "google_tag_id": "Google tag (GA4 or Ads)",
+      "google_ads_conversion": "Google Ads purchase conversion",
+      "meta_pixel_id": "Meta Pixel id"
+    },
+    "hints": {
+      "gtm_id": "Use either GTM or the Google tag, not both for the same tags.",
+      "google_tag_id": "A Google Analytics 4 id (G-…) or a Google Ads id (AW-…).",
+      "google_ads_conversion": "From Google Ads → Goals → Conversions → your purchase action → Tag setup.",
+      "meta_pixel_id": "From Meta Events Manager → Data sources."
+    },
+    "placeholders": {
+      "gtm_id": "GTM-XXXXXXX",
+      "google_tag_id": "G-XXXXXXXXXX",
+      "google_ads_conversion": "AW-123456789/AbC-dEfGh",
+      "meta_pixel_id": "123456789012345"
+    },
+    "capi_token": "Conversions API access token",
+    "capi_saved": "Saved (encrypted). Type a new one to replace it.",
+    "capi_not_set": "Not set: only the browser Pixel is used.",
+    "capi_from_env": "Set on the server (META_CAPI_TOKEN).",
+    "capi_on": "Conversions API on",
+    "encryption_missing": "To save the token here, set SETTINGS_ENCRYPTION_KEY (16+ random characters) in the admin's and the store's environment.",
+    "consent_note": "Statistics tags load after the visitor accepts statistics cookies; Meta and Google Ads after they accept marketing cookies. Orders keep where the customer came from (UTM and ad click ids).",
+    "invalid": "This doesn't look like a valid id.",
+    "save": "Save",
+    "saved": "Tracking settings saved."
+  },
+  "analytics": {
+    "title": "Analytics",
+    "subtitle": "Sales, orders and customers, compared with the period before.",
+    "range": "Date range",
+    "from": "From",
+    "to": "To",
+    "ranges": {
+      "today": "Today",
+      "last_7": "Last 7 days",
+      "last_30": "Last 30 days",
+      "last_90": "Last 90 days",
+      "this_month": "This month",
+      "last_month": "Last month",
+      "this_year": "This year",
+      "custom": "Custom"
+    },
+    "period": "{from} – {to} ({zone}). Cancelled and refunded orders aren't counted.",
+    "tiles": {
+      "sales": "Sales",
+      "orders": "Orders",
+      "average_order": "Average order",
+      "customers": "Customers",
+      "returning_rate": "Returning customers",
+      "conversion_rate": "Checkout conversion",
+      "discounts": "Discounts"
+    },
+    "vs_previous": "{change} vs previous period",
+    "no_previous": "No previous data",
+    "sales_over_time": "Sales over time",
+    "orders_over_time": "Orders over time",
+    "current": "This period",
+    "previous": "Previous period",
+    "date": "Date",
+    "show_table": "Table",
+    "show_chart": "Chart",
+    "top_products": "Top products",
+    "by_category": "Sales by category",
+    "discount_usage": "Discount codes used",
+    "sold": "{count} sold",
+    "no_category": "No category",
+    "code": "Code",
+    "empty": "No sales in this period."
+  },
+  "refund": {
+    "title": "Refund",
+    "items": "Items",
+    "already": "{count} already refunded",
+    "quantity_for": "Refund quantity: {name}",
+    "shipping": "Shipping",
+    "amount": "Amount to refund",
+    "amount_hint": "Up to {max}. Filled from the items you pick; you can change it.",
+    "reason": "Reason (only staff see it)",
+    "restock": "Put the items back in stock",
+    "notify": "Email the customer",
+    "card_note": "Card payment: the amount goes back to the card through Stripe.",
+    "manual_note": "Not a card payment: give the money back yourself (cash, bank transfer). This only records it.",
+    "submit": "Refund {amount}",
+    "done": "Refunded {amount}.",
+    "history": "Refunds",
+    "refunded_total": "Refunded",
+    "restocked": "restocked",
+    "gift_card_split": "{gift_card} goes back onto the gift card that paid for part of this order; {money} is refunded in money."
+  },
+  "collections": {
+    "title": "Collections",
+    "subtitle": "Groups of products with their own page: \"Summer\", \"On sale\", \"Gifts under €50\".",
+    "new_title": "New collection",
+    "create": "Create collection",
+    "columns": {
+      "title": "Collection",
+      "kind": "Type",
+      "status": "Status",
+      "products": "Products"
+    },
+    "kinds": {
+      "manual": "Picked by hand",
+      "automatic": "Automatic (rules)"
+    },
+    "published": "Visible in the store",
+    "hidden": "Hidden",
+    "product_count": {
+      "one": "{count} product",
+      "other": "{count} products"
+    },
+    "empty_title": "Group your products",
+    "empty_body": "Pick products by hand, or let rules fill the collection (a tag, a category, on sale, a price).",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "slug": "URL handle",
+      "kind": "Products",
+      "sort": "Sort products by"
+    },
+    "products_title": "Products",
+    "kind_hint": "Automatic collections update by themselves when products change.",
+    "match_label": "Products must match",
+    "match": {
+      "all": "all conditions",
+      "any": "any condition"
+    },
+    "rule_field": "Field",
+    "rule_operator": "Condition",
+    "rule_value": "Value",
+    "rule_fields": {
+      "tag": "Tag",
+      "category": "Category",
+      "price": "Price",
+      "on_sale": "On sale",
+      "in_stock": "In stock"
+    },
+    "rule_operators": {
+      "is": "is",
+      "is_not": "is not",
+      "greater_than": "is more than",
+      "less_than": "is less than"
+    },
+    "add_rule": "Add condition",
+    "remove_rule": "Remove condition",
+    "choose_category": "Choose a category",
+    "yes": "Yes",
+    "no": "No",
+    "tag_placeholder": "e.g. summer",
+    "search_products": "Search products to add",
+    "no_products": "No products yet. Search above to add some.",
+    "not_live": "not visible in the store",
+    "move_up": "Move up",
+    "move_down": "Move down",
+    "remove_product": "Remove from collection",
+    "sorts": {
+      "manual": "Your order",
+      "newest": "Newest first",
+      "price_asc": "Price, low to high",
+      "price_desc": "Price, high to low",
+      "title": "Name, A–Z"
+    },
+    "status_title": "Status",
+    "image_title": "Image",
+    "upload": "Upload image",
+    "remove_image": "Remove",
+    "saved": "Collection saved.",
+    "delete": "Delete collection",
+    "delete_title": "Delete this collection?",
+    "delete_body": "Its store page stops working. The products themselves stay. This can't be undone."
+  },
+  "gift_cards": {
+    "title": "Gift cards",
+    "subtitle": "Sold as products (mark a product as a gift card) or issued here. Customers use them in the discount code field at checkout.",
+    "issue": "Issue gift card",
+    "issue_hint": "A new code with this value. You can email it to a customer.",
+    "views": {
+      "all": "All",
+      "active": "Active",
+      "used": "Used up",
+      "expired": "Expired",
+      "disabled": "Off"
+    },
+    "status": {
+      "active": "Active",
+      "used": "Used up",
+      "expired": "Expired",
+      "disabled": "Off"
+    },
+    "columns": {
+      "code": "Code",
+      "status": "Status",
+      "customer": "Customer",
+      "expires": "Expires",
+      "balance": "Balance"
+    },
+    "search_placeholder": "Search by the last characters of the code or email",
+    "results": {
+      "one": "{count} gift card",
+      "other": "{count} gift cards"
+    },
+    "empty_title": "No gift cards yet",
+    "empty_body": "Issue one here, or mark a product as a gift card so customers can buy them.",
+    "never": "Never",
+    "amount": "Value",
+    "expires": "Expires (optional)",
+    "expires_hint": "Empty = never expires.",
+    "customer_email": "Customer email (optional)",
+    "notify": "Email the code to the customer",
+    "note": "Note (only staff see it)",
+    "issued": "Gift card issued. Copy the code now, or find it here later.",
+    "copy": "Copy code",
+    "card_title": "Gift card",
+    "card_hint": "Balance and every time it was used.",
+    "initial_value": "Starting value",
+    "is_active": "Can be used",
+    "history": "History"
+  },
+  "reviews": {
+    "title": "Reviews",
+    "subtitle": "Written by customers who bought the product. A review shows on the product page once you approve it.",
+    "views": {
+      "pending": "To review",
+      "approved": "Approved",
+      "hidden": "Hidden",
+      "all": "All"
+    },
+    "status": {
+      "pending": "To review",
+      "approved": "Approved",
+      "hidden": "Hidden"
+    },
+    "columns": {
+      "review": "Review",
+      "rating": "Rating",
+      "status": "Status",
+      "customer": "Customer",
+      "date": "Date"
+    },
+    "rated": "Rated {rating} out of 5",
+    "search_placeholder": "Search reviews, products or emails",
+    "results": {
+      "one": "{count} review",
+      "other": "{count} reviews"
+    },
+    "empty_title": "No reviews here",
+    "empty_body": "Customers can review a product after buying it. New reviews wait here for your approval.",
+    "untitled": "Review",
+    "reply": "Store reply",
+    "reply_hint": "Shown under the review on the product page. Leave empty for no reply.",
+    "save_reply": "Save reply",
+    "reply_saved": "Reply saved",
+    "approve": "Approve",
+    "hide": "Hide",
+    "status_saved": "Review updated",
+    "delete_title": "Delete this review?",
+    "delete_body": "The review is removed for good. The customer can then write a new one.",
+    "deleted": "Review deleted",
+    "delete": "Delete"
+  },
+  "api_keys": {
+    "title": "API keys",
+    "subtitle": "Let an AI assistant such as Claude work with your store. A key acts as the staff member who created it, with the same permissions.",
+    "connect_title": "Connect an assistant",
+    "connect_body": "Add this address as a custom connector (MCP server) in your assistant:",
+    "connect_header": "Send the key in the Authorization header: Bearer <key>. The assistant can then look up orders, products, stock, customers, discounts and sales, update order status and tracking, add notes and adjust stock.",
+    "copy": "Copy",
+    "keys_title": "Keys",
+    "empty": "No keys yet.",
+    "create": "Create key",
+    "create_hint": "Give the key a name so you know where it is used.",
+    "created_hint": "Copy the key now. For safety it is shown only once.",
+    "name": "Name",
+    "name_placeholder": "Claude on my laptop",
+    "name_hint": "Only staff see it.",
+    "created": "created {when}",
+    "last_used": "last used {when}",
+    "never_used": "never used",
+    "revoked": "Revoked",
+    "revoke": "Revoke",
+    "revoke_title": "Revoke this key?",
+    "revoke_body": "Anything using “{name}” stops working right away. This can't be undone.",
+    "revoked_toast": "Key revoked"
+  }
+}

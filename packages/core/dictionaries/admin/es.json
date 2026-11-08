@@ -1,0 +1,2291 @@
+{
+  "dashboard": {
+    "meta_title": "Panel",
+    "nav": {
+      "label": "Navegación del panel",
+      "home": "Inicio",
+      "settings": "Ajustes",
+      "view_store": "Ver tienda",
+      "sign_out": "Cerrar sesión",
+      "account_menu": "Menú de la cuenta",
+      "toggle_sidebar": "Mostrar u ocultar barra lateral",
+      "products": "Productos",
+      "categories": "Categorías",
+      "orders": "Pedidos",
+      "messages": "Mensajes",
+      "unread": {
+        "one": "{count} sin leer",
+        "other": "{count} sin leer"
+      },
+      "customers": "Clientes",
+      "import": "Importar",
+      "roles": "Roles",
+      "staff": "Personal",
+      "activity": "Actividad",
+      "themes": "Tienda online",
+      "pages": "Páginas",
+      "inventory": "Inventario",
+      "drafts": "Borradores",
+      "discounts": "Descuentos",
+      "abandoned": "Pagos abandonados",
+      "analytics": "Analítica",
+      "collections": "Colecciones",
+      "gift_cards": "Tarjetas regalo",
+      "reviews": "Reseñas"
+    },
+    "home": {
+      "title": "Inicio",
+      "welcome": "Hola de nuevo, {name}.",
+      "settings_title": "Ajustes de la tienda",
+      "settings_body": "Nombre, contacto, moneda, envíos, pagos y páginas legales.",
+      "products_title": "Productos",
+      "products_body": "Añade productos, fotos, tallas, colores y stock.",
+      "range_label": "Periodo",
+      "ranges": {
+        "last_7_days": "Últimos 7 días",
+        "last_30_days": "Últimos 30 días",
+        "last_90_days": "Últimos 90 días"
+      },
+      "kpis": {
+        "gross_sales": "Ventas brutas",
+        "orders": "Pedidos",
+        "average_order_value": "Pedido medio",
+        "to_fulfill": "Por preparar",
+        "to_fulfill_hint": "Pedidos pendientes de envío",
+        "cod_to_collect": "Efectivo por cobrar",
+        "cod_to_collect_hint": "Contra reembolso aún no cobrado",
+        "vs_previous": "frente al periodo anterior"
+      },
+      "chart": {
+        "title": "Ventas",
+        "description": "Ventas brutas por día, {range}.",
+        "orders": {
+          "one": "{count} pedido",
+          "other": "{count} pedidos"
+        },
+        "table_date": "Fecha",
+        "table_sales": "Ventas",
+        "table_orders": "Pedidos",
+        "empty": "Aún no hay ventas en este periodo."
+      },
+      "recent_orders": "Pedidos recientes",
+      "top_products": "Productos más vendidos",
+      "sold": {
+        "one": "{count} vendido",
+        "other": "{count} vendidos"
+      },
+      "low_stock": "Poco stock",
+      "units_left": {
+        "one": "Queda {count}",
+        "other": "Quedan {count}"
+      },
+      "no_low_stock": "Todo tiene stock suficiente.",
+      "no_orders": "Aún no hay pedidos.",
+      "view_all": "Ver todo",
+      "out_of_stock": "Agotado",
+      "sizes_sold_out": {
+        "one": "{count} talla agotada",
+        "other": "{count} tallas agotadas"
+      },
+      "sizes_low": {
+        "one": "{count} talla con poco stock",
+        "other": "{count} tallas con poco stock"
+      },
+      "unread_messages": "Mensajes sin leer",
+      "unread_messages_hint": "Esperando respuesta"
+    }
+  },
+  "settings": {
+    "meta_title": "Ajustes",
+    "title": "Ajustes",
+    "subtitle": "Todo lo de tu tienda que cambia sin tocar el código.",
+    "read_only": "Puedes ver estos ajustes pero no cambiarlos.",
+    "categories": {
+      "general": "General",
+      "contact": "Contacto",
+      "localization": "Idioma y región",
+      "shipping": "Envío",
+      "taxes": "Impuestos",
+      "payments": "Pagos",
+      "content": "Páginas",
+      "storefront": "Tienda",
+      "domains": "Dominios"
+    },
+    "sections": {
+      "general": "Datos de la tienda",
+      "languages": "Idiomas",
+      "shipping": "Envío",
+      "taxes": "Impuestos",
+      "payments": "Pagos",
+      "legal": "Legal",
+      "domains": "Dominios",
+      "staff": "Equipo",
+      "roles": "Roles",
+      "activity": "Actividad",
+      "notifications": "Notificaciones",
+      "email": "Envío de emails",
+      "profile": "Perfil",
+      "tracking": "Seguimiento",
+      "api_keys": "Claves de API"
+    },
+    "saved_all": "Ajustes guardados.",
+    "assets": {
+      "empty": "Sin imagen",
+      "upload": "Subir imagen",
+      "replace": "Reemplazar",
+      "remove": "Quitar"
+    },
+    "saved": "{setting} guardado.",
+    "reset": "Restaurar valor predeterminado",
+    "reset_done": "{setting} restaurado al valor predeterminado.",
+    "updated_at": "Actualizado el {date}",
+    "invalid": "Este valor no es válido. Revisa el formato e inténtalo de nuevo.",
+    "long_text_hint": "Texto sin formato. Separa los párrafos con una línea en blanco. Empieza una línea con ## para un título o con - para un elemento de lista.",
+    "shipping_rates": {
+      "rate_legend": "Tarifa de envío {number}",
+      "name": "Nombre",
+      "price": "Precio",
+      "min_days": "Días mín.",
+      "max_days": "Días máx.",
+      "add": "Añadir tarifa de envío",
+      "remove": "Eliminar tarifa de envío"
+    },
+    "items": {
+      "site_name": {
+        "label": "Nombre de la tienda",
+        "description": "Se muestra en la cabecera, títulos de página, correos y el panel."
+      },
+      "site_description": {
+        "label": "Descripción de la tienda",
+        "description": "Frase breve para buscadores y vistas previas de enlaces."
+      },
+      "site_logo_url": {
+        "label": "Logotipo",
+        "description": "Imagen que se muestra en la cabecera en lugar del nombre. Déjalo vacío para usar el nombre."
+      },
+      "site_favicon_url": {
+        "label": "Favicon",
+        "description": "Icono de la pestaña del navegador. PNG, JPG o SVG cuadrado."
+      },
+      "maintenance_mode": {
+        "label": "Aviso de mantenimiento",
+        "description": "Muestra un aviso en la parte superior de todas las páginas."
+      },
+      "site_contact": {
+        "label": "Datos de contacto",
+        "description": "Se muestran en la página de contacto y en el pie de página.",
+        "fields": {
+          "email": "Correo electrónico",
+          "phone": "Teléfono",
+          "whatsapp": "WhatsApp"
+        }
+      },
+      "store_address": {
+        "label": "Dirección de la tienda",
+        "description": "Dirección de tu negocio, en la página de contacto y las páginas legales.",
+        "fields": {
+          "street": "Calle",
+          "city": "Ciudad",
+          "region": "Provincia / región",
+          "postal_code": "Código postal",
+          "country": "País"
+        }
+      },
+      "social_links": {
+        "label": "Redes sociales",
+        "description": "URL completas de los perfiles. Los enlaces vacíos no se muestran.",
+        "fields": {
+          "instagram": "Instagram",
+          "facebook": "Facebook",
+          "tiktok": "TikTok"
+        }
+      },
+      "currency": {
+        "label": "Moneda",
+        "description": "La moneda en la que fijas y cobras los precios."
+      },
+      "default_locale": {
+        "label": "Idioma predeterminado",
+        "description": "Se usa cuando el idioma del navegador del visitante no está disponible."
+      },
+      "timezone": {
+        "label": "Zona horaria",
+        "description": "Se usa para las fechas de los pedidos y los informes."
+      },
+      "shipping_rates": {
+        "label": "Tarifas de envío",
+        "description": "Los métodos que eligen los clientes al pagar. Los países de una zona de abajo tienen las tarifas de esa zona."
+      },
+      "free_shipping_threshold": {
+        "label": "Envío gratis desde",
+        "description": "Subtotal a partir del cual el envío es gratis. 0 lo desactiva."
+      },
+      "tax_rate": {
+        "label": "Tipo de impuesto (%)",
+        "description": "Porcentaje aplicado al pagar, por ejemplo 21."
+      },
+      "tax_included": {
+        "label": "Precios con impuestos incluidos",
+        "description": "Activado: los precios ya incluyen impuestos. Desactivado: se suman al pagar."
+      },
+      "payment_methods": {
+        "label": "Métodos de pago",
+        "description": "Se editan en Ajustes → Pagos.",
+        "fields": {
+          "card": "Tarjeta",
+          "cash_on_delivery": "Contra reembolso"
+        }
+      },
+      "privacy_policy": {
+        "label": "Política de privacidad",
+        "description": "El texto de la página de Política de privacidad."
+      },
+      "terms_and_conditions": {
+        "label": "Términos y condiciones",
+        "description": "El texto de la página de Términos y condiciones."
+      },
+      "returns_days": {
+        "label": "Plazo de devolución (días)",
+        "description": "Se muestra en productos y en inicio. 0 lo oculta."
+      },
+      "primary_domain_store": {
+        "label": "Dominio principal de la tienda",
+        "description": "Las demás direcciones de la tienda redirigen aquí. Se elige en Ajustes → Dominios."
+      },
+      "primary_domain_admin": {
+        "label": "Dominio principal del panel",
+        "description": "Las demás direcciones del panel redirigen aquí. Se elige en Ajustes → Dominios."
+      },
+      "navigation": {
+        "label": "Navegación",
+        "description": "Menú de la cabecera y pie de página, en Tienda online → Temas → Personalizar → Navegación."
+      },
+      "stripe_publishable_key": {
+        "label": "Clave publicable de Stripe",
+        "description": "Se edita en Ajustes → Pagos."
+      },
+      "smtp": {
+        "label": "Envío de emails",
+        "description": "Se edita en Ajustes → Envío de emails."
+      },
+      "notifications": {
+        "label": "Notificaciones",
+        "description": "Se editan en Ajustes → Notificaciones."
+      },
+      "low_stock_threshold": {
+        "label": "Umbral de stock bajo",
+        "description": "Las variantes con este stock o menos aparecen con stock bajo."
+      },
+      "shipping_zones": {
+        "label": "Zonas de envío",
+        "description": "Países con sus propias tarifas e impuestos. Los demás clientes tienen las tarifas de arriba."
+      },
+      "ship_only_to_zones": {
+        "label": "Enviar solo a estas zonas",
+        "description": "Activado: los clientes fuera de todas las zonas no pueden pedir (el pago lo indica)."
+      },
+      "tracking": {
+        "label": "Seguimiento",
+        "description": "Etiquetas de anuncios y analítica (Ajustes → Seguimiento)."
+      }
+    },
+    "groups": {
+      "store": "Tienda",
+      "selling": "Ventas",
+      "customers": "Clientes y emails",
+      "team": "Equipo",
+      "legal": "Legal",
+      "you": "Tú"
+    },
+    "shipping_zones": {
+      "empty": "Aún no hay zonas: todos los países tienen las tarifas de arriba.",
+      "zone_legend": "Zona {number}",
+      "remove": "Quitar zona",
+      "name": "Nombre",
+      "countries": "Países",
+      "search_countries": "Añade países: escribe un nombre",
+      "remove_country": "Quitar {name}",
+      "in_other_zone": "en otra zona",
+      "tax_rate": "Impuesto (%)",
+      "tax_default": "Predeterminado",
+      "tax_hint": "Vacío = el impuesto predeterminado (Ajustes → Impuestos).",
+      "rates": "Tarifas de esta zona",
+      "add": "Añadir zona"
+    }
+  },
+  "permissions": {
+    "dashboard": {
+      "view": "Ver panel"
+    },
+    "products": {
+      "view": "Ver productos",
+      "edit": "Editar productos"
+    },
+    "categories": {
+      "view": "Ver categorías",
+      "edit": "Editar categorías"
+    },
+    "orders": {
+      "view": "Ver pedidos",
+      "edit": "Editar pedidos",
+      "refund": "Reembolsar pedidos"
+    },
+    "customers": {
+      "view": "Ver clientes",
+      "edit": "Editar clientes"
+    },
+    "messages": {
+      "view": "Ver mensajes"
+    },
+    "settings": {
+      "view": "Ver ajustes",
+      "edit": "Editar ajustes"
+    },
+    "users": {
+      "view": "Ver personal",
+      "invite": "Invitar personal",
+      "edit": "Editar personal",
+      "deactivate": "Desactivar personal"
+    },
+    "roles": {
+      "view": "Ver roles",
+      "edit": "Editar roles"
+    },
+    "audit": {
+      "view": "Ver registro de actividad"
+    },
+    "themes": {
+      "view": "Ver temas",
+      "edit": "Editar y publicar temas"
+    },
+    "pages": {
+      "view": "Ver páginas",
+      "edit": "Crear y editar páginas"
+    },
+    "inventory": {
+      "view": "Ver inventario",
+      "edit": "Cambiar stock"
+    },
+    "draft_orders": {
+      "view": "Ver borradores de pedido",
+      "edit": "Crear y editar borradores de pedido"
+    },
+    "discounts": {
+      "view": "Ver descuentos",
+      "edit": "Crear y editar descuentos"
+    },
+    "analytics": {
+      "view": "Ver la analítica"
+    },
+    "collections": {
+      "view": "Ver colecciones",
+      "edit": "Crear y editar colecciones"
+    },
+    "gift_cards": {
+      "view": "Ver tarjetas regalo",
+      "edit": "Emitir y cambiar tarjetas regalo"
+    },
+    "reviews": {
+      "view": "Ver reseñas",
+      "edit": "Aprobar, ocultar, responder y eliminar reseñas"
+    },
+    "api_keys": {
+      "view": "Ver las claves de API",
+      "edit": "Crear y revocar claves de API"
+    }
+  },
+  "roles": {
+    "meta_title": "Roles",
+    "title": "Roles",
+    "subtitle": "Cada rol otorga un conjunto de permisos. Un miembro puede tener varios roles.",
+    "add": "Añadir rol",
+    "add_title": "Nuevo rol",
+    "name": "Nombre",
+    "description": "Descripción",
+    "members": "Miembros",
+    "permissions": "Permisos",
+    "save": "Guardar",
+    "saved": "Rol guardado.",
+    "created": "Rol creado.",
+    "delete": "Eliminar",
+    "delete_title": "¿Eliminar este rol?",
+    "delete_body": "Un rol aún asignado a miembros no se puede eliminar.",
+    "deleted": "Rol eliminado.",
+    "system": "Rol del sistema",
+    "full_access": "Acceso total",
+    "full_access_hint": "Otorga todos los permisos. Solo los administradores pueden asignarlo.",
+    "empty": "Aún no hay roles."
+  },
+  "activity": {
+    "meta_title": "Actividad",
+    "title": "Actividad",
+    "subtitle": "Quién hizo qué en el panel, incluidos los intentos rechazados.",
+    "search_placeholder": "Busca por miembro o acción",
+    "columns": {
+      "time": "Cuándo",
+      "actor": "Miembro",
+      "action": "Acción",
+      "result": "Resultado"
+    },
+    "denied": "Rechazado",
+    "allowed": "Hecho",
+    "result_filter": "Resultado",
+    "all_results": "Todos",
+    "denied_only": "Solo rechazados",
+    "empty": "Aún no hay actividad.",
+    "results": {
+      "one": "{count} entrada",
+      "other": "{count} entradas"
+    },
+    "actions": {
+      "activate_or_deactivate_a_team_member": "Activó o desactivó a un miembro del equipo",
+      "add_an_order_note": "Añadió una nota al pedido",
+      "change_a_team_member": "Modificó a un miembro del equipo",
+      "change_an_admin_s_access": "Modificó el acceso de un administrador",
+      "change_an_order_status": "Cambió el estado de un pedido",
+      "change_marketing_consent": "Cambió el consentimiento de marketing",
+      "change_the_status_of_products": "Cambió el estado de productos",
+      "create_a_category": "Creó una categoría",
+      "create_a_product": "Creó un producto",
+      "create_a_role": "Creó un rol",
+      "create_a_role_with_full_access": "Creó un rol con acceso total",
+      "delete_a_category": "Eliminó una categoría",
+      "delete_a_product": "Eliminó un producto",
+      "delete_a_role": "Eliminó un rol",
+      "delete_a_role_with_full_access": "Eliminó un rol con acceso total",
+      "delete_a_saved_view": "Eliminó una vista guardada",
+      "delete_products": "Eliminó productos",
+      "edit_a_customer_note": "Editó una nota de cliente",
+      "edit_a_role": "Editó un rol",
+      "edit_a_role_with_full_access": "Editó un rol con acceso total",
+      "export_orders": "Exportó pedidos",
+      "fulfill_an_order": "Preparó un pedido",
+      "fulfill_orders": "Preparó pedidos",
+      "import_categories": "Importó categorías",
+      "import_products": "Importó productos",
+      "invite_a_team_member": "Invitó a un miembro del equipo",
+      "invite_a_team_member_with_admin_access": "Invitó a un miembro con acceso de administrador",
+      "mark_an_order_as_paid": "Marcó un pedido como pagado",
+      "move_products_to_a_category": "Movió productos a una categoría",
+      "refund_an_order": "Reembolsó un pedido",
+      "remove_a_category_image": "Quitó la imagen de una categoría",
+      "remove_a_product_image": "Quitó una imagen de producto",
+      "reorder_categories": "Reordenó las categorías",
+      "reorder_product_images": "Reordenó las imágenes de un producto",
+      "reset_a_site_setting": "Restableció un ajuste de la tienda",
+      "save_a_view": "Guardó una vista",
+      "search_the_admin": "Buscó en el panel",
+      "set_an_image_color": "Asignó el color de una imagen",
+      "update_a_category": "Actualizó una categoría",
+      "update_a_contact_message": "Actualizó un mensaje de contacto",
+      "update_a_product": "Actualizó un producto",
+      "update_a_site_setting": "Actualizó un ajuste de la tienda",
+      "update_an_order_s_internal_note": "Actualizó la nota interna de un pedido",
+      "update_contact_messages": "Actualizó mensajes de contacto",
+      "update_order_tracking": "Actualizó el seguimiento de un pedido",
+      "update_product_variants": "Actualizó las variantes de un producto",
+      "upload_a_category_image": "Subió una imagen de categoría",
+      "upload_a_logo_or_favicon": "Subió un logo o favicon",
+      "upload_a_product_image": "Subió una imagen de producto",
+      "view_a_customer": "Abrió un cliente",
+      "view_a_customer_note": "Abrió una nota de cliente",
+      "view_a_product": "Abrió un producto",
+      "view_an_order": "Abrió un pedido",
+      "view_categories": "Vio las categorías",
+      "view_contact_messages": "Vio los mensajes de contacto",
+      "view_customers": "Vio los clientes",
+      "view_orders": "Vio los pedidos",
+      "view_products": "Vio los productos",
+      "view_roles": "Vio los roles",
+      "view_sales_reports": "Vio los informes de ventas",
+      "view_saved_views": "Vio las vistas guardadas",
+      "view_site_settings": "Vio los ajustes de la tienda",
+      "view_the_activity_log": "Vio el registro de actividad",
+      "view_the_team": "Vio el equipo",
+      "add_a_domain": "Añadió un dominio",
+      "remove_a_domain": "Quitó un dominio",
+      "set_the_primary_domain": "Eligió el dominio principal",
+      "clear_the_primary_domain": "Dejó de redirigir al dominio principal",
+      "check_a_domain": "Comprobó un dominio",
+      "view_domains": "Vio los dominios",
+      "view_themes": "Vio los temas",
+      "open_a_theme": "Abrió un tema",
+      "add_a_theme": "Añadió un tema",
+      "duplicate_a_theme": "Duplicó un tema",
+      "rename_a_theme": "Renombró un tema",
+      "delete_a_theme": "Eliminó un tema",
+      "edit_a_theme": "Editó un tema",
+      "publish_a_theme": "Publicó un tema",
+      "restore_a_theme_version": "Restauró una versión de un tema",
+      "discard_theme_changes": "Descartó cambios de un tema",
+      "view_pages": "Vio las páginas",
+      "create_a_page": "Creó una página",
+      "edit_a_page": "Editó una página",
+      "delete_a_page": "Eliminó una página",
+      "upload_an_image": "Subió una imagen",
+      "view_the_media_library": "Vio la biblioteca de imágenes",
+      "edit_the_navigation": "Editó la navegación",
+      "view_navigation": "Vio la navegación",
+      "edit_payment_methods": "Editó los métodos de pago",
+      "change_the_stripe_keys": "Cambió las claves de Stripe",
+      "view_payment_settings": "Vio los ajustes de pago",
+      "view_email_settings": "Vio los ajustes de email",
+      "change_the_email_settings": "Cambió los ajustes de email",
+      "send_a_test_email": "Envió un email de prueba",
+      "view_notifications": "Vio las notificaciones",
+      "edit_notifications": "Editó las notificaciones",
+      "preview_an_email": "Previsualizó un email",
+      "view_the_email_log": "Vio el registro de emails",
+      "view_inventory": "Vio el inventario",
+      "change_stock": "Cambió el stock",
+      "view_stock_history": "Vio el historial de stock",
+      "view_draft_orders": "Vio los borradores de pedido",
+      "view_a_draft_order": "Vio un borrador de pedido",
+      "create_a_draft_order": "Creó un borrador de pedido",
+      "edit_a_draft_order": "Editó un borrador de pedido",
+      "delete_a_draft_order": "Eliminó un borrador de pedido",
+      "send_a_draft_order_invoice": "Envió la factura de un borrador",
+      "complete_a_draft_order": "Convirtió un borrador en pedido",
+      "search_products_for_a_draft_order": "Buscó productos para un borrador",
+      "search_customers_for_a_draft_order": "Buscó clientes para un borrador",
+      "view_discounts": "Vio los descuentos",
+      "view_a_discount": "Vio un descuento",
+      "create_a_discount": "Creó un descuento",
+      "edit_a_discount": "Editó un descuento",
+      "delete_a_discount": "Eliminó un descuento",
+      "view_abandoned_checkouts": "Vio los pagos abandonados",
+      "send_an_abandoned_checkout_email": "Envió un recordatorio de pago abandonado",
+      "view_tracking_settings": "Vio los ajustes de seguimiento",
+      "change_the_tracking_settings": "Cambió los ajustes de seguimiento",
+      "view_analytics": "Vio la analítica",
+      "view_collections": "Vio las colecciones",
+      "view_a_collection": "Vio una colección",
+      "create_a_collection": "Creó una colección",
+      "edit_a_collection": "Editó una colección",
+      "delete_a_collection": "Eliminó una colección",
+      "view_gift_cards": "Vio las tarjetas regalo",
+      "view_a_gift_card": "Vio una tarjeta regalo",
+      "issue_a_gift_card": "Emitió una tarjeta regalo",
+      "change_a_gift_card": "Cambió una tarjeta regalo",
+      "view_reviews": "Vio las reseñas",
+      "moderate_a_review": "Moderó una reseña",
+      "reply_to_a_review": "Respondió a una reseña",
+      "delete_a_review": "Eliminó una reseña",
+      "view_api_keys": "Vio las claves de API",
+      "create_an_api_key": "Creó una clave de API",
+      "revoke_an_api_key": "Revocó una clave de API"
+    }
+  },
+  "staff": {
+    "meta_title": "Personal",
+    "title": "Personal",
+    "subtitle": "Quién puede entrar al panel y qué puede hacer.",
+    "invite": "Invitar",
+    "invite_title": "Invitar a un miembro",
+    "edit_title": "Editar miembro",
+    "name": "Nombre",
+    "email": "Correo",
+    "roles": "Roles",
+    "admin": "Administrador",
+    "active": "Activo",
+    "deactivated": "Desactivado",
+    "invite_sent": "Invitación enviada.",
+    "save": "Guardar",
+    "saved": "Guardado.",
+    "empty": "Aún no hay miembros.",
+    "deactivate": "Desactivar",
+    "reactivate": "Reactivar"
+  },
+  "profile": {
+    "meta_title": "Perfil",
+    "title": "Perfil",
+    "subtitle": "Tu nombre, idioma y contraseña.",
+    "details_title": "Datos",
+    "name": "Nombre completo",
+    "email": "Correo",
+    "language": "Idioma",
+    "save": "Guardar cambios",
+    "saved": "Perfil actualizado.",
+    "password_title": "Contraseña",
+    "current_password": "Contraseña actual",
+    "new_password": "Nueva contraseña",
+    "confirm_password": "Confirmar nueva contraseña",
+    "change_password": "Cambiar contraseña",
+    "password_changed": "Contraseña cambiada.",
+    "password_hint": "Al menos 8 caracteres."
+  },
+  "catalog": {
+    "status": {
+      "draft": "Borrador",
+      "active": "Activo",
+      "archived": "Archivado"
+    },
+    "categories": {
+      "meta_title": "Categorías",
+      "title": "Categorías",
+      "subtitle": "Agrupa los productos para que los clientes puedan explorar la tienda.",
+      "add": "Añadir categoría",
+      "add_title": "Nueva categoría",
+      "edit": "Editar",
+      "edit_title": "Editar categoría",
+      "delete": "Eliminar",
+      "delete_title": "¿Eliminar esta categoría?",
+      "delete_body": "No se puede deshacer. No se pueden eliminar categorías con productos o subcategorías.",
+      "empty": "Aún no hay categorías.",
+      "saved": "Categoría guardada.",
+      "deleted": "Categoría eliminada.",
+      "visible": "Visible",
+      "hidden": "Oculta",
+      "drag": "Arrastra para reordenar",
+      "more": "Más acciones",
+      "product_count": {
+        "one": "{count} producto",
+        "other": "{count} productos"
+      },
+      "columns": {
+        "name": "Nombre",
+        "slug": "Identificador URL",
+        "products": "Productos",
+        "status": "Estado"
+      },
+      "form": {
+        "name": "Nombre",
+        "slug": "Identificador URL",
+        "slug_hint": "Se usa en la dirección: /shop/{slug}",
+        "description": "Descripción",
+        "parent": "Categoría superior",
+        "no_parent": "Ninguna (nivel principal)",
+        "sort_order": "Orden",
+        "sort_order_hint": "Los números más bajos van primero.",
+        "is_active": "Visible en la tienda",
+        "image": "Imagen",
+        "upload_image": "Subir imagen",
+        "replace_image": "Cambiar imagen",
+        "remove_image": "Quitar imagen",
+        "image_after_create": "Guarda primero la categoría para añadir una imagen.",
+        "save": "Guardar categoría"
+      },
+      "import": "Importar CSV"
+    },
+    "products": {
+      "meta_title": "Productos",
+      "title": "Productos",
+      "add": "Añadir producto",
+      "search": "Buscar productos",
+      "search_placeholder": "Busca por título, identificador o etiqueta",
+      "status_filter": "Estado",
+      "all": "Todos",
+      "category_filter": "Categoría",
+      "all_categories": "Todas las categorías",
+      "empty": "Aún no hay productos. Añade el primero para empezar a vender.",
+      "empty_filtered": "Ningún producto coincide con estos filtros.",
+      "columns": {
+        "product": "Producto",
+        "status": "Estado",
+        "inventory": "Inventario",
+        "price": "Precio",
+        "category": "Categoría",
+        "updated": "Actualizado"
+      },
+      "inventory_value": "{stock} en stock · {variants} variantes",
+      "no_variants": "Sin variantes",
+      "untitled": "Sin título",
+      "results": {
+        "one": "{count} producto",
+        "other": "{count} productos"
+      },
+      "page_of": "Página {page} de {total}",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "import": "Importar CSV",
+      "bulk_publish": "Publicar",
+      "bulk_archive": "Archivar",
+      "bulk_move": "Mover a categoría",
+      "bulk_delete": "Eliminar",
+      "bulk_delete_title": "¿Eliminar los productos seleccionados?",
+      "bulk_delete_body": "Desaparecen de la tienda y del panel. Los pedidos anteriores conservan su copia.",
+      "move_title": "Mover productos a una categoría",
+      "move_hint": "Elige una categoría para los productos seleccionados.",
+      "no_category": "Sin categoría",
+      "bulk_updated": {
+        "one": "{count} producto actualizado",
+        "other": "{count} productos actualizados"
+      }
+    },
+    "editor": {
+      "new_title": "Añadir producto",
+      "back": "Productos",
+      "save": "Guardar",
+      "saved": "Producto guardado.",
+      "created": "Producto creado. Ahora añade imágenes y variantes.",
+      "discard": "Descartar",
+      "unsaved": "Cambios sin guardar",
+      "delete": "Eliminar producto",
+      "delete_title": "¿Eliminar este producto?",
+      "delete_body": "Desaparece de la tienda y del panel. Los pedidos anteriores conservan su copia.",
+      "deleted": "Producto eliminado.",
+      "sections": {
+        "details": "Detalles",
+        "media": "Imágenes",
+        "pricing": "Precios",
+        "status": "Estado",
+        "organization": "Organización",
+        "variants": "Variantes"
+      },
+      "title": "Título",
+      "description": "Descripción",
+      "description_hint": "Texto sin formato. Separa los párrafos con una línea en blanco.",
+      "slug": "Identificador URL",
+      "slug_hint": "Se usa en la dirección: /shop/{slug}",
+      "price": "Precio",
+      "compare_at_price": "Precio de comparación",
+      "compare_at_hint": "Precio original que aparece tachado. Deja 0 para ninguno.",
+      "status_hint": "Solo los productos activos se ven en la tienda.",
+      "category": "Categoría",
+      "no_category": "Sin categoría",
+      "featured": "Destacado en la página de inicio",
+      "tags": "Etiquetas",
+      "tags_hint": "Separa las etiquetas con comas.",
+      "media_hint": "JPG, PNG, WebP o AVIF, hasta 10 MB cada una. La primera imagen es la principal.",
+      "upload": "Añadir imágenes",
+      "uploading": "Subiendo {current} de {total}…",
+      "main_image": "Principal",
+      "move_left": "Mover antes",
+      "move_right": "Mover después",
+      "remove_image": "Quitar imagen",
+      "no_images": "Aún no hay imágenes.",
+      "after_create": "Guarda primero el producto para añadir imágenes y variantes.",
+      "image_alt": "Imagen {number} de {title}",
+      "gift_card": "Tarjeta regalo",
+      "gift_card_hint": "Al pagarlo se emite una tarjeta regalo por su precio (una por unidad) y se envía el código por email. Usa variantes para los importes."
+    },
+    "variants": {
+      "hint": "Cada combinación de talla y color es una variante con su propio stock y SKU.",
+      "generator_title": "Generar variantes",
+      "sizes": "Tallas",
+      "sizes_hint": "Sepáralas con comas, p. ej. XS, S, M, L, XL",
+      "colors": "Colores",
+      "color_name": "Nombre del color",
+      "color_value": "Muestra",
+      "add_color": "Añadir color",
+      "remove_color": "Quitar color",
+      "generate": "Añadir combinaciones que faltan",
+      "generated": {
+        "one": "{count} variante añadida. Recuerda guardar.",
+        "other": "{count} variantes añadidas. Recuerda guardar."
+      },
+      "add_variant": "Añadir variante",
+      "columns": {
+        "color": "Color",
+        "size": "Talla",
+        "sku": "SKU",
+        "price": "Precio",
+        "stock": "Stock",
+        "active": "Activa"
+      },
+      "price_hint": "0 usa el precio del producto.",
+      "remove": "Quitar variante",
+      "save": "Guardar variantes",
+      "saved": "Variantes guardadas.",
+      "empty": "Aún no hay variantes. Genéralas a partir de tallas y colores, o añade una.",
+      "total_stock": "{stock} en stock",
+      "sizes_count": {
+        "one": "{count} talla",
+        "other": "{count} tallas"
+      },
+      "no_color": "Sin color",
+      "bulk_stock": "Stock para todas",
+      "bulk_price": "Precio para todas"
+    },
+    "import": {
+      "meta_title": "Importar",
+      "title": "Importar desde CSV",
+      "subtitle": "Añade o actualiza muchos productos o categorías a la vez desde una hoja de cálculo.",
+      "back_products": "Productos",
+      "back_categories": "Categorías",
+      "tab_products": "Productos",
+      "tab_categories": "Categorías",
+      "step_file": "1. Elige un archivo CSV",
+      "file_hint_products": "Una fila por variante (talla/color). Las filas con el mismo handle son un solo producto. Las categorías que falten se crean.",
+      "file_hint_categories": "Una fila por categoría. Usa la columna parent para poner una categoría dentro de otra.",
+      "choose_file": "Haz clic para elegir un archivo CSV",
+      "choose_file_hint": "CSV UTF-8 separado por comas, hasta 100 MB",
+      "file_too_large": "El archivo supera los 100 MB. Divídelo en archivos más pequeños.",
+      "template": "Descargar plantilla",
+      "step_review": "2. Revisa e importa",
+      "rows_read": {
+        "one": "{count} fila leída.",
+        "other": "{count} filas leídas."
+      },
+      "stats": {
+        "products": "Productos",
+        "variants": "Variantes",
+        "images": "Enlaces de imágenes",
+        "categories": "Categorías",
+        "new_categories": "Categorías nuevas",
+        "problems": "Filas con problemas"
+      },
+      "problems_title": {
+        "one": "{count} problema encontrado. Estos productos o categorías se omitirán:",
+        "other": "{count} problemas encontrados. Estos productos o categorías se omitirán:"
+      },
+      "line": "Línea {line}",
+      "problems": {
+        "missing_columns": "faltan columnas",
+        "empty_file": "el archivo está vacío",
+        "invalid_handle": "handle no válido (usa minúsculas, números y guiones)",
+        "missing_title": "hace falta un título en al menos un idioma",
+        "invalid_price": "precio no válido",
+        "invalid_compare_at": "el precio de comparación debe ser mayor que el precio",
+        "invalid_status": "el estado debe ser draft, active o archived",
+        "invalid_sku": "SKU vacío o demasiado largo",
+        "duplicate_sku": "SKU repetido en el archivo",
+        "invalid_stock": "el stock debe ser un número entero",
+        "invalid_color": "color_hex debe tener la forma #1a2b3c",
+        "invalid_parent": "handle de categoría padre no válido",
+        "invalid_row": "valor no válido"
+      },
+      "update_existing": "Actualizar elementos existentes",
+      "update_existing_hint": "Los elementos cuyo handle ya existe se actualizan. Desactívalo para omitirlos.",
+      "download_images": "Descargar imágenes",
+      "download_images_hint": "Las imágenes se copian desde los enlaces de image_urls, solo para productos sin imágenes. Más lento; desactívalo para importar primero textos y precios.",
+      "start_products": {
+        "one": "Importar {count} producto",
+        "other": "Importar {count} productos"
+      },
+      "start_categories": {
+        "one": "Importar {count} categoría",
+        "other": "Importar {count} categorías"
+      },
+      "running_title": "Importando…",
+      "keep_open": "Mantén esta página abierta hasta que termine la importación.",
+      "progress": "{done} de {total} completados",
+      "stop": "Detener",
+      "done_title": "Importación terminada",
+      "stopped_title": "Importación detenida",
+      "error_title": "Importación interrumpida",
+      "outcomes": {
+        "created": "Creados",
+        "updated": "Actualizados",
+        "skipped": "Omitidos",
+        "failed": "Fallidos"
+      },
+      "missing_images": {
+        "one": "{count} producto se importó, pero algunas imágenes no se pudieron descargar.",
+        "other": "{count} productos se importaron, pero algunas imágenes no se pudieron descargar."
+      },
+      "failed_title": "No importados",
+      "reasons": {
+        "exists": "ya existe",
+        "sku_taken": "un SKU pertenece a otro producto",
+        "category_forbidden": "no puedes crear categorías",
+        "images_failed": "algunas imágenes no se pudieron descargar",
+        "generic": "error inesperado"
+      },
+      "view_products": "Ver productos",
+      "view_categories": "Ver categorías",
+      "import_another": "Importar otro archivo"
+    }
+  },
+  "orders_admin": {
+    "meta_title": "Pedidos",
+    "title": "Pedidos",
+    "search": "Buscar pedidos",
+    "search_placeholder": "N.º de pedido, email, nombre o teléfono",
+    "tabs_label": "Estado de preparación",
+    "all": "Todos",
+    "open": "Abiertos",
+    "payment_filter": "Estado del pago",
+    "all_payments": "Todos los pagos",
+    "views": {
+      "all": "Todos",
+      "unfulfilled": "Sin preparar",
+      "unpaid": "Sin pagar",
+      "open": "Abiertos",
+      "archived": "Archivados"
+    },
+    "bulk_fulfill": "Marcar como preparado",
+    "bulk_fulfilled": {
+      "one": "{count} pedido marcado como preparado",
+      "other": "{count} pedidos marcados como preparados"
+    },
+    "export": "Exportar",
+    "export_filename": "pedidos.csv",
+    "columns": {
+      "order": "Pedido",
+      "date": "Fecha",
+      "customer": "Cliente",
+      "payment": "Pago",
+      "status": "Estado",
+      "items": "Artículos",
+      "total": "Total"
+    },
+    "items_count": {
+      "one": "{count} artículo",
+      "other": "{count} artículos"
+    },
+    "empty": "Aún no hay pedidos. Aparecerán aquí en cuanto los clientes compren.",
+    "empty_filtered": "Ningún pedido coincide con estos filtros.",
+    "results": {
+      "one": "{count} pedido",
+      "other": "{count} pedidos"
+    },
+    "page_of": "Página {page} de {total}",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "detail": {
+      "back": "Pedidos",
+      "placed": "Realizado el {date}",
+      "actions": "Acciones",
+      "more_actions": "Más acciones",
+      "mark_processing": "Marcar en preparación",
+      "mark_shipped": "Marcar como enviado",
+      "mark_delivered": "Marcar como entregado",
+      "mark_paid": "Marcar como pagado",
+      "cancel": "Cancelar pedido",
+      "cancel_title": "¿Cancelar el pedido n.º {number}?",
+      "cancel_body": "El cliente verá el pedido como cancelado. No se puede deshacer.",
+      "refund": "Reembolsar",
+      "restock": "Devolver los artículos al stock",
+      "confirm": "Confirmar",
+      "keep": "Mantener pedido",
+      "updated": "Pedido actualizado.",
+      "items": "Artículos",
+      "sku": "SKU {sku}",
+      "subtotal": "Subtotal",
+      "discount": "Descuento",
+      "shipping": "Envío",
+      "cod_fee": "Recargo del método de pago",
+      "taxes": "Impuestos",
+      "taxes_included": "Impuestos (incluidos)",
+      "total": "Total",
+      "customer": "Cliente",
+      "guest": "Compra como invitado",
+      "order_count": {
+        "one": "{count} pedido",
+        "other": "{count} pedidos"
+      },
+      "contact": "Contacto",
+      "shipping_address": "Dirección de envío",
+      "billing_address": "Dirección de facturación",
+      "same_as_shipping": "Igual que la dirección de envío",
+      "shipping_method": "Método de envío",
+      "tracking": "Seguimiento",
+      "carrier": "Transportista",
+      "tracking_number": "Número de seguimiento",
+      "tracking_url": "Enlace de seguimiento",
+      "save_tracking": "Guardar seguimiento",
+      "save_and_ship": "Guardar y marcar como enviado",
+      "tracking_saved": "Seguimiento guardado.",
+      "fulfill": "Preparar",
+      "fulfill_title": "Preparar pedido #{number}",
+      "fulfill_body": "Añade la empresa de mensajería y el número de seguimiento para que el cliente pueda seguir el envío.",
+      "edit_tracking": "Editar seguimiento",
+      "unfulfilled": "Sin preparar",
+      "fulfilled": "Preparado",
+      "no_tracking": "Aún no hay número de seguimiento.",
+      "paid_amount": "Pagado",
+      "balance_due": "Pendiente",
+      "payment": "Pago",
+      "payment_attempts": "Intentos de pago",
+      "timeline": "Historial",
+      "note_label": "Añadir una nota",
+      "note_placeholder": "Escribe una nota…",
+      "visible_to_customer": "Visible para el cliente",
+      "post": "Publicar",
+      "note_added": "Nota añadida.",
+      "internal_note": "Nota interna",
+      "internal_note_hint": "Solo la ve el equipo.",
+      "save": "Guardar",
+      "saved": "Guardado.",
+      "customer_note": "Nota del cliente",
+      "by": "por {name}",
+      "internal": "Interna",
+      "events": {
+        "created": "Pedido realizado",
+        "status_changed": "Estado cambiado de {from} a {to}",
+        "payment_status_changed": "Pago marcado como {to}",
+        "note": "Nota",
+        "shipped": "Marcado como enviado",
+        "email_sent": "Correo enviado",
+        "refund": "Reembolso: pago {to}"
+      },
+      "payment_record": {
+        "pending": "Pendiente",
+        "succeeded": "Completado",
+        "failed": "Fallido",
+        "refunded": "Reembolsado"
+      },
+      "source_title": "Origen",
+      "source": "Fuente",
+      "medium": "Medio",
+      "campaign": "Campaña",
+      "landing_page": "Página de entrada",
+      "referrer": "Referente",
+      "source_direct": "Directo o desconocido",
+      "gift_card_paid": "Pagado con tarjeta regalo"
+    }
+  },
+  "messages": {
+    "meta_title": "Mensajes",
+    "title": "Mensajes",
+    "tabs_label": "Carpetas de mensajes",
+    "tabs": {
+      "inbox": "Bandeja de entrada",
+      "new": "No leídos",
+      "read": "Leídos",
+      "archived": "Archivados"
+    },
+    "empty": "No hay mensajes aquí.",
+    "select": "Selecciona un mensaje para leerlo.",
+    "no_subject": "(Sin asunto)",
+    "received": "Recibido el {date}",
+    "reply": "Responder por correo",
+    "mark_unread": "Marcar como no leído",
+    "archive": "Archivar",
+    "unarchive": "Mover a la bandeja de entrada",
+    "unread": "No leído",
+    "mark_read": "Marcar como leído",
+    "bulk_updated": {
+      "one": "{count} mensaje actualizado",
+      "other": "{count} mensajes actualizados"
+    },
+    "back": "Todos los mensajes",
+    "results": {
+      "one": "{count} mensaje",
+      "other": "{count} mensajes"
+    },
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "customers": {
+    "meta_title": "Clientes",
+    "title": "Clientes",
+    "subtitle": "Todas las personas con cuenta o que han hecho un pedido.",
+    "search": "Buscar clientes",
+    "search_placeholder": "Busca por nombre, email o teléfono",
+    "types": {
+      "all": "Todos",
+      "registered": "Con cuenta",
+      "guest": "Invitado",
+      "subscribed": "Suscriptores"
+    },
+    "columns": {
+      "customer": "Cliente",
+      "type": "Tipo",
+      "orders": "Pedidos",
+      "spent": "Total gastado",
+      "last_order": "Último pedido"
+    },
+    "no_orders_yet": "Sin pedidos todavía",
+    "empty": "Todavía no hay clientes. Aparecen aquí cuando alguien se registra o hace un pedido.",
+    "results": {
+      "one": "{count} cliente",
+      "other": "{count} clientes"
+    },
+    "since": "Cliente desde {date}",
+    "guest_since": "Compra como invitado, primer pedido el {date}",
+    "stats": {
+      "orders": "Pedidos",
+      "spent": "Total gastado",
+      "average": "Pedido medio",
+      "last_order": "Último pedido"
+    },
+    "orders_title": "Pedidos",
+    "no_orders": "Este cliente todavía no ha hecho ningún pedido.",
+    "contact_title": "Contacto",
+    "email_verified": "Email verificado",
+    "email_not_verified": "Email sin verificar",
+    "addresses_title": "Direcciones",
+    "no_addresses": "Sin direcciones guardadas.",
+    "default_address": "Predeterminada",
+    "note_title": "Nota del personal",
+    "note_hint": "Solo el personal puede verla.",
+    "note_placeholder": "Añade una nota sobre este cliente…",
+    "saved": "Guardada.",
+    "marketing_title": "Marketing",
+    "marketing_label": "Acepta marketing",
+    "marketing_hint": "Si el cliente aceptó recibir correos de marketing.",
+    "sort": {
+      "last_order": "Último pedido",
+      "total_spent": "Total gastado",
+      "order_count": "Número de pedidos",
+      "created_at": "Fecha de alta"
+    },
+    "order_count": {
+      "one": "{count} pedido",
+      "other": "{count} pedidos"
+    }
+  },
+  "admin_ui": {
+    "back": "Volver",
+    "more_actions": "Más acciones",
+    "index_table": {
+      "search": "Buscar",
+      "search_label": "Buscar {resource}",
+      "filter": "Filtrar",
+      "add_filter": "Añadir filtro",
+      "clear_filters": "Borrar todo",
+      "remove_filter": "Quitar el filtro {name}",
+      "select_all": "Seleccionar todas las filas de esta página",
+      "select_row": "Seleccionar fila",
+      "selected": {
+        "one": "{count} seleccionado",
+        "other": "{count} seleccionados"
+      },
+      "deselect": "Deseleccionar",
+      "sort": "Ordenar",
+      "sort_ascending": "Ascendente",
+      "sort_descending": "Descendente",
+      "previous": "Página anterior",
+      "next": "Página siguiente",
+      "page_of": "Página {page} de {total}",
+      "loading": "Cargando",
+      "no_results_title": "Sin resultados",
+      "no_results_body": "Prueba a cambiar los filtros o la búsqueda."
+    },
+    "save_bar": {
+      "unsaved": "Cambios sin guardar",
+      "discard": "Descartar",
+      "save": "Guardar",
+      "saving": "Guardando",
+      "leave_warning": "Tienes cambios sin guardar. ¿Salir de esta página igualmente?"
+    },
+    "confirm": {
+      "cancel": "Cancelar"
+    },
+    "images": {
+      "add": "Añadir imágenes",
+      "drop_hint": "o suelta las imágenes aquí",
+      "uploading": "Subiendo",
+      "remove": "Eliminar imagen",
+      "move_earlier": "Mover antes",
+      "move_later": "Mover después",
+      "main": "Imagen principal",
+      "color": "Se muestra para",
+      "all_colors": "Todos los colores",
+      "empty": "Aún no hay imágenes"
+    },
+    "seo": {
+      "card_title": "Ficha en buscadores",
+      "card_hint": "Cómo puede aparecer en Google y al compartirlo. Los campos vacíos usan el título y la descripción.",
+      "preview": "Vista previa del resultado",
+      "preview_language": "Idioma de la vista previa",
+      "title": "Título de la página",
+      "title_hint": "En los resultados se ven unos {max} caracteres.",
+      "description": "Meta descripción",
+      "description_hint": "Una o dos frases que inviten a hacer clic.",
+      "no_title": "Añade un título",
+      "no_description": "Añade una descripción"
+    }
+  },
+  "admin_shell": {
+    "search_placeholder": "Buscar",
+    "search_shortcut": "Ctrl K",
+    "search_dialog_title": "Buscar en el panel",
+    "search_input_label": "Buscar pedidos, productos y clientes",
+    "search_hint": "Escribe al menos 2 caracteres.",
+    "searching": "Buscando",
+    "no_results": "Sin resultados para «{query}»",
+    "groups": {
+      "orders": "Pedidos",
+      "products": "Productos",
+      "customers": "Clientes"
+    },
+    "order_label": "Pedido #{number}",
+    "account_menu": "Menú de la cuenta",
+    "language": "Idioma",
+    "theme": "Tema",
+    "themes": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "view_store": "Ver tienda",
+    "sign_out": "Cerrar sesión",
+    "profile": "Perfil",
+    "open_menu": "Abrir menú",
+    "login_subtitle": "Inicia sesión para gestionar tu tienda."
+  },
+  "domains": {
+    "meta_title": "Dominios",
+    "title": "Dominios",
+    "subtitle": "Conecta tu propio dominio y elige adónde llegan clientes y equipo.",
+    "add": "Conectar dominio",
+    "targets": {
+      "store": "Tienda",
+      "admin": "Panel"
+    },
+    "target_hint": {
+      "store": "Donde compran los clientes.",
+      "admin": "Donde entra tu equipo."
+    },
+    "current_address": "Dirección actual",
+    "primary": "Principal",
+    "primary_hint": "Las demás direcciones de esta app redirigen a {domain}.",
+    "no_primary": "Sin dominio principal: cada dirección de esta app funciona por su cuenta.",
+    "stop_redirecting": "Dejar de redirigir",
+    "empty": "Todavía no hay dominios.",
+    "statuses": {
+      "pending": "Esperando DNS",
+      "verifying": "Verificando",
+      "active": "Activo",
+      "error": "Error"
+    },
+    "status_hints": {
+      "pending": "Añade los registros DNS de abajo en tu registrador. Los cambios tardan de unos minutos a 48 horas.",
+      "verifying": "El DNS parece correcto. El hosting está verificando el dominio y emitiendo el certificado SSL.",
+      "active": "Conectado y seguro (HTTPS).",
+      "error": "Algo ha fallado en el proveedor de hosting."
+    },
+    "checked": "Comprobado {time}",
+    "check_now": "Comprobar ahora",
+    "set_primary": "Hacer principal",
+    "remove": "Quitar",
+    "more": "Acciones del dominio",
+    "records_title": "Registros DNS",
+    "records_hint": "Créalos en la empresa donde compraste el dominio (GoDaddy, Namecheap, Cloudflare, Aruba…).",
+    "records_none": "Aún no hay registros. En modo manual, define HOSTING_STORE_TARGET_HOST / HOSTING_ADMIN_TARGET_HOST para poder mostrarlos.",
+    "columns": {
+      "type": "Tipo",
+      "name": "Nombre",
+      "value": "Valor"
+    },
+    "copy": "Copiar {field}",
+    "copied": "Copiado.",
+    "show_records": "Registros DNS",
+    "hide_records": "Ocultar registros",
+    "add_title": "Conectar un dominio",
+    "add_body": "Usa un dominio o subdominio tuyo, como tienda.ejemplo.com. Después verás los registros DNS que crear.",
+    "hostname": "Dominio",
+    "hostname_placeholder": "tienda.ejemplo.com",
+    "target": "Para",
+    "add_submit": "Conectar",
+    "added": "Dominio añadido. Ahora crea sus registros DNS.",
+    "primary_set": "Dominio principal actualizado. Las redirecciones empiezan en un minuto.",
+    "primary_cleared": "Redirecciones desactivadas.",
+    "remove_title": "¿Quitar {domain}?",
+    "remove_body": "Se desconecta del proveedor de hosting y deja de funcionar para esta tienda.",
+    "removed": "Dominio quitado.",
+    "setup": {
+      "railway": "Conectado a Railway: los dominios se añaden a tus servicios automáticamente.",
+      "vercel": "Conectado a Vercel: los dominios se añaden a tus proyectos automáticamente.",
+      "manual": "Configuración manual: añade también cada dominio en el panel de tu hosting. Define HOSTING_PROVIDER (railway o vercel) y un token para hacerlo desde aquí.",
+      "missing": "HOSTING_PROVIDER es {provider}, pero faltan estas variables: {names}. Se usa la configuración manual hasta que estén."
+    },
+    "url_reminder": "Después de cambiar el dominio principal, actualiza NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_ADMIN_URL y vuelve a desplegar, para que enlaces y correos lo usen."
+  },
+  "themes": {
+    "meta_title": "Temas",
+    "title": "Temas",
+    "subtitle": "Elige el aspecto de tu tienda. Personaliza un tema y publícalo cuando esté listo.",
+    "view_store": "Ver tienda",
+    "current_title": "Tema actual",
+    "live": "Publicado",
+    "customize": "Personalizar",
+    "published_on": "Publicado el {date}",
+    "never_published": "Aún sin publicar",
+    "unpublished_changes": "Cambios sin publicar",
+    "template_label": "Plantilla: {name}",
+    "edited": "Editado el {time}",
+    "library_title": "Biblioteca de temas",
+    "library_hint": "Los temas que has añadido. Personalízalos y publica uno cuando esté listo.",
+    "library_empty": "Aún no hay otros temas. Añade una plantilla de la galería de abajo.",
+    "gallery_title": "Plantillas",
+    "gallery_hint": "Empieza con un diseño y hazlo tuyo. Añadir una plantilla no cambia tu tienda hasta que la publiques.",
+    "sections_count": {
+      "one": "{count} sección",
+      "other": "{count} secciones"
+    },
+    "add": "Añadir a la biblioteca",
+    "added": "{name} añadido a tu biblioteca.",
+    "more": "Más acciones",
+    "publish": "Publicar",
+    "publish_title": "¿Publicar {name}?",
+    "publish_body": "Sustituye al tema actual de tu tienda al momento. Puedes volver a publicar el anterior cuando quieras.",
+    "published": "{name} ya está publicado.",
+    "published_slow": "{name} ya está publicado. La tienda se actualiza en un minuto.",
+    "rename": "Renombrar",
+    "rename_title": "Renombrar tema",
+    "name_label": "Nombre",
+    "save": "Guardar",
+    "renamed": "Tema renombrado.",
+    "duplicate": "Duplicar",
+    "duplicated": "Copia añadida a tu biblioteca.",
+    "copy_name": "{name} (copia)",
+    "delete": "Eliminar",
+    "delete_title": "¿Eliminar {name}?",
+    "delete_body": "Se eliminan el tema y sus versiones. Tu tienda no cambia.",
+    "deleted": "Tema eliminado.",
+    "templates": {
+      "atelier": "Editorial y sereno: títulos con serifa, neutros suaves y el logo junto al menú.",
+      "minimal": "Mucho espacio en blanco, una tipografía limpia, esquinas rectas y botones con borde.",
+      "bold": "Estilo streetwear: mayúsculas condensadas, un color de acento fuerte y una cabecera oscura.",
+      "classic": "Boutique cálida: una serifa elegante, tonos crema, logo centrado y productos enmarcados."
+    },
+    "editor": {
+      "back": "Temas",
+      "saving": "Guardando…",
+      "saved": "Guardado",
+      "save_failed": "No guardado",
+      "read_only": "Solo lectura",
+      "discard": "Descartar cambios",
+      "discard_title": "¿Descartar los cambios sin publicar?",
+      "discard_body": "El editor vuelve a la versión publicada de este tema. No se puede deshacer.",
+      "discarded": "Cambios descartados.",
+      "history": "Versiones",
+      "history_empty": "Aún no hay versiones publicadas.",
+      "history_hint": "Restaurar pone esa versión en el editor. Publica para que se vea en la tienda.",
+      "restore": "Restaurar",
+      "restored": "Versión restaurada. Publica para que se vea en la tienda.",
+      "tab_sections": "Secciones",
+      "tab_settings": "Ajustes del tema",
+      "home_page": "Página de inicio",
+      "add_section": "Añadir sección",
+      "max_sections": "La página de inicio puede tener hasta {count} secciones.",
+      "section_types": {
+        "hero": "Portada",
+        "trust_badges": "Garantías",
+        "category_tiles": "Categorías",
+        "product_grid": "Cuadrícula de productos",
+        "image_with_text": "Imagen con texto",
+        "rich_text": "Texto",
+        "newsletter": "Newsletter",
+        "faq": "Preguntas frecuentes",
+        "gallery": "Galería de imágenes",
+        "video": "Vídeo",
+        "spacer": "Espacio",
+        "page_header": "Título de página",
+        "contact_form": "Formulario de contacto",
+        "product_main": "Producto",
+        "related_products": "También te puede gustar"
+      },
+      "hide": "Ocultar",
+      "show": "Mostrar",
+      "hidden": "Oculta",
+      "move_up": "Subir",
+      "move_down": "Bajar",
+      "drag": "Arrastra para ordenar",
+      "remove_section": "Quitar sección",
+      "all_sections": "Todas las secciones",
+      "device_desktop": "Escritorio",
+      "device_mobile": "Móvil",
+      "preview_language": "Idioma de la vista previa",
+      "preview_label": "Vista previa de la tienda",
+      "preview_off_title": "La vista previa está desactivada",
+      "preview_off_body": "Define THEME_PREVIEW_SECRET (un texto aleatorio de al menos 16 caracteres) en el entorno de las dos apps y reinícialas. Tus cambios se siguen guardando.",
+      "fields": {
+        "heading": "Título",
+        "subtitle": "Subtítulo",
+        "body": "Texto",
+        "image_url": "Imagen",
+        "image_hint": "Un enlace a una imagen (https://…) o una ruta de tu tienda, como /images/portada.jpg.",
+        "primary_button": "Botón principal",
+        "secondary_button": "Segundo botón",
+        "button": "Botón",
+        "button_label": "Texto",
+        "button_href": "Enlace",
+        "button_hint": "Una página de tu tienda (/shop, /about) o una dirección completa. Deja el texto vacío para ocultar el botón.",
+        "alignment": "Alineación del texto",
+        "alignment_center": "Centrado",
+        "alignment_left": "Izquierda",
+        "size": "Altura",
+        "size_medium": "Media",
+        "size_large": "Grande",
+        "image_position": "Posición de la imagen",
+        "position_left": "Izquierda",
+        "position_right": "Derecha",
+        "categories": "Categorías",
+        "categories_hint": "Sin selección: las primeras categorías principales.",
+        "limit": "Cuántos",
+        "source": "Productos",
+        "source_featured": "Productos destacados",
+        "source_newest": "Productos más nuevos",
+        "source_category": "Una categoría",
+        "category": "Categoría",
+        "choose_category": "Elige una categoría",
+        "show_view_all": "Mostrar el enlace “Ver todo”",
+        "body_hint": "Deja una línea en blanco entre párrafos. Las líneas que empiezan por “- ” forman una lista.",
+        "no_settings": "Esta sección se crea con los ajustes de tu tienda (envíos, devoluciones y formas de pago).",
+        "faq_items": "Preguntas",
+        "add_question": "Añadir pregunta",
+        "remove_item": "Quitar",
+        "question": "Pregunta",
+        "answer": "Respuesta",
+        "columns": "Columnas",
+        "images": "Imágenes",
+        "add_image": "Añadir imagen",
+        "caption": "Pie de foto",
+        "video_url": "Enlace del vídeo",
+        "video_hint": "Un enlace de YouTube o Vimeo, o la dirección de un archivo de vídeo (mp4, webm).",
+        "size_small": "Pequeño",
+        "show_divider": "Mostrar una línea",
+        "eyebrow": "Texto pequeño sobre el título",
+        "show_details": "Mostrar los datos de contacto junto al formulario",
+        "show_details_hint": "Email, teléfono y dirección de Ajustes → General.",
+        "product_main_hint": "Fotos, precio, tallas y el botón de añadir al carrito. Muévelo y añade secciones arriba o abajo.",
+        "show_assurances": "Mostrar envíos, devoluciones y formas de pago",
+        "collection": "Colección",
+        "choose_collection": "Elige una colección",
+        "source_collection": "Una colección"
+      },
+      "settings": {
+        "colors": "Colores",
+        "light": "Modo claro",
+        "dark": "Modo oscuro",
+        "color_background": "Fondo",
+        "color_foreground": "Texto",
+        "color_primary": "Botones y acentos",
+        "color_muted": "Superficies suaves",
+        "contrast_warning": "El texto puede leerse mal sobre este fondo (contraste {ratio}:1, lo ideal es al menos 4,5:1).",
+        "typography": "Tipografía",
+        "heading_font": "Títulos",
+        "body_font": "Texto",
+        "uppercase": "Títulos en mayúsculas",
+        "shape": "Forma",
+        "radius": "Esquinas",
+        "radius_none": "Rectas",
+        "radius_small": "Poco redondeadas",
+        "radius_medium": "Redondeadas",
+        "radius_large": "Muy redondeadas",
+        "buttons": "Botones",
+        "buttons_solid": "Rellenos",
+        "buttons_pill": "Píldora",
+        "buttons_outline": "Con borde",
+        "header": "Cabecera",
+        "header_layout": "Diseño",
+        "layout_inline": "Logo a la izquierda, menú al lado",
+        "layout_centered": "Logo centrado, menú debajo",
+        "layout_inverted": "Barra oscura, logo a la izquierda",
+        "utility_bar": "Barra de contacto sobre la cabecera",
+        "utility_bar_hint": "Muestra el teléfono y el email de Ajustes → General.",
+        "announcement": "Barra de anuncios",
+        "announcement_hint": "Déjala vacía para mostrar el mensaje de envío gratis (si está activo).",
+        "product_card": "Tarjetas de producto",
+        "card_plain": "Sencillas",
+        "card_framed": "Enmarcadas",
+        "card_minimal": "Mínimas",
+        "card_bold": "Marcadas",
+        "logo_hint": "El logo y el favicon están en Ajustes → General."
+      },
+      "tab_navigation": "Navegación",
+      "page_label": "Página que editar",
+      "pages": {
+        "home": "Página de inicio",
+        "product": "Página de producto",
+        "about": "Sobre nosotros",
+        "contact": "Contacto"
+      },
+      "theme_pages": "Páginas del tema",
+      "custom_pages": "Tus páginas",
+      "custom_page_hint": "Las páginas se guardan mientras escribes y no forman parte del tema. Publícalas u ocúltalas en Tienda online → Páginas.",
+      "navigation": {
+        "live_hint": "Los menús se guardan mientras escribes y se publican al momento, para todos los temas.",
+        "header_menu": "Menú de la cabecera",
+        "header_automatic": "Aún no hay menú: la tienda muestra “Ver todo” y tus categorías principales.",
+        "menu_items": "Enlaces del menú",
+        "add_link": "Añadir enlace",
+        "add_sublink": "Añadir un enlace al submenú",
+        "submenu": "Submenú (opcional)",
+        "remove_link": "Quitar enlace",
+        "link_label": "Texto",
+        "link_href": "Enlace",
+        "link_hint": "Empieza a escribir para elegir una página o categoría, o pega una dirección completa.",
+        "footer": "Pie de página",
+        "footer_about": "Texto bajo el nombre de la tienda",
+        "footer_about_hint": "Déjalo vacío para usar la descripción de la tienda de Ajustes → General.",
+        "footer_automatic": "Aún no hay columnas: el pie muestra una columna Tienda y otra Ayuda.",
+        "footer_columns": "Columnas",
+        "add_column": "Añadir columna",
+        "column_title": "Título de la columna",
+        "column_links": "Enlaces",
+        "show_contact": "Mostrar datos de contacto",
+        "show_payments": "Mostrar formas de pago",
+        "store_links": {
+          "shop": "Ver todo",
+          "newest": "Novedades",
+          "about": "Sobre nosotros",
+          "contact": "Contacto",
+          "account": "Cuenta",
+          "privacy": "Política de privacidad",
+          "terms": "Términos y condiciones"
+        }
+      },
+      "media": {
+        "upload": "Subir",
+        "uploading": "Subiendo…",
+        "uploaded": "Imagen subida.",
+        "library": "Elegir subida",
+        "library_title": "Imágenes subidas",
+        "library_body": "Elige una imagen que ya hayas subido. JPG, PNG, WebP o AVIF, hasta 10 MB.",
+        "library_empty": "Aún no hay imágenes subidas.",
+        "choose": "Usar {name}"
+      }
+    }
+  },
+  "custom_pages": {
+    "meta_title": "Páginas",
+    "title": "Páginas",
+    "subtitle": "Páginas extra para tu tienda, como una guía de tallas o un lookbook, hechas con las mismas secciones que tu tema.",
+    "add": "Añadir página",
+    "empty_title": "Aún no hay páginas",
+    "empty_body": "Crea una página y constrúyela en el editor de temas.",
+    "list_title": "Tus páginas",
+    "published": "Publicada",
+    "hidden": "Oculta",
+    "edited": "Editada el {date}",
+    "edit_content": "Editar contenido",
+    "more": "Más acciones",
+    "view": "Ver en la tienda",
+    "settings": "Ajustes",
+    "delete": "Eliminar",
+    "delete_title": "¿Eliminar {name}?",
+    "delete_body": "La página y su dirección dejan de funcionar. Los menús que enlazan a ella deben actualizarse.",
+    "deleted": "Página eliminada.",
+    "created": "Página creada. Añade su contenido ahora.",
+    "saved": "Página guardada.",
+    "settings_title": "Ajustes de la página",
+    "settings_body": "Nombre, dirección, visibilidad y texto para buscadores.",
+    "add_title": "Añadir página",
+    "add_body": "Empieza oculta: publícala cuando su contenido esté listo.",
+    "title_label": "Título",
+    "slug_label": "Dirección",
+    "slug_hint": "Minúsculas, números y guiones, como guia-de-tallas.",
+    "published_label": "Publicada",
+    "published_hint": "Las páginas ocultas solo se ven en el editor de temas.",
+    "seo_title": "Título para buscadores",
+    "seo_description": "Descripción para buscadores",
+    "seo_hint": "Déjalos vacíos para usar el título de la página.",
+    "add_submit": "Crear página"
+  },
+  "payments": {
+    "title": "Pagos",
+    "subtitle": "Elige cómo pueden pagar tus clientes. Verán los métodos activos en el pago, en este orden.",
+    "methods_title": "Métodos de pago",
+    "methods_hint": "Los métodos manuales (transferencia, pago en tienda…) crean el pedido sin pagar; lo marcas como pagado cuando llega el dinero.",
+    "add_manual": "Añadir método manual",
+    "add_stripe": "Añadir pago con tarjeta (Stripe)",
+    "new_manual_name": "Transferencia bancaria",
+    "types": {
+      "stripe": "Tarjeta (Stripe)",
+      "cash_on_delivery": "Contra reembolso",
+      "manual": "Manual"
+    },
+    "edit_hint": {
+      "stripe": "El nombre que ven los clientes para el pago con tarjeta.",
+      "cash_on_delivery": "Los clientes pagan al repartidor cuando llega el pedido.",
+      "manual": "Los clientes pagan fuera de la tienda, por ejemplo por transferencia."
+    },
+    "name": "Nombre en el pago",
+    "instructions": "Instrucciones",
+    "instructions_hint": {
+      "stripe": "",
+      "cash_on_delivery": "Se muestran en el pago y en la página de agradecimiento.",
+      "manual": "Se muestran en el pago, en la página de agradecimiento y en el email de confirmación: datos bancarios, concepto…"
+    },
+    "fee": "Recargo",
+    "fee_hint": "Se suma al total del pedido al elegir este método. 0 = ninguno.",
+    "fee_value": "Recargo de {amount}",
+    "apply": "Aplicar",
+    "edit": "Editar",
+    "remove": "Quitar",
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "enabled": "{name} activo",
+    "saved": "Métodos de pago guardados.",
+    "stripe": {
+      "title": "Stripe",
+      "description": "Pagos con tarjeta, Apple Pay y Google Pay con Stripe Checkout.",
+      "connected": "Conectado",
+      "not_connected": "Sin conectar",
+      "needs_keys": "Faltan las claves de Stripe",
+      "publishable_key": "Clave publicable",
+      "publishable_hint": "Stripe → Desarrolladores → Claves de API. Empieza por pk_test_ o pk_live_.",
+      "secret_key": "Clave secreta",
+      "webhook_secret": "Secreto de firma del webhook",
+      "not_set": "Aún no está definida.",
+      "saved_hint": "Guardada (cifrada). Escribe una nueva para sustituirla.",
+      "from_env": "Definida en el servidor (variable de entorno).",
+      "webhook_title": "Webhook",
+      "webhook_steps": "En Stripe → Desarrolladores → Webhooks, añade un endpoint con esta dirección y pega abajo su secreto de firma.",
+      "webhook_events": "Eventos:",
+      "copy": "Copiar dirección",
+      "save": "Guardar claves de Stripe",
+      "saved": "Claves de Stripe guardadas.",
+      "encryption_missing": "Para guardar claves secretas aquí, define SETTINGS_ENCRYPTION_KEY (16+ caracteres aleatorios) en el entorno del admin y de la tienda."
+    }
+  },
+  "email_sending": {
+    "title": "Envío de emails",
+    "subtitle": "El servidor de correo desde el que tu tienda envía los emails de pedidos.",
+    "configured": "Configurado",
+    "not_configured": "Sin configurar",
+    "server_title": "Servidor SMTP",
+    "server_hint": "Lo da tu proveedor de correo (Gmail, Outlook, tu hosting, Brevo, Mailgun…).",
+    "host": "Servidor",
+    "port": "Puerto",
+    "security": "Cifrado",
+    "security_options": {
+      "starttls": "STARTTLS (normalmente puerto 587)",
+      "tls": "SSL/TLS (normalmente puerto 465)",
+      "none": "Ninguno (solo pruebas)"
+    },
+    "username": "Usuario",
+    "password": "Contraseña",
+    "password_saved": "Guardada (cifrada). Escribe una nueva para sustituirla.",
+    "password_not_set": "Aún no está definida.",
+    "password_env": "Definida en el servidor (SMTP_PASSWORD).",
+    "encryption_missing": "Para guardar la contraseña aquí, define SETTINGS_ENCRYPTION_KEY (16+ caracteres aleatorios) en el entorno del admin y de la tienda.",
+    "sender_title": "Remitente",
+    "sender_hint": "Lo que ven los clientes en su bandeja. Usa una dirección desde la que tu servidor pueda enviar.",
+    "from_name": "Nombre (vacío = nombre de la tienda)",
+    "from_email": "Dirección de email",
+    "save": "Guardar",
+    "saved": "Ajustes de email guardados.",
+    "test_title": "Enviar un email de prueba",
+    "test_hint": "Usa los ajustes guardados.",
+    "test_to": "Enviar a",
+    "test_send": "Enviar prueba",
+    "test_sent": "Email de prueba enviado a {email}."
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "subtitle": "Los emails que envía tu tienda y cuándo. Edita su texto en cada idioma.",
+    "smtp_missing": "Aún no se envían emails: configura primero el servidor de correo.",
+    "smtp_link": "Envío de emails",
+    "customer_title": "Emails",
+    "customer_hint": "Desactiva un email para dejar de enviarlo.",
+    "edit": "Editar",
+    "view": "Ver",
+    "enabled": "{name} activo",
+    "subject": "Asunto",
+    "body": "Mensaje",
+    "body_hint": "Texto sin formato. Una línea en blanco empieza un párrafo nuevo. Se omiten las líneas con un marcador vacío. Los emails de pedidos añaden abajo los artículos y totales.",
+    "placeholders": "Marcadores",
+    "preview": "Vista previa",
+    "preview_language": "Idioma de la vista previa",
+    "send_test": "Enviarme una prueba",
+    "test_sent": "Prueba enviada a {email}.",
+    "reset": "Volver al texto predeterminado",
+    "staff_title": "Avisos al equipo",
+    "staff_hint": "Quién recibe el email de «Nuevo pedido».",
+    "staff_recipients": "Direcciones de email (separadas por comas)",
+    "invalid_emails": "Alguna no es una dirección de email válida.",
+    "log_title": "Registro de emails",
+    "log_hint": "Los últimos emails enviados por la tienda.",
+    "log_empty": "Aún no hay emails.",
+    "log_status": {
+      "sent": "Enviado",
+      "failed": "Error",
+      "skipped": "No enviado"
+    },
+    "saved": "Notificaciones guardadas.",
+    "templates": {
+      "order_confirmation": {
+        "title": "Confirmación del pedido",
+        "when": "Al cliente, cuando hace un pedido."
+      },
+      "payment_received": {
+        "title": "Pago recibido",
+        "when": "Al cliente, cuando un pedido sin pagar se marca como pagado."
+      },
+      "order_shipped": {
+        "title": "Pedido enviado",
+        "when": "Al cliente, cuando sale el pedido (con seguimiento)."
+      },
+      "order_delivered": {
+        "title": "Pedido entregado",
+        "when": "Al cliente, cuando el pedido se marca como entregado."
+      },
+      "order_cancelled": {
+        "title": "Pedido cancelado",
+        "when": "Al cliente, cuando se cancela el pedido."
+      },
+      "order_refunded": {
+        "title": "Reembolso",
+        "when": "Al cliente, cuando se reembolsa el pedido."
+      },
+      "draft_invoice": {
+        "title": "Factura de borrador",
+        "when": "Al cliente, desde un borrador de pedido, con un enlace de pago."
+      },
+      "staff_new_order": {
+        "title": "Nuevo pedido (equipo)",
+        "when": "A las direcciones del equipo de abajo, cuando entra un pedido."
+      },
+      "abandoned_checkout": {
+        "title": "Pago abandonado",
+        "when": "Al cliente, cuando dejó el pago sin hacer el pedido."
+      },
+      "gift_card": {
+        "title": "Tarjeta regalo",
+        "when": "Al comprador (o a quien se la emitas), con el código."
+      }
+    },
+    "placeholder_labels": {
+      "store_name": "Nombre de la tienda",
+      "customer_name": "Nombre del cliente",
+      "order_number": "Número de pedido",
+      "order_total": "Total del pedido",
+      "order_link": "Enlace al pedido",
+      "payment_method": "Método de pago",
+      "payment_instructions": "Cómo pagar (métodos manuales)",
+      "shipping_method": "Método de envío",
+      "tracking_number": "Número de seguimiento",
+      "tracking_link": "Enlace de seguimiento",
+      "carrier": "Transportista",
+      "invoice_link": "Enlace de pago (borradores)",
+      "checkout_link": "Enlace de vuelta al pago",
+      "refund_amount": "Importe reembolsado",
+      "gift_card_code": "Código de la tarjeta regalo",
+      "gift_card_balance": "Valor de la tarjeta regalo",
+      "gift_card_expires": "Caducidad de la tarjeta regalo"
+    },
+    "abandoned_title": "Pagos abandonados",
+    "abandoned_hint": "Recuerda a los clientes que escribieron su email en el pago pero no pidieron.",
+    "abandoned_delay": "Enviar automáticamente tras (horas)",
+    "abandoned_delay_hint": "0 = solo a mano, desde Pedidos → Pagos abandonados. El envío automático necesita la tarea cron (ver la guía de despliegue)."
+  },
+  "inventory": {
+    "title": "Inventario",
+    "subtitle": "Stock de cada variante. Stock bajo significa {threshold} o menos (Ajustes → Datos de la tienda).",
+    "views": {
+      "all": "Todo",
+      "low": "Stock bajo",
+      "out": "Agotado"
+    },
+    "search_placeholder": "Buscar por producto, SKU, talla o color",
+    "columns": {
+      "product": "Producto",
+      "sku": "SKU",
+      "status": "",
+      "available": "Disponible"
+    },
+    "results": {
+      "one": "{count} variante",
+      "other": "{count} variantes"
+    },
+    "empty": "Ninguna variante coincide.",
+    "default_variant": "Predeterminada",
+    "low_stock": "Stock bajo",
+    "out_of_stock": "Agotado",
+    "inactive": "Oculta",
+    "available_for": "Disponible: {name}",
+    "adjust": "Ajustar",
+    "history": "Historial",
+    "history_empty": "Aún no hay cambios.",
+    "current": "En stock ahora",
+    "mode": "Cambio",
+    "mode_add": "Añadir o quitar",
+    "mode_set": "Fijar en",
+    "quantity_add": "Cantidad (negativa quita)",
+    "quantity_set": "Nuevo stock",
+    "reason": "Motivo",
+    "note": "Nota",
+    "reasons": {
+      "received": "Recibido",
+      "correction": "Corrección",
+      "damaged": "Dañado",
+      "returned": "Devuelto",
+      "other": "Otro",
+      "order": "Pedido",
+      "restock": "Repuesto de un pedido",
+      "draft_order": "Borrador de pedido"
+    },
+    "new_stock": "Nuevo stock: {stock}",
+    "stock_after": "→ {stock}",
+    "save": "Guardar",
+    "saved": "Stock actualizado."
+  },
+  "draft_orders": {
+    "title": "Borradores",
+    "create": "Crear pedido",
+    "all": "Todos",
+    "status": {
+      "open": "Abierto",
+      "invoice_sent": "Factura enviada",
+      "completed": "Completado"
+    },
+    "columns": {
+      "draft": "Borrador",
+      "date": "Fecha",
+      "customer": "Cliente",
+      "status": "Estado",
+      "total": "Total"
+    },
+    "search_placeholder": "Buscar por número, nombre o email",
+    "results": {
+      "one": "{count} borrador",
+      "other": "{count} borradores"
+    },
+    "empty_title": "Crea pedidos a mano",
+    "empty_body": "Para pedidos por teléfono o en tienda, mayoristas o un artículo a medida: envía al cliente una factura para pagar online, o márcalo como pagado.",
+    "products": "Productos",
+    "search_products": "Buscar productos",
+    "no_products": "No se encontraron productos.",
+    "in_stock": "{stock} en stock",
+    "custom_item": "Añadir artículo personalizado",
+    "custom_item_hint": "Un artículo que no está en el catálogo. No cambia el stock.",
+    "item_name": "Nombre del artículo",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "add_item": "Añadir artículo",
+    "custom_line": "Artículo personalizado",
+    "no_lines": "Aún no hay artículos. Busca un producto o añade uno personalizado.",
+    "not_available": "Ya no está disponible en esta cantidad",
+    "quantity_for": "Cantidad: {name}",
+    "remove_line": "Quitar {name}",
+    "shipping_and_discount": "Envío y descuento",
+    "own_shipping_price": "Precio de envío propio",
+    "discount": "Descuento",
+    "no_discount": "Sin descuento",
+    "discount_percent": "Porcentaje",
+    "discount_fixed": "Importe fijo",
+    "discount_value": "Valor",
+    "discount_reason": "Motivo",
+    "payment": "Pago",
+    "totals_after_save": "Los totales se actualizan al guardar.",
+    "invoice_link": "Enlace de la factura",
+    "copy_link": "Copiar enlace",
+    "customer": "Cliente",
+    "search_customers": "Buscar clientes",
+    "no_customers": "No se encontraron clientes.",
+    "linked_account": "Vinculado a la cuenta del cliente.",
+    "unlink": "Desvincular",
+    "customer_name": "Nombre",
+    "language": "Idioma",
+    "language_hint": "Para la factura y los emails del pedido.",
+    "shipping_address": "Dirección de envío",
+    "add_address": "Añadir dirección",
+    "clear": "Quitar",
+    "note": "Nota",
+    "send_invoice": "Enviar factura",
+    "resend_invoice": "Reenviar factura",
+    "invoice_sent": "Factura enviada a {email}.",
+    "smtp_missing": "Configura primero el envío de emails (Ajustes → Envío de emails).",
+    "payment_pending": "Pago pendiente",
+    "mark_paid": "Marcar como pagado",
+    "completed": "Pedido creado.",
+    "completed_note": "Este borrador se convirtió en el pedido",
+    "save_first": "Guarda los cambios antes de enviar la factura o crear el pedido.",
+    "saved": "Borrador guardado.",
+    "delete": "Eliminar borrador",
+    "delete_title": "¿Eliminar este borrador?",
+    "delete_body": "El borrador y su enlace de factura dejan de funcionar. No se puede deshacer."
+  },
+  "discounts": {
+    "title": "Descuentos",
+    "new_title": "Nuevo descuento",
+    "create": "Crear descuento",
+    "all": "Todos",
+    "status": {
+      "active": "Activo",
+      "scheduled": "Programado",
+      "expired": "Caducado",
+      "used_up": "Agotado",
+      "disabled": "Desactivado"
+    },
+    "columns": {
+      "code": "Código",
+      "status": "Estado",
+      "value": "Descuento",
+      "used": "Usos"
+    },
+    "search_placeholder": "Buscar por código o nombre",
+    "results": {
+      "one": "{count} descuento",
+      "other": "{count} descuentos"
+    },
+    "empty_title": "Da un código a tus clientes",
+    "empty_body": "Porcentaje, importe fijo o envío gratis, para todo el pedido o algunos productos, con fechas y límites.",
+    "types": {
+      "percent": "Porcentaje",
+      "fixed": "Importe fijo",
+      "free_shipping": "Envío gratis"
+    },
+    "value_off": "{amount} de descuento",
+    "code_title": "Código de descuento",
+    "code_hint": "Los clientes lo escriben en el pago. Letras, números, - y _.",
+    "code": "Código",
+    "generate": "Generar",
+    "internal_title": "Nombre (opcional)",
+    "internal_title_hint": "Solo lo ve el equipo, p. ej. «Rebajas de verano».",
+    "value_title": "Valor",
+    "type": "Tipo",
+    "percent": "Porcentaje (1–100)",
+    "amount": "Importe",
+    "applies_to": "Se aplica a",
+    "applies": {
+      "all": "Todo el pedido",
+      "products": "Productos concretos",
+      "categories": "Categorías concretas"
+    },
+    "search_products": "Buscar productos",
+    "remove_target": "Quitar {name}",
+    "requirements_title": "Requisitos y límites",
+    "minimum": "Subtotal mínimo del pedido",
+    "usage_limit": "Limitar el número total de usos",
+    "once_per_customer": "Un uso por cliente (por email)",
+    "dates_title": "Fechas activas",
+    "dates_hint": "Las horas están en la zona horaria de la tienda ({zone}).",
+    "starts_at": "Empieza",
+    "starts_at_hint": "Vacío = ya.",
+    "ends_at": "Termina",
+    "ends_at_hint": "Vacío = sin fecha de fin.",
+    "summary_title": "Resumen",
+    "summary": {
+      "whole_order": "En todo el pedido",
+      "products": {
+        "one": "En {count} producto",
+        "other": "En {count} productos"
+      },
+      "categories": {
+        "one": "En {count} categoría",
+        "other": "En {count} categorías"
+      },
+      "minimum": "Pedido mínimo {amount}",
+      "no_minimum": "Sin mínimo",
+      "limit": "{count} usos en total",
+      "no_limit": "Sin límite de usos",
+      "once_per_customer": "Una vez por cliente"
+    },
+    "used": "Usado {count} veces",
+    "created": "Creado el {date}",
+    "status_title": "Estado",
+    "is_active": "Activo",
+    "invalid": {
+      "code": "3–50 caracteres: letras, números, - y _.",
+      "value": "Escribe un valor (porcentajes de 1 a 100).",
+      "applies_to": "Elige al menos uno.",
+      "ends_at": "El fin debe ser posterior al inicio."
+    },
+    "saved": "Descuento guardado.",
+    "delete": "Eliminar descuento",
+    "delete_title": "¿Eliminar este descuento?",
+    "delete_body": "El código deja de funcionar en el pago. Los pedidos anteriores conservan su descuento. No se puede deshacer."
+  },
+  "abandoned": {
+    "title": "Pagos abandonados",
+    "subtitle": "Clientes que escribieron su email en el pago hace al menos una hora y no pidieron.",
+    "views": {
+      "all": "Todos",
+      "not_sent": "Sin recordatorio",
+      "sent": "Con recordatorio"
+    },
+    "columns": {
+      "customer": "Cliente",
+      "date": "Abandonado",
+      "recovery": "Recordatorio",
+      "total": "Total"
+    },
+    "search_placeholder": "Buscar por email",
+    "results": {
+      "one": "{count} pago",
+      "other": "{count} pagos"
+    },
+    "empty": "No hay pagos abandonados.",
+    "recovery_sent": "Enviado {date}",
+    "recovery_not_sent": "No enviado",
+    "send": "Enviar recordatorio",
+    "send_again": "Enviar de nuevo",
+    "sent_toast": "Recordatorio enviado a {email}.",
+    "smtp_missing": "Aún no se pueden enviar recordatorios: configura primero el servidor de correo.",
+    "smtp_link": "Envío de emails",
+    "automatic_on": "Los recordatorios también salen solos {hours} h después de escribir el email.",
+    "automatic_off": "Los recordatorios solo se envían a mano.",
+    "automatic_link": "Cambiar en Notificaciones"
+  },
+  "tracking": {
+    "title": "Seguimiento",
+    "subtitle": "Mide visitas y anuncios. Cada etiqueta espera el consentimiento de cookies del visitante.",
+    "google_title": "Google",
+    "google_hint": "Google Tag Manager, Google Analytics 4 y Google Ads.",
+    "meta_title": "Meta (Facebook e Instagram)",
+    "meta_hint": "El Pixel en el navegador y la API de Conversiones desde el servidor, con el mismo id de evento para que Meta cuente cada evento una vez.",
+    "fields": {
+      "gtm_id": "Contenedor de Google Tag Manager",
+      "google_tag_id": "Etiqueta de Google (GA4 o Ads)",
+      "google_ads_conversion": "Conversión de compra de Google Ads",
+      "meta_pixel_id": "Id del Pixel de Meta"
+    },
+    "hints": {
+      "gtm_id": "Usa GTM o la etiqueta de Google, no ambos para las mismas etiquetas.",
+      "google_tag_id": "Un id de Google Analytics 4 (G-…) o de Google Ads (AW-…).",
+      "google_ads_conversion": "En Google Ads → Objetivos → Conversiones → tu acción de compra → Configuración de la etiqueta.",
+      "meta_pixel_id": "En Meta Events Manager → Orígenes de datos."
+    },
+    "placeholders": {
+      "gtm_id": "GTM-XXXXXXX",
+      "google_tag_id": "G-XXXXXXXXXX",
+      "google_ads_conversion": "AW-123456789/AbC-dEfGh",
+      "meta_pixel_id": "123456789012345"
+    },
+    "capi_token": "Token de acceso de la API de Conversiones",
+    "capi_saved": "Guardado (cifrado). Escribe uno nuevo para sustituirlo.",
+    "capi_not_set": "Sin definir: solo se usa el Pixel del navegador.",
+    "capi_from_env": "Definido en el servidor (META_CAPI_TOKEN).",
+    "capi_on": "API de Conversiones activa",
+    "encryption_missing": "Para guardar el token aquí, define SETTINGS_ENCRYPTION_KEY (16+ caracteres aleatorios) en el entorno del admin y de la tienda.",
+    "consent_note": "Las etiquetas de estadísticas se cargan cuando el visitante acepta las cookies de estadísticas; Meta y Google Ads cuando acepta las de marketing. Los pedidos guardan de dónde vino el cliente (UTM e ids de clic).",
+    "invalid": "No parece un id válido.",
+    "save": "Guardar",
+    "saved": "Ajustes de seguimiento guardados."
+  },
+  "analytics": {
+    "title": "Analítica",
+    "subtitle": "Ventas, pedidos y clientes, comparados con el periodo anterior.",
+    "range": "Periodo",
+    "from": "Desde",
+    "to": "Hasta",
+    "ranges": {
+      "today": "Hoy",
+      "last_7": "Últimos 7 días",
+      "last_30": "Últimos 30 días",
+      "last_90": "Últimos 90 días",
+      "this_month": "Este mes",
+      "last_month": "Mes pasado",
+      "this_year": "Este año",
+      "custom": "Personalizado"
+    },
+    "period": "{from} – {to} ({zone}). No se cuentan los pedidos cancelados ni reembolsados.",
+    "tiles": {
+      "sales": "Ventas",
+      "orders": "Pedidos",
+      "average_order": "Pedido medio",
+      "customers": "Clientes",
+      "returning_rate": "Clientes recurrentes",
+      "conversion_rate": "Conversión del pago",
+      "discounts": "Descuentos"
+    },
+    "vs_previous": "{change} frente al periodo anterior",
+    "no_previous": "Sin datos anteriores",
+    "sales_over_time": "Ventas en el tiempo",
+    "orders_over_time": "Pedidos en el tiempo",
+    "current": "Este periodo",
+    "previous": "Periodo anterior",
+    "date": "Fecha",
+    "show_table": "Tabla",
+    "show_chart": "Gráfico",
+    "top_products": "Productos más vendidos",
+    "by_category": "Ventas por categoría",
+    "discount_usage": "Códigos de descuento usados",
+    "sold": "{count} vendidos",
+    "no_category": "Sin categoría",
+    "code": "Código",
+    "empty": "No hay ventas en este periodo."
+  },
+  "refund": {
+    "title": "Reembolso",
+    "items": "Artículos",
+    "already": "{count} ya reembolsados",
+    "quantity_for": "Cantidad a reembolsar: {name}",
+    "shipping": "Envío",
+    "amount": "Importe a reembolsar",
+    "amount_hint": "Hasta {max}. Se rellena con los artículos elegidos; puedes cambiarlo.",
+    "reason": "Motivo (solo lo ve el equipo)",
+    "restock": "Devolver los artículos al stock",
+    "notify": "Enviar email al cliente",
+    "card_note": "Pago con tarjeta: el importe vuelve a la tarjeta a través de Stripe.",
+    "manual_note": "No es un pago con tarjeta: devuelve tú el dinero (efectivo, transferencia). Esto solo lo registra.",
+    "submit": "Reembolsar {amount}",
+    "done": "Reembolsado {amount}.",
+    "history": "Reembolsos",
+    "refunded_total": "Reembolsado",
+    "restocked": "devuelto al stock",
+    "gift_card_split": "{gift_card} vuelve a la tarjeta regalo que pagó parte de este pedido; {money} se reembolsa en dinero."
+  },
+  "collections": {
+    "title": "Colecciones",
+    "subtitle": "Grupos de productos con su propia página: «Verano», «Rebajas», «Regalos por menos de 50 €».",
+    "new_title": "Nueva colección",
+    "create": "Crear colección",
+    "columns": {
+      "title": "Colección",
+      "kind": "Tipo",
+      "status": "Estado",
+      "products": "Productos"
+    },
+    "kinds": {
+      "manual": "Elegidos a mano",
+      "automatic": "Automática (reglas)"
+    },
+    "published": "Visible en la tienda",
+    "hidden": "Oculta",
+    "product_count": {
+      "one": "{count} producto",
+      "other": "{count} productos"
+    },
+    "empty_title": "Agrupa tus productos",
+    "empty_body": "Elige los productos a mano o deja que las reglas llenen la colección (una etiqueta, una categoría, en rebajas, un precio).",
+    "fields": {
+      "title": "Título",
+      "description": "Descripción",
+      "slug": "Identificador de URL",
+      "kind": "Productos",
+      "sort": "Ordenar productos por"
+    },
+    "products_title": "Productos",
+    "kind_hint": "Las colecciones automáticas se actualizan solas cuando cambian los productos.",
+    "match_label": "Los productos deben cumplir",
+    "match": {
+      "all": "todas las condiciones",
+      "any": "alguna condición"
+    },
+    "rule_field": "Campo",
+    "rule_operator": "Condición",
+    "rule_value": "Valor",
+    "rule_fields": {
+      "tag": "Etiqueta",
+      "category": "Categoría",
+      "price": "Precio",
+      "on_sale": "En rebajas",
+      "in_stock": "En stock"
+    },
+    "rule_operators": {
+      "is": "es",
+      "is_not": "no es",
+      "greater_than": "es mayor que",
+      "less_than": "es menor que"
+    },
+    "add_rule": "Añadir condición",
+    "remove_rule": "Quitar condición",
+    "choose_category": "Elige una categoría",
+    "yes": "Sí",
+    "no": "No",
+    "tag_placeholder": "p. ej. verano",
+    "search_products": "Busca productos para añadir",
+    "no_products": "Aún no hay productos. Busca arriba para añadirlos.",
+    "not_live": "no visible en la tienda",
+    "move_up": "Subir",
+    "move_down": "Bajar",
+    "remove_product": "Quitar de la colección",
+    "sorts": {
+      "manual": "Tu orden",
+      "newest": "Más nuevos primero",
+      "price_asc": "Precio, de menor a mayor",
+      "price_desc": "Precio, de mayor a menor",
+      "title": "Nombre, A–Z"
+    },
+    "status_title": "Estado",
+    "image_title": "Imagen",
+    "upload": "Subir imagen",
+    "remove_image": "Quitar",
+    "saved": "Colección guardada.",
+    "delete": "Eliminar colección",
+    "delete_title": "¿Eliminar esta colección?",
+    "delete_body": "Su página en la tienda deja de funcionar. Los productos se mantienen. No se puede deshacer."
+  },
+  "gift_cards": {
+    "title": "Tarjetas regalo",
+    "subtitle": "Se venden como productos (marca un producto como tarjeta regalo) o se emiten aquí. Los clientes las usan en el campo del código de descuento al pagar.",
+    "issue": "Emitir tarjeta regalo",
+    "issue_hint": "Un código nuevo con este valor. Puedes enviarlo por email a un cliente.",
+    "views": {
+      "all": "Todas",
+      "active": "Activas",
+      "used": "Agotadas",
+      "expired": "Caducadas",
+      "disabled": "Desactivadas"
+    },
+    "status": {
+      "active": "Activa",
+      "used": "Agotada",
+      "expired": "Caducada",
+      "disabled": "Desactivada"
+    },
+    "columns": {
+      "code": "Código",
+      "status": "Estado",
+      "customer": "Cliente",
+      "expires": "Caduca",
+      "balance": "Saldo"
+    },
+    "search_placeholder": "Buscar por los últimos caracteres del código o por email",
+    "results": {
+      "one": "{count} tarjeta regalo",
+      "other": "{count} tarjetas regalo"
+    },
+    "empty_title": "Aún no hay tarjetas regalo",
+    "empty_body": "Emite una aquí o marca un producto como tarjeta regalo para que los clientes puedan comprarlas.",
+    "never": "Nunca",
+    "amount": "Valor",
+    "expires": "Caduca (opcional)",
+    "expires_hint": "Vacío = no caduca.",
+    "customer_email": "Email del cliente (opcional)",
+    "notify": "Enviar el código por email al cliente",
+    "note": "Nota (solo la ve el equipo)",
+    "issued": "Tarjeta regalo emitida. Copia el código ahora o búscalo aquí después.",
+    "copy": "Copiar código",
+    "card_title": "Tarjeta regalo",
+    "card_hint": "Saldo y cada vez que se usó.",
+    "initial_value": "Valor inicial",
+    "is_active": "Se puede usar",
+    "history": "Historial"
+  },
+  "reviews": {
+    "title": "Reseñas",
+    "subtitle": "Escritas por clientes que compraron el producto. Una reseña aparece en la página del producto cuando la apruebas.",
+    "views": {
+      "pending": "Por revisar",
+      "approved": "Aprobadas",
+      "hidden": "Ocultas",
+      "all": "Todas"
+    },
+    "status": {
+      "pending": "Por revisar",
+      "approved": "Aprobada",
+      "hidden": "Oculta"
+    },
+    "columns": {
+      "review": "Reseña",
+      "rating": "Valoración",
+      "status": "Estado",
+      "customer": "Cliente",
+      "date": "Fecha"
+    },
+    "rated": "Valoración: {rating} de 5",
+    "search_placeholder": "Buscar reseñas, productos o emails",
+    "results": {
+      "one": "{count} reseña",
+      "other": "{count} reseñas"
+    },
+    "empty_title": "No hay reseñas aquí",
+    "empty_body": "Los clientes pueden reseñar un producto después de comprarlo. Las nuevas reseñas esperan aquí tu aprobación.",
+    "untitled": "Reseña",
+    "reply": "Respuesta de la tienda",
+    "reply_hint": "Se muestra bajo la reseña en la página del producto. Déjalo vacío para no responder.",
+    "save_reply": "Guardar respuesta",
+    "reply_saved": "Respuesta guardada",
+    "approve": "Aprobar",
+    "hide": "Ocultar",
+    "status_saved": "Reseña actualizada",
+    "delete_title": "¿Eliminar esta reseña?",
+    "delete_body": "La reseña se elimina definitivamente. El cliente podrá escribir una nueva.",
+    "deleted": "Reseña eliminada",
+    "delete": "Eliminar"
+  },
+  "api_keys": {
+    "title": "Claves de API",
+    "subtitle": "Permite que un asistente de IA como Claude trabaje con tu tienda. Una clave actúa como el miembro del equipo que la creó, con sus mismos permisos.",
+    "connect_title": "Conectar un asistente",
+    "connect_body": "Añade esta dirección como conector personalizado (servidor MCP) en tu asistente:",
+    "connect_header": "Envía la clave en la cabecera Authorization: Bearer <clave>. El asistente podrá consultar pedidos, productos, stock, clientes, descuentos y ventas, cambiar el estado y el seguimiento de los pedidos, añadir notas y ajustar el stock.",
+    "copy": "Copiar",
+    "keys_title": "Claves",
+    "empty": "Todavía no hay claves.",
+    "create": "Crear clave",
+    "create_hint": "Ponle un nombre para saber dónde se usa.",
+    "created_hint": "Copia la clave ahora. Por seguridad solo se muestra una vez.",
+    "name": "Nombre",
+    "name_placeholder": "Claude en mi portátil",
+    "name_hint": "Solo lo ve el equipo.",
+    "created": "creada {when}",
+    "last_used": "último uso {when}",
+    "never_used": "sin usar",
+    "revoked": "Revocada",
+    "revoke": "Revocar",
+    "revoke_title": "¿Revocar esta clave?",
+    "revoke_body": "Todo lo que use “{name}” dejará de funcionar de inmediato. No se puede deshacer.",
+    "revoked_toast": "Clave revocada"
+  }
+}

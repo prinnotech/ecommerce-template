@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@repo/backend-sqlite/*": ["./*"],
+      "@repo/backend-sql/*": ["../backend-sql/*"],
+      "@repo/core/*": ["../core/*"],
+      "@repo/ui/*": ["../ui/*"],
+      "@repo/backend-pocketbase/*": ["../backend-pocketbase/*"],
+      "@repo/backend-supabase/*": ["../backend-supabase/*"]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

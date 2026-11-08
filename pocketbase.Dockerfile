@@ -16,6 +16,6 @@ COPY pb_hooks /pb/pb_hooks
 
 EXPOSE 8090
 
-# Railway provides PORT; elsewhere it defaults to 8090. Migrations apply and
-# pb_hooks/bootstrap-admins.pb.js creates the superuser and store admin on start.
+# Railway provides PORT; elsewhere it defaults to 8090. Migrations apply on start, and
+# pb_migrations/1793059208_bootstrap_admins.js creates the superuser and store admin from env.
 CMD ["sh", "-c", "/pb/pocketbase serve --http=0.0.0.0:${PORT:-8090} --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations --hooksDir=/pb/pb_hooks"]

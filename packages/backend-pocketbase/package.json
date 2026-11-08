@@ -1,0 +1,6 @@
+{
+  "name": "@repo/backend-pocketbase",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PocketBase implementation of the backend contract in @repo/core/backend."
+}

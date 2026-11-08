@@ -1,0 +1,37 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"],
+      "@repo/core/*": ["../../packages/core/*"],
+      "@repo/ui/*": ["../../packages/ui/*"],
+      "@repo/backend-pocketbase/*": ["../../packages/backend-pocketbase/*"],
+      "@repo/backend-sql/*": ["../../packages/backend-sql/*"],
+      "@repo/backend-supabase/*": ["../../packages/backend-supabase/*"],
+      "@repo/backend-sqlite/*": ["../../packages/backend-sqlite/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts",
+    "../../packages/core/**/*.ts",
+    "../../packages/core/**/*.tsx",
+    "../../packages/ui/**/*.ts",
+    "../../packages/ui/**/*.tsx",
+    "../../packages/backend-pocketbase/**/*.ts",
+    "../../packages/backend-sql/**/*.ts",
+    "../../packages/backend-supabase/**/*.ts",
+    "../../packages/backend-sqlite/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

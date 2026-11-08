@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@repo/backend-pocketbase/*": ["./*"],
+      "@repo/core/*": ["../core/*"],
+      "@repo/ui/*": ["../ui/*"]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

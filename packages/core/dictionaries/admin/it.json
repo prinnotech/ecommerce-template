@@ -1,0 +1,2291 @@
+{
+  "dashboard": {
+    "meta_title": "Pannello",
+    "nav": {
+      "label": "Navigazione del pannello",
+      "home": "Home",
+      "settings": "Impostazioni",
+      "view_store": "Vedi negozio",
+      "sign_out": "Esci",
+      "account_menu": "Menu account",
+      "toggle_sidebar": "Mostra o nascondi barra laterale",
+      "products": "Prodotti",
+      "categories": "Categorie",
+      "orders": "Ordini",
+      "messages": "Messaggi",
+      "unread": {
+        "one": "{count} da leggere",
+        "other": "{count} da leggere"
+      },
+      "customers": "Clienti",
+      "import": "Importa",
+      "roles": "Ruoli",
+      "staff": "Personale",
+      "activity": "Attività",
+      "themes": "Negozio online",
+      "pages": "Pagine",
+      "inventory": "Magazzino",
+      "drafts": "Bozze",
+      "discounts": "Sconti",
+      "abandoned": "Checkout abbandonati",
+      "analytics": "Statistiche",
+      "collections": "Collezioni",
+      "gift_cards": "Carte regalo",
+      "reviews": "Recensioni"
+    },
+    "home": {
+      "title": "Home",
+      "welcome": "Bentornato, {name}.",
+      "settings_title": "Impostazioni del negozio",
+      "settings_body": "Nome, contatti, valuta, spedizioni, pagamenti e pagine legali.",
+      "products_title": "Prodotti",
+      "products_body": "Aggiungi prodotti, foto, taglie, colori e magazzino.",
+      "range_label": "Periodo",
+      "ranges": {
+        "last_7_days": "Ultimi 7 giorni",
+        "last_30_days": "Ultimi 30 giorni",
+        "last_90_days": "Ultimi 90 giorni"
+      },
+      "kpis": {
+        "gross_sales": "Vendite lorde",
+        "orders": "Ordini",
+        "average_order_value": "Valore medio ordine",
+        "to_fulfill": "Da evadere",
+        "to_fulfill_hint": "Ordini in attesa di spedizione",
+        "cod_to_collect": "Contanti da incassare",
+        "cod_to_collect_hint": "Contrassegno non ancora incassato",
+        "vs_previous": "rispetto al periodo precedente"
+      },
+      "chart": {
+        "title": "Vendite",
+        "description": "Vendite lorde al giorno, {range}.",
+        "orders": {
+          "one": "{count} ordine",
+          "other": "{count} ordini"
+        },
+        "table_date": "Data",
+        "table_sales": "Vendite",
+        "table_orders": "Ordini",
+        "empty": "Ancora nessuna vendita in questo periodo."
+      },
+      "recent_orders": "Ordini recenti",
+      "top_products": "Prodotti più venduti",
+      "sold": {
+        "one": "{count} venduto",
+        "other": "{count} venduti"
+      },
+      "low_stock": "Scorte basse",
+      "units_left": {
+        "one": "{count} rimasto",
+        "other": "{count} rimasti"
+      },
+      "no_low_stock": "Tutto ben rifornito.",
+      "no_orders": "Ancora nessun ordine.",
+      "view_all": "Vedi tutti",
+      "out_of_stock": "Esaurito",
+      "sizes_sold_out": {
+        "one": "{count} taglia esaurita",
+        "other": "{count} taglie esaurite"
+      },
+      "sizes_low": {
+        "one": "{count} taglia quasi esaurita",
+        "other": "{count} taglie quasi esaurite"
+      },
+      "unread_messages": "Messaggi non letti",
+      "unread_messages_hint": "In attesa di risposta"
+    }
+  },
+  "settings": {
+    "meta_title": "Impostazioni",
+    "title": "Impostazioni",
+    "subtitle": "Tutto ciò che del tuo negozio cambia senza toccare il codice.",
+    "read_only": "Puoi vedere queste impostazioni ma non modificarle.",
+    "categories": {
+      "general": "Generale",
+      "contact": "Contatti",
+      "localization": "Lingua e regione",
+      "shipping": "Spedizione",
+      "taxes": "Tasse",
+      "payments": "Pagamenti",
+      "content": "Pagine",
+      "storefront": "Negozio",
+      "domains": "Domini"
+    },
+    "sections": {
+      "general": "Dati del negozio",
+      "languages": "Lingue",
+      "shipping": "Spedizione",
+      "taxes": "Tasse",
+      "payments": "Pagamenti",
+      "legal": "Note legali",
+      "domains": "Domini",
+      "staff": "Team",
+      "roles": "Ruoli",
+      "activity": "Attività",
+      "notifications": "Notifiche",
+      "email": "Invio email",
+      "profile": "Profilo",
+      "tracking": "Tracciamento",
+      "api_keys": "Chiavi API"
+    },
+    "saved_all": "Impostazioni salvate.",
+    "assets": {
+      "empty": "Nessuna immagine",
+      "upload": "Carica immagine",
+      "replace": "Sostituisci",
+      "remove": "Rimuovi"
+    },
+    "saved": "{setting} salvato.",
+    "reset": "Ripristina predefinito",
+    "reset_done": "{setting} ripristinato al valore predefinito.",
+    "updated_at": "Aggiornato il {date}",
+    "invalid": "Questo valore non è valido. Controlla il formato e riprova.",
+    "long_text_hint": "Testo semplice. Separa i paragrafi con una riga vuota. Inizia una riga con ## per un titolo o con - per un elemento di elenco.",
+    "shipping_rates": {
+      "rate_legend": "Tariffa di spedizione {number}",
+      "name": "Nome",
+      "price": "Prezzo",
+      "min_days": "Giorni min.",
+      "max_days": "Giorni max.",
+      "add": "Aggiungi tariffa di spedizione",
+      "remove": "Rimuovi tariffa di spedizione"
+    },
+    "items": {
+      "site_name": {
+        "label": "Nome del negozio",
+        "description": "Mostrato nell'intestazione, nei titoli delle pagine, nelle email e nel pannello."
+      },
+      "site_description": {
+        "label": "Descrizione del negozio",
+        "description": "Breve frase per motori di ricerca e anteprime dei link."
+      },
+      "site_logo_url": {
+        "label": "Logo",
+        "description": "Immagine mostrata nell'intestazione al posto del nome. Lascia vuoto per usare il nome."
+      },
+      "site_favicon_url": {
+        "label": "Favicon",
+        "description": "Icona della scheda del browser. PNG, JPG o SVG quadrato."
+      },
+      "maintenance_mode": {
+        "label": "Avviso di manutenzione",
+        "description": "Mostra un avviso in cima a ogni pagina."
+      },
+      "site_contact": {
+        "label": "Contatti",
+        "description": "Mostrati nella pagina contatti e nel piè di pagina.",
+        "fields": {
+          "email": "Email",
+          "phone": "Telefono",
+          "whatsapp": "WhatsApp"
+        }
+      },
+      "store_address": {
+        "label": "Indirizzo del negozio",
+        "description": "Indirizzo della tua attività, nella pagina contatti e nelle pagine legali.",
+        "fields": {
+          "street": "Via",
+          "city": "Città",
+          "region": "Provincia / regione",
+          "postal_code": "CAP",
+          "country": "Paese"
+        }
+      },
+      "social_links": {
+        "label": "Social",
+        "description": "URL completi dei profili. I link vuoti non vengono mostrati.",
+        "fields": {
+          "instagram": "Instagram",
+          "facebook": "Facebook",
+          "tiktok": "TikTok"
+        }
+      },
+      "currency": {
+        "label": "Valuta",
+        "description": "La valuta in cui imposti e incassi i prezzi."
+      },
+      "default_locale": {
+        "label": "Lingua predefinita",
+        "description": "Usata quando la lingua del browser del visitatore non è disponibile."
+      },
+      "timezone": {
+        "label": "Fuso orario",
+        "description": "Usato per le date degli ordini e i report."
+      },
+      "shipping_rates": {
+        "label": "Tariffe di spedizione",
+        "description": "I metodi che i clienti scelgono al pagamento. I paesi di una zona qui sotto hanno invece le tariffe di quella zona."
+      },
+      "free_shipping_threshold": {
+        "label": "Spedizione gratuita da",
+        "description": "Subtotale da cui la spedizione è gratuita. 0 la disattiva."
+      },
+      "tax_rate": {
+        "label": "Aliquota (%)",
+        "description": "Percentuale applicata al pagamento, ad esempio 22."
+      },
+      "tax_included": {
+        "label": "Prezzi IVA inclusa",
+        "description": "Attivo: i prezzi includono già le tasse. Disattivo: vengono aggiunte al pagamento."
+      },
+      "payment_methods": {
+        "label": "Metodi di pagamento",
+        "description": "Si modificano in Impostazioni → Pagamenti.",
+        "fields": {
+          "card": "Carta",
+          "cash_on_delivery": "Contrassegno"
+        }
+      },
+      "privacy_policy": {
+        "label": "Informativa privacy",
+        "description": "Il testo della pagina Informativa privacy."
+      },
+      "terms_and_conditions": {
+        "label": "Termini e condizioni",
+        "description": "Il testo della pagina Termini e condizioni."
+      },
+      "returns_days": {
+        "label": "Giorni per il reso",
+        "description": "Mostrato nei prodotti e nella home. 0 lo nasconde."
+      },
+      "primary_domain_store": {
+        "label": "Dominio principale del negozio",
+        "description": "Gli altri indirizzi del negozio reindirizzano qui. Si sceglie in Impostazioni → Domini."
+      },
+      "primary_domain_admin": {
+        "label": "Dominio principale del pannello",
+        "description": "Gli altri indirizzi del pannello reindirizzano qui. Si sceglie in Impostazioni → Domini."
+      },
+      "navigation": {
+        "label": "Navigazione",
+        "description": "Menu dell'intestazione e piè di pagina, in Negozio online → Temi → Personalizza → Navigazione."
+      },
+      "stripe_publishable_key": {
+        "label": "Chiave pubblicabile Stripe",
+        "description": "Si modifica in Impostazioni → Pagamenti."
+      },
+      "smtp": {
+        "label": "Invio email",
+        "description": "Si modifica in Impostazioni → Invio email."
+      },
+      "notifications": {
+        "label": "Notifiche",
+        "description": "Si modificano in Impostazioni → Notifiche."
+      },
+      "low_stock_threshold": {
+        "label": "Soglia di scorte basse",
+        "description": "Le varianti con queste scorte o meno risultano con scorte basse."
+      },
+      "shipping_zones": {
+        "label": "Zone di spedizione",
+        "description": "Paesi con tariffe e tasse proprie. Tutti gli altri clienti hanno le tariffe qui sopra."
+      },
+      "ship_only_to_zones": {
+        "label": "Spedisci solo in queste zone",
+        "description": "Attivo: i clienti fuori da tutte le zone non possono ordinare (il checkout lo indica)."
+      },
+      "tracking": {
+        "label": "Tracciamento",
+        "description": "Tag di annunci e statistiche (Impostazioni → Tracciamento)."
+      }
+    },
+    "groups": {
+      "store": "Negozio",
+      "selling": "Vendite",
+      "customers": "Clienti ed email",
+      "team": "Team",
+      "legal": "Legale",
+      "you": "Tu"
+    },
+    "shipping_zones": {
+      "empty": "Ancora nessuna zona: tutti i paesi hanno le tariffe qui sopra.",
+      "zone_legend": "Zona {number}",
+      "remove": "Rimuovi zona",
+      "name": "Nome",
+      "countries": "Paesi",
+      "search_countries": "Aggiungi paesi: scrivi un nome",
+      "remove_country": "Rimuovi {name}",
+      "in_other_zone": "in un'altra zona",
+      "tax_rate": "Aliquota (%)",
+      "tax_default": "Predefinita",
+      "tax_hint": "Vuoto = l'aliquota predefinita (Impostazioni → Tasse).",
+      "rates": "Tariffe di questa zona",
+      "add": "Aggiungi zona"
+    }
+  },
+  "permissions": {
+    "dashboard": {
+      "view": "Vedi pannello"
+    },
+    "products": {
+      "view": "Vedi prodotti",
+      "edit": "Modifica prodotti"
+    },
+    "categories": {
+      "view": "Vedi categorie",
+      "edit": "Modifica categorie"
+    },
+    "orders": {
+      "view": "Vedi ordini",
+      "edit": "Modifica ordini",
+      "refund": "Rimborsa ordini"
+    },
+    "customers": {
+      "view": "Vedi clienti",
+      "edit": "Modifica clienti"
+    },
+    "messages": {
+      "view": "Vedi messaggi"
+    },
+    "settings": {
+      "view": "Vedi impostazioni",
+      "edit": "Modifica impostazioni"
+    },
+    "users": {
+      "view": "Vedi personale",
+      "invite": "Invita personale",
+      "edit": "Modifica personale",
+      "deactivate": "Disattiva personale"
+    },
+    "roles": {
+      "view": "Vedi ruoli",
+      "edit": "Modifica ruoli"
+    },
+    "audit": {
+      "view": "Vedi registro attività"
+    },
+    "themes": {
+      "view": "Vedere i temi",
+      "edit": "Modificare e pubblicare i temi"
+    },
+    "pages": {
+      "view": "Vedere le pagine",
+      "edit": "Creare e modificare le pagine"
+    },
+    "inventory": {
+      "view": "Vedere il magazzino",
+      "edit": "Modificare le scorte"
+    },
+    "draft_orders": {
+      "view": "Vedere le bozze d'ordine",
+      "edit": "Creare e modificare bozze d'ordine"
+    },
+    "discounts": {
+      "view": "Vedere gli sconti",
+      "edit": "Creare e modificare sconti"
+    },
+    "analytics": {
+      "view": "Vedere le statistiche"
+    },
+    "collections": {
+      "view": "Vedere le collezioni",
+      "edit": "Creare e modificare collezioni"
+    },
+    "gift_cards": {
+      "view": "Vedere le carte regalo",
+      "edit": "Emettere e modificare carte regalo"
+    },
+    "reviews": {
+      "view": "Vedere le recensioni",
+      "edit": "Approvare, nascondere, rispondere ed eliminare recensioni"
+    },
+    "api_keys": {
+      "view": "Vedere le chiavi API",
+      "edit": "Creare e revocare chiavi API"
+    }
+  },
+  "roles": {
+    "meta_title": "Ruoli",
+    "title": "Ruoli",
+    "subtitle": "Ogni ruolo concede un insieme di permessi. Un membro può avere più ruoli.",
+    "add": "Aggiungi ruolo",
+    "add_title": "Nuovo ruolo",
+    "name": "Nome",
+    "description": "Descrizione",
+    "members": "Membri",
+    "permissions": "Permessi",
+    "save": "Salva",
+    "saved": "Ruolo salvato.",
+    "created": "Ruolo creato.",
+    "delete": "Elimina",
+    "delete_title": "Eliminare questo ruolo?",
+    "delete_body": "Un ruolo ancora assegnato a membri non può essere eliminato.",
+    "deleted": "Ruolo eliminato.",
+    "system": "Ruolo di sistema",
+    "full_access": "Accesso totale",
+    "full_access_hint": "Concede tutti i permessi. Solo gli amministratori possono assegnarlo.",
+    "empty": "Ancora nessun ruolo."
+  },
+  "activity": {
+    "meta_title": "Attività",
+    "title": "Attività",
+    "subtitle": "Chi ha fatto cosa nel pannello, inclusi i tentativi rifiutati.",
+    "search_placeholder": "Cerca per membro o azione",
+    "columns": {
+      "time": "Quando",
+      "actor": "Membro",
+      "action": "Azione",
+      "result": "Esito"
+    },
+    "denied": "Rifiutato",
+    "allowed": "Fatto",
+    "result_filter": "Esito",
+    "all_results": "Tutti",
+    "denied_only": "Solo rifiutati",
+    "empty": "Ancora nessuna attività.",
+    "results": {
+      "one": "{count} voce",
+      "other": "{count} voci"
+    },
+    "actions": {
+      "activate_or_deactivate_a_team_member": "Ha attivato o disattivato un membro del team",
+      "add_an_order_note": "Ha aggiunto una nota all'ordine",
+      "change_a_team_member": "Ha modificato un membro del team",
+      "change_an_admin_s_access": "Ha modificato l'accesso di un amministratore",
+      "change_an_order_status": "Ha cambiato lo stato di un ordine",
+      "change_marketing_consent": "Ha cambiato il consenso al marketing",
+      "change_the_status_of_products": "Ha cambiato lo stato di prodotti",
+      "create_a_category": "Ha creato una categoria",
+      "create_a_product": "Ha creato un prodotto",
+      "create_a_role": "Ha creato un ruolo",
+      "create_a_role_with_full_access": "Ha creato un ruolo con accesso completo",
+      "delete_a_category": "Ha eliminato una categoria",
+      "delete_a_product": "Ha eliminato un prodotto",
+      "delete_a_role": "Ha eliminato un ruolo",
+      "delete_a_role_with_full_access": "Ha eliminato un ruolo con accesso completo",
+      "delete_a_saved_view": "Ha eliminato una vista salvata",
+      "delete_products": "Ha eliminato prodotti",
+      "edit_a_customer_note": "Ha modificato una nota cliente",
+      "edit_a_role": "Ha modificato un ruolo",
+      "edit_a_role_with_full_access": "Ha modificato un ruolo con accesso completo",
+      "export_orders": "Ha esportato ordini",
+      "fulfill_an_order": "Ha evaso un ordine",
+      "fulfill_orders": "Ha evaso ordini",
+      "import_categories": "Ha importato categorie",
+      "import_products": "Ha importato prodotti",
+      "invite_a_team_member": "Ha invitato un membro del team",
+      "invite_a_team_member_with_admin_access": "Ha invitato un membro con accesso da amministratore",
+      "mark_an_order_as_paid": "Ha segnato un ordine come pagato",
+      "move_products_to_a_category": "Ha spostato prodotti in una categoria",
+      "refund_an_order": "Ha rimborsato un ordine",
+      "remove_a_category_image": "Ha rimosso l'immagine di una categoria",
+      "remove_a_product_image": "Ha rimosso un'immagine prodotto",
+      "reorder_categories": "Ha riordinato le categorie",
+      "reorder_product_images": "Ha riordinato le immagini di un prodotto",
+      "reset_a_site_setting": "Ha ripristinato un'impostazione del negozio",
+      "save_a_view": "Ha salvato una vista",
+      "search_the_admin": "Ha cercato nel pannello",
+      "set_an_image_color": "Ha impostato il colore di un'immagine",
+      "update_a_category": "Ha aggiornato una categoria",
+      "update_a_contact_message": "Ha aggiornato un messaggio di contatto",
+      "update_a_product": "Ha aggiornato un prodotto",
+      "update_a_site_setting": "Ha aggiornato un'impostazione del negozio",
+      "update_an_order_s_internal_note": "Ha aggiornato la nota interna di un ordine",
+      "update_contact_messages": "Ha aggiornato messaggi di contatto",
+      "update_order_tracking": "Ha aggiornato la spedizione di un ordine",
+      "update_product_variants": "Ha aggiornato le varianti di un prodotto",
+      "upload_a_category_image": "Ha caricato l'immagine di una categoria",
+      "upload_a_logo_or_favicon": "Ha caricato un logo o una favicon",
+      "upload_a_product_image": "Ha caricato un'immagine prodotto",
+      "view_a_customer": "Ha aperto un cliente",
+      "view_a_customer_note": "Ha aperto una nota cliente",
+      "view_a_product": "Ha aperto un prodotto",
+      "view_an_order": "Ha aperto un ordine",
+      "view_categories": "Ha visto le categorie",
+      "view_contact_messages": "Ha visto i messaggi di contatto",
+      "view_customers": "Ha visto i clienti",
+      "view_orders": "Ha visto gli ordini",
+      "view_products": "Ha visto i prodotti",
+      "view_roles": "Ha visto i ruoli",
+      "view_sales_reports": "Ha visto i report di vendita",
+      "view_saved_views": "Ha visto le viste salvate",
+      "view_site_settings": "Ha visto le impostazioni del negozio",
+      "view_the_activity_log": "Ha visto il registro attività",
+      "view_the_team": "Ha visto il team",
+      "add_a_domain": "Ha aggiunto un dominio",
+      "remove_a_domain": "Ha rimosso un dominio",
+      "set_the_primary_domain": "Ha scelto il dominio principale",
+      "clear_the_primary_domain": "Ha smesso di reindirizzare al dominio principale",
+      "check_a_domain": "Ha controllato un dominio",
+      "view_domains": "Ha visto i domini",
+      "view_themes": "Ha visto i temi",
+      "open_a_theme": "Ha aperto un tema",
+      "add_a_theme": "Ha aggiunto un tema",
+      "duplicate_a_theme": "Ha duplicato un tema",
+      "rename_a_theme": "Ha rinominato un tema",
+      "delete_a_theme": "Ha eliminato un tema",
+      "edit_a_theme": "Ha modificato un tema",
+      "publish_a_theme": "Ha pubblicato un tema",
+      "restore_a_theme_version": "Ha ripristinato una versione di un tema",
+      "discard_theme_changes": "Ha annullato le modifiche a un tema",
+      "view_pages": "Ha visto le pagine",
+      "create_a_page": "Ha creato una pagina",
+      "edit_a_page": "Ha modificato una pagina",
+      "delete_a_page": "Ha eliminato una pagina",
+      "upload_an_image": "Ha caricato un'immagine",
+      "view_the_media_library": "Ha visto la libreria immagini",
+      "edit_the_navigation": "Ha modificato la navigazione",
+      "view_navigation": "Ha visto la navigazione",
+      "edit_payment_methods": "Ha modificato i metodi di pagamento",
+      "change_the_stripe_keys": "Ha cambiato le chiavi Stripe",
+      "view_payment_settings": "Ha visto le impostazioni di pagamento",
+      "view_email_settings": "Ha visto le impostazioni email",
+      "change_the_email_settings": "Ha cambiato le impostazioni email",
+      "send_a_test_email": "Ha inviato un'email di prova",
+      "view_notifications": "Ha visto le notifiche",
+      "edit_notifications": "Ha modificato le notifiche",
+      "preview_an_email": "Ha visto l'anteprima di un'email",
+      "view_the_email_log": "Ha visto il registro email",
+      "view_inventory": "Ha visto il magazzino",
+      "change_stock": "Ha modificato le scorte",
+      "view_stock_history": "Ha visto lo storico scorte",
+      "view_draft_orders": "Ha visto le bozze d'ordine",
+      "view_a_draft_order": "Ha visto una bozza d'ordine",
+      "create_a_draft_order": "Ha creato una bozza d'ordine",
+      "edit_a_draft_order": "Ha modificato una bozza d'ordine",
+      "delete_a_draft_order": "Ha eliminato una bozza d'ordine",
+      "send_a_draft_order_invoice": "Ha inviato la fattura di una bozza",
+      "complete_a_draft_order": "Ha trasformato una bozza in ordine",
+      "search_products_for_a_draft_order": "Ha cercato prodotti per una bozza",
+      "search_customers_for_a_draft_order": "Ha cercato clienti per una bozza",
+      "view_discounts": "Ha visto gli sconti",
+      "view_a_discount": "Ha visto uno sconto",
+      "create_a_discount": "Ha creato uno sconto",
+      "edit_a_discount": "Ha modificato uno sconto",
+      "delete_a_discount": "Ha eliminato uno sconto",
+      "view_abandoned_checkouts": "Ha visto i checkout abbandonati",
+      "send_an_abandoned_checkout_email": "Ha inviato un promemoria di checkout abbandonato",
+      "view_tracking_settings": "Ha visto le impostazioni di tracciamento",
+      "change_the_tracking_settings": "Ha cambiato le impostazioni di tracciamento",
+      "view_analytics": "Ha visto le statistiche",
+      "view_collections": "Ha visto le collezioni",
+      "view_a_collection": "Ha visto una collezione",
+      "create_a_collection": "Ha creato una collezione",
+      "edit_a_collection": "Ha modificato una collezione",
+      "delete_a_collection": "Ha eliminato una collezione",
+      "view_gift_cards": "Ha visto le carte regalo",
+      "view_a_gift_card": "Ha visto una carta regalo",
+      "issue_a_gift_card": "Ha emesso una carta regalo",
+      "change_a_gift_card": "Ha modificato una carta regalo",
+      "view_reviews": "Ha visto le recensioni",
+      "moderate_a_review": "Ha moderato una recensione",
+      "reply_to_a_review": "Ha risposto a una recensione",
+      "delete_a_review": "Ha eliminato una recensione",
+      "view_api_keys": "Ha visto le chiavi API",
+      "create_an_api_key": "Ha creato una chiave API",
+      "revoke_an_api_key": "Ha revocato una chiave API"
+    }
+  },
+  "staff": {
+    "meta_title": "Personale",
+    "title": "Personale",
+    "subtitle": "Chi può accedere al pannello e cosa può fare.",
+    "invite": "Invita",
+    "invite_title": "Invita un membro",
+    "edit_title": "Modifica membro",
+    "name": "Nome",
+    "email": "Email",
+    "roles": "Ruoli",
+    "admin": "Amministratore",
+    "active": "Attivo",
+    "deactivated": "Disattivato",
+    "invite_sent": "Invito inviato.",
+    "save": "Salva",
+    "saved": "Salvato.",
+    "empty": "Ancora nessun membro.",
+    "deactivate": "Disattiva",
+    "reactivate": "Riattiva"
+  },
+  "profile": {
+    "meta_title": "Profilo",
+    "title": "Profilo",
+    "subtitle": "Nome, lingua e password.",
+    "details_title": "Dati",
+    "name": "Nome completo",
+    "email": "Email",
+    "language": "Lingua",
+    "save": "Salva modifiche",
+    "saved": "Profilo aggiornato.",
+    "password_title": "Password",
+    "current_password": "Password attuale",
+    "new_password": "Nuova password",
+    "confirm_password": "Conferma nuova password",
+    "change_password": "Cambia password",
+    "password_changed": "Password cambiata.",
+    "password_hint": "Almeno 8 caratteri."
+  },
+  "catalog": {
+    "status": {
+      "draft": "Bozza",
+      "active": "Attivo",
+      "archived": "Archiviato"
+    },
+    "categories": {
+      "meta_title": "Categorie",
+      "title": "Categorie",
+      "subtitle": "Raggruppa i prodotti perché i clienti possano esplorare il negozio.",
+      "add": "Aggiungi categoria",
+      "add_title": "Nuova categoria",
+      "edit": "Modifica",
+      "edit_title": "Modifica categoria",
+      "delete": "Elimina",
+      "delete_title": "Eliminare questa categoria?",
+      "delete_body": "L'operazione non si può annullare. Le categorie con prodotti o sottocategorie non si possono eliminare.",
+      "empty": "Ancora nessuna categoria.",
+      "saved": "Categoria salvata.",
+      "deleted": "Categoria eliminata.",
+      "visible": "Visibile",
+      "hidden": "Nascosta",
+      "drag": "Trascina per riordinare",
+      "more": "Altre azioni",
+      "product_count": {
+        "one": "{count} prodotto",
+        "other": "{count} prodotti"
+      },
+      "columns": {
+        "name": "Nome",
+        "slug": "Identificativo URL",
+        "products": "Prodotti",
+        "status": "Stato"
+      },
+      "form": {
+        "name": "Nome",
+        "slug": "Identificativo URL",
+        "slug_hint": "Usato nell'indirizzo: /shop/{slug}",
+        "description": "Descrizione",
+        "parent": "Categoria superiore",
+        "no_parent": "Nessuna (livello principale)",
+        "sort_order": "Ordine",
+        "sort_order_hint": "I numeri più bassi vengono prima.",
+        "is_active": "Visibile nel negozio",
+        "image": "Immagine",
+        "upload_image": "Carica immagine",
+        "replace_image": "Sostituisci immagine",
+        "remove_image": "Rimuovi immagine",
+        "image_after_create": "Salva prima la categoria per aggiungere un'immagine.",
+        "save": "Salva categoria"
+      },
+      "import": "Importa CSV"
+    },
+    "products": {
+      "meta_title": "Prodotti",
+      "title": "Prodotti",
+      "add": "Aggiungi prodotto",
+      "search": "Cerca prodotti",
+      "search_placeholder": "Cerca per titolo, identificativo o tag",
+      "status_filter": "Stato",
+      "all": "Tutti",
+      "category_filter": "Categoria",
+      "all_categories": "Tutte le categorie",
+      "empty": "Ancora nessun prodotto. Aggiungi il primo per iniziare a vendere.",
+      "empty_filtered": "Nessun prodotto corrisponde a questi filtri.",
+      "columns": {
+        "product": "Prodotto",
+        "status": "Stato",
+        "inventory": "Magazzino",
+        "price": "Prezzo",
+        "category": "Categoria",
+        "updated": "Aggiornato"
+      },
+      "inventory_value": "{stock} disponibili · {variants} varianti",
+      "no_variants": "Nessuna variante",
+      "untitled": "Senza titolo",
+      "results": {
+        "one": "{count} prodotto",
+        "other": "{count} prodotti"
+      },
+      "page_of": "Pagina {page} di {total}",
+      "previous": "Precedente",
+      "next": "Successiva",
+      "import": "Importa CSV",
+      "bulk_publish": "Pubblica",
+      "bulk_archive": "Archivia",
+      "bulk_move": "Sposta in categoria",
+      "bulk_delete": "Elimina",
+      "bulk_delete_title": "Eliminare i prodotti selezionati?",
+      "bulk_delete_body": "Spariscono dal negozio e dal pannello. Gli ordini passati conservano la loro copia.",
+      "move_title": "Sposta i prodotti in una categoria",
+      "move_hint": "Scegli una categoria per i prodotti selezionati.",
+      "no_category": "Nessuna categoria",
+      "bulk_updated": {
+        "one": "{count} prodotto aggiornato",
+        "other": "{count} prodotti aggiornati"
+      }
+    },
+    "editor": {
+      "new_title": "Aggiungi prodotto",
+      "back": "Prodotti",
+      "save": "Salva",
+      "saved": "Prodotto salvato.",
+      "created": "Prodotto creato. Ora aggiungi immagini e varianti.",
+      "discard": "Annulla modifiche",
+      "unsaved": "Modifiche non salvate",
+      "delete": "Elimina prodotto",
+      "delete_title": "Eliminare questo prodotto?",
+      "delete_body": "Scompare dal negozio e dal pannello. Gli ordini passati conservano la loro copia.",
+      "deleted": "Prodotto eliminato.",
+      "sections": {
+        "details": "Dettagli",
+        "media": "Immagini",
+        "pricing": "Prezzi",
+        "status": "Stato",
+        "organization": "Organizzazione",
+        "variants": "Varianti"
+      },
+      "title": "Titolo",
+      "description": "Descrizione",
+      "description_hint": "Testo semplice. Separa i paragrafi con una riga vuota.",
+      "slug": "Identificativo URL",
+      "slug_hint": "Usato nell'indirizzo: /shop/{slug}",
+      "price": "Prezzo",
+      "compare_at_price": "Prezzo di confronto",
+      "compare_at_hint": "Prezzo originale mostrato barrato. Lascia 0 per nessuno.",
+      "status_hint": "Solo i prodotti attivi sono visibili nel negozio.",
+      "category": "Categoria",
+      "no_category": "Nessuna categoria",
+      "featured": "In evidenza nella home page",
+      "tags": "Tag",
+      "tags_hint": "Separa i tag con virgole.",
+      "media_hint": "JPG, PNG, WebP o AVIF, fino a 10 MB ciascuna. La prima immagine è quella principale.",
+      "upload": "Aggiungi immagini",
+      "uploading": "Caricamento {current} di {total}…",
+      "main_image": "Principale",
+      "move_left": "Sposta prima",
+      "move_right": "Sposta dopo",
+      "remove_image": "Rimuovi immagine",
+      "no_images": "Ancora nessuna immagine.",
+      "after_create": "Salva prima il prodotto per aggiungere immagini e varianti.",
+      "image_alt": "Immagine {number} di {title}",
+      "gift_card": "Carta regalo",
+      "gift_card_hint": "Pagandolo si emette una carta regalo del suo prezzo (una per unità) e se ne invia il codice per email. Usa le varianti per gli importi."
+    },
+    "variants": {
+      "hint": "Ogni combinazione di taglia e colore è una variante con il proprio magazzino e SKU.",
+      "generator_title": "Genera varianti",
+      "sizes": "Taglie",
+      "sizes_hint": "Separale con virgole, es. XS, S, M, L, XL",
+      "colors": "Colori",
+      "color_name": "Nome del colore",
+      "color_value": "Campione",
+      "add_color": "Aggiungi colore",
+      "remove_color": "Rimuovi colore",
+      "generate": "Aggiungi combinazioni mancanti",
+      "generated": {
+        "one": "{count} variante aggiunta. Ricordati di salvare.",
+        "other": "{count} varianti aggiunte. Ricordati di salvare."
+      },
+      "add_variant": "Aggiungi variante",
+      "columns": {
+        "color": "Colore",
+        "size": "Taglia",
+        "sku": "SKU",
+        "price": "Prezzo",
+        "stock": "Magazzino",
+        "active": "Attiva"
+      },
+      "price_hint": "0 usa il prezzo del prodotto.",
+      "remove": "Rimuovi variante",
+      "save": "Salva varianti",
+      "saved": "Varianti salvate.",
+      "empty": "Ancora nessuna variante. Generale da taglie e colori, o aggiungine una.",
+      "total_stock": "{stock} disponibili",
+      "sizes_count": {
+        "one": "{count} taglia",
+        "other": "{count} taglie"
+      },
+      "no_color": "Senza colore",
+      "bulk_stock": "Stock per tutte",
+      "bulk_price": "Prezzo per tutte"
+    },
+    "import": {
+      "meta_title": "Importa",
+      "title": "Importa da CSV",
+      "subtitle": "Aggiungi o aggiorna molti prodotti o categorie in una volta sola da un foglio di calcolo.",
+      "back_products": "Prodotti",
+      "back_categories": "Categorie",
+      "tab_products": "Prodotti",
+      "tab_categories": "Categorie",
+      "step_file": "1. Scegli un file CSV",
+      "file_hint_products": "Una riga per variante (taglia/colore). Le righe con lo stesso handle sono un solo prodotto. Le categorie mancanti vengono create.",
+      "file_hint_categories": "Una riga per categoria. Usa la colonna parent per mettere una categoria dentro un'altra.",
+      "choose_file": "Clicca per scegliere un file CSV",
+      "choose_file_hint": "CSV UTF-8 separato da virgole, fino a 100 MB",
+      "file_too_large": "Il file supera i 100 MB. Dividilo in file più piccoli.",
+      "template": "Scarica il modello",
+      "step_review": "2. Controlla e importa",
+      "rows_read": {
+        "one": "{count} riga letta.",
+        "other": "{count} righe lette."
+      },
+      "stats": {
+        "products": "Prodotti",
+        "variants": "Varianti",
+        "images": "Link immagini",
+        "categories": "Categorie",
+        "new_categories": "Nuove categorie",
+        "problems": "Righe con problemi"
+      },
+      "problems_title": {
+        "one": "{count} problema trovato. Questi prodotti o categorie verranno saltati:",
+        "other": "{count} problemi trovati. Questi prodotti o categorie verranno saltati:"
+      },
+      "line": "Riga {line}",
+      "problems": {
+        "missing_columns": "colonne mancanti",
+        "empty_file": "il file è vuoto",
+        "invalid_handle": "handle non valido (usa lettere minuscole, numeri e trattini)",
+        "missing_title": "serve un titolo in almeno una lingua",
+        "invalid_price": "prezzo non valido",
+        "invalid_compare_at": "il prezzo di confronto deve essere più alto del prezzo",
+        "invalid_status": "lo stato deve essere draft, active o archived",
+        "invalid_sku": "SKU mancante o troppo lungo",
+        "duplicate_sku": "SKU ripetuto nel file",
+        "invalid_stock": "lo stock deve essere un numero intero",
+        "invalid_color": "color_hex deve essere nel formato #1a2b3c",
+        "invalid_parent": "handle della categoria padre non valido",
+        "invalid_row": "valore non valido"
+      },
+      "update_existing": "Aggiorna gli elementi esistenti",
+      "update_existing_hint": "Gli elementi con un handle già esistente vengono aggiornati. Disattiva per saltarli.",
+      "download_images": "Scarica le immagini",
+      "download_images_hint": "Le immagini vengono copiate dai link di image_urls, solo per i prodotti senza immagini. Più lento; disattiva per importare prima testi e prezzi.",
+      "start_products": {
+        "one": "Importa {count} prodotto",
+        "other": "Importa {count} prodotti"
+      },
+      "start_categories": {
+        "one": "Importa {count} categoria",
+        "other": "Importa {count} categorie"
+      },
+      "running_title": "Importazione in corso…",
+      "keep_open": "Tieni aperta questa pagina finché l'importazione non è finita.",
+      "progress": "{done} di {total} completati",
+      "stop": "Interrompi",
+      "done_title": "Importazione completata",
+      "stopped_title": "Importazione interrotta",
+      "error_title": "Importazione interrotta per un errore",
+      "outcomes": {
+        "created": "Creati",
+        "updated": "Aggiornati",
+        "skipped": "Saltati",
+        "failed": "Non riusciti"
+      },
+      "missing_images": {
+        "one": "{count} prodotto è stato importato, ma alcune immagini non sono state scaricate.",
+        "other": "{count} prodotti sono stati importati, ma alcune immagini non sono state scaricate."
+      },
+      "failed_title": "Non importati",
+      "reasons": {
+        "exists": "esiste già",
+        "sku_taken": "uno SKU appartiene a un altro prodotto",
+        "category_forbidden": "non puoi creare categorie",
+        "images_failed": "alcune immagini non sono state scaricate",
+        "generic": "errore imprevisto"
+      },
+      "view_products": "Vedi prodotti",
+      "view_categories": "Vedi categorie",
+      "import_another": "Importa un altro file"
+    }
+  },
+  "orders_admin": {
+    "meta_title": "Ordini",
+    "title": "Ordini",
+    "search": "Cerca ordini",
+    "search_placeholder": "N. ordine, email, nome o telefono",
+    "tabs_label": "Stato di evasione",
+    "all": "Tutti",
+    "open": "Aperti",
+    "payment_filter": "Stato del pagamento",
+    "all_payments": "Tutti i pagamenti",
+    "views": {
+      "all": "Tutti",
+      "unfulfilled": "Da evadere",
+      "unpaid": "Non pagati",
+      "open": "Aperti",
+      "archived": "Archiviati"
+    },
+    "bulk_fulfill": "Segna come evaso",
+    "bulk_fulfilled": {
+      "one": "{count} ordine segnato come evaso",
+      "other": "{count} ordini segnati come evasi"
+    },
+    "export": "Esporta",
+    "export_filename": "ordini.csv",
+    "columns": {
+      "order": "Ordine",
+      "date": "Data",
+      "customer": "Cliente",
+      "payment": "Pagamento",
+      "status": "Stato",
+      "items": "Articoli",
+      "total": "Totale"
+    },
+    "items_count": {
+      "one": "{count} articolo",
+      "other": "{count} articoli"
+    },
+    "empty": "Ancora nessun ordine. Compariranno qui appena i clienti acquistano.",
+    "empty_filtered": "Nessun ordine corrisponde ai filtri.",
+    "results": {
+      "one": "{count} ordine",
+      "other": "{count} ordini"
+    },
+    "page_of": "Pagina {page} di {total}",
+    "previous": "Precedente",
+    "next": "Successiva",
+    "detail": {
+      "back": "Ordini",
+      "placed": "Effettuato il {date}",
+      "actions": "Azioni",
+      "more_actions": "Altre azioni",
+      "mark_processing": "Segna in lavorazione",
+      "mark_shipped": "Segna come spedito",
+      "mark_delivered": "Segna come consegnato",
+      "mark_paid": "Segna come pagato",
+      "cancel": "Annulla ordine",
+      "cancel_title": "Annullare l'ordine n. {number}?",
+      "cancel_body": "Il cliente vedrà l'ordine come annullato. L'operazione non si può annullare.",
+      "refund": "Rimborsa",
+      "restock": "Rimetti gli articoli in magazzino",
+      "confirm": "Conferma",
+      "keep": "Mantieni ordine",
+      "updated": "Ordine aggiornato.",
+      "items": "Articoli",
+      "sku": "SKU {sku}",
+      "subtotal": "Subtotale",
+      "discount": "Sconto",
+      "shipping": "Spedizione",
+      "cod_fee": "Costo del metodo di pagamento",
+      "taxes": "Tasse",
+      "taxes_included": "Tasse (incluse)",
+      "total": "Totale",
+      "customer": "Cliente",
+      "guest": "Acquisto come ospite",
+      "order_count": {
+        "one": "{count} ordine",
+        "other": "{count} ordini"
+      },
+      "contact": "Contatto",
+      "shipping_address": "Indirizzo di spedizione",
+      "billing_address": "Indirizzo di fatturazione",
+      "same_as_shipping": "Uguale all'indirizzo di spedizione",
+      "shipping_method": "Metodo di spedizione",
+      "tracking": "Tracciamento",
+      "carrier": "Corriere",
+      "tracking_number": "Numero di tracciamento",
+      "tracking_url": "Link di tracciamento",
+      "save_tracking": "Salva tracciamento",
+      "save_and_ship": "Salva e segna come spedito",
+      "tracking_saved": "Tracciamento salvato.",
+      "fulfill": "Evadi",
+      "fulfill_title": "Evadi ordine #{number}",
+      "fulfill_body": "Aggiungi il corriere e il numero di tracciamento così il cliente può seguire la spedizione.",
+      "edit_tracking": "Modifica tracciamento",
+      "unfulfilled": "Da evadere",
+      "fulfilled": "Evaso",
+      "no_tracking": "Ancora nessun numero di tracciamento.",
+      "paid_amount": "Pagato",
+      "balance_due": "Da saldare",
+      "payment": "Pagamento",
+      "payment_attempts": "Tentativi di pagamento",
+      "timeline": "Cronologia",
+      "note_label": "Aggiungi una nota",
+      "note_placeholder": "Scrivi una nota…",
+      "visible_to_customer": "Visibile al cliente",
+      "post": "Pubblica",
+      "note_added": "Nota aggiunta.",
+      "internal_note": "Nota interna",
+      "internal_note_hint": "La vede solo lo staff.",
+      "save": "Salva",
+      "saved": "Salvato.",
+      "customer_note": "Nota del cliente",
+      "by": "da {name}",
+      "internal": "Interna",
+      "events": {
+        "created": "Ordine effettuato",
+        "status_changed": "Stato cambiato da {from} a {to}",
+        "payment_status_changed": "Pagamento segnato come {to}",
+        "note": "Nota",
+        "shipped": "Segnato come spedito",
+        "email_sent": "Email inviata",
+        "refund": "Rimborso: pagamento {to}"
+      },
+      "payment_record": {
+        "pending": "In attesa",
+        "succeeded": "Riuscito",
+        "failed": "Non riuscito",
+        "refunded": "Rimborsato"
+      },
+      "source_title": "Provenienza",
+      "source": "Fonte",
+      "medium": "Mezzo",
+      "campaign": "Campagna",
+      "landing_page": "Pagina di arrivo",
+      "referrer": "Referrer",
+      "source_direct": "Diretto o sconosciuto",
+      "gift_card_paid": "Pagato con carta regalo"
+    }
+  },
+  "messages": {
+    "meta_title": "Messaggi",
+    "title": "Messaggi",
+    "tabs_label": "Cartelle dei messaggi",
+    "tabs": {
+      "inbox": "In arrivo",
+      "new": "Da leggere",
+      "read": "Letti",
+      "archived": "Archiviati"
+    },
+    "empty": "Nessun messaggio qui.",
+    "select": "Seleziona un messaggio per leggerlo.",
+    "no_subject": "(Senza oggetto)",
+    "received": "Ricevuto il {date}",
+    "reply": "Rispondi via email",
+    "mark_unread": "Segna come da leggere",
+    "archive": "Archivia",
+    "unarchive": "Sposta in arrivo",
+    "unread": "Da leggere",
+    "mark_read": "Segna come letto",
+    "bulk_updated": {
+      "one": "{count} messaggio aggiornato",
+      "other": "{count} messaggi aggiornati"
+    },
+    "back": "Tutti i messaggi",
+    "results": {
+      "one": "{count} messaggio",
+      "other": "{count} messaggi"
+    },
+    "previous": "Precedente",
+    "next": "Successiva"
+  },
+  "customers": {
+    "meta_title": "Clienti",
+    "title": "Clienti",
+    "subtitle": "Tutte le persone con un account o che hanno fatto un ordine.",
+    "search": "Cerca clienti",
+    "search_placeholder": "Cerca per nome, email o telefono",
+    "types": {
+      "all": "Tutti",
+      "registered": "Con account",
+      "guest": "Ospite",
+      "subscribed": "Iscritti"
+    },
+    "columns": {
+      "customer": "Cliente",
+      "type": "Tipo",
+      "orders": "Ordini",
+      "spent": "Totale speso",
+      "last_order": "Ultimo ordine"
+    },
+    "no_orders_yet": "Ancora nessun ordine",
+    "empty": "Ancora nessun cliente. Compaiono qui quando qualcuno si registra o fa un ordine.",
+    "results": {
+      "one": "{count} cliente",
+      "other": "{count} clienti"
+    },
+    "since": "Cliente dal {date}",
+    "guest_since": "Acquisto come ospite, primo ordine il {date}",
+    "stats": {
+      "orders": "Ordini",
+      "spent": "Totale speso",
+      "average": "Ordine medio",
+      "last_order": "Ultimo ordine"
+    },
+    "orders_title": "Ordini",
+    "no_orders": "Questo cliente non ha ancora fatto ordini.",
+    "contact_title": "Contatti",
+    "email_verified": "Email verificata",
+    "email_not_verified": "Email non verificata",
+    "addresses_title": "Indirizzi",
+    "no_addresses": "Nessun indirizzo salvato.",
+    "default_address": "Predefinito",
+    "note_title": "Nota interna",
+    "note_hint": "Solo il personale può vederla.",
+    "note_placeholder": "Aggiungi una nota su questo cliente…",
+    "saved": "Salvata.",
+    "marketing_title": "Marketing",
+    "marketing_label": "Accetta marketing",
+    "marketing_hint": "Se il cliente ha accettato di ricevere email di marketing.",
+    "sort": {
+      "last_order": "Ultimo ordine",
+      "total_spent": "Totale speso",
+      "order_count": "Numero di ordini",
+      "created_at": "Data di aggiunta"
+    },
+    "order_count": {
+      "one": "{count} ordine",
+      "other": "{count} ordini"
+    }
+  },
+  "admin_ui": {
+    "back": "Indietro",
+    "more_actions": "Altre azioni",
+    "index_table": {
+      "search": "Cerca",
+      "search_label": "Cerca {resource}",
+      "filter": "Filtra",
+      "add_filter": "Aggiungi filtro",
+      "clear_filters": "Cancella tutto",
+      "remove_filter": "Rimuovi il filtro {name}",
+      "select_all": "Seleziona tutte le righe di questa pagina",
+      "select_row": "Seleziona riga",
+      "selected": {
+        "one": "{count} selezionato",
+        "other": "{count} selezionati"
+      },
+      "deselect": "Deseleziona",
+      "sort": "Ordina",
+      "sort_ascending": "Crescente",
+      "sort_descending": "Decrescente",
+      "previous": "Pagina precedente",
+      "next": "Pagina successiva",
+      "page_of": "Pagina {page} di {total}",
+      "loading": "Caricamento",
+      "no_results_title": "Nessun risultato",
+      "no_results_body": "Prova a cambiare i filtri o la ricerca."
+    },
+    "save_bar": {
+      "unsaved": "Modifiche non salvate",
+      "discard": "Annulla modifiche",
+      "save": "Salva",
+      "saving": "Salvataggio",
+      "leave_warning": "Hai modifiche non salvate. Vuoi lasciare la pagina comunque?"
+    },
+    "confirm": {
+      "cancel": "Annulla"
+    },
+    "images": {
+      "add": "Aggiungi immagini",
+      "drop_hint": "o trascina qui le immagini",
+      "uploading": "Caricamento",
+      "remove": "Rimuovi immagine",
+      "move_earlier": "Sposta prima",
+      "move_later": "Sposta dopo",
+      "main": "Immagine principale",
+      "color": "Mostrata per",
+      "all_colors": "Tutti i colori",
+      "empty": "Ancora nessuna immagine"
+    },
+    "seo": {
+      "card_title": "Scheda sui motori di ricerca",
+      "card_hint": "Come può apparire su Google e quando viene condiviso. I campi vuoti usano titolo e descrizione.",
+      "preview": "Anteprima del risultato",
+      "preview_language": "Lingua dell'anteprima",
+      "title": "Titolo della pagina",
+      "title_hint": "Nei risultati si vedono circa {max} caratteri.",
+      "description": "Meta descrizione",
+      "description_hint": "Una o due frasi che invoglino a cliccare.",
+      "no_title": "Aggiungi un titolo",
+      "no_description": "Aggiungi una descrizione"
+    }
+  },
+  "admin_shell": {
+    "search_placeholder": "Cerca",
+    "search_shortcut": "Ctrl K",
+    "search_dialog_title": "Cerca nel pannello",
+    "search_input_label": "Cerca ordini, prodotti e clienti",
+    "search_hint": "Scrivi almeno 2 caratteri.",
+    "searching": "Ricerca in corso",
+    "no_results": "Nessun risultato per «{query}»",
+    "groups": {
+      "orders": "Ordini",
+      "products": "Prodotti",
+      "customers": "Clienti"
+    },
+    "order_label": "Ordine #{number}",
+    "account_menu": "Menu dell'account",
+    "language": "Lingua",
+    "theme": "Tema",
+    "themes": {
+      "light": "Chiaro",
+      "dark": "Scuro",
+      "system": "Sistema"
+    },
+    "view_store": "Vedi negozio",
+    "sign_out": "Esci",
+    "profile": "Profilo",
+    "open_menu": "Apri menu",
+    "login_subtitle": "Accedi per gestire il tuo negozio."
+  },
+  "domains": {
+    "meta_title": "Domini",
+    "title": "Domini",
+    "subtitle": "Collega il tuo dominio e scegli dove arrivano clienti e team.",
+    "add": "Collega dominio",
+    "targets": {
+      "store": "Negozio",
+      "admin": "Pannello"
+    },
+    "target_hint": {
+      "store": "Dove comprano i clienti.",
+      "admin": "Dove accede il tuo team."
+    },
+    "current_address": "Indirizzo attuale",
+    "primary": "Principale",
+    "primary_hint": "Gli altri indirizzi di questa app reindirizzano a {domain}.",
+    "no_primary": "Nessun dominio principale: ogni indirizzo di questa app funziona da solo.",
+    "stop_redirecting": "Smetti di reindirizzare",
+    "empty": "Ancora nessun dominio.",
+    "statuses": {
+      "pending": "In attesa del DNS",
+      "verifying": "In verifica",
+      "active": "Attivo",
+      "error": "Errore"
+    },
+    "status_hints": {
+      "pending": "Aggiungi i record DNS qui sotto presso il tuo registrar. Le modifiche richiedono da pochi minuti a 48 ore.",
+      "verifying": "Il DNS sembra corretto. L'hosting sta verificando il dominio ed emettendo il certificato SSL.",
+      "active": "Collegato e sicuro (HTTPS).",
+      "error": "Qualcosa è andato storto presso il provider di hosting."
+    },
+    "checked": "Controllato {time}",
+    "check_now": "Controlla ora",
+    "set_primary": "Rendi principale",
+    "remove": "Rimuovi",
+    "more": "Azioni del dominio",
+    "records_title": "Record DNS",
+    "records_hint": "Creali presso la società da cui hai comprato il dominio (GoDaddy, Namecheap, Cloudflare, Aruba…).",
+    "records_none": "Ancora nessun record. In modalità manuale imposta HOSTING_STORE_TARGET_HOST / HOSTING_ADMIN_TARGET_HOST per mostrarli.",
+    "columns": {
+      "type": "Tipo",
+      "name": "Nome",
+      "value": "Valore"
+    },
+    "copy": "Copia {field}",
+    "copied": "Copiato.",
+    "show_records": "Record DNS",
+    "hide_records": "Nascondi record",
+    "add_title": "Collega un dominio",
+    "add_body": "Usa un dominio o sottodominio tuo, come negozio.esempio.it. Subito dopo vedrai i record DNS da creare.",
+    "hostname": "Dominio",
+    "hostname_placeholder": "negozio.esempio.it",
+    "target": "Per",
+    "add_submit": "Collega",
+    "added": "Dominio aggiunto. Ora crea i suoi record DNS.",
+    "primary_set": "Dominio principale aggiornato. I reindirizzamenti partono entro un minuto.",
+    "primary_cleared": "Reindirizzamenti disattivati.",
+    "remove_title": "Rimuovere {domain}?",
+    "remove_body": "Viene scollegato dal provider di hosting e smette di funzionare per questo negozio.",
+    "removed": "Dominio rimosso.",
+    "setup": {
+      "railway": "Collegato a Railway: i domini vengono aggiunti ai tuoi servizi automaticamente.",
+      "vercel": "Collegato a Vercel: i domini vengono aggiunti ai tuoi progetti automaticamente.",
+      "manual": "Configurazione manuale: aggiungi ogni dominio anche nel pannello del tuo hosting. Imposta HOSTING_PROVIDER (railway o vercel) e un token per farlo da qui.",
+      "missing": "HOSTING_PROVIDER è {provider}, ma mancano queste variabili: {names}. Si usa la configurazione manuale finché non ci sono."
+    },
+    "url_reminder": "Dopo aver cambiato il dominio principale, aggiorna NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_ADMIN_URL e ripubblica, così link ed email lo usano."
+  },
+  "themes": {
+    "meta_title": "Temi",
+    "title": "Temi",
+    "subtitle": "Scegli l'aspetto del tuo negozio. Personalizza un tema e pubblicalo quando è pronto.",
+    "view_store": "Vedi negozio",
+    "current_title": "Tema attuale",
+    "live": "Pubblicato",
+    "customize": "Personalizza",
+    "published_on": "Pubblicato il {date}",
+    "never_published": "Non ancora pubblicato",
+    "unpublished_changes": "Modifiche non pubblicate",
+    "template_label": "Modello: {name}",
+    "edited": "Modificato il {time}",
+    "library_title": "Libreria dei temi",
+    "library_hint": "I temi che hai aggiunto. Personalizzali e pubblicane uno quando è pronto.",
+    "library_empty": "Nessun altro tema. Aggiungi un modello dalla galleria qui sotto.",
+    "gallery_title": "Modelli",
+    "gallery_hint": "Parti da un design e rendilo tuo. Aggiungere un modello non cambia il negozio finché non lo pubblichi.",
+    "sections_count": {
+      "one": "{count} sezione",
+      "other": "{count} sezioni"
+    },
+    "add": "Aggiungi alla libreria",
+    "added": "{name} aggiunto alla tua libreria.",
+    "more": "Altre azioni",
+    "publish": "Pubblica",
+    "publish_title": "Pubblicare {name}?",
+    "publish_body": "Sostituisce subito il tema attuale del negozio. Puoi ripubblicare quello precedente in qualsiasi momento.",
+    "published": "{name} è ora pubblicato.",
+    "published_slow": "{name} è ora pubblicato. Il negozio si aggiorna entro un minuto.",
+    "rename": "Rinomina",
+    "rename_title": "Rinomina tema",
+    "name_label": "Nome",
+    "save": "Salva",
+    "renamed": "Tema rinominato.",
+    "duplicate": "Duplica",
+    "duplicated": "Copia aggiunta alla libreria.",
+    "copy_name": "{name} (copia)",
+    "delete": "Elimina",
+    "delete_title": "Eliminare {name}?",
+    "delete_body": "Il tema e le sue versioni vengono eliminati. Il negozio non cambia.",
+    "deleted": "Tema eliminato.",
+    "templates": {
+      "atelier": "Editoriale e pacato: titoli con grazie, neutri morbidi, il logo accanto al menu.",
+      "minimal": "Tanto spazio bianco, un solo carattere pulito, angoli squadrati e pulsanti con bordo.",
+      "bold": "Stile streetwear: maiuscole condensate, un colore d'accento deciso e un'intestazione scura.",
+      "classic": "Boutique calda: un carattere con grazie elegante, toni crema, logo centrato e prodotti incorniciati."
+    },
+    "editor": {
+      "back": "Temi",
+      "saving": "Salvataggio…",
+      "saved": "Salvato",
+      "save_failed": "Non salvato",
+      "read_only": "Sola lettura",
+      "discard": "Annulla modifiche",
+      "discard_title": "Annullare le modifiche non pubblicate?",
+      "discard_body": "L'editor torna alla versione pubblicata di questo tema. Non si può annullare.",
+      "discarded": "Modifiche annullate.",
+      "history": "Versioni",
+      "history_empty": "Ancora nessuna versione pubblicata.",
+      "history_hint": "Ripristinare mette quella versione nell'editor. Pubblica per mostrarla nel negozio.",
+      "restore": "Ripristina",
+      "restored": "Versione ripristinata. Pubblica per mostrarla nel negozio.",
+      "tab_sections": "Sezioni",
+      "tab_settings": "Impostazioni del tema",
+      "home_page": "Home page",
+      "add_section": "Aggiungi sezione",
+      "max_sections": "La home page può avere al massimo {count} sezioni.",
+      "section_types": {
+        "hero": "Copertina",
+        "trust_badges": "Garanzie",
+        "category_tiles": "Categorie",
+        "product_grid": "Griglia di prodotti",
+        "image_with_text": "Immagine con testo",
+        "rich_text": "Testo",
+        "newsletter": "Newsletter",
+        "faq": "Domande frequenti",
+        "gallery": "Galleria di immagini",
+        "video": "Video",
+        "spacer": "Spazio",
+        "page_header": "Titolo della pagina",
+        "contact_form": "Modulo di contatto",
+        "product_main": "Prodotto",
+        "related_products": "Potrebbe piacerti anche"
+      },
+      "hide": "Nascondi",
+      "show": "Mostra",
+      "hidden": "Nascosta",
+      "move_up": "Sposta su",
+      "move_down": "Sposta giù",
+      "drag": "Trascina per riordinare",
+      "remove_section": "Rimuovi sezione",
+      "all_sections": "Tutte le sezioni",
+      "device_desktop": "Desktop",
+      "device_mobile": "Mobile",
+      "preview_language": "Lingua dell'anteprima",
+      "preview_label": "Anteprima del negozio",
+      "preview_off_title": "L'anteprima è disattivata",
+      "preview_off_body": "Imposta THEME_PREVIEW_SECRET (un testo casuale di almeno 16 caratteri) nell'ambiente di entrambe le app e riavviale. Le modifiche vengono comunque salvate.",
+      "fields": {
+        "heading": "Titolo",
+        "subtitle": "Sottotitolo",
+        "body": "Testo",
+        "image_url": "Immagine",
+        "image_hint": "Un link a un'immagine (https://…) o un percorso del negozio, come /images/copertina.jpg.",
+        "primary_button": "Pulsante principale",
+        "secondary_button": "Secondo pulsante",
+        "button": "Pulsante",
+        "button_label": "Testo",
+        "button_href": "Link",
+        "button_hint": "Una pagina del negozio (/shop, /about) o un indirizzo completo. Lascia vuoto il testo per nascondere il pulsante.",
+        "alignment": "Allineamento del testo",
+        "alignment_center": "Centrato",
+        "alignment_left": "Sinistra",
+        "size": "Altezza",
+        "size_medium": "Media",
+        "size_large": "Grande",
+        "image_position": "Posizione dell'immagine",
+        "position_left": "Sinistra",
+        "position_right": "Destra",
+        "categories": "Categorie",
+        "categories_hint": "Nessuna selezionata: le prime categorie principali.",
+        "limit": "Quanti",
+        "source": "Prodotti",
+        "source_featured": "Prodotti in evidenza",
+        "source_newest": "Prodotti più recenti",
+        "source_category": "Una categoria",
+        "category": "Categoria",
+        "choose_category": "Scegli una categoria",
+        "show_view_all": "Mostra il link “Vedi tutto”",
+        "body_hint": "Lascia una riga vuota tra i paragrafi. Le righe che iniziano con “- ” diventano un elenco.",
+        "no_settings": "Questa sezione usa le impostazioni del negozio (spedizioni, resi e metodi di pagamento).",
+        "faq_items": "Domande",
+        "add_question": "Aggiungi domanda",
+        "remove_item": "Rimuovi",
+        "question": "Domanda",
+        "answer": "Risposta",
+        "columns": "Colonne",
+        "images": "Immagini",
+        "add_image": "Aggiungi immagine",
+        "caption": "Didascalia",
+        "video_url": "Link del video",
+        "video_hint": "Un link di YouTube o Vimeo, o l'indirizzo di un file video (mp4, webm).",
+        "size_small": "Piccolo",
+        "show_divider": "Mostra una linea",
+        "eyebrow": "Testo piccolo sopra il titolo",
+        "show_details": "Mostra i recapiti accanto al modulo",
+        "show_details_hint": "Email, telefono e indirizzo di Impostazioni → Generali.",
+        "product_main_hint": "Foto, prezzo, taglie e il pulsante aggiungi al carrello. Spostalo e aggiungi sezioni sopra o sotto.",
+        "show_assurances": "Mostra spedizioni, resi e metodi di pagamento",
+        "collection": "Collezione",
+        "choose_collection": "Scegli una collezione",
+        "source_collection": "Una collezione"
+      },
+      "settings": {
+        "colors": "Colori",
+        "light": "Modalità chiara",
+        "dark": "Modalità scura",
+        "color_background": "Sfondo",
+        "color_foreground": "Testo",
+        "color_primary": "Pulsanti e accenti",
+        "color_muted": "Superfici tenui",
+        "contrast_warning": "Il testo potrebbe leggersi male su questo sfondo (contrasto {ratio}:1, meglio almeno 4,5:1).",
+        "typography": "Caratteri",
+        "heading_font": "Titoli",
+        "body_font": "Testo",
+        "uppercase": "Titoli in maiuscolo",
+        "shape": "Forma",
+        "radius": "Angoli",
+        "radius_none": "Squadrati",
+        "radius_small": "Poco arrotondati",
+        "radius_medium": "Arrotondati",
+        "radius_large": "Molto arrotondati",
+        "buttons": "Pulsanti",
+        "buttons_solid": "Pieni",
+        "buttons_pill": "A pillola",
+        "buttons_outline": "Con bordo",
+        "header": "Intestazione",
+        "header_layout": "Disposizione",
+        "layout_inline": "Logo a sinistra, menu accanto",
+        "layout_centered": "Logo centrato, menu sotto",
+        "layout_inverted": "Barra scura, logo a sinistra",
+        "utility_bar": "Barra contatti sopra l'intestazione",
+        "utility_bar_hint": "Mostra il telefono e l'email di Impostazioni → Generali.",
+        "announcement": "Barra degli annunci",
+        "announcement_hint": "Lasciala vuota per mostrare il messaggio di spedizione gratuita (se attiva).",
+        "product_card": "Schede prodotto",
+        "card_plain": "Semplici",
+        "card_framed": "Incorniciate",
+        "card_minimal": "Minimali",
+        "card_bold": "Marcate",
+        "logo_hint": "Il logo e la favicon sono in Impostazioni → Generali."
+      },
+      "tab_navigation": "Navigazione",
+      "page_label": "Pagina da modificare",
+      "pages": {
+        "home": "Home page",
+        "product": "Pagina prodotto",
+        "about": "Chi siamo",
+        "contact": "Contatti"
+      },
+      "theme_pages": "Pagine del tema",
+      "custom_pages": "Le tue pagine",
+      "custom_page_hint": "Le pagine si salvano mentre scrivi e non fanno parte del tema. Pubblicale o nascondile in Negozio online → Pagine.",
+      "navigation": {
+        "live_hint": "I menu si salvano mentre scrivi e sono subito online, per tutti i temi.",
+        "header_menu": "Menu dell'intestazione",
+        "header_automatic": "Nessun menu: il negozio mostra “Vedi tutto” e le categorie principali.",
+        "menu_items": "Link del menu",
+        "add_link": "Aggiungi link",
+        "add_sublink": "Aggiungi un link al sottomenu",
+        "submenu": "Sottomenu (facoltativo)",
+        "remove_link": "Rimuovi link",
+        "link_label": "Testo",
+        "link_href": "Link",
+        "link_hint": "Inizia a scrivere per scegliere una pagina o una categoria, o incolla un indirizzo completo.",
+        "footer": "Piè di pagina",
+        "footer_about": "Testo sotto il nome del negozio",
+        "footer_about_hint": "Lascialo vuoto per usare la descrizione del negozio di Impostazioni → Generali.",
+        "footer_automatic": "Nessuna colonna: il piè di pagina mostra una colonna Negozio e una Assistenza.",
+        "footer_columns": "Colonne",
+        "add_column": "Aggiungi colonna",
+        "column_title": "Titolo della colonna",
+        "column_links": "Link",
+        "show_contact": "Mostra i recapiti",
+        "show_payments": "Mostra i metodi di pagamento",
+        "store_links": {
+          "shop": "Vedi tutto",
+          "newest": "Novità",
+          "about": "Chi siamo",
+          "contact": "Contatti",
+          "account": "Account",
+          "privacy": "Informativa sulla privacy",
+          "terms": "Termini e condizioni"
+        }
+      },
+      "media": {
+        "upload": "Carica",
+        "uploading": "Caricamento…",
+        "uploaded": "Immagine caricata.",
+        "library": "Scegli tra le caricate",
+        "library_title": "Immagini caricate",
+        "library_body": "Scegli un'immagine che hai già caricato. JPG, PNG, WebP o AVIF, fino a 10 MB.",
+        "library_empty": "Nessuna immagine caricata.",
+        "choose": "Usa {name}"
+      }
+    }
+  },
+  "custom_pages": {
+    "meta_title": "Pagine",
+    "title": "Pagine",
+    "subtitle": "Pagine extra per il negozio, come una guida alle taglie o un lookbook, costruite con le stesse sezioni del tema.",
+    "add": "Aggiungi pagina",
+    "empty_title": "Nessuna pagina",
+    "empty_body": "Crea una pagina e costruiscila nell'editor dei temi.",
+    "list_title": "Le tue pagine",
+    "published": "Pubblicata",
+    "hidden": "Nascosta",
+    "edited": "Modificata il {date}",
+    "edit_content": "Modifica contenuto",
+    "more": "Altre azioni",
+    "view": "Vedi nel negozio",
+    "settings": "Impostazioni",
+    "delete": "Elimina",
+    "delete_title": "Eliminare {name}?",
+    "delete_body": "La pagina e il suo indirizzo smettono di funzionare. I menu che vi puntano vanno aggiornati.",
+    "deleted": "Pagina eliminata.",
+    "created": "Pagina creata. Aggiungi ora il contenuto.",
+    "saved": "Pagina salvata.",
+    "settings_title": "Impostazioni della pagina",
+    "settings_body": "Nome, indirizzo, visibilità e testo per i motori di ricerca.",
+    "add_title": "Aggiungi pagina",
+    "add_body": "Parte nascosta: pubblicala quando il contenuto è pronto.",
+    "title_label": "Titolo",
+    "slug_label": "Indirizzo",
+    "slug_hint": "Lettere minuscole, numeri e trattini, come guida-taglie.",
+    "published_label": "Pubblicata",
+    "published_hint": "Le pagine nascoste si vedono solo nell'editor dei temi.",
+    "seo_title": "Titolo per i motori di ricerca",
+    "seo_description": "Descrizione per i motori di ricerca",
+    "seo_hint": "Lasciali vuoti per usare il titolo della pagina.",
+    "add_submit": "Crea pagina"
+  },
+  "payments": {
+    "title": "Pagamenti",
+    "subtitle": "Scegli come possono pagare i clienti. Al checkout vedono i metodi attivi, in quest'ordine.",
+    "methods_title": "Metodi di pagamento",
+    "methods_hint": "I metodi manuali (bonifico, pagamento in negozio…) creano l'ordine non pagato; lo segni come pagato quando arrivano i soldi.",
+    "add_manual": "Aggiungi metodo manuale",
+    "add_stripe": "Aggiungi pagamenti con carta (Stripe)",
+    "new_manual_name": "Bonifico bancario",
+    "types": {
+      "stripe": "Carta (Stripe)",
+      "cash_on_delivery": "Contrassegno",
+      "manual": "Manuale"
+    },
+    "edit_hint": {
+      "stripe": "Il nome che i clienti vedono per i pagamenti con carta.",
+      "cash_on_delivery": "I clienti pagano il corriere alla consegna.",
+      "manual": "I clienti pagano fuori dal negozio, ad esempio con bonifico."
+    },
+    "name": "Nome al checkout",
+    "instructions": "Istruzioni",
+    "instructions_hint": {
+      "stripe": "",
+      "cash_on_delivery": "Mostrate al checkout e nella pagina di ringraziamento.",
+      "manual": "Mostrate al checkout, nella pagina di ringraziamento e nell'email di conferma: coordinate bancarie, causale…"
+    },
+    "fee": "Costo aggiuntivo",
+    "fee_hint": "Aggiunto al totale dell'ordine quando si sceglie questo metodo. 0 = nessuno.",
+    "fee_value": "Costo di {amount}",
+    "apply": "Applica",
+    "edit": "Modifica",
+    "remove": "Rimuovi",
+    "move_up": "Sposta su",
+    "move_down": "Sposta giù",
+    "enabled": "{name} attivo",
+    "saved": "Metodi di pagamento salvati.",
+    "stripe": {
+      "title": "Stripe",
+      "description": "Pagamenti con carta, Apple Pay e Google Pay con Stripe Checkout.",
+      "connected": "Collegato",
+      "not_connected": "Non collegato",
+      "needs_keys": "Mancano le chiavi Stripe",
+      "publishable_key": "Chiave pubblicabile",
+      "publishable_hint": "Stripe → Sviluppatori → Chiavi API. Inizia con pk_test_ o pk_live_.",
+      "secret_key": "Chiave segreta",
+      "webhook_secret": "Segreto di firma del webhook",
+      "not_set": "Non ancora impostata.",
+      "saved_hint": "Salvata (cifrata). Scrivine una nuova per sostituirla.",
+      "from_env": "Impostata sul server (variabile d'ambiente).",
+      "webhook_title": "Webhook",
+      "webhook_steps": "In Stripe → Sviluppatori → Webhook, aggiungi un endpoint con questo indirizzo e incolla qui sotto il suo segreto di firma.",
+      "webhook_events": "Eventi:",
+      "copy": "Copia indirizzo",
+      "save": "Salva chiavi Stripe",
+      "saved": "Chiavi Stripe salvate.",
+      "encryption_missing": "Per salvare qui le chiavi segrete, imposta SETTINGS_ENCRYPTION_KEY (16+ caratteri casuali) nell'ambiente dell'admin e del negozio."
+    }
+  },
+  "email_sending": {
+    "title": "Invio email",
+    "subtitle": "Il server di posta da cui il negozio invia le email degli ordini.",
+    "configured": "Configurato",
+    "not_configured": "Non configurato",
+    "server_title": "Server SMTP",
+    "server_hint": "Te lo dà il tuo provider di posta (Gmail, Outlook, il tuo hosting, Brevo, Mailgun…).",
+    "host": "Server",
+    "port": "Porta",
+    "security": "Cifratura",
+    "security_options": {
+      "starttls": "STARTTLS (di solito porta 587)",
+      "tls": "SSL/TLS (di solito porta 465)",
+      "none": "Nessuna (solo test)"
+    },
+    "username": "Nome utente",
+    "password": "Password",
+    "password_saved": "Salvata (cifrata). Scrivine una nuova per sostituirla.",
+    "password_not_set": "Non ancora impostata.",
+    "password_env": "Impostata sul server (SMTP_PASSWORD).",
+    "encryption_missing": "Per salvare qui la password, imposta SETTINGS_ENCRYPTION_KEY (16+ caratteri casuali) nell'ambiente dell'admin e del negozio.",
+    "sender_title": "Mittente",
+    "sender_hint": "Ciò che i clienti vedono nella posta in arrivo. Usa un indirizzo da cui il server può inviare.",
+    "from_name": "Nome (vuoto = nome del negozio)",
+    "from_email": "Indirizzo email",
+    "save": "Salva",
+    "saved": "Impostazioni email salvate.",
+    "test_title": "Invia un'email di prova",
+    "test_hint": "Usa le impostazioni salvate.",
+    "test_to": "Invia a",
+    "test_send": "Invia prova",
+    "test_sent": "Email di prova inviata a {email}."
+  },
+  "notifications": {
+    "title": "Notifiche",
+    "subtitle": "Le email che il negozio invia, e quando. Modifica il testo in ogni lingua.",
+    "smtp_missing": "Le email non partono ancora: configura prima il server di posta.",
+    "smtp_link": "Invio email",
+    "customer_title": "Email",
+    "customer_hint": "Disattiva un'email per non inviarla più.",
+    "edit": "Modifica",
+    "view": "Vedi",
+    "enabled": "{name} attiva",
+    "subject": "Oggetto",
+    "body": "Messaggio",
+    "body_hint": "Testo semplice. Una riga vuota inizia un nuovo paragrafo. Le righe con un segnaposto vuoto vengono omesse. Le email degli ordini aggiungono sotto articoli e totali.",
+    "placeholders": "Segnaposto",
+    "preview": "Anteprima",
+    "preview_language": "Lingua dell'anteprima",
+    "send_test": "Inviami una prova",
+    "test_sent": "Prova inviata a {email}.",
+    "reset": "Torna al testo predefinito",
+    "staff_title": "Avvisi allo staff",
+    "staff_hint": "Chi riceve l'email «Nuovo ordine».",
+    "staff_recipients": "Indirizzi email (separati da virgole)",
+    "invalid_emails": "Uno di questi non è un indirizzo email valido.",
+    "log_title": "Registro email",
+    "log_hint": "Le ultime email inviate dal negozio.",
+    "log_empty": "Ancora nessuna email.",
+    "log_status": {
+      "sent": "Inviata",
+      "failed": "Errore",
+      "skipped": "Non inviata"
+    },
+    "saved": "Notifiche salvate.",
+    "templates": {
+      "order_confirmation": {
+        "title": "Conferma d'ordine",
+        "when": "Al cliente, quando effettua un ordine."
+      },
+      "payment_received": {
+        "title": "Pagamento ricevuto",
+        "when": "Al cliente, quando un ordine non pagato viene segnato come pagato."
+      },
+      "order_shipped": {
+        "title": "Ordine spedito",
+        "when": "Al cliente, quando l'ordine parte (con tracciamento)."
+      },
+      "order_delivered": {
+        "title": "Ordine consegnato",
+        "when": "Al cliente, quando l'ordine viene segnato come consegnato."
+      },
+      "order_cancelled": {
+        "title": "Ordine annullato",
+        "when": "Al cliente, quando l'ordine viene annullato."
+      },
+      "order_refunded": {
+        "title": "Rimborso",
+        "when": "Al cliente, quando l'ordine viene rimborsato."
+      },
+      "draft_invoice": {
+        "title": "Fattura della bozza",
+        "when": "Al cliente, da una bozza d'ordine, con un link di pagamento."
+      },
+      "staff_new_order": {
+        "title": "Nuovo ordine (staff)",
+        "when": "Agli indirizzi dello staff qui sotto, quando arriva un ordine."
+      },
+      "abandoned_checkout": {
+        "title": "Checkout abbandonato",
+        "when": "Al cliente, quando ha lasciato il checkout senza ordinare."
+      },
+      "gift_card": {
+        "title": "Carta regalo",
+        "when": "All'acquirente (o a chi la emetti), con il codice."
+      }
+    },
+    "placeholder_labels": {
+      "store_name": "Nome del negozio",
+      "customer_name": "Nome del cliente",
+      "order_number": "Numero d'ordine",
+      "order_total": "Totale dell'ordine",
+      "order_link": "Link all'ordine",
+      "payment_method": "Metodo di pagamento",
+      "payment_instructions": "Come pagare (metodi manuali)",
+      "shipping_method": "Metodo di spedizione",
+      "tracking_number": "Numero di tracciamento",
+      "tracking_link": "Link di tracciamento",
+      "carrier": "Corriere",
+      "invoice_link": "Link di pagamento (bozze)",
+      "checkout_link": "Link per tornare al checkout",
+      "refund_amount": "Importo rimborsato",
+      "gift_card_code": "Codice della carta regalo",
+      "gift_card_balance": "Valore della carta regalo",
+      "gift_card_expires": "Scadenza della carta regalo"
+    },
+    "abandoned_title": "Checkout abbandonati",
+    "abandoned_hint": "Ricorda ai clienti che hanno scritto la loro email al checkout ma non hanno ordinato.",
+    "abandoned_delay": "Invia automaticamente dopo (ore)",
+    "abandoned_delay_hint": "0 = solo a mano, da Ordini → Checkout abbandonati. L'invio automatico richiede il cron job (vedi la guida al deploy)."
+  },
+  "inventory": {
+    "title": "Magazzino",
+    "subtitle": "Le scorte di ogni variante. Scorte basse significa {threshold} o meno (Impostazioni → Dati del negozio).",
+    "views": {
+      "all": "Tutte",
+      "low": "Scorte basse",
+      "out": "Esaurite"
+    },
+    "search_placeholder": "Cerca per prodotto, SKU, taglia o colore",
+    "columns": {
+      "product": "Prodotto",
+      "sku": "SKU",
+      "status": "",
+      "available": "Disponibili"
+    },
+    "results": {
+      "one": "{count} variante",
+      "other": "{count} varianti"
+    },
+    "empty": "Nessuna variante corrisponde.",
+    "default_variant": "Predefinita",
+    "low_stock": "Scorte basse",
+    "out_of_stock": "Esaurita",
+    "inactive": "Nascosta",
+    "available_for": "Disponibili: {name}",
+    "adjust": "Modifica",
+    "history": "Storico",
+    "history_empty": "Ancora nessuna modifica.",
+    "current": "Disponibili ora",
+    "mode": "Modifica",
+    "mode_add": "Aggiungi o togli",
+    "mode_set": "Imposta a",
+    "quantity_add": "Quantità (negativa toglie)",
+    "quantity_set": "Nuove scorte",
+    "reason": "Motivo",
+    "note": "Nota",
+    "reasons": {
+      "received": "Ricevuto",
+      "correction": "Correzione",
+      "damaged": "Danneggiato",
+      "returned": "Reso",
+      "other": "Altro",
+      "order": "Ordine",
+      "restock": "Rimesso da un ordine",
+      "draft_order": "Bozza d'ordine"
+    },
+    "new_stock": "Nuove scorte: {stock}",
+    "stock_after": "→ {stock}",
+    "save": "Salva",
+    "saved": "Scorte aggiornate."
+  },
+  "draft_orders": {
+    "title": "Bozze",
+    "create": "Crea ordine",
+    "all": "Tutte",
+    "status": {
+      "open": "Aperta",
+      "invoice_sent": "Fattura inviata",
+      "completed": "Completata"
+    },
+    "columns": {
+      "draft": "Bozza",
+      "date": "Data",
+      "customer": "Cliente",
+      "status": "Stato",
+      "total": "Totale"
+    },
+    "search_placeholder": "Cerca per numero, nome o email",
+    "results": {
+      "one": "{count} bozza",
+      "other": "{count} bozze"
+    },
+    "empty_title": "Crea ordini a mano",
+    "empty_body": "Per ordini al telefono o in negozio, all'ingrosso o un articolo su misura: invia al cliente una fattura da pagare online, o segnala come pagato.",
+    "products": "Prodotti",
+    "search_products": "Cerca prodotti",
+    "no_products": "Nessun prodotto trovato.",
+    "in_stock": "{stock} disponibili",
+    "custom_item": "Aggiungi articolo personalizzato",
+    "custom_item_hint": "Un articolo che non è nel catalogo. Non cambia le scorte.",
+    "item_name": "Nome dell'articolo",
+    "price": "Prezzo",
+    "quantity": "Quantità",
+    "add_item": "Aggiungi articolo",
+    "custom_line": "Articolo personalizzato",
+    "no_lines": "Ancora nessun articolo. Cerca un prodotto o aggiungine uno personalizzato.",
+    "not_available": "Non più disponibile in questa quantità",
+    "quantity_for": "Quantità: {name}",
+    "remove_line": "Rimuovi {name}",
+    "shipping_and_discount": "Spedizione e sconto",
+    "own_shipping_price": "Prezzo di spedizione personalizzato",
+    "discount": "Sconto",
+    "no_discount": "Nessuno sconto",
+    "discount_percent": "Percentuale",
+    "discount_fixed": "Importo fisso",
+    "discount_value": "Valore",
+    "discount_reason": "Motivo",
+    "payment": "Pagamento",
+    "totals_after_save": "I totali si aggiornano al salvataggio.",
+    "invoice_link": "Link della fattura",
+    "copy_link": "Copia link",
+    "customer": "Cliente",
+    "search_customers": "Cerca clienti",
+    "no_customers": "Nessun cliente trovato.",
+    "linked_account": "Collegato all'account del cliente.",
+    "unlink": "Scollega",
+    "customer_name": "Nome",
+    "language": "Lingua",
+    "language_hint": "Per la fattura e le email dell'ordine.",
+    "shipping_address": "Indirizzo di spedizione",
+    "add_address": "Aggiungi indirizzo",
+    "clear": "Rimuovi",
+    "note": "Nota",
+    "send_invoice": "Invia fattura",
+    "resend_invoice": "Invia di nuovo la fattura",
+    "invoice_sent": "Fattura inviata a {email}.",
+    "smtp_missing": "Configura prima l'invio email (Impostazioni → Invio email).",
+    "payment_pending": "Pagamento in sospeso",
+    "mark_paid": "Segna come pagato",
+    "completed": "Ordine creato.",
+    "completed_note": "Questa bozza è diventata l'ordine",
+    "save_first": "Salva le modifiche prima di inviare la fattura o creare l'ordine.",
+    "saved": "Bozza salvata.",
+    "delete": "Elimina bozza",
+    "delete_title": "Eliminare questa bozza?",
+    "delete_body": "La bozza e il suo link di fattura smettono di funzionare. Non si può annullare."
+  },
+  "discounts": {
+    "title": "Sconti",
+    "new_title": "Nuovo sconto",
+    "create": "Crea sconto",
+    "all": "Tutti",
+    "status": {
+      "active": "Attivo",
+      "scheduled": "Programmato",
+      "expired": "Scaduto",
+      "used_up": "Esaurito",
+      "disabled": "Disattivato"
+    },
+    "columns": {
+      "code": "Codice",
+      "status": "Stato",
+      "value": "Sconto",
+      "used": "Usi"
+    },
+    "search_placeholder": "Cerca per codice o nome",
+    "results": {
+      "one": "{count} sconto",
+      "other": "{count} sconti"
+    },
+    "empty_title": "Dai un codice ai clienti",
+    "empty_body": "Percentuale, importo fisso o spedizione gratuita, su tutto l'ordine o su alcuni prodotti, con date e limiti.",
+    "types": {
+      "percent": "Percentuale",
+      "fixed": "Importo fisso",
+      "free_shipping": "Spedizione gratuita"
+    },
+    "value_off": "{amount} di sconto",
+    "code_title": "Codice sconto",
+    "code_hint": "I clienti lo scrivono al pagamento. Lettere, numeri, - e _.",
+    "code": "Codice",
+    "generate": "Genera",
+    "internal_title": "Nome (facoltativo)",
+    "internal_title_hint": "Lo vede solo lo staff, es. «Saldi estivi».",
+    "value_title": "Valore",
+    "type": "Tipo",
+    "percent": "Percentuale (1–100)",
+    "amount": "Importo",
+    "applies_to": "Si applica a",
+    "applies": {
+      "all": "Tutto l'ordine",
+      "products": "Prodotti specifici",
+      "categories": "Categorie specifiche"
+    },
+    "search_products": "Cerca prodotti",
+    "remove_target": "Rimuovi {name}",
+    "requirements_title": "Requisiti e limiti",
+    "minimum": "Subtotale minimo dell'ordine",
+    "usage_limit": "Limita il numero totale di usi",
+    "once_per_customer": "Un uso per cliente (per email)",
+    "dates_title": "Date di validità",
+    "dates_hint": "Gli orari sono nel fuso orario del negozio ({zone}).",
+    "starts_at": "Inizio",
+    "starts_at_hint": "Vuoto = da subito.",
+    "ends_at": "Fine",
+    "ends_at_hint": "Vuoto = nessuna scadenza.",
+    "summary_title": "Riepilogo",
+    "summary": {
+      "whole_order": "Su tutto l'ordine",
+      "products": {
+        "one": "Su {count} prodotto",
+        "other": "Su {count} prodotti"
+      },
+      "categories": {
+        "one": "Su {count} categoria",
+        "other": "Su {count} categorie"
+      },
+      "minimum": "Ordine minimo {amount}",
+      "no_minimum": "Nessun minimo",
+      "limit": "{count} usi in totale",
+      "no_limit": "Nessun limite di usi",
+      "once_per_customer": "Una volta per cliente"
+    },
+    "used": "Usato {count} volte",
+    "created": "Creato il {date}",
+    "status_title": "Stato",
+    "is_active": "Attivo",
+    "invalid": {
+      "code": "3–50 caratteri: lettere, numeri, - e _.",
+      "value": "Inserisci un valore (percentuali da 1 a 100).",
+      "applies_to": "Scegline almeno uno.",
+      "ends_at": "La fine deve essere dopo l'inizio."
+    },
+    "saved": "Sconto salvato.",
+    "delete": "Elimina sconto",
+    "delete_title": "Eliminare questo sconto?",
+    "delete_body": "Il codice smette di funzionare al pagamento. Gli ordini passati mantengono lo sconto. Non si può annullare."
+  },
+  "abandoned": {
+    "title": "Checkout abbandonati",
+    "subtitle": "Clienti che hanno scritto la loro email al checkout almeno un'ora fa e non hanno ordinato.",
+    "views": {
+      "all": "Tutti",
+      "not_sent": "Senza promemoria",
+      "sent": "Con promemoria"
+    },
+    "columns": {
+      "customer": "Cliente",
+      "date": "Abbandonato",
+      "recovery": "Promemoria",
+      "total": "Totale"
+    },
+    "search_placeholder": "Cerca per email",
+    "results": {
+      "one": "{count} checkout",
+      "other": "{count} checkout"
+    },
+    "empty": "Nessun checkout abbandonato.",
+    "recovery_sent": "Inviato {date}",
+    "recovery_not_sent": "Non inviato",
+    "send": "Invia promemoria",
+    "send_again": "Invia di nuovo",
+    "sent_toast": "Promemoria inviato a {email}.",
+    "smtp_missing": "I promemoria non partono ancora: configura prima il server di posta.",
+    "smtp_link": "Invio email",
+    "automatic_on": "I promemoria partono anche da soli {hours} h dopo aver scritto l'email.",
+    "automatic_off": "I promemoria si inviano solo a mano.",
+    "automatic_link": "Cambia in Notifiche"
+  },
+  "tracking": {
+    "title": "Tracciamento",
+    "subtitle": "Misura visite e annunci. Ogni tag aspetta il consenso ai cookie del visitatore.",
+    "google_title": "Google",
+    "google_hint": "Google Tag Manager, Google Analytics 4 e Google Ads.",
+    "meta_title": "Meta (Facebook e Instagram)",
+    "meta_hint": "Il Pixel nel browser più la Conversions API dal server, con lo stesso id evento così Meta conta ogni evento una volta.",
+    "fields": {
+      "gtm_id": "Contenitore Google Tag Manager",
+      "google_tag_id": "Tag Google (GA4 o Ads)",
+      "google_ads_conversion": "Conversione d'acquisto Google Ads",
+      "meta_pixel_id": "Id del Pixel Meta"
+    },
+    "hints": {
+      "gtm_id": "Usa GTM oppure il tag Google, non entrambi per gli stessi tag.",
+      "google_tag_id": "Un id Google Analytics 4 (G-…) o Google Ads (AW-…).",
+      "google_ads_conversion": "Da Google Ads → Obiettivi → Conversioni → la tua azione di acquisto → Configurazione tag.",
+      "meta_pixel_id": "Da Meta Events Manager → Origini dati."
+    },
+    "placeholders": {
+      "gtm_id": "GTM-XXXXXXX",
+      "google_tag_id": "G-XXXXXXXXXX",
+      "google_ads_conversion": "AW-123456789/AbC-dEfGh",
+      "meta_pixel_id": "123456789012345"
+    },
+    "capi_token": "Token di accesso della Conversions API",
+    "capi_saved": "Salvato (cifrato). Scrivine uno nuovo per sostituirlo.",
+    "capi_not_set": "Non impostato: si usa solo il Pixel nel browser.",
+    "capi_from_env": "Impostato sul server (META_CAPI_TOKEN).",
+    "capi_on": "Conversions API attiva",
+    "encryption_missing": "Per salvare qui il token, imposta SETTINGS_ENCRYPTION_KEY (16+ caratteri casuali) nell'ambiente dell'admin e del negozio.",
+    "consent_note": "I tag delle statistiche si caricano quando il visitatore accetta i cookie statistici; Meta e Google Ads quando accetta quelli di marketing. Gli ordini conservano la provenienza del cliente (UTM e id dei clic).",
+    "invalid": "Non sembra un id valido.",
+    "save": "Salva",
+    "saved": "Impostazioni di tracciamento salvate."
+  },
+  "analytics": {
+    "title": "Statistiche",
+    "subtitle": "Vendite, ordini e clienti, confrontati con il periodo precedente.",
+    "range": "Periodo",
+    "from": "Dal",
+    "to": "Al",
+    "ranges": {
+      "today": "Oggi",
+      "last_7": "Ultimi 7 giorni",
+      "last_30": "Ultimi 30 giorni",
+      "last_90": "Ultimi 90 giorni",
+      "this_month": "Questo mese",
+      "last_month": "Mese scorso",
+      "this_year": "Quest'anno",
+      "custom": "Personalizzato"
+    },
+    "period": "{from} – {to} ({zone}). Gli ordini annullati e rimborsati non sono contati.",
+    "tiles": {
+      "sales": "Vendite",
+      "orders": "Ordini",
+      "average_order": "Ordine medio",
+      "customers": "Clienti",
+      "returning_rate": "Clienti di ritorno",
+      "conversion_rate": "Conversione del checkout",
+      "discounts": "Sconti"
+    },
+    "vs_previous": "{change} rispetto al periodo precedente",
+    "no_previous": "Nessun dato precedente",
+    "sales_over_time": "Vendite nel tempo",
+    "orders_over_time": "Ordini nel tempo",
+    "current": "Questo periodo",
+    "previous": "Periodo precedente",
+    "date": "Data",
+    "show_table": "Tabella",
+    "show_chart": "Grafico",
+    "top_products": "Prodotti più venduti",
+    "by_category": "Vendite per categoria",
+    "discount_usage": "Codici sconto usati",
+    "sold": "{count} venduti",
+    "no_category": "Senza categoria",
+    "code": "Codice",
+    "empty": "Nessuna vendita in questo periodo."
+  },
+  "refund": {
+    "title": "Rimborso",
+    "items": "Articoli",
+    "already": "{count} già rimborsati",
+    "quantity_for": "Quantità da rimborsare: {name}",
+    "shipping": "Spedizione",
+    "amount": "Importo da rimborsare",
+    "amount_hint": "Fino a {max}. Si compila dagli articoli scelti; puoi cambiarlo.",
+    "reason": "Motivo (lo vede solo lo staff)",
+    "restock": "Rimetti gli articoli in magazzino",
+    "notify": "Invia un'email al cliente",
+    "card_note": "Pagamento con carta: l'importo torna sulla carta tramite Stripe.",
+    "manual_note": "Non è un pagamento con carta: restituisci tu il denaro (contanti, bonifico). Qui viene solo registrato.",
+    "submit": "Rimborsa {amount}",
+    "done": "Rimborsato {amount}.",
+    "history": "Rimborsi",
+    "refunded_total": "Rimborsato",
+    "restocked": "rimesso in magazzino",
+    "gift_card_split": "{gift_card} torna sulla carta regalo che ha pagato parte di questo ordine; {money} viene rimborsato in denaro."
+  },
+  "collections": {
+    "title": "Collezioni",
+    "subtitle": "Gruppi di prodotti con una pagina propria: «Estate», «Saldi», «Regali sotto i 50 €».",
+    "new_title": "Nuova collezione",
+    "create": "Crea collezione",
+    "columns": {
+      "title": "Collezione",
+      "kind": "Tipo",
+      "status": "Stato",
+      "products": "Prodotti"
+    },
+    "kinds": {
+      "manual": "Scelti a mano",
+      "automatic": "Automatica (regole)"
+    },
+    "published": "Visibile nel negozio",
+    "hidden": "Nascosta",
+    "product_count": {
+      "one": "{count} prodotto",
+      "other": "{count} prodotti"
+    },
+    "empty_title": "Raggruppa i tuoi prodotti",
+    "empty_body": "Scegli i prodotti a mano o lascia che le regole riempiano la collezione (un tag, una categoria, in saldo, un prezzo).",
+    "fields": {
+      "title": "Titolo",
+      "description": "Descrizione",
+      "slug": "Identificativo URL",
+      "kind": "Prodotti",
+      "sort": "Ordina i prodotti per"
+    },
+    "products_title": "Prodotti",
+    "kind_hint": "Le collezioni automatiche si aggiornano da sole quando cambiano i prodotti.",
+    "match_label": "I prodotti devono soddisfare",
+    "match": {
+      "all": "tutte le condizioni",
+      "any": "almeno una condizione"
+    },
+    "rule_field": "Campo",
+    "rule_operator": "Condizione",
+    "rule_value": "Valore",
+    "rule_fields": {
+      "tag": "Tag",
+      "category": "Categoria",
+      "price": "Prezzo",
+      "on_sale": "In saldo",
+      "in_stock": "Disponibile"
+    },
+    "rule_operators": {
+      "is": "è",
+      "is_not": "non è",
+      "greater_than": "è più di",
+      "less_than": "è meno di"
+    },
+    "add_rule": "Aggiungi condizione",
+    "remove_rule": "Rimuovi condizione",
+    "choose_category": "Scegli una categoria",
+    "yes": "Sì",
+    "no": "No",
+    "tag_placeholder": "es. estate",
+    "search_products": "Cerca prodotti da aggiungere",
+    "no_products": "Ancora nessun prodotto. Cerca qui sopra per aggiungerne.",
+    "not_live": "non visibile nel negozio",
+    "move_up": "Sposta su",
+    "move_down": "Sposta giù",
+    "remove_product": "Rimuovi dalla collezione",
+    "sorts": {
+      "manual": "Il tuo ordine",
+      "newest": "Più recenti prima",
+      "price_asc": "Prezzo crescente",
+      "price_desc": "Prezzo decrescente",
+      "title": "Nome, A–Z"
+    },
+    "status_title": "Stato",
+    "image_title": "Immagine",
+    "upload": "Carica immagine",
+    "remove_image": "Rimuovi",
+    "saved": "Collezione salvata.",
+    "delete": "Elimina collezione",
+    "delete_title": "Eliminare questa collezione?",
+    "delete_body": "La sua pagina nel negozio smette di funzionare. I prodotti restano. Non si può annullare."
+  },
+  "gift_cards": {
+    "title": "Carte regalo",
+    "subtitle": "Si vendono come prodotti (segna un prodotto come carta regalo) o si emettono qui. I clienti le usano nel campo del codice sconto al pagamento.",
+    "issue": "Emetti carta regalo",
+    "issue_hint": "Un nuovo codice con questo valore. Puoi inviarlo per email a un cliente.",
+    "views": {
+      "all": "Tutte",
+      "active": "Attive",
+      "used": "Esaurite",
+      "expired": "Scadute",
+      "disabled": "Disattivate"
+    },
+    "status": {
+      "active": "Attiva",
+      "used": "Esaurita",
+      "expired": "Scaduta",
+      "disabled": "Disattivata"
+    },
+    "columns": {
+      "code": "Codice",
+      "status": "Stato",
+      "customer": "Cliente",
+      "expires": "Scade",
+      "balance": "Credito"
+    },
+    "search_placeholder": "Cerca per gli ultimi caratteri del codice o per email",
+    "results": {
+      "one": "{count} carta regalo",
+      "other": "{count} carte regalo"
+    },
+    "empty_title": "Ancora nessuna carta regalo",
+    "empty_body": "Emettine una qui, o segna un prodotto come carta regalo così i clienti possono comprarle.",
+    "never": "Mai",
+    "amount": "Valore",
+    "expires": "Scade (facoltativo)",
+    "expires_hint": "Vuoto = non scade.",
+    "customer_email": "Email del cliente (facoltativa)",
+    "notify": "Invia il codice per email al cliente",
+    "note": "Nota (la vede solo lo staff)",
+    "issued": "Carta regalo emessa. Copia ora il codice, o ritrovalo qui più tardi.",
+    "copy": "Copia codice",
+    "card_title": "Carta regalo",
+    "card_hint": "Credito e ogni volta che è stata usata.",
+    "initial_value": "Valore iniziale",
+    "is_active": "Utilizzabile",
+    "history": "Storico"
+  },
+  "reviews": {
+    "title": "Recensioni",
+    "subtitle": "Scritte da clienti che hanno acquistato il prodotto. Una recensione appare nella pagina del prodotto dopo la tua approvazione.",
+    "views": {
+      "pending": "Da rivedere",
+      "approved": "Approvate",
+      "hidden": "Nascoste",
+      "all": "Tutte"
+    },
+    "status": {
+      "pending": "Da rivedere",
+      "approved": "Approvata",
+      "hidden": "Nascosta"
+    },
+    "columns": {
+      "review": "Recensione",
+      "rating": "Valutazione",
+      "status": "Stato",
+      "customer": "Cliente",
+      "date": "Data"
+    },
+    "rated": "Valutazione: {rating} su 5",
+    "search_placeholder": "Cerca recensioni, prodotti o email",
+    "results": {
+      "one": "{count} recensione",
+      "other": "{count} recensioni"
+    },
+    "empty_title": "Nessuna recensione qui",
+    "empty_body": "I clienti possono recensire un prodotto dopo averlo acquistato. Le nuove recensioni aspettano qui la tua approvazione.",
+    "untitled": "Recensione",
+    "reply": "Risposta del negozio",
+    "reply_hint": "Mostrata sotto la recensione nella pagina del prodotto. Lascia vuoto per non rispondere.",
+    "save_reply": "Salva risposta",
+    "reply_saved": "Risposta salvata",
+    "approve": "Approva",
+    "hide": "Nascondi",
+    "status_saved": "Recensione aggiornata",
+    "delete_title": "Eliminare questa recensione?",
+    "delete_body": "La recensione viene eliminata definitivamente. Il cliente potrà scriverne una nuova.",
+    "deleted": "Recensione eliminata",
+    "delete": "Elimina"
+  },
+  "api_keys": {
+    "title": "Chiavi API",
+    "subtitle": "Permetti a un assistente IA come Claude di lavorare con il tuo negozio. Una chiave agisce come il membro dello staff che l'ha creata, con gli stessi permessi.",
+    "connect_title": "Collega un assistente",
+    "connect_body": "Aggiungi questo indirizzo come connettore personalizzato (server MCP) nel tuo assistente:",
+    "connect_header": "Invia la chiave nell'header Authorization: Bearer <chiave>. L'assistente potrà consultare ordini, prodotti, magazzino, clienti, sconti e vendite, aggiornare stato e tracking degli ordini, aggiungere note e modificare il magazzino.",
+    "copy": "Copia",
+    "keys_title": "Chiavi",
+    "empty": "Ancora nessuna chiave.",
+    "create": "Crea chiave",
+    "create_hint": "Dalle un nome per sapere dove viene usata.",
+    "created_hint": "Copia la chiave ora. Per sicurezza viene mostrata una sola volta.",
+    "name": "Nome",
+    "name_placeholder": "Claude sul mio portatile",
+    "name_hint": "Lo vede solo lo staff.",
+    "created": "creata {when}",
+    "last_used": "ultimo uso {when}",
+    "never_used": "mai usata",
+    "revoked": "Revocata",
+    "revoke": "Revoca",
+    "revoke_title": "Revocare questa chiave?",
+    "revoke_body": "Tutto ciò che usa “{name}” smette subito di funzionare. Non si può annullare.",
+    "revoked_toast": "Chiave revocata"
+  }
+}

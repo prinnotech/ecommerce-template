@@ -6,3 +6,9 @@ pocketbase.exe
 .env*
 !.env.example
 .git
+**/.next
+data
+templates
+*.log
+/*.err
+.claude

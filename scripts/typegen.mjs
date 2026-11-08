@@ -1,4 +1,4 @@
-// Regenerates types/pocketbase-types.ts from the running local PocketBase.
+// Regenerates packages/backend-pocketbase/pocketbase-types.ts from the running local PocketBase.
 // Reads the superuser credentials from .env.local so they never appear in package.json.
 import { spawnSync } from "node:child_process";
 
@@ -15,7 +15,7 @@ const result = spawnSync(
     "--password",
     process.env.POCKETBASE_SUPERUSER_PASSWORD ?? "",
     "--out",
-    "types/pocketbase-types.ts",
+    "packages/backend-pocketbase/pocketbase-types.ts",
   ],
   { stdio: "inherit", shell: process.platform === "win32" },
 );

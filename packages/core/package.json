@@ -1,0 +1,6 @@
+{
+  "name": "@repo/core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared logic: backend access, server actions, schemas, hooks, translations."
+}

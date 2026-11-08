@@ -1,0 +1,6 @@
+@import "../../../packages/ui/styles/globals.css";
+
+/* Shared code lives outside this app: tell Tailwind to scan it for class names. */
+@source "../../../packages/core";
+@source "../../../packages/ui";
+@source "../../../packages/admin-ui";

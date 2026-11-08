@@ -1,0 +1,6 @@
+{
+  "name": "@repo/backend-supabase",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Supabase implementation of the backend contract: Postgres via the shared SQL code, Supabase Auth and Storage."
+}

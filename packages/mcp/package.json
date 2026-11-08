@@ -1,0 +1,9 @@
+{
+  "name": "@repo/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server: store tools for AI assistants, signed in with a staff API key.",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2"
+  }
+}
