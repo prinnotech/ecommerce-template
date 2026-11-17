@@ -288,7 +288,9 @@
       "cart_count": {
         "one": "Carrito, {count} artículo",
         "other": "Carrito, {count} artículos"
-      }
+      },
+      "previous_announcement": "Anuncio anterior",
+      "next_announcement": "Anuncio siguiente"
     },
     "announcement": {
       "free_shipping": "Envío gratis en pedidos desde {amount}"
@@ -422,7 +424,11 @@
       "cookie_settings": "Configuración de cookies"
     },
     "sections": {
-      "video": "Vídeo"
+      "video": "Vídeo",
+      "previous_slide": "Diapositiva anterior",
+      "next_slide": "Diapositiva siguiente",
+      "go_to_slide": "Ir a la diapositiva {number}",
+      "rating": "{rating} de 5 estrellas"
     },
     "collection": {
       "products": {

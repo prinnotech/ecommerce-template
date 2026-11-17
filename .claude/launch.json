@@ -57,7 +57,9 @@
       "port": 3201,
       "env": {
         "NEXT_PUBLIC_POCKETBASE_URL": "http://127.0.0.1:8099",
-        "NEXT_PUBLIC_SITE_URL": "http://localhost:3100"
+        "NEXT_PUBLIC_SITE_URL": "http://localhost:3100",
+        "BACKEND": "pocketbase",
+        "NEXT_PUBLIC_ADMIN_URL": "http://localhost:3201"
       }
     },
     {
@@ -75,7 +77,9 @@
       "port": 3100,
       "env": {
         "NEXT_PUBLIC_POCKETBASE_URL": "http://127.0.0.1:8099",
-        "NEXT_PUBLIC_SITE_URL": "http://localhost:3100"
+        "NEXT_PUBLIC_SITE_URL": "http://localhost:3100",
+        "BACKEND": "pocketbase",
+        "NEXT_PUBLIC_ADMIN_URL": "http://localhost:3201"
       }
     }
   ]

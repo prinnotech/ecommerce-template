@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShopFilters } from "./components/shop-filters";
 import { ShopToolbar } from "./components/shop-toolbar";
 import { getShopFacets, getShopProducts, getStoreCategories } from "@repo/core/actions/storefront";
+import { ThemeSections } from "@/components/sections/theme-sections";
 import { ProductGrid } from "@/components/storefront/product-grid";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
@@ -91,8 +92,12 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
     dictionary: text,
   };
   const page = products.ok ? products.data : { items: [], page: 1, total_pages: 1, total_items: 0 };
+  // The collection template's product list: its columns and whether the filter sidebar shows.
+  const list = theme.pages.collection.find((section) => section.type === "product_list");
+  const columns = list?.type === "product_list" ? list.settings.columns : 3;
+  const show_filters = list?.type === "product_list" ? list.settings.show_filters : true;
 
-  return (
+  const listing = (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
       <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="flex max-w-2xl flex-col gap-2">
@@ -116,12 +121,14 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
         </form>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]">
-        <aside className="hidden lg:block">
-          <div className="sticky top-24">
-            <ShopFilters {...filter_props} />
-          </div>
-        </aside>
+      <div className={show_filters ? "grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]" : "flex flex-col"}>
+        {show_filters && (
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <ShopFilters {...filter_props} />
+            </div>
+          </aside>
+        )}
 
         <div className="flex flex-col gap-6">
           <ShopToolbar
@@ -173,8 +180,8 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
               lang={lang}
               currency={settings.CURRENCY}
               dictionary={dictionary.store.card}
-              columns={3}
-              priority_count={3}
+              columns={columns}
+              priority_count={columns}
               card_style={theme.settings.product_card}
             />
           )}
@@ -212,5 +219,16 @@ export default async function ShopPage({ params, searchParams }: PageProps<"/[la
         </div>
       </div>
     </div>
+  );
+
+  // Sections from the theme's collection template, around the listing.
+  return (
+    <ThemeSections
+      sections={theme.pages.collection}
+      theme={theme.settings}
+      lang={lang}
+      fallback_title={title}
+      listing={listing}
+    />
   );
 }

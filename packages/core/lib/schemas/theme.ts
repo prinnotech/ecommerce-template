@@ -38,22 +38,23 @@ export const theme_settings_schema = z.object({
   is_uppercase_headings: z.boolean(),
   radius: z.enum(RADII),
   buttons: z.enum(BUTTON_STYLES),
-  header: z.object({
-    layout: z.enum(HEADER_LAYOUTS),
-    // A thin bar above the header with the phone and email (Classic).
-    show_utility_bar: z.boolean(),
-    // Empty = the free-shipping message when FREE_SHIPPING_THRESHOLD is set, or no bar.
-    announcement: localized_text_schema,
-  }),
   product_card: z.enum(CARD_STYLES),
 });
 export type ThemeSettings = z.infer<typeof theme_settings_schema>;
+
+// Colours a section (or the header and footer) can use, all derived from the theme's palette so
+// they work in light and dark mode: the page colours, the soft surface, swapped (text colour as
+// background) and the accent colour as background. CSS: themes/css.ts.
+export const COLOR_SCHEMES = ["default", "muted", "inverse", "accent"] as const;
+export type ColorScheme = (typeof COLOR_SCHEMES)[number];
+// Themes saved before colour schemes have none: they get the page colours.
+const color_scheme_schema = z.enum(COLOR_SCHEMES).catch("default");
 
 const button_schema = z.object({ label: localized_text_schema, href: url_or_path_schema });
 export type ThemeButton = z.infer<typeof button_schema>;
 
 const heading_schema = localized_text_schema;
-const section_base = { id: z.string().min(1).max(40), is_hidden: z.boolean() };
+const section_base = { id: z.string().min(1).max(40), is_hidden: z.boolean(), color_scheme: color_scheme_schema };
 
 export const hero_section_schema = z.object({
   ...section_base,
@@ -196,11 +197,126 @@ export const contact_form_section_schema = z.object({
   settings: z.object({ heading: heading_schema, show_details: z.boolean() }),
 });
 
+// ---------- Sections added with theme editor v2 ----------
+
+const SIZES_3 = ["small", "medium", "large"] as const;
+
+export const slideshow_section_schema = z.object({
+  ...section_base,
+  type: z.literal("slideshow"),
+  settings: z.object({
+    slides: z
+      .array(
+        z.object({
+          id: item_id_schema,
+          image_url: url_or_path_schema,
+          heading: localized_text_schema,
+          subtitle: localized_text_schema,
+          button: button_schema,
+        }),
+      )
+      .max(8),
+    // Seconds per slide; 0 = only the arrows and dots change it.
+    autoplay_seconds: z.number().int().min(0).max(15),
+    height: z.enum(SIZES_3),
+    alignment: z.enum(["center", "left"]),
+  }),
+});
+
+export const MARQUEE_SPEEDS = ["slow", "medium", "fast"] as const;
+export const marquee_section_schema = z.object({
+  ...section_base,
+  type: z.literal("marquee"),
+  settings: z.object({
+    items: z.array(z.object({ id: item_id_schema, text: localized_text_schema })).max(12),
+    speed: z.enum(MARQUEE_SPEEDS),
+    size: z.enum(["small", "large"]),
+  }),
+});
+
+export const collection_list_section_schema = z.object({
+  ...section_base,
+  type: z.literal("collection_list"),
+  settings: z.object({
+    heading: heading_schema,
+    // Shown in this order; collections that are hidden or deleted are skipped.
+    collection_ids: z.array(id_schema).max(8),
+    columns: z.union([z.literal(2), z.literal(3), z.literal(4)]),
+  }),
+});
+
+export const multicolumn_section_schema = z.object({
+  ...section_base,
+  type: z.literal("multicolumn"),
+  settings: z.object({
+    heading: heading_schema,
+    columns: z.union([z.literal(2), z.literal(3), z.literal(4)]),
+    alignment: z.enum(["center", "left"]),
+    items: z
+      .array(
+        z.object({
+          id: item_id_schema,
+          image_url: url_or_path_schema,
+          heading: localized_text_schema,
+          body: localized_text_schema,
+          button: button_schema,
+        }),
+      )
+      .max(8),
+  }),
+});
+
+export const image_banner_section_schema = z.object({
+  ...section_base,
+  type: z.literal("image_banner"),
+  settings: z.object({
+    image_url: url_or_path_schema,
+    heading: heading_schema,
+    body: localized_text_schema,
+    button: button_schema,
+    height: z.enum(SIZES_3),
+    // How dark the layer over the image is, so the text reads (percent).
+    overlay: z.number().int().min(0).max(80),
+    alignment: z.enum(["center", "left"]),
+  }),
+});
+
+export const testimonials_section_schema = z.object({
+  ...section_base,
+  type: z.literal("testimonials"),
+  settings: z.object({
+    heading: heading_schema,
+    items: z
+      .array(
+        z.object({
+          id: item_id_schema,
+          quote: localized_text_schema,
+          author: z.string().trim().max(80),
+          // 0 = no stars.
+          rating: z.number().int().min(0).max(5),
+        }),
+      )
+      .max(12),
+  }),
+});
+
 // Product page only. The product itself (photos, price, sizes, add to cart): fixed, one per page.
 export const product_main_section_schema = z.object({
   ...section_base,
   type: z.literal("product_main"),
   settings: z.object({ show_assurances: z.boolean() }),
+});
+
+// Collection template only (Shop, collections, categories): the products with filters, sorting
+// and pages. Fixed, one per page, like product_main.
+export const product_list_section_schema = z.object({
+  ...section_base,
+  type: z.literal("product_list"),
+  settings: z.object({
+    columns: z.union([z.literal(3), z.literal(4)]),
+    // The filter sidebar on the Shop page (sizes, colours, price…).
+    show_filters: z.boolean(),
+  }),
 });
 
 // Product page only: products from the same category.
@@ -226,6 +342,13 @@ export const section_schema = z.discriminatedUnion("type", [
   contact_form_section_schema,
   product_main_section_schema,
   related_products_section_schema,
+  product_list_section_schema,
+  slideshow_section_schema,
+  marquee_section_schema,
+  collection_list_section_schema,
+  multicolumn_section_schema,
+  image_banner_section_schema,
+  testimonials_section_schema,
 ]);
 export type ThemeSection = z.infer<typeof section_schema>;
 export type SectionType = ThemeSection["type"];
@@ -234,48 +357,115 @@ export type SectionOf<T extends SectionType> = Extract<ThemeSection, { type: T }
 // Every section type, in the order of the editor's "Add section" menu.
 export const SECTION_TYPES = [
   "hero",
+  "slideshow",
+  "image_banner",
   "page_header",
   "rich_text",
   "image_with_text",
+  "multicolumn",
+  "marquee",
   "gallery",
   "video",
   "product_grid",
   "related_products",
   "category_tiles",
+  "collection_list",
   "trust_badges",
+  "testimonials",
   "faq",
   "contact_form",
   "newsletter",
   "spacer",
   "product_main",
+  "product_list",
 ] as const satisfies readonly SectionType[];
 
 export const MAX_SECTIONS = 20;
 
 // The pages a theme lays out. Custom pages (Online store → Pages) use the "custom" rules.
-export const THEME_PAGES = ["home", "product", "about", "contact"] as const;
+export const THEME_PAGES = ["home", "product", "collection", "about", "contact"] as const;
 export type ThemePage = (typeof THEME_PAGES)[number];
 export type PageKind = ThemePage | "custom";
 
 const PRODUCT_ONLY: readonly SectionType[] = ["product_main", "related_products"];
+// The block each template is built around: on the page once, never removed or added by hand.
+export const FIXED_SECTION: Partial<Record<PageKind, SectionType>> = {
+  product: "product_main",
+  collection: "product_list",
+};
 
-// Which sections a page can have. The product page's "product_main" is fixed (added once, never
-// removed or added by hand), so it isn't offered in "Add section".
+// Which sections can be added to a page: everything but the fixed blocks, and the product-only
+// sections only on the product page.
 export function sectionTypesFor(kind: PageKind): SectionType[] {
-  return SECTION_TYPES.filter((type) => (kind === "product" ? type !== "product_main" : !PRODUCT_ONLY.includes(type)));
+  return SECTION_TYPES.filter(
+    (type) =>
+      type !== "product_main" &&
+      type !== "product_list" &&
+      (kind === "product" || !PRODUCT_ONLY.includes(type)),
+  );
 }
 
 export function isFixedSection(section: Pick<ThemeSection, "type">): boolean {
-  return section.type === "product_main";
+  return section.type === "product_main" || section.type === "product_list";
 }
 
 export const page_sections_schema = z.array(section_schema).max(MAX_SECTIONS);
 
+// ---------- Header and footer (the same on every page) ----------
+
+export const announcement_schema = z.object({
+  is_hidden: z.boolean(),
+  // Shown one at a time with arrows. None = the free-shipping message when FREE_SHIPPING_THRESHOLD
+  // is set, or no bar.
+  messages: z.array(z.object({ id: item_id_schema, text: localized_text_schema, href: url_or_path_schema })).max(10),
+  // Seconds per message; 0 = only the arrows change it.
+  autoplay_seconds: z.number().int().min(0).max(30),
+  color_scheme: color_scheme_schema,
+});
+export type AnnouncementSettings = z.infer<typeof announcement_schema>;
+
+export const header_schema = z.object({
+  layout: z.enum(HEADER_LAYOUTS),
+  // Stays at the top while scrolling.
+  is_sticky: z.boolean(),
+  // A thin bar above the header with the phone and email (Classic).
+  show_utility_bar: z.boolean(),
+  // Empty = the SITE_LOGO_URL setting, or the store name as text.
+  logo_url: url_or_path_schema,
+  // Logo width in pixels on large screens (smaller on phones).
+  logo_width: z.number().int().min(40).max(320),
+  color_scheme: color_scheme_schema,
+});
+export type HeaderSettings = z.infer<typeof header_schema>;
+
+export const footer_schema = z.object({
+  show_newsletter: z.boolean(),
+  newsletter_heading: localized_text_schema,
+  newsletter_body: localized_text_schema,
+  show_socials: z.boolean(),
+  // Empty = "© {year} {store name}".
+  copyright: localized_text_schema,
+  color_scheme: color_scheme_schema,
+});
+export type FooterSettings = z.infer<typeof footer_schema>;
+
+// Ids the editor and the preview use for the header and footer groups. Section ids are random,
+// and these contain a colon, which section ids made by the editor never do.
+export const GROUP_IDS = ["group:announcement", "group:header", "group:footer"] as const;
+export type GroupId = (typeof GROUP_IDS)[number];
+
+export function isGroupId(id: string): id is GroupId {
+  return (GROUP_IDS as readonly string[]).includes(id);
+}
+
 export const theme_data_schema = z.object({
   settings: theme_settings_schema,
+  header_group: z.object({ announcement: announcement_schema, header: header_schema }),
+  footer_group: z.object({ footer: footer_schema }),
   pages: z.object({
     home: page_sections_schema,
     product: page_sections_schema,
+    collection: page_sections_schema,
     about: page_sections_schema,
     contact: page_sections_schema,
   }),

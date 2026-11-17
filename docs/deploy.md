@@ -54,8 +54,9 @@ NEXT_PUBLIC_ADMIN_URL=https://<admin domain>
 NEXT_PUBLIC_POCKETBASE_URL=https://<pocketbase domain>
 POCKETBASE_SUPERUSER_EMAIL=${{pocketbase.POCKETBASE_SUPERUSER_EMAIL}}
 POCKETBASE_SUPERUSER_PASSWORD=${{pocketbase.POCKETBASE_SUPERUSER_PASSWORD}}
-THEME_PREVIEW_SECRET=<the same random text, 16+ characters, on both>
 ```
+
+`THEME_PREVIEW_SECRET` and `SETTINGS_ENCRYPTION_KEY` are optional: without them both apps derive their own from `POCKETBASE_SUPERUSER_PASSWORD` (Supabase: `SUPABASE_SECRET_KEY`; SQLite: a key file next to the database). If you change that password or key later, type the secrets saved in Settings (Stripe, SMTP, …) again, or set the two variables yourself first.
 
 `NEXT_PUBLIC_*` values are built into the apps, so redeploy both after changing a domain.
 
@@ -74,7 +75,6 @@ NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_…
 SUPABASE_SECRET_KEY=sb_secret_…
 DATABASE_URL=<transaction pooler connection string>
-THEME_PREVIEW_SECRET=<same on both>
 ```
 
 3. In Supabase → Authentication → URL configuration, add the store and admin domains as redirect URLs.
@@ -109,7 +109,7 @@ Run `npm run db:setup`, then `npm run build`, then `PORT=3000 npm run start:stor
 | Variable | What |
 |---|---|
 | `HOSTING_PROVIDER`, `HOSTING_API_TOKEN` and the `RAILWAY_*` / `VERCEL_*` ids | Connect domains from the admin ([domains.md](domains.md)). Admin only |
-| `SETTINGS_ENCRYPTION_KEY` | 16+ random characters, the same on the store and the admin. Needed to save the Stripe keys and the SMTP password from the admin |
+| `SETTINGS_ENCRYPTION_KEY`, `THEME_PREVIEW_SECRET` | 16+ random characters each, the same on the store and the admin. Optional: derived from the backend secret when missing |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `SMTP_PASSWORD` | Optional: the same secrets as env variables instead of the admin (env wins) |
 | `CRON_SECRET` | Store only. Turns on the automatic abandoned-checkout email: schedule `GET https://<store>/api/cron/abandoned-checkouts` every 15–60 min with `Authorization: Bearer <CRON_SECRET>` (Vercel Cron, Railway cron, or any scheduler) |
 | `SLACK_ERROR_WEBHOOK` | Server errors posted to Slack |

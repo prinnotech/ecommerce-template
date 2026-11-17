@@ -2,16 +2,9 @@
 
 import { TriangleAlertIcon } from "lucide-react";
 
-import { ColorField, LocalizedField, SelectField, SwitchField, type EditorContext } from "./editor-fields";
+import { ColorField, SelectField, SwitchField, type EditorContext } from "./editor-fields";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
-import {
-  BUTTON_STYLES,
-  CARD_STYLES,
-  HEADER_LAYOUTS,
-  RADII,
-  type Palette,
-  type ThemeSettings,
-} from "@repo/core/lib/schemas/theme";
+import { BUTTON_STYLES, CARD_STYLES, RADII, type Palette, type ThemeSettings } from "@repo/core/lib/schemas/theme";
 import { contrastRatio } from "@repo/core/themes/css";
 import { FONT_IDS, FONTS } from "@repo/core/themes/fonts";
 import { formatNumber } from "@repo/core/lib/utils/format";
@@ -124,35 +117,6 @@ export function ThemeSettingsForm({ settings, onChange, dictionary, context }: T
           onChange={(product_card) => set({ product_card })}
           context={context}
         />
-      </section>
-
-      <section className="flex flex-col gap-4">
-        <h3 className="text-sm font-semibold">{dictionary.header}</h3>
-        <SelectField
-          id="header-layout"
-          label={dictionary.header_layout}
-          value={settings.header.layout}
-          options={HEADER_LAYOUTS.map((layout) => ({ value: layout, label: dictionary[`layout_${layout}`] }))}
-          onChange={(layout) => set({ header: { ...settings.header, layout } })}
-          context={context}
-        />
-        <SwitchField
-          id="utility-bar"
-          label={dictionary.utility_bar}
-          description={dictionary.utility_bar_hint}
-          checked={settings.header.show_utility_bar}
-          onChange={(show_utility_bar) => set({ header: { ...settings.header, show_utility_bar } })}
-          context={context}
-        />
-        <LocalizedField
-          id="announcement"
-          label={dictionary.announcement}
-          description={dictionary.announcement_hint}
-          value={settings.header.announcement}
-          onChange={(announcement) => set({ header: { ...settings.header, announcement } })}
-          context={context}
-        />
-        <p className="text-muted-foreground text-xs">{dictionary.logo_hint}</p>
       </section>
     </div>
   );

@@ -1,11 +1,13 @@
 "use client";
 
-import { ArrowLeftIcon, HistoryIcon, MonitorIcon, SmartphoneIcon } from "lucide-react";
+import { ArrowLeftIcon, HistoryIcon, MonitorIcon, Redo2Icon, SmartphoneIcon, Undo2Icon } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import type { EditorContext } from "./editor-fields";
+import { GroupForm } from "./group-form";
+import { GroupList, type GroupEntry } from "./group-list";
 import { NavigationPanel, type LinkSuggestion } from "./navigation-panel";
 import { PreviewFrame } from "./preview-frame";
 import type { CategoryOption, CollectionOption } from "./section-form";
@@ -27,6 +29,7 @@ import {
 import { errorText } from "@repo/core/lib/action-result";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import {
+  isGroupId,
   page_sections_schema,
   THEME_PAGES,
   theme_data_schema,
@@ -51,6 +54,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/components/ui
 import { cn } from "@repo/ui/lib/utils";
 
 const AUTOSAVE_MS = 700;
+// Edits closer together than this (typing a word) are one undo step.
+const UNDO_GROUP_MS = 800;
+const MAX_UNDO = 50;
+
+type UndoHistory = { past: ThemeData[]; future: ThemeData[] };
+
+// Ctrl/Cmd+Z inside a text field undoes the typing there, not the editor's last change.
+function isTextField(target: EventTarget | null): boolean {
+  return (
+    target instanceof HTMLElement &&
+    (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))
+  );
+}
 
 export type CustomPageOption = { id: string; title: string; sections: ThemeSection[] };
 // A theme page, or "page:<id>" for a custom page (Online store → Pages).
@@ -151,6 +167,11 @@ function Workspace({
   const [is_confirm_open, setIsConfirmOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const latest = useRef(draft);
+  const [tab, setTab] = useState("sections");
+  // The section open in the sidebar, also outlined in the preview.
+  const [selected_id, setSelectedId] = useState<string | null>(null);
+  const [history, setHistory] = useState<UndoHistory>({ past: [], future: [] });
+  const last_change_at = useRef(0);
 
   const context: EditorContext = { lang, is_disabled: !can_edit, common, errors, media: text.media };
   const onError = (error: unknown) => toast.error(errorText(errors, error));
@@ -188,8 +209,7 @@ function Workspace({
     }
   }
 
-  function change(next: ThemeData) {
-    if (!can_edit) return;
+  function applyDraft(next: ThemeData) {
     setDraft(next);
     latest.current = next;
     setHasLocalChanges(true);
@@ -197,6 +217,53 @@ function Workspace({
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => void saveNow(next), AUTOSAVE_MS);
   }
+
+  // An edit from the sidebar: remembered for undo, then saved.
+  function change(next: ThemeData) {
+    if (!can_edit) return;
+    const previous = latest.current;
+    const now = Date.now();
+    const starts_step = now - last_change_at.current > UNDO_GROUP_MS;
+    last_change_at.current = now;
+    setHistory((current) => ({
+      past: starts_step ? [...current.past, previous].slice(-MAX_UNDO) : current.past,
+      future: [],
+    }));
+    applyDraft(next);
+  }
+
+  function undo() {
+    const previous = history.past.at(-1);
+    if (!previous || !can_edit) return;
+    setHistory({ past: history.past.slice(0, -1), future: [latest.current, ...history.future] });
+    last_change_at.current = 0;
+    applyDraft(previous);
+  }
+
+  function redo() {
+    const next = history.future[0];
+    if (!next || !can_edit) return;
+    setHistory({ past: [...history.past, latest.current], future: history.future.slice(1) });
+    last_change_at.current = 0;
+    applyDraft(next);
+  }
+
+  const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
+    if (!(event.ctrlKey || event.metaKey) || isTextField(event.target)) return;
+    const key = event.key.toLowerCase();
+    if (key === "z" && !event.shiftKey) {
+      event.preventDefault();
+      undo();
+    } else if ((key === "z" && event.shiftKey) || key === "y") {
+      event.preventDefault();
+      redo();
+    }
+  });
+
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   function changeCustomPage(page_id: string, sections: ThemeSection[]) {
     if (!can_edit_pages) return;
@@ -261,6 +328,52 @@ function Workspace({
     setIsConfirmOpen(true);
   }
 
+  const current_sections = custom_page
+    ? (custom_sections[custom_page.id] ?? custom_page.sections)
+    : draft.pages[theme_page];
+  // Shown on hover in the preview.
+  const labels: Record<string, string> = {
+    ...Object.fromEntries(current_sections.map((section) => [section.id, text.section_types[section.type]])),
+    "group:announcement": text.groups.announcement,
+    "group:header": text.groups.header,
+    "group:footer": text.groups.footer,
+  };
+  const selected_group = selected_id && isGroupId(selected_id) ? selected_id : null;
+  const is_section_open = current_sections.some((section) => section.id === selected_id);
+  const announcement = draft.header_group.announcement;
+  const header_entries: GroupEntry[] = [
+    {
+      id: "group:announcement",
+      label: text.groups.announcement,
+      is_hidden: announcement.is_hidden,
+      onToggleHidden: () =>
+        change({
+          ...draft,
+          header_group: {
+            ...draft.header_group,
+            announcement: { ...announcement, is_hidden: !announcement.is_hidden },
+          },
+        }),
+    },
+    { id: "group:header", label: text.groups.header },
+  ];
+  const footer_entries: GroupEntry[] = [{ id: "group:footer", label: text.groups.footer }];
+  const group_labels = { show: text.show, hide: text.hide, hidden: text.hidden };
+
+  function changePage(value: string) {
+    setPage(toEditorPage(value, custom_pages));
+    setSelectedId(null);
+  }
+
+  function selectFromPreview(section_id: string) {
+    if (!isGroupId(section_id) && !current_sections.some((section) => section.id === section_id)) return;
+    setSelectedId(section_id);
+    setTab("sections");
+  }
+
+  const can_undo = can_edit && history.past.length > 0;
+  const can_redo = can_edit && history.future.length > 0;
+
   const save_label =
     save_state === "saving"
       ? text.saving
@@ -292,6 +405,59 @@ function Workspace({
             </span>
           )}
         </div>
+        <label htmlFor="editor-page" className="sr-only">
+          {text.page_label}
+        </label>
+        <NativeSelect
+          id="editor-page"
+          size="sm"
+          value={page}
+          className="max-w-48"
+          onChange={(event) => changePage(event.target.value)}
+        >
+          <optgroup label={text.theme_pages}>
+            {THEME_PAGES.map((item) => (
+              <NativeSelectOption key={item} value={item}>
+                {text.pages[item]}
+              </NativeSelectOption>
+            ))}
+          </optgroup>
+          {custom_pages.length > 0 && (
+            <optgroup label={text.custom_pages}>
+              {custom_pages.map((item) => (
+                <NativeSelectOption key={item.id} value={`page:${item.id}`}>
+                  {item.title}
+                </NativeSelectOption>
+              ))}
+            </optgroup>
+          )}
+        </NativeSelect>
+        {can_edit && (
+          <div className="hidden items-center md:flex">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={text.undo}
+              title={text.undo}
+              disabled={!can_undo}
+              onClick={undo}
+            >
+              <Undo2Icon />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={text.redo}
+              title={text.redo}
+              disabled={!can_redo}
+              onClick={redo}
+            >
+              <Redo2Icon />
+            </Button>
+          </div>
+        )}
         <div className="hidden items-center gap-1 rounded-md border p-0.5 md:flex">
           <Button
             type="button"
@@ -369,70 +535,90 @@ function Workspace({
 
       <div className="flex min-h-0 flex-1">
         <aside className="flex w-full shrink-0 flex-col border-r md:w-80 lg:w-96">
-          <Tabs defaultValue="sections" className="flex min-h-0 flex-1 flex-col gap-0">
+          <Tabs value={tab} onValueChange={setTab} className="flex min-h-0 flex-1 flex-col gap-0">
             <TabsList className="mx-3 mt-3 grid grid-cols-3">
               <TabsTrigger value="sections">{text.tab_sections}</TabsTrigger>
               <TabsTrigger value="settings">{text.tab_settings}</TabsTrigger>
               <TabsTrigger value="navigation">{text.tab_navigation}</TabsTrigger>
             </TabsList>
-            <TabsContent value="sections" className="min-h-0 flex-1 overflow-y-auto p-4">
-              <div className="mb-4">
-                <label htmlFor="editor-page" className="sr-only">
-                  {text.page_label}
-                </label>
-                <NativeSelect
-                  id="editor-page"
-                  value={page}
-                  className="w-full"
-                  onChange={(event) => setPage(toEditorPage(event.target.value, custom_pages))}
-                >
-                  <optgroup label={text.theme_pages}>
-                    {THEME_PAGES.map((item) => (
-                      <NativeSelectOption key={item} value={item}>
-                        {text.pages[item]}
-                      </NativeSelectOption>
-                    ))}
-                  </optgroup>
-                  {custom_pages.length > 0 && (
-                    <optgroup label={text.custom_pages}>
-                      {custom_pages.map((item) => (
-                        <NativeSelectOption key={item.id} value={`page:${item.id}`}>
-                          {item.title}
-                        </NativeSelectOption>
-                      ))}
-                    </optgroup>
-                  )}
-                </NativeSelect>
-              </div>
-              {custom_page ? (
-                <>
-                  <p className="text-muted-foreground mb-4 text-xs">{text.custom_page_hint}</p>
-                  <SectionsPanel
-                    key={page}
-                    kind="custom"
-                    title={custom_page.title}
-                    sections={custom_sections[custom_page.id] ?? custom_page.sections}
-                    onChange={(sections) => changeCustomPage(custom_page.id, sections)}
-                    categories={categories}
-                    collections={collections}
+            <TabsContent value="sections" className="min-h-0 flex-1 overflow-y-auto p-3">
+              {selected_group ? (
+                <div className="flex flex-col gap-4">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="-ml-2 w-fit"
+                    onClick={() => setSelectedId(null)}
+                  >
+                    <ArrowLeftIcon />
+                    {text.all_sections}
+                  </Button>
+                  <h2 className="text-base font-semibold">{labels[selected_group]}</h2>
+                  <GroupForm
+                    group={selected_group}
+                    data={draft}
+                    onChange={change}
                     dictionary={text}
                     invalid_label={validation.invalid}
-                    context={{ ...context, is_disabled: !can_edit_pages }}
+                    context={context}
                   />
-                </>
+                </div>
               ) : (
-                <SectionsPanel
-                  key={page}
-                  kind={theme_page}
-                  title={text.pages[theme_page]}
-                  sections={draft.pages[theme_page]}
-                  onChange={(sections) => change({ ...draft, pages: { ...draft.pages, [theme_page]: sections } })}
-                  categories={categories}
-                  collections={collections}
-                  dictionary={text}
-                  invalid_label={validation.invalid}
-                  context={context}
-                />
+                <div className="flex flex-col gap-5">
+                  {!is_section_open && (
+                    <GroupList
+                      title={text.groups.header_group}
+                      entries={header_entries}
+                      onSelect={setSelectedId}
+                      labels={group_labels}
+                      is_disabled={!can_edit}
+                    />
+                  )}
+                  {custom_page ? (
+                    <>
+                      <p className="text-muted-foreground mb-4 text-xs">{text.custom_page_hint}</p>
+                      <SectionsPanel
+                        key={page}
+                        kind="custom"
+                        title={custom_page.title}
+                        sections={custom_sections[custom_page.id] ?? custom_page.sections}
+                        onChange={(sections) => changeCustomPage(custom_page.id, sections)}
+                        selected_id={selected_id}
+                        onSelect={setSelectedId}
+                        categories={categories}
+                        collections={collections}
+                        dictionary={text}
+                        invalid_label={validation.invalid}
+                        context={{ ...context, is_disabled: !can_edit_pages }}
+                      />
+                    </>
+                  ) : (
+                    <SectionsPanel
+                      key={page}
+                      kind={theme_page}
+                      title={text.pages[theme_page]}
+                      sections={draft.pages[theme_page]}
+                      onChange={(sections) => change({ ...draft, pages: { ...draft.pages, [theme_page]: sections } })}
+                      selected_id={selected_id}
+                      onSelect={setSelectedId}
+                      categories={categories}
+                      collections={collections}
+                      dictionary={text}
+                      invalid_label={validation.invalid}
+                      context={context}
+                    />
+                  )}
+                  {!is_section_open && (
+                    <GroupList
+                      title={text.groups.footer_group}
+                      entries={footer_entries}
+                      onSelect={setSelectedId}
+                      labels={group_labels}
+                      is_disabled={!can_edit}
+                    />
+                  )}
+                </div>
               )}
             </TabsContent>
             <TabsContent value="navigation" className="min-h-0 flex-1 overflow-y-auto p-4">
@@ -468,6 +654,9 @@ function Workspace({
             device={device}
             refresh_count={refresh_count}
             page={page}
+            selected_id={selected_id ?? ""}
+            labels={labels}
+            onSelect={selectFromPreview}
             dictionary={text}
           />
         </main>

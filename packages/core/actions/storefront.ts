@@ -16,6 +16,7 @@ import type {
 import { fail, ok, type ActionResult } from "@repo/core/lib/action-result";
 import { collectionProductPage } from "@repo/core/lib/collections-server";
 import { record_id_schema, slug_schema } from "@repo/core/lib/schemas/catalog";
+import type { LocalizedText } from "@repo/core/lib/localized";
 import { shop_filters_schema, type ShopFilters } from "@repo/core/lib/schemas/storefront";
 
 // Public storefront reads: no sign-in, and the backend only returns what the public may see
@@ -136,6 +137,28 @@ export async function getCollectionProducts(
     return ok((await collectionProductPage(collection, 1, Math.min(Math.max(limit, 1), 24))).items);
   } catch (error) {
     return failFrom(error, "storefront", "getCollectionProducts");
+  }
+}
+
+export type StoreCollectionTile = { id: string; slug: string; title: LocalizedText; image_url: string };
+
+// For a theme's collection list: the published ones among these ids (others are skipped).
+export async function getStoreCollectionTiles(ids: string[]): Promise<ActionResult<StoreCollectionTile[]>> {
+  const valid = [...new Set(ids)].filter((id) => record_id_schema.safeParse(id).success).slice(0, 32);
+  try {
+    const found = await Promise.all(valid.map((id) => getBackend().collections.publishedById(id)));
+    return ok(
+      found
+        .filter((collection) => collection !== null)
+        .map((collection) => ({
+          id: collection.id,
+          slug: collection.slug,
+          title: collection.title,
+          image_url: collection.image_url,
+        })),
+    );
+  } catch (error) {
+    return failFrom(error, "storefront", "getStoreCollectionTiles");
   }
 }
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ThemeSections } from "@/components/sections/theme-sections";
 import { ProductGrid } from "@/components/storefront/product-grid";
 import { getStoreCollection } from "@repo/core/actions/storefront";
 import type { Locale } from "@repo/core/i18nConfig";
@@ -61,8 +62,10 @@ export default async function CollectionPage({ params, searchParams }: PageProps
   const title = localized(collection.title, locale) || collection.slug;
   const description = localized(collection.description, locale);
   const href = (target: number) => `/${lang}/collections/${slug}${target > 1 ? `?page=${target}` : ""}`;
+  const list = theme.pages.collection.find((section) => section.type === "product_list");
+  const columns = list?.type === "product_list" ? list.settings.columns : 4;
 
-  return (
+  const listing = (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-10 lg:py-14">
       <header className="flex flex-col gap-6 md:flex-row md:items-end">
         {collection.image_url && (
@@ -98,7 +101,8 @@ export default async function CollectionPage({ params, searchParams }: PageProps
           lang={lang}
           currency={currency}
           dictionary={dictionary.store.card}
-          priority_count={4}
+          columns={columns}
+          priority_count={columns}
           card_style={theme.settings.product_card}
         />
       )}
@@ -126,5 +130,16 @@ export default async function CollectionPage({ params, searchParams }: PageProps
         </nav>
       )}
     </div>
+  );
+
+  // Sections from the theme's collection template, around the listing.
+  return (
+    <ThemeSections
+      sections={theme.pages.collection}
+      theme={theme.settings}
+      lang={lang}
+      fallback_title={title}
+      listing={listing}
+    />
   );
 }

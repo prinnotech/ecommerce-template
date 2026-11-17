@@ -1,5 +1,11 @@
 import type { ThemeTemplate } from "@repo/core/themes/types";
-import { defaultPages, defaultSection, SECTION_TEXT } from "@repo/core/themes/sections";
+import {
+  defaultFooterGroup,
+  defaultHeaderGroup,
+  defaultPages,
+  defaultSection,
+  SECTION_TEXT,
+} from "@repo/core/themes/sections";
 
 // Lots of white, one clean sans-serif, square corners, outlined buttons, logo in the centre.
 export const minimal: ThemeTemplate = {
@@ -15,9 +21,10 @@ export const minimal: ThemeTemplate = {
       is_uppercase_headings: false,
       radius: "none",
       buttons: "outline",
-      header: { layout: "centered", show_utility_bar: false, announcement: {} },
       product_card: "minimal",
     },
+    header_group: defaultHeaderGroup({ layout: "centered" }),
+    footer_group: defaultFooterGroup({ color_scheme: "default" }),
     pages: defaultPages([
       defaultSection("hero", { size: "medium", secondary_button: SECTION_TEXT.no_button }, "hero"),
       defaultSection("product_grid", { heading: SECTION_TEXT.new_arrivals, source: "newest" }, "newest"),

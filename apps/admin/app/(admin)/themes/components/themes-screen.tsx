@@ -189,7 +189,7 @@ export function ThemesScreen({ lang, can_edit, dictionary, common, errors, valid
       {live && (
         <SectionCard title={dictionary.current_title}>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            <ThemeThumbnail settings={live.settings} className="w-full sm:w-72" />
+            <ThemeThumbnail settings={live.settings} header={live.header} className="w-full sm:w-72" />
             <div className="flex min-w-0 flex-1 flex-col gap-3">
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="truncate text-lg font-semibold">{live.name}</h2>
@@ -222,7 +222,7 @@ export function ThemesScreen({ lang, can_edit, dictionary, common, errors, valid
           <ul className="divide-y border-t">
             {library.map((theme) => (
               <li key={theme.id} className="flex flex-wrap items-center gap-4 px-5 py-4">
-                <ThemeThumbnail settings={theme.settings} className="w-28 shrink-0" />
+                <ThemeThumbnail settings={theme.settings} header={theme.header} className="w-28 shrink-0" />
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="truncate font-medium">{theme.name}</span>
@@ -255,7 +255,7 @@ export function ThemesScreen({ lang, can_edit, dictionary, common, errors, valid
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {templates.map((template) => (
             <li key={template.id} className="bg-card flex flex-col gap-3 rounded-xl border p-3">
-              <ThemeThumbnail settings={template.settings} />
+              <ThemeThumbnail settings={template.settings} header={template.header} />
               <div className="flex flex-1 flex-col gap-1 px-1">
                 <span className="font-medium">{template.name}</span>
                 <p className="text-muted-foreground text-xs leading-relaxed">

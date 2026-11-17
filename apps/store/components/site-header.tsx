@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getStoreCategories } from "@repo/core/actions/storefront";
+import { AnnouncementBar, type AnnouncementMessage } from "@/components/storefront/announcement-bar";
 import { CartButton } from "@/components/storefront/cart-button";
 import { LanguageSwitcher } from "@/components/storefront/language-switcher";
 import { MobileMenu, type NavItem } from "@/components/storefront/mobile-menu";
@@ -12,30 +13,38 @@ import type { Locale } from "@repo/core/i18nConfig";
 import { getDictionary } from "@repo/core/lib/i18n";
 import { languageOptions } from "@repo/core/lib/locale/language-options";
 import { localized } from "@repo/core/lib/localized";
-import type { ThemeSettings } from "@repo/core/lib/schemas/theme";
+import type { ThemeData } from "@repo/core/lib/schemas/theme";
 import { getSiteSettings } from "@repo/core/lib/site-settings-server";
 import { getLiveTheme } from "@repo/core/lib/theme-server";
 import { formatCurrency } from "@repo/core/lib/utils/format";
+import { colorSchemeClass } from "@repo/core/themes/css";
+import { PREVIEW_SECTION_ATTRIBUTE } from "@repo/core/themes/preview";
 import { cn } from "@repo/ui/lib/utils";
 
 const MAX_NAV_CATEGORIES = 5;
 
 type SiteHeaderProps = {
   lang: string;
-  // The theme preview passes the draft's settings; store pages use the live theme.
-  theme?: ThemeSettings;
+  // The theme preview passes the draft's header; store pages use the live theme.
+  header_group?: ThemeData["header_group"];
+  // The theme editor's preview: the announcement bar and the header can be hovered and selected.
+  is_preview?: boolean;
 };
+
+const previewMark = (is_preview: boolean, id: string) => (is_preview ? { [PREVIEW_SECTION_ATTRIBUTE]: id } : {});
 
 // Announcement bar + sticky header in the theme's layout. It never reads the session, so storefront
 // pages stay static.
-export async function SiteHeader({ lang, theme }: SiteHeaderProps) {
+export async function SiteHeader({ lang, header_group, is_preview = false }: SiteHeaderProps) {
   const [settings, dictionary, categories, live] = await Promise.all([
     getSiteSettings(),
     getDictionary(lang),
     getStoreCategories(),
-    theme ? null : getLiveTheme(),
+    header_group ? null : getLiveTheme(),
   ]);
-  const { header } = theme ?? live?.settings ?? { header: undefined };
+  const group = header_group ?? live?.header_group;
+  const header = group?.header;
+  const announcement_bar = group?.announcement;
   const layout = header?.layout ?? "inline";
   const text = dictionary.store.header;
   const locale = lang as Locale;
@@ -61,22 +70,31 @@ export async function SiteHeader({ lang, theme }: SiteHeaderProps) {
           })),
         ];
 
-  const custom_announcement = localized(header?.announcement, locale);
-  const announcement =
-    custom_announcement ||
-    (settings.FREE_SHIPPING_THRESHOLD > 0
+  // The owner's messages, or the free-shipping line when a threshold is set.
+  const custom_messages: AnnouncementMessage[] = (announcement_bar?.messages ?? [])
+    .map((message) => ({ text: localized(message.text, locale), href: sectionHref(message.href, lang) }))
+    .filter((message) => message.text);
+  const free_shipping =
+    settings.FREE_SHIPPING_THRESHOLD > 0
       ? dictionary.store.announcement.free_shipping.replace(
           "{amount}",
           formatCurrency(settings.FREE_SHIPPING_THRESHOLD, settings.CURRENCY, lang),
         )
-      : "");
+      : "";
+  const messages: AnnouncementMessage[] =
+    custom_messages.length > 0 ? custom_messages : free_shipping ? [{ text: free_shipping, href: "" }] : [];
+  const show_announcement = !announcement_bar?.is_hidden && messages.length > 0;
   const { phone, email } = settings.SITE_CONTACT;
   const languages = (
     <LanguageSwitcher lang={lang} label={dictionary.store.footer.language} options={languageOptions()} />
   );
   const logo = (
     <Link href={`/${lang}`} className="flex items-center">
-      <Logo name={settings.SITE_NAME} logo_url={settings.SITE_LOGO_URL} />
+      <Logo
+        name={settings.SITE_NAME}
+        logo_url={header?.logo_url || settings.SITE_LOGO_URL}
+        width={header?.logo_width ?? 140}
+      />
     </Link>
   );
   const nav = (
@@ -138,9 +156,16 @@ export async function SiteHeader({ lang, theme }: SiteHeaderProps) {
 
   return (
     <>
-      {announcement && (
-        <div className="bg-primary text-primary-foreground px-4 py-2 text-center text-xs font-medium tracking-wide sm:text-sm">
-          {announcement}
+      {show_announcement && (
+        <div
+          {...previewMark(is_preview, "group:announcement")}
+          className={colorSchemeClass(announcement_bar?.color_scheme ?? "accent") || "bg-primary text-primary-foreground"}
+        >
+          <AnnouncementBar
+            messages={messages}
+            autoplay_seconds={announcement_bar?.autoplay_seconds ?? 5}
+            labels={{ previous: text.previous_announcement, next: text.next_announcement }}
+          />
         </div>
       )}
       {header?.show_utility_bar && (
@@ -168,8 +193,11 @@ export async function SiteHeader({ lang, theme }: SiteHeaderProps) {
         </div>
       )}
       <header
+        {...previewMark(is_preview, "group:header")}
         className={cn(
-          "bg-background/90 supports-[backdrop-filter]:bg-background/75 text-foreground sticky top-0 z-40 border-b backdrop-blur",
+          "bg-background/90 supports-[backdrop-filter]:bg-background/75 text-foreground z-40 border-b backdrop-blur",
+          header?.is_sticky !== false && "sticky top-0",
+          colorSchemeClass(header?.color_scheme ?? "default"),
           layout === "inverted" && "theme-inverted bg-background supports-[backdrop-filter]:bg-background",
         )}
       >
@@ -199,10 +227,22 @@ export async function SiteHeader({ lang, theme }: SiteHeaderProps) {
   );
 }
 
-function Logo({ name, logo_url }: { name: string; logo_url: string }) {
+function Logo({ name, logo_url, width }: { name: string; logo_url: string; width: number }) {
   if (logo_url) {
-    // The logo can live on any host the admin chooses, so skip the image optimizer.
-    return <Image src={logo_url} alt={name} width={160} height={40} unoptimized priority className="h-8 w-auto" />;
+    // The logo can live on any host the admin chooses, so skip the image optimizer. The width
+    // comes from the theme (computed value); phones get at most 60% of it.
+    return (
+      <Image
+        src={logo_url}
+        alt={name}
+        width={width}
+        height={Math.round(width / 2)}
+        unoptimized
+        priority
+        style={{ width: `min(${width}px, ${Math.round(width * 0.6)}px + 10vw)` }}
+        className="h-auto max-h-16 object-contain"
+      />
+    );
   }
   return <span className="font-display truncate text-xl font-medium tracking-tight sm:text-2xl">{name}</span>;
 }

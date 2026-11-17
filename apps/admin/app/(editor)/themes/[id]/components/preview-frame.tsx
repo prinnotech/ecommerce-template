@@ -1,15 +1,20 @@
 "use client";
 
 import { EyeOffIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useEffectEvent, useRef } from "react";
 
 import type { AdminDictionary } from "@repo/core/lib/i18n";
-import { PREVIEW_REFRESH_MESSAGE, previewPath } from "@repo/core/themes/preview";
+import {
+  PREVIEW_REFRESH_MESSAGE,
+  previewPath,
+  readPreviewMessage,
+  type EditorToPreviewMessage,
+} from "@repo/core/themes/preview";
 import { cn } from "@repo/ui/lib/utils";
 
 type PreviewFrameProps = {
   store_url: string;
-  // null = THEME_PREVIEW_SECRET isn't set: explain instead of showing a broken frame.
+  // null = no preview signing secret: explain instead of showing a broken frame.
   token: string | null;
   lang: string;
   device: "desktop" | "mobile";
@@ -17,18 +22,64 @@ type PreviewFrameProps = {
   refresh_count: number;
   // Which page the preview shows: a theme page, or "page:<id>" for a custom page.
   page: string;
+  // The section selected in the sidebar ("" = none): outlined and scrolled to in the preview.
+  selected_id: string;
+  // Section id → name, shown when a section is hovered in the preview.
+  labels: Record<string, string>;
+  // A section was clicked in the preview.
+  onSelect: (id: string) => void;
   dictionary: AdminDictionary["themes"]["editor"];
 };
 
-export function PreviewFrame({ store_url, token, lang, device, refresh_count, page, dictionary }: PreviewFrameProps) {
+export function PreviewFrame({
+  store_url,
+  token,
+  lang,
+  device,
+  refresh_count,
+  page,
+  selected_id,
+  labels,
+  onSelect,
+  dictionary,
+}: PreviewFrameProps) {
   const frame = useRef<HTMLIFrameElement>(null);
   const store_origin = new URL(store_url).origin;
+  const labels_key = JSON.stringify(labels);
 
-  // Tell the store page (another app) to reload the draft; it ignores messages from elsewhere.
+  const post = (message: EditorToPreviewMessage | typeof PREVIEW_REFRESH_MESSAGE) =>
+    frame.current?.contentWindow?.postMessage(message, store_origin);
+
+  // The store page (another app) ignores messages from anywhere but the admin, and this side
+  // ignores messages from anywhere but the store.
+  const onPreviewMessage = useEffectEvent((event: MessageEvent) => {
+    if (event.origin !== store_origin || event.source !== frame.current?.contentWindow) return;
+    const message = readPreviewMessage(event.data);
+    if (message?.type === "theme-preview:select") onSelect(message.id);
+    if (message?.type === "theme-preview:ready") {
+      post({ type: "theme-preview:labels", labels });
+      post({ type: "theme-preview:focus", id: selected_id });
+    }
+  });
+
   useEffect(() => {
-    if (refresh_count === 0) return;
-    frame.current?.contentWindow?.postMessage(PREVIEW_REFRESH_MESSAGE, store_origin);
+    window.addEventListener("message", onPreviewMessage);
+    return () => window.removeEventListener("message", onPreviewMessage);
+  }, []);
+
+  useEffect(() => {
+    if (refresh_count > 0) frame.current?.contentWindow?.postMessage(PREVIEW_REFRESH_MESSAGE, store_origin);
   }, [refresh_count, store_origin]);
+
+  useEffect(() => {
+    frame.current?.contentWindow?.postMessage({ type: "theme-preview:focus", id: selected_id }, store_origin);
+  }, [selected_id, store_origin]);
+
+  const sendLabels = useEffectEvent(() => post({ type: "theme-preview:labels", labels }));
+  // Keyed on the labels' content: the parent builds a new object on every render.
+  useEffect(() => {
+    sendLabels();
+  }, [labels_key]);
 
   if (!token) {
     return (

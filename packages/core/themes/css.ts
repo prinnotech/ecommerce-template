@@ -1,4 +1,4 @@
-import type { Palette, ThemeSettings } from "@repo/core/lib/schemas/theme";
+import type { ColorScheme, Palette, ThemeSettings } from "@repo/core/lib/schemas/theme";
 import { fontStack } from "@repo/core/themes/fonts";
 
 // Theme settings → the CSS that overrides the store's design tokens (packages/ui/styles/globals.css).
@@ -78,6 +78,27 @@ function inverted(palette: Palette): PaletteValues {
   };
 }
 
+// The colour schemes a section can pick (COLOR_SCHEMES), each derived from the palette.
+const SCHEMES: Record<Exclude<ColorScheme, "default">, (palette: Palette) => PaletteValues> = {
+  muted: (palette) => ({
+    background: palette.muted,
+    foreground: palette.foreground,
+    primary: palette.primary,
+    muted: mix(palette.foreground, 8, palette.muted),
+  }),
+  inverse: inverted,
+  accent: (palette) => {
+    const text = readableOn(palette.primary);
+    // Buttons on the accent colour use its text colour, so they stay visible.
+    return { background: palette.primary, foreground: text, primary: text, muted: mix(text, 14, palette.primary) };
+  },
+};
+
+// The class that gives a block one of the schemes ("" for the page colours).
+export function colorSchemeClass(scheme: ColorScheme): string {
+  return scheme === "default" ? "" : `color-scheme-${scheme}`;
+}
+
 export function themeCss(settings: ThemeSettings): string {
   const { light, dark } = settings.colors;
   const rules = [
@@ -86,6 +107,10 @@ export function themeCss(settings: ThemeSettings): string {
     // A block that uses the swapped colours: bg-background inside it is the theme's text colour.
     `.theme-inverted{${paletteVars(inverted(light))}}`,
     `.dark .theme-inverted{${paletteVars(inverted(dark))}}`,
+    ...Object.entries(SCHEMES).flatMap(([name, scheme]) => [
+      `.color-scheme-${name}{${paletteVars(scheme(light))}background-color:var(--background);color:var(--foreground);}`,
+      `.dark .color-scheme-${name}{${paletteVars(scheme(dark))}}`,
+    ]),
   ];
   if (settings.is_uppercase_headings) {
     rules.push(".font-display{text-transform:uppercase;letter-spacing:0.02em;}");

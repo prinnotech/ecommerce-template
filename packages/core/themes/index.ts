@@ -1,5 +1,10 @@
 import type { LocalizedText } from "@repo/core/lib/localized";
 import {
+  FIXED_SECTION,
+  announcement_schema,
+  footer_schema,
+  header_schema,
+  HEADER_LAYOUTS,
   MAX_SECTIONS,
   section_schema,
   sectionTypesFor,
@@ -39,9 +44,8 @@ export type LegacyThemeValues = { about_text?: LocalizedText };
 
 function parseSections(raw: unknown, kind: PageKind, fallback: ThemeSection[]): ThemeSection[] {
   if (!Array.isArray(raw)) return fallback;
-  const allowed = new Set<string>(
-    kind === "product" ? [...sectionTypesFor(kind), "product_main"] : sectionTypesFor(kind),
-  );
+  const fixed = FIXED_SECTION[kind];
+  const allowed = new Set<string>(fixed ? [...sectionTypesFor(kind), fixed] : sectionTypesFor(kind));
   return raw
     .slice(0, MAX_SECTIONS)
     .map((section) => section_schema.safeParse(section))
@@ -55,13 +59,56 @@ export function parsePageSections(raw: unknown): ThemeSection[] {
   return parseSections(raw, "custom", []);
 }
 
-// The product page always has exactly one product block (first if it went missing).
-function withProductMain(sections: ThemeSection[], fallback: ThemeSection[]): ThemeSection[] {
-  const main = sections.filter((section) => section.type === "product_main");
+// The product and collection pages always have exactly one of their fixed block (first if it
+// went missing).
+function withFixedSection(kind: PageKind, sections: ThemeSection[], fallback: ThemeSection[]): ThemeSection[] {
+  const type = FIXED_SECTION[kind];
+  if (!type) return sections;
+  const main = sections.filter((section) => section.type === type);
   if (main.length === 1) return sections;
-  const rest = sections.filter((section) => section.type !== "product_main");
-  const block = main[0] ?? fallback.find((section) => section.type === "product_main");
+  const rest = sections.filter((section) => section.type !== type);
+  const block = main[0] ?? fallback.find((section) => section.type === type);
   return block ? [block, ...rest].slice(0, MAX_SECTIONS) : rest;
+}
+
+type LegacyHeader = { layout?: unknown; show_utility_bar?: unknown; announcement?: unknown };
+
+function record(value: unknown): Record<string, unknown> {
+  return typeof value === "object" && value !== null ? (value as Record<string, unknown>) : {};
+}
+
+// Header and footer groups. A theme saved before them kept its header options in
+// settings.header (layout, contact bar, one announcement text): those move into the groups.
+function parseHeaderGroup(raw: unknown, legacy_header: unknown, fallback: ThemeData["header_group"]) {
+  const stored = record(raw);
+  const legacy = record(legacy_header) as LegacyHeader;
+  const layout = HEADER_LAYOUTS.find((value) => value === legacy.layout);
+  const legacy_text = record(legacy.announcement);
+  const has_legacy_text = Object.values(legacy_text).some((value) => typeof value === "string" && value);
+  const announcement = announcement_schema.safeParse(stored.announcement);
+  const header = header_schema.safeParse(stored.header);
+  return {
+    announcement: announcement.success
+      ? announcement.data
+      : {
+          ...fallback.announcement,
+          messages: has_legacy_text
+            ? [{ id: "legacy", text: legacy_text as Record<string, string>, href: "" }]
+            : fallback.announcement.messages,
+        },
+    header: header.success
+      ? header.data
+      : {
+          ...fallback.header,
+          ...(layout ? { layout } : {}),
+          ...(typeof legacy.show_utility_bar === "boolean" ? { show_utility_bar: legacy.show_utility_bar } : {}),
+        },
+  };
+}
+
+function parseFooterGroup(raw: unknown, fallback: ThemeData["footer_group"]): ThemeData["footer_group"] {
+  const footer = footer_schema.safeParse(record(raw).footer);
+  return { footer: footer.success ? footer.data : fallback.footer };
 }
 
 // Stored theme JSON → valid data. Invalid settings fall back to the template's; invalid sections
@@ -71,18 +118,33 @@ function withProductMain(sections: ThemeSection[], fallback: ThemeSection[]): Th
 export function parseThemeData(raw: unknown, template_id: string, legacy: LegacyThemeValues = {}): ThemeData {
   const fallback = templateData(template_id);
   if (typeof raw !== "object" || raw === null) return fallback;
-  const value = raw as { settings?: unknown; sections?: unknown; pages?: Record<string, unknown> };
+  const value = raw as {
+    settings?: unknown;
+    sections?: unknown;
+    pages?: Record<string, unknown>;
+    header_group?: unknown;
+    footer_group?: unknown;
+  };
   const settings = theme_settings_schema.safeParse(value.settings);
   const is_legacy = value.pages === undefined;
   const stored = value.pages ?? {};
 
   const data: ThemeData = {
     settings: settings.success ? settings.data : fallback.settings,
+    header_group: parseHeaderGroup(value.header_group, record(value.settings).header, fallback.header_group),
+    footer_group: parseFooterGroup(value.footer_group, fallback.footer_group),
     pages: {
       home: parseSections(is_legacy ? value.sections : stored.home, "home", fallback.pages.home),
-      product: withProductMain(
+      product: withFixedSection(
+        "product",
         parseSections(stored.product, "product", fallback.pages.product),
         fallback.pages.product,
+      ),
+      // Themes saved before the collection template get the template's.
+      collection: withFixedSection(
+        "collection",
+        parseSections(stored.collection, "collection", fallback.pages.collection),
+        fallback.pages.collection,
       ),
       about: parseSections(stored.about, "about", fallback.pages.about),
       contact: parseSections(stored.contact, "contact", fallback.pages.contact),

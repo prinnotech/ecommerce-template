@@ -288,7 +288,9 @@
       "cart_count": {
         "one": "Cart, {count} item",
         "other": "Cart, {count} items"
-      }
+      },
+      "previous_announcement": "Previous announcement",
+      "next_announcement": "Next announcement"
     },
     "announcement": {
       "free_shipping": "Free shipping on orders over {amount}"
@@ -422,7 +424,11 @@
       "cookie_settings": "Cookie settings"
     },
     "sections": {
-      "video": "Video"
+      "video": "Video",
+      "previous_slide": "Previous slide",
+      "next_slide": "Next slide",
+      "go_to_slide": "Go to slide {number}",
+      "rating": "{rating} out of 5 stars"
     },
     "collection": {
       "products": {

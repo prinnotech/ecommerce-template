@@ -5,6 +5,7 @@ import { cache } from "react";
 import { z } from "zod";
 
 import { getBackend } from "@repo/core/backend/index";
+import { serverSecret } from "@repo/core/lib/server-secret";
 import { reportError } from "@repo/core/lib/server-log";
 
 // Secrets an owner enters in Settings (the Stripe keys, the SMTP password). They're stored as
@@ -20,7 +21,8 @@ const CATEGORY = "secrets";
 const stored_schema = z.object({ v: z.literal(1), iv: z.string(), tag: z.string(), data: z.string() });
 
 function encryptionKey(): Buffer | null {
-  const secret = process.env.SETTINGS_ENCRYPTION_KEY ?? "";
+  // SETTINGS_ENCRYPTION_KEY, or a key derived from the backend secret (server-secret.ts).
+  const secret = serverSecret("SETTINGS_ENCRYPTION_KEY");
   if (secret.length < 16) return null;
   // Any text of 16+ characters works: it's hashed into a 256-bit key.
   return createHash("sha256").update(secret).digest();

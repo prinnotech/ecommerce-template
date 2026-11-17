@@ -288,7 +288,9 @@
       "cart_count": {
         "one": "Carrello, {count} articolo",
         "other": "Carrello, {count} articoli"
-      }
+      },
+      "previous_announcement": "Annuncio precedente",
+      "next_announcement": "Annuncio successivo"
     },
     "announcement": {
       "free_shipping": "Spedizione gratuita per ordini da {amount}"
@@ -422,7 +424,11 @@
       "cookie_settings": "Impostazioni cookie"
     },
     "sections": {
-      "video": "Video"
+      "video": "Video",
+      "previous_slide": "Slide precedente",
+      "next_slide": "Slide successiva",
+      "go_to_slide": "Vai alla slide {number}",
+      "rating": "{rating} stelle su 5"
     },
     "collection": {
       "products": {

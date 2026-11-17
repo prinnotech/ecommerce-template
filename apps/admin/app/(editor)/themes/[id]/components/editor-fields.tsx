@@ -131,10 +131,11 @@ export function NumberField(props: {
   min: number;
   max: number;
   onChange: (value: number) => void;
+  description?: string;
   context: EditorContext;
 }) {
   return (
-    <FormField id={props.id} label={props.label}>
+    <FormField id={props.id} label={props.label} description={props.description}>
       {(control) => (
         <Input
           {...control}

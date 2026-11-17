@@ -1,4 +1,4 @@
-import type { ThemeSettings } from "@repo/core/lib/schemas/theme";
+import type { HeaderSettings, ThemeSettings } from "@repo/core/lib/schemas/theme";
 import { readableOn } from "@repo/core/themes/css";
 import { FONTS } from "@repo/core/themes/fonts";
 import { cn } from "@repo/ui/lib/utils";
@@ -8,11 +8,13 @@ const RADIUS = { none: "0px", small: "3px", medium: "6px", large: "10px" } as co
 // A small drawing of a store in the theme's colours, header layout, radius and card style, so
 // templates and themes can be told apart at a glance without loading the store. Colours come
 // from the theme's data, so they're inline styles (computed values), not theme tokens.
-export function ThemeThumbnail({ settings, className }: { settings: ThemeSettings; className?: string }) {
+type ThemeThumbnailProps = { settings: ThemeSettings; header: HeaderSettings; className?: string };
+
+export function ThemeThumbnail({ settings, header, className }: ThemeThumbnailProps) {
   const { background, foreground, primary, muted } = settings.colors.light;
   const radius = RADIUS[settings.radius];
-  const is_inverted = settings.header.layout === "inverted";
-  const is_centered = settings.header.layout === "centered";
+  const is_inverted = header.layout === "inverted";
+  const is_centered = header.layout === "centered";
   const heading_family = FONTS[settings.fonts.heading].kind === "serif" ? "Georgia, serif" : "system-ui, sans-serif";
   const button_radius = settings.buttons === "pill" ? "999px" : radius;
   const is_outline = settings.buttons === "outline";
@@ -23,7 +25,7 @@ export function ThemeThumbnail({ settings, className }: { settings: ThemeSetting
       className={cn("flex aspect-[4/3] flex-col overflow-hidden rounded-md border text-[0px]", className)}
       style={{ backgroundColor: background, color: foreground }}
     >
-      {settings.header.show_utility_bar && <div className="h-[4%]" style={{ backgroundColor: muted }} />}
+      {header.show_utility_bar && <div className="h-[4%]" style={{ backgroundColor: muted }} />}
       <div
         className={cn("flex h-[12%] shrink-0 items-center gap-[4%] px-[6%]", is_centered && "justify-center")}
         style={{ backgroundColor: is_inverted ? foreground : background, borderBottom: `1px solid ${muted}` }}

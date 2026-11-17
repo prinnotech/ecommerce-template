@@ -1,5 +1,11 @@
 import type { ThemeTemplate } from "@repo/core/themes/types";
-import { defaultPages, defaultSection, SECTION_TEXT } from "@repo/core/themes/sections";
+import {
+  defaultFooterGroup,
+  defaultHeaderGroup,
+  defaultPages,
+  defaultSection,
+  SECTION_TEXT,
+} from "@repo/core/themes/sections";
 
 // Streetwear: condensed capitals, a strong accent colour, a dark header, square cards with borders.
 export const bold: ThemeTemplate = {
@@ -15,16 +21,18 @@ export const bold: ThemeTemplate = {
       is_uppercase_headings: true,
       radius: "none",
       buttons: "solid",
-      header: { layout: "inverted", show_utility_bar: false, announcement: {} },
       product_card: "bold",
     },
+    header_group: defaultHeaderGroup({ layout: "inverted" }),
+    footer_group: defaultFooterGroup({ color_scheme: "inverse", show_newsletter: true }),
     pages: defaultPages([
       defaultSection("hero", { alignment: "left" }, "hero"),
+      { ...defaultSection("marquee", { size: "large" }, "marquee"), color_scheme: "accent" },
       defaultSection("product_grid", { heading: SECTION_TEXT.new_arrivals, source: "newest" }, "newest"),
       defaultSection("image_with_text", {}, "story"),
       defaultSection("category_tiles", {}, "categories"),
       defaultSection("product_grid", {}, "featured"),
-      defaultSection("newsletter", {}, "newsletter"),
+      defaultSection("testimonials", {}, "testimonials"),
     ]),
   },
 };

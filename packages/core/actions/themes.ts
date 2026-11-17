@@ -15,6 +15,7 @@ import {
   save_theme_draft_schema,
   theme_id_schema,
   type AddThemeInput,
+  type HeaderSettings,
   type RenameThemeInput,
   type RestoreThemeVersionInput,
   type SaveThemeDraftInput,
@@ -50,9 +51,16 @@ export type ThemeSummary = {
   updated_at: string;
   // For the thumbnail: the draft's look.
   settings: ThemeSettings;
+  header: HeaderSettings;
 };
 
-export type TemplateSummary = { id: string; name: string; settings: ThemeSettings; section_count: number };
+export type TemplateSummary = {
+  id: string;
+  name: string;
+  settings: ThemeSettings;
+  header: HeaderSettings;
+  section_count: number;
+};
 
 export type ThemesOverview = { themes: ThemeSummary[]; templates: TemplateSummary[]; store_url: string };
 
@@ -89,6 +97,7 @@ function toSummary(theme: ThemeRecord): ThemeSummary {
     published_at: theme.published_at,
     updated_at: theme.updated_at,
     settings: draftOf(theme).settings,
+    header: draftOf(theme).header_group.header,
   };
 }
 
@@ -159,6 +168,7 @@ export async function getThemes(): Promise<ActionResult<ThemesOverview>> {
         id: template.id,
         name: template.name,
         settings: template.data.settings,
+        header: template.data.header_group.header,
         section_count: template.data.pages.home.length,
       })),
       store_url: SITE_URL,

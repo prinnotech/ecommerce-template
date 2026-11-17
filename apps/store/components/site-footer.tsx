@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { getStoreCategories } from "@repo/core/actions/storefront";
+import { NewsletterForm } from "@/components/sections/newsletter-form";
 import { sectionHref } from "@/components/sections/section-link";
 import { LanguageSwitcher } from "@/components/storefront/language-switcher";
 import { CookieSettingsButton } from "@/components/tracking/cookie-consent";
@@ -10,16 +11,36 @@ import { countryName } from "@repo/core/lib/locale/countries";
 import { languageOptions } from "@repo/core/lib/locale/language-options";
 import { localized } from "@repo/core/lib/localized";
 import { enabledPaymentNames } from "@repo/core/lib/payment-methods";
+import type { ThemeData } from "@repo/core/lib/schemas/theme";
 import { getSiteSettings } from "@repo/core/lib/site-settings-server";
+import { getLiveTheme } from "@repo/core/lib/theme-server";
+import { colorSchemeClass } from "@repo/core/themes/css";
+import { PREVIEW_SECTION_ATTRIBUTE } from "@repo/core/themes/preview";
+import { cn } from "@repo/ui/lib/utils";
 
-export async function SiteFooter({ lang }: { lang: string }) {
-  const [settings, dictionary, categories] = await Promise.all([
+type SiteFooterProps = {
+  lang: string;
+  // The theme preview passes the draft's footer; store pages use the live theme.
+  footer_group?: ThemeData["footer_group"];
+  // The theme editor's preview: the footer can be hovered and selected.
+  is_preview?: boolean;
+};
+
+export async function SiteFooter({ lang, footer_group, is_preview = false }: SiteFooterProps) {
+  const [settings, dictionary, categories, live] = await Promise.all([
     getSiteSettings(),
     getDictionary(lang),
     getStoreCategories(),
+    footer_group ? null : getLiveTheme(),
   ]);
   const text = dictionary.store.footer;
   const locale = lang as Locale;
+  const theme_footer = (footer_group ?? live?.footer_group)?.footer;
+  const newsletter_heading = localized(theme_footer?.newsletter_heading, locale);
+  const newsletter_body = localized(theme_footer?.newsletter_body, locale);
+  const copyright =
+    localized(theme_footer?.copyright, locale) ||
+    text.rights.replace("{year}", String(new Date().getFullYear())).replace("{site_name}", settings.SITE_NAME);
 
   const shop_links = [
     { href: `/${lang}/shop`, label: dictionary.store.header.shop_all },
@@ -55,7 +76,8 @@ export async function SiteFooter({ lang }: { lang: string }) {
           { id: "help", title: text.help, links: help_links },
         ];
   const about_text = localized(footer.about_text, locale) || localized(settings.SITE_DESCRIPTION, locale);
-  const socials = Object.entries(settings.SOCIAL_LINKS).filter(([, url]) => url);
+  const socials =
+    theme_footer?.show_socials === false ? [] : Object.entries(settings.SOCIAL_LINKS).filter(([, url]) => url);
   const address = settings.STORE_ADDRESS;
   const address_lines = [
     address.street,
@@ -65,7 +87,31 @@ export async function SiteFooter({ lang }: { lang: string }) {
   const payment_methods = enabledPaymentNames(settings, locale);
 
   return (
-    <footer className="bg-muted/40 mt-auto border-t">
+    <footer
+      {...(is_preview ? { [PREVIEW_SECTION_ATTRIBUTE]: "group:footer" } : {})}
+      className={cn("mt-auto border-t", colorSchemeClass(theme_footer?.color_scheme ?? "muted") || "bg-muted/40")}
+    >
+      {theme_footer?.show_newsletter && (
+        <div className="border-b">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-10 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-1">
+              {newsletter_heading && (
+                <h2 className="font-display text-2xl font-medium tracking-tight">{newsletter_heading}</h2>
+              )}
+              {newsletter_body && <p className="text-muted-foreground text-sm">{newsletter_body}</p>}
+            </div>
+            <div className="w-full md:max-w-md">
+              <NewsletterForm
+                id="footer-newsletter"
+                lang={lang}
+                dictionary={dictionary.newsletter}
+                errors={dictionary.errors}
+                validation={dictionary.validation}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:flex lg:gap-12">
         <div className="flex flex-col gap-4 lg:flex-[1.5]">
           <Link href={`/${lang}`} className="font-display w-fit text-2xl font-medium tracking-tight">
@@ -121,9 +167,7 @@ export async function SiteFooter({ lang }: { lang: string }) {
 
       <div className="border-t">
         <div className="text-muted-foreground mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            {text.rights.replace("{year}", String(new Date().getFullYear())).replace("{site_name}", settings.SITE_NAME)}
-          </p>
+          <p>{copyright}</p>
           <div className="flex flex-wrap items-center gap-4">
             {footer.show_payments && payment_methods.length > 0 && (
               <span>

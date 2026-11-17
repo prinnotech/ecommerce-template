@@ -11,6 +11,7 @@ import {
 } from "./editor-fields";
 import { ImageField } from "./image-field";
 import { ItemList } from "./item-list";
+import { isMediaSection, MediaSectionForm } from "./media-section-forms";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import { PRODUCT_SOURCES, type SectionOf, type ThemeSection } from "@repo/core/lib/schemas/theme";
 import { newSectionId } from "@repo/core/themes/sections";
@@ -49,6 +50,19 @@ export function SectionForm({
     hint: fields.button_hint,
     invalid: invalid_label,
   };
+
+  if (isMediaSection(section)) {
+    return (
+      <MediaSectionForm
+        section={section}
+        onChange={onChange}
+        collections={collections}
+        dictionary={dictionary}
+        invalid_label={invalid_label}
+        context={context}
+      />
+    );
+  }
 
   switch (section.type) {
     case "hero": {
@@ -599,6 +613,34 @@ export function SectionForm({
             label={fields.show_assurances}
             checked={settings.show_assurances}
             onChange={(show_assurances) => onChange({ ...settings, show_assurances })}
+            context={context}
+          />
+        </div>
+      );
+    }
+
+    case "product_list": {
+      const settings = section.settings;
+      const set = (patch: Partial<SectionOf<"product_list">["settings"]>) => onChange({ ...settings, ...patch });
+      return (
+        <div className="flex flex-col gap-5">
+          <p className="text-muted-foreground text-sm">{fields.product_list_hint}</p>
+          <SelectField
+            id={id("columns")}
+            label={fields.columns}
+            value={String(settings.columns) as "3" | "4"}
+            options={[
+              { value: "3", label: "3" },
+              { value: "4", label: "4" },
+            ]}
+            onChange={(columns) => set({ columns: Number(columns) as 3 | 4 })}
+            context={context}
+          />
+          <SwitchField
+            id={id("filters")}
+            label={fields.show_filters}
+            checked={settings.show_filters}
+            onChange={(show_filters) => set({ show_filters })}
             context={context}
           />
         </div>

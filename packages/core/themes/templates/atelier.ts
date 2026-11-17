@@ -1,5 +1,11 @@
 import type { ThemeTemplate } from "@repo/core/themes/types";
-import { defaultPages, defaultSection, SECTION_TEXT } from "@repo/core/themes/sections";
+import {
+  defaultFooterGroup,
+  defaultHeaderGroup,
+  defaultPages,
+  defaultSection,
+  SECTION_TEXT,
+} from "@repo/core/themes/sections";
 
 // The store as it looked before themes existed: editorial serif headings, soft neutrals.
 export const atelier: ThemeTemplate = {
@@ -15,15 +21,17 @@ export const atelier: ThemeTemplate = {
       is_uppercase_headings: false,
       radius: "medium",
       buttons: "solid",
-      header: { layout: "inline", show_utility_bar: false, announcement: {} },
       product_card: "plain",
     },
+    header_group: defaultHeaderGroup({ layout: "inline" }),
+    footer_group: defaultFooterGroup(),
     pages: defaultPages([
       defaultSection("hero", {}, "hero"),
       defaultSection("trust_badges", {}, "trust"),
       defaultSection("category_tiles", {}, "categories"),
       defaultSection("product_grid", {}, "featured"),
       defaultSection("product_grid", { heading: SECTION_TEXT.new_arrivals, source: "newest" }, "newest"),
+      { ...defaultSection("testimonials", {}, "testimonials"), color_scheme: "muted" },
     ]),
   },
 };

@@ -2,8 +2,10 @@ import "server-only";
 
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-// Signed messages between the admin and the store, with THEME_PREVIEW_SECRET (server only, set in
-// both apps):
+import { serverSecret } from "@repo/core/lib/server-secret";
+
+// Signed messages between the admin and the store, with THEME_PREVIEW_SECRET (server only; when it
+// isn't set, derived from the backend secret both apps share, see server-secret.ts):
 // - preview tokens: the admin's editor loads /{lang}/theme-preview/{token} in an iframe, and only a
 //   valid, unexpired token shows that theme's draft;
 // - revalidation requests: the admin tells the store to refresh its pages after a publish.
@@ -13,7 +15,7 @@ const PREVIEW_TTL_MS = 2 * 60 * 60_000;
 const REVALIDATE_TTL_MS = 5 * 60_000;
 
 function secret(): string {
-  return process.env.THEME_PREVIEW_SECRET ?? "";
+  return serverSecret("THEME_PREVIEW_SECRET");
 }
 
 export function hasSigningSecret(): boolean {

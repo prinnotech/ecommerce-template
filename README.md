@@ -6,8 +6,8 @@ Nothing about a particular shop is hard-coded. The store name, logo, contact det
 
 ## Live demo
 
-- **Store:** _link added after the first deploy_
-- **Admin:** _link added after the first deploy_
+- **Store:** https://web-production-af80c6.up.railway.app
+- **Admin:** https://admin-production-59bf.up.railway.app
   - email: `demo@admin.com`
   - password: `jkdvPfuPrpetttcS`
 
@@ -83,7 +83,7 @@ npm run dev:store    # http://localhost:3000
 npm run dev:admin    # http://localhost:3001 (sign in with STORE_ADMIN_EMAIL)
 ```
 
-For the theme editor's live preview, set the same `THEME_PREVIEW_SECRET` (any random text, 16+ characters) in both apps' `.env.local`.
+The theme editor's live preview and secrets saved in Settings work out of the box: their keys are derived from the backend secret. Set `THEME_PREVIEW_SECRET` / `SETTINGS_ENCRYPTION_KEY` only to choose them yourself.
 
 ## Deploy
 
