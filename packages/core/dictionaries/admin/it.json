@@ -687,7 +687,10 @@
         "category": "Categoria",
         "updated": "Aggiornato"
       },
-      "inventory_value": "{stock} disponibili · {variants} varianti",
+      "inventory_value": {
+        "one": "{stock} disponibili in {count} variante",
+        "other": "{stock} disponibili in {count} varianti"
+      },
       "no_variants": "Nessuna variante",
       "untitled": "Senza titolo",
       "results": {

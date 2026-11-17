@@ -30,6 +30,8 @@ Already built and easy to miss: promo codes (Discounts), analytics (Analytics), 
 
 ## 2. Admin UI pass
 
+**Done 17 Nov 2026:** round 3 in `docs/ui-audit.md` (U1–U5).
+
 **Audit:** a fresh click-through of every admin screen on a local build, against Shopify, at 1366 px and 375 px. The findings get added to `docs/ui-audit.md` as round 3.
 
 Already seen in the screenshots:

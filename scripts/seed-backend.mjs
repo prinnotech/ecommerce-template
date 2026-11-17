@@ -166,6 +166,18 @@ async function pocketbaseBackend() {
       await pb.collection("products").update(product_id, { "images+": file });
     },
 
+    async productHasImages(product_id) {
+      const record = await pb.collection("products").getOne(product_id, { fields: "images" });
+      return (record.images ?? []).length > 0;
+    },
+
+    // A file in Online store → images, reused when one with the same name exists. Returns its URL.
+    async uploadMedia(file) {
+      const existing = await first("media", pb.filter("name = {:name}", { name: file.name }));
+      const record = existing ?? (await pb.collection("media").create({ file, name: file.name, size: file.size }));
+      return `${pb.baseURL.replace(/\/$/, "")}/api/files/${record.collectionId}/${record.id}/${encodeURIComponent(record.file)}`;
+    },
+
     async createUser({ email, password, name, verified = true, accepts_marketing = false }) {
       const existing = await first("users", pb.filter("email = {:email}", { email }));
       if (existing) return { id: existing.id, is_new: false };
@@ -393,6 +405,13 @@ function sqlBackend(db, dialect, supabase_admin) {
 
     // Image upload from the CLI isn't implemented for SQL backends; images are added in the admin.
     async addProductImage() {},
+    async productHasImages() {
+      return true;
+    },
+    // Not implemented for SQL backends either: the demo theme then shows its sections without photos.
+    async uploadMedia() {
+      return "";
+    },
 
     async createUser({ email, password, name, verified = true, accepts_marketing = false }) {
       const existing = await db.selectFrom("users").select("id").where("email", "=", email).executeTakeFirst();

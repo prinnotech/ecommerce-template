@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+
 // Shared sample catalog data + seeder, used by both `seed.mjs` and `demo.mjs`.
 // Backend-neutral: takes the seed backend from `seed-backend.mjs`.
 
@@ -70,7 +72,16 @@ export const PRODUCTS = [
   },
 ];
 
-// Safe to re-run: existing slugs are skipped. Returns { category_ids, created }.
+// Product photos (AI-generated for this template, free to reuse): scripts/demo-assets/<slug>.webp.
+const ASSETS = new URL("./demo-assets/", import.meta.url);
+
+export async function demoAsset(name) {
+  const bytes = await readFile(new URL(name, ASSETS));
+  return new File([bytes], name, { type: "image/webp" });
+}
+
+// Safe to re-run: existing slugs are skipped (a product without photos gets its photo).
+// Returns { category_ids, created }.
 export async function seedCatalog(backend) {
   const category_ids = {};
   for (const category of CATEGORIES) {
@@ -85,6 +96,9 @@ export async function seedCatalog(backend) {
       category_id: category_ids[category],
       status: "active",
     });
+    if (is_new || !(await backend.productHasImages(id))) {
+      await backend.addProductImage(id, await demoAsset(`${product.slug}.webp`));
+    }
     if (!is_new) continue;
 
     let sort_order = 0;

@@ -28,7 +28,7 @@ import {
   type ProductListFilters,
   type ProductStatus,
 } from "@repo/core/lib/schemas/catalog";
-import { formatCurrency, formatDate, formatPlural } from "@repo/core/lib/utils/format";
+import { formatCurrency, formatDate, formatNumber, formatPlural } from "@repo/core/lib/utils/format";
 import { Button } from "@repo/ui/components/ui/button";
 import {
   Dialog,
@@ -141,9 +141,10 @@ export function ProductsTable({
       cell: (product) =>
         product.variant_count === 0
           ? text.no_variants
-          : text.inventory_value
-              .replace("{stock}", String(product.total_stock))
-              .replace("{variants}", String(product.variant_count)),
+          : formatPlural(product.variant_count, text.inventory_value, lang).replace(
+              "{stock}",
+              formatNumber(product.total_stock, lang),
+            ),
     },
     {
       key: "category",

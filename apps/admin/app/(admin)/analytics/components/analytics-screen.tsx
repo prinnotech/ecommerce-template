@@ -21,7 +21,7 @@ import {
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import { localized } from "@repo/core/lib/localized";
 import { query_keys } from "@repo/core/lib/query-keys";
-import { formatCurrency, formatDate } from "@repo/core/lib/utils/format";
+import { formatCompactCurrency, formatCurrency, formatDate } from "@repo/core/lib/utils/format";
 import { cn } from "@repo/ui/lib/utils";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
@@ -220,6 +220,7 @@ export function AnalyticsScreen({ lang, dictionary, errors }: AnalyticsScreenPro
                 bucket={data.range.bucket}
                 lang={lang}
                 formatValue={metric === "sales" ? money : number}
+                formatTick={metric === "sales" ? (cents) => formatCompactCurrency(cents, data.currency, lang) : number}
                 labels={{
                   current: dictionary.current,
                   previous: dictionary.previous,

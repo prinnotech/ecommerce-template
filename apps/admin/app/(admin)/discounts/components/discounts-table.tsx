@@ -1,9 +1,10 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, TicketPercentIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+import { EmptyState } from "@repo/admin-ui/components/empty-state";
 import { IndexTable, type IndexColumn, type IndexView } from "@repo/admin-ui/components/index-table";
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge, type StatusTone } from "@repo/admin-ui/components/status-badge";
@@ -108,21 +109,18 @@ export function DiscountsTable({ lang, currency, can_edit, dictionary, index_tab
     },
   ];
 
+  // In the header, and again in the empty list.
+  const create_action = can_edit ? (
+    <Button asChild>
+      <Link href="/discounts/new">
+        <PlusIcon />
+        {dictionary.create}
+      </Link>
+    </Button>
+  ) : undefined;
+
   return (
-    <Page
-      title={dictionary.title}
-      width="full"
-      primary_action={
-        can_edit ? (
-          <Button asChild>
-            <Link href="/discounts/new">
-              <PlusIcon />
-              {dictionary.create}
-            </Link>
-          </Button>
-        ) : undefined
-      }
-    >
+    <Page title={dictionary.title} width="full" primary_action={create_action}>
       <IndexTable
         lang={lang}
         rows={discounts.data?.items ?? []}
@@ -145,10 +143,12 @@ export function DiscountsTable({ lang, currency, can_edit, dictionary, index_tab
         summary={discounts.data ? formatPlural(discounts.data.total_items, dictionary.results, lang) : undefined}
         is_loading={discounts.isFetching}
         empty_state={
-          <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <p className="font-medium">{dictionary.empty_title}</p>
-            <p className="text-muted-foreground max-w-md text-sm">{dictionary.empty_body}</p>
-          </div>
+          <EmptyState
+            icon={TicketPercentIcon}
+            title={dictionary.empty_title}
+            body={dictionary.empty_body}
+            action={create_action}
+          />
         }
         renderMobileRow={(discount) => {
           const status = discountStatus(discount);

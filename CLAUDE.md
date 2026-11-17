@@ -148,7 +148,7 @@ Don't create collections by clicking in the admin UI. If you do it while explori
 | `npm run dev:store` / `npm run dev:admin` | Store on :3000 / admin on :3001. Each app reads its own `apps/<app>/.env.local` |
 | `npm run typegen` | Regenerates `packages/backend-pocketbase/pocketbase-types.ts` from the running PocketBase (credentials from `.env.local`) |
 | `npm run create-admin -- <email> <password> [name]` | Creates or promotes the store owner (users record + admin team member) |
-| `npm run seed` | Sample categories/products for local testing. Re-runnable, never used in deploys |
+| `npm run seed` | Sample categories/products for local testing, with the photos in `scripts/demo-assets/` (AI-generated for the template). Re-runnable, never used in deploys |
 
 ### PocketBase gotchas
 - **Always guard user rules with `@request.auth.id != ""`.** For anonymous requests PocketBase compares `""` with an empty join or field and can let visitors through (`@collection.x.user ?= @request.auth.id` matched anonymous users before the guard was added).

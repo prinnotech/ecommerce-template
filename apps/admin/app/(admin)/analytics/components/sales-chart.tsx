@@ -14,6 +14,8 @@ type SalesChartProps = {
   bucket: Bucket;
   lang: string;
   formatValue: (value: number) => string;
+  // The y-axis labels (shorter than the hover values, so they fit the margin).
+  formatTick?: (value: number) => string;
   labels: { current: string; previous: string; chart: string };
 };
 
@@ -35,7 +37,7 @@ function niceMax(value: number): number {
 
 // One measure over time: this period as a line with a soft fill, the previous period dashed.
 // Hover (or touch) shows both values for that bucket.
-export function SalesChart({ points, metric, bucket, lang, formatValue, labels }: SalesChartProps) {
+export function SalesChart({ points, metric, bucket, lang, formatValue, formatTick, labels }: SalesChartProps) {
   const [active, setActive] = useState<number | null>(null);
   const previous_key = metric === "sales" ? "previous_sales" : "previous_orders";
   const max = niceMax(Math.max(0, ...points.flatMap((point) => [point[metric], point[previous_key]])));
@@ -88,7 +90,7 @@ export function SalesChart({ points, metric, bucket, lang, formatValue, labels }
               textAnchor="end"
               className="fill-muted-foreground text-[11px]"
             >
-              {formatValue(tick)}
+              {(formatTick ?? formatValue)(tick)}
             </text>
           </g>
         ))}

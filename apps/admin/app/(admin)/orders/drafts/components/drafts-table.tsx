@@ -1,9 +1,10 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, FileTextIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
+import { EmptyState } from "@repo/admin-ui/components/empty-state";
 import { IndexTable, type IndexColumn, type IndexView } from "@repo/admin-ui/components/index-table";
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge, type StatusTone } from "@repo/admin-ui/components/status-badge";
@@ -94,19 +95,16 @@ export function DraftsTable({ lang, can_edit, dictionary, index_table, errors }:
     },
   ];
 
+  // In the header, and again in the empty list.
+  const create_action = can_edit ? (
+    <Button type="button" onClick={createDraft} disabled={create.isPending}>
+      {create.isPending ? <Spinner /> : <PlusIcon />}
+      {dictionary.create}
+    </Button>
+  ) : undefined;
+
   return (
-    <Page
-      title={dictionary.title}
-      width="full"
-      primary_action={
-        can_edit ? (
-          <Button type="button" onClick={createDraft} disabled={create.isPending}>
-            {create.isPending ? <Spinner /> : <PlusIcon />}
-            {dictionary.create}
-          </Button>
-        ) : undefined
-      }
-    >
+    <Page title={dictionary.title} width="full" primary_action={create_action}>
       <IndexTable
         lang={lang}
         rows={drafts.data?.items ?? []}
@@ -129,10 +127,12 @@ export function DraftsTable({ lang, can_edit, dictionary, index_table, errors }:
         summary={drafts.data ? formatPlural(drafts.data.total_items, dictionary.results, lang) : undefined}
         is_loading={drafts.isFetching}
         empty_state={
-          <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
-            <p className="font-medium">{dictionary.empty_title}</p>
-            <p className="text-muted-foreground max-w-md text-sm">{dictionary.empty_body}</p>
-          </div>
+          <EmptyState
+            icon={FileTextIcon}
+            title={dictionary.empty_title}
+            body={dictionary.empty_body}
+            action={create_action}
+          />
         }
         renderMobileRow={(draft) => (
           <div className="flex items-center justify-between gap-3">

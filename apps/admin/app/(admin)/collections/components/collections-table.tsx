@@ -1,8 +1,9 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, LibraryIcon } from "lucide-react";
 import Link from "next/link";
 
+import { EmptyState } from "@repo/admin-ui/components/empty-state";
 import { IndexTable, type IndexColumn } from "@repo/admin-ui/components/index-table";
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge } from "@repo/admin-ui/components/status-badge";
@@ -64,22 +65,18 @@ export function CollectionsTable({ lang, can_edit, dictionary, index_table, erro
     },
   ];
 
+  // In the header, and again in the empty list.
+  const create_action = can_edit ? (
+    <Button asChild>
+      <Link href="/collections/new">
+        <PlusIcon />
+        {dictionary.create}
+      </Link>
+    </Button>
+  ) : undefined;
+
   return (
-    <Page
-      title={dictionary.title}
-      subtitle={dictionary.subtitle}
-      width="full"
-      primary_action={
-        can_edit ? (
-          <Button asChild>
-            <Link href="/collections/new">
-              <PlusIcon />
-              {dictionary.create}
-            </Link>
-          </Button>
-        ) : undefined
-      }
-    >
+    <Page title={dictionary.title} subtitle={dictionary.subtitle} width="full" primary_action={create_action}>
       <IndexTable
         lang={lang}
         rows={collections.data ?? []}
@@ -89,10 +86,12 @@ export function CollectionsTable({ lang, can_edit, dictionary, index_table, erro
         resource_label={dictionary.title}
         is_loading={collections.isFetching}
         empty_state={
-          <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <p className="font-medium">{dictionary.empty_title}</p>
-            <p className="text-muted-foreground max-w-md text-sm">{dictionary.empty_body}</p>
-          </div>
+          <EmptyState
+            icon={LibraryIcon}
+            title={dictionary.empty_title}
+            body={dictionary.empty_body}
+            action={create_action}
+          />
         }
         renderMobileRow={(row) => (
           <div className="flex items-center gap-3">

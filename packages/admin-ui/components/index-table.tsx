@@ -256,7 +256,8 @@ export function IndexTable<Row>(props: IndexTableProps<Row>) {
             </ul>
           )}
 
-          <div className={cn("relative", renderMobileRow && "hidden md:block")}>
+          {/* Narrow windows scroll the table inside the card instead of cutting off its last columns. */}
+          <div className={cn("relative overflow-x-auto", renderMobileRow && "hidden md:block")}>
             {selected_ids.length > 0 && (
               <div className="bg-muted absolute inset-x-0 top-0 left-10 z-20 flex min-h-9 items-center border-b px-3 py-1">
                 <BulkBar
@@ -320,6 +321,9 @@ export function IndexTable<Row>(props: IndexTableProps<Row>) {
                           key={column.key}
                           className={cn(
                             "px-3 py-2.5 align-middle",
+                            // Other columns stay on one line; the main one takes the rest of the
+                            // width and truncates (Shopify-style), so rows keep one height.
+                            column.is_primary ? "w-full max-w-0 min-w-40" : "whitespace-nowrap",
                             column.align === "end" && "text-right tabular-nums",
                             column.min_width && HIDDEN_BELOW[column.min_width],
                             column.className,

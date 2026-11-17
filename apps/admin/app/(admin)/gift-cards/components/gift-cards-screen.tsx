@@ -1,10 +1,11 @@
 "use client";
 
-import { CheckIcon, CopyIcon, PlusIcon } from "lucide-react";
+import { CheckIcon, CopyIcon, PlusIcon, GiftIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { EmptyState } from "@repo/admin-ui/components/empty-state";
 import { IndexTable, type IndexColumn, type IndexView } from "@repo/admin-ui/components/index-table";
 import { MoneyInput } from "@repo/admin-ui/components/money-input";
 import { Page } from "@repo/admin-ui/components/page";
@@ -130,20 +131,16 @@ export function GiftCardsScreen({
     },
   ];
 
+  // In the header, and again in the empty list.
+  const create_action = can_edit ? (
+    <Button type="button" onClick={() => setIsIssueOpen(true)}>
+      <PlusIcon />
+      {dictionary.issue}
+    </Button>
+  ) : undefined;
+
   return (
-    <Page
-      title={dictionary.title}
-      subtitle={dictionary.subtitle}
-      width="full"
-      primary_action={
-        can_edit ? (
-          <Button type="button" onClick={() => setIsIssueOpen(true)}>
-            <PlusIcon />
-            {dictionary.issue}
-          </Button>
-        ) : undefined
-      }
-    >
+    <Page title={dictionary.title} subtitle={dictionary.subtitle} width="full" primary_action={create_action}>
       <IndexTable
         lang={lang}
         rows={cards.data?.items ?? []}
@@ -166,10 +163,12 @@ export function GiftCardsScreen({
         summary={cards.data ? formatPlural(cards.data.total_items, dictionary.results, lang) : undefined}
         is_loading={cards.isFetching}
         empty_state={
-          <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <p className="font-medium">{dictionary.empty_title}</p>
-            <p className="text-muted-foreground max-w-md text-sm">{dictionary.empty_body}</p>
-          </div>
+          <EmptyState
+            icon={GiftIcon}
+            title={dictionary.empty_title}
+            body={dictionary.empty_body}
+            action={create_action}
+          />
         }
         dictionary={index_table}
       />

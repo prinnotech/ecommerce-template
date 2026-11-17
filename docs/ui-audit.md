@@ -135,3 +135,24 @@ All of R1–R18 are fixed and were checked in the browser (R12 on a production b
 - R17: 0.2 s in a production build; the 6 s was dev compiling. Every list and detail page now has a page-shaped skeleton.
 - R18: `*.log` and `/*.err` are git-ignored (files not deleted).
 
+
+## Round 3 (17 Nov 2026, phase 10 §2)
+
+Checked the admin at 1366 px, 1100 px and 375 px (dark mode, English) on a local copy with the demo data. It's compared against Shopify's admin.
+
+| # | | Where | Problem | Fix |
+|---|---|---|---|---|
+| U1 | 🟠 | Products list | "1 variants": the plural was wrong in every language. | "10 in stock for 1 variant", using a proper plural. |
+| U2 | 🟠 | Every list (index table) | In narrow windows (or with browser zoom), cells wrapped onto three lines and the last column was cut off by the card. | Other columns stay on one line, and the main column truncates. The table scrolls inside its card instead of being clipped. |
+| U3 | 🟡 | Analytics, Sales over time | The y-axis labels ("€1,000.00") didn't fit the margin, so they were cut off. | The axis uses short money ("€1K", "€750"). The hover still shows the full amount. |
+| U4 | 🟡 | Discounts, Collections, Drafts, Gift cards, Reviews | Empty lists were only a line of text. | The shared empty state with an icon and the page's create button (no button on Reviews). |
+| U5 | 🟠 | Products, store | The demo products have no photos, so every thumbnail and product card is an empty box. | AI-generated photos in `scripts/demo-assets/` (one per sample product, plus two banners). `seed`/`demo:seed` attach them, including to existing products without photos. The demo's live theme uses the banners in its hero and image-with-text sections (PocketBase only; SQL backends skip the uploads). |
+
+Looked fine:
+- Home.
+- Orders list and order page.
+- Product editor and inventory.
+- Customers.
+- Messages.
+- Settings, including the store details screen.
+- Phone layouts of Products, Home and Analytics.

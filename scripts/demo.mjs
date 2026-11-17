@@ -4,7 +4,7 @@
 import { randomBytes } from "node:crypto";
 
 import { getSeedBackend } from "./seed-backend.mjs";
-import { seedCatalog } from "./seed-catalog.mjs";
+import { demoAsset, seedCatalog } from "./seed-catalog.mjs";
 
 process.loadEnvFile(".env.local");
 
@@ -221,20 +221,109 @@ for (const message of MESSAGES) {
 // and a header menu, so the theme editor and Pages have something to show. Theme data `{}` reads
 // as the template's defaults.
 const now = new Date().toISOString();
+const text = (en, es, it) => ({ en, es, it });
+
+// The live theme's home page uses the demo photos (scripts/demo-assets). Other pages, the header
+// and the footer keep the template's defaults. Sections that don't validate are dropped when read.
+const banner_url = await backend.uploadMedia(await demoAsset("banner-street.webp"));
+const still_life_url = await backend.uploadMedia(await demoAsset("banner-still-life.webp"));
+const section = (id, type, settings, color_scheme = "default") => ({
+  id,
+  type,
+  is_hidden: false,
+  color_scheme,
+  settings,
+});
+const grid = (heading, source) => ({
+  heading,
+  source,
+  category_id: "",
+  collection_id: "",
+  limit: 8,
+  show_view_all: true,
+});
+const atelier = {
+  pages: {
+    home: [
+      section("hero", "hero", {
+        image_url: banner_url,
+        heading: text("Made for slow days", "Hecho para días tranquilos", "Fatto per le giornate lente"),
+        subtitle: text(
+          "Natural fabrics and quiet colours, made to be worn for years.",
+          "Tejidos naturales y colores tranquilos, hechos para durar años.",
+          "Tessuti naturali e colori tenui, fatti per durare anni.",
+        ),
+        primary_button: { label: text("Shop now", "Comprar ahora", "Acquista ora"), href: "/shop" },
+        secondary_button: { label: text("New arrivals", "Novedades", "Novità"), href: "/shop?sort=newest" },
+        alignment: "left",
+        size: "large",
+      }),
+      section("trust", "trust_badges", {}),
+      section("categories", "category_tiles", {
+        heading: text("Shop by category", "Compra por categoría", "Acquista per categoria"),
+        category_ids: [],
+        limit: 4,
+      }),
+      section("featured", "product_grid", grid(text("Featured", "Destacados", "In evidenza"), "featured")),
+      section("story", "image_with_text", {
+        image_url: still_life_url,
+        heading: text("Made to last", "Hecho para durar", "Fatto per durare"),
+        body: text(
+          "Linen, wool and leather chosen for how they age. Fewer pieces, worn more often.",
+          "Lino, lana y cuero elegidos por cómo envejecen. Menos prendas, que se usan más.",
+          "Lino, lana e pelle scelti per come invecchiano. Meno capi, indossati più spesso.",
+        ),
+        button: { label: text("Our story", "Nuestra historia", "La nostra storia"), href: "/about" },
+        image_position: "right",
+      }),
+      section("newest", "product_grid", grid(text("New arrivals", "Novedades", "Novità"), "newest")),
+      section(
+        "testimonials",
+        "testimonials",
+        {
+          heading: text("What our customers say", "Lo que dicen nuestros clientes", "Cosa dicono i nostri clienti"),
+          items: [
+            {
+              id: "t1",
+              quote: text(
+                "Beautiful quality and it arrived in two days. I'll be back!",
+                "Una calidad preciosa y llegó en dos días. ¡Volveré!",
+                "Qualità bellissima ed è arrivato in due giorni. Tornerò!",
+              ),
+              author: "Giulia R.",
+              rating: 5,
+            },
+            {
+              id: "t2",
+              quote: text(
+                "The coat fits perfectly and the wool feels wonderful.",
+                "El abrigo queda perfecto y la lana es una maravilla.",
+                "Il cappotto veste alla perfezione e la lana è meravigliosa.",
+              ),
+              author: "Laura M.",
+              rating: 5,
+            },
+          ],
+        },
+        "muted",
+      ),
+    ],
+  },
+};
+
 await backend.replaceThemes([
   {
     name: "Atelier",
     template: "atelier",
-    draft: {},
-    published: {},
-    history: [{ published_at: now, data: {} }],
+    draft: atelier,
+    published: atelier,
+    history: [{ published_at: now, data: atelier }],
     is_live: true,
     published_at: now,
   },
   { name: "Bold", template: "bold", draft: {}, published: null, history: [], is_live: false, published_at: "" },
 ]);
 
-const text = (en, es, it) => ({ en, es, it });
 await backend.upsertPage({
   slug: "size-guide",
   title: text("Size guide", "Guía de tallas", "Guida alle taglie"),

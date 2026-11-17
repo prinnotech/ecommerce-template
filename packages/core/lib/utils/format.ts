@@ -4,6 +4,16 @@ export function formatCurrency(amount_cents: number, currency: string, lang: str
   return new Intl.NumberFormat(lang, { style: "currency", currency }).format(amount_cents / 100);
 }
 
+// Short money for chart axes: "€1K", "€2.5K".
+export function formatCompactCurrency(amount_cents: number, currency: string, lang: string): string {
+  return new Intl.NumberFormat(lang, {
+    style: "currency",
+    currency,
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(amount_cents / 100);
+}
+
 export function formatNumber(value: number, lang: string, options?: Intl.NumberFormatOptions): string {
   return new Intl.NumberFormat(lang, options).format(value);
 }

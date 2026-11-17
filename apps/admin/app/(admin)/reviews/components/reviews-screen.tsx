@@ -6,6 +6,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { ConfirmDialog } from "@repo/admin-ui/components/confirm-dialog";
+import { EmptyState } from "@repo/admin-ui/components/empty-state";
 import { IndexTable, type IndexColumn, type IndexView } from "@repo/admin-ui/components/index-table";
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge, type StatusTone } from "@repo/admin-ui/components/status-badge";
@@ -145,12 +146,7 @@ export function ReviewsScreen({ lang, can_edit, dictionary, index_table, common,
         onPageChange={(page) => setFilters({ page })}
         summary={reviews.data ? formatPlural(reviews.data.total_items, dictionary.results, lang) : undefined}
         is_loading={reviews.isFetching}
-        empty_state={
-          <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <p className="font-medium">{dictionary.empty_title}</p>
-            <p className="text-muted-foreground max-w-md text-sm">{dictionary.empty_body}</p>
-          </div>
-        }
+        empty_state={<EmptyState icon={StarIcon} title={dictionary.empty_title} body={dictionary.empty_body} />}
         dictionary={index_table}
       />
       {reviews.isError && <p className="text-destructive text-sm">{errorText(errors, reviews.error)}</p>}
