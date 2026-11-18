@@ -62,7 +62,9 @@
     "gift_card_unavailable": "Questa carta regalo non si può più usare (credito esaurito, scaduta o disattivata).",
     "review_exists": "Hai già recensito questo prodotto.",
     "review_not_allowed": "Solo i clienti che hanno acquistato questo prodotto possono recensirlo.",
-    "gift_card_unusable": "Questa carta regalo non si può usare: è esaurita, scaduta o disattivata."
+    "gift_card_unusable": "Questa carta regalo non si può usare: è esaurita, scaduta o disattivata.",
+    "ai_not_configured": "L'IA non è ancora configurata: aggiungi una chiave API in Impostazioni → IA.",
+    "ai_failed": "Il servizio di IA non ha risposto. Controlla la chiave e il modello in Impostazioni → IA e riprova."
   },
   "validation": {
     "required": "Questo campo è obbligatorio.",

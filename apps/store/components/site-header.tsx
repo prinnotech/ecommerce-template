@@ -11,6 +11,7 @@ import { sectionHref } from "@/components/sections/section-link";
 import { Button } from "@repo/ui/components/ui/button";
 import type { Locale } from "@repo/core/i18nConfig";
 import { getDictionary } from "@repo/core/lib/i18n";
+import { publishedLocales } from "@repo/core/lib/languages";
 import { languageOptions } from "@repo/core/lib/locale/language-options";
 import { localized } from "@repo/core/lib/localized";
 import type { ThemeData } from "@repo/core/lib/schemas/theme";
@@ -86,7 +87,11 @@ export async function SiteHeader({ lang, header_group, is_preview = false }: Sit
   const show_announcement = !announcement_bar?.is_hidden && messages.length > 0;
   const { phone, email } = settings.SITE_CONTACT;
   const languages = (
-    <LanguageSwitcher lang={lang} label={dictionary.store.footer.language} options={languageOptions()} />
+    <LanguageSwitcher
+      lang={lang}
+      label={dictionary.store.footer.language}
+      options={languageOptions(publishedLocales(settings.LANGUAGES))}
+    />
   );
   const logo = (
     <Link href={`/${lang}`} className="flex items-center">
@@ -159,7 +164,9 @@ export async function SiteHeader({ lang, header_group, is_preview = false }: Sit
       {show_announcement && (
         <div
           {...previewMark(is_preview, "group:announcement")}
-          className={colorSchemeClass(announcement_bar?.color_scheme ?? "accent") || "bg-primary text-primary-foreground"}
+          className={
+            colorSchemeClass(announcement_bar?.color_scheme ?? "accent") || "bg-primary text-primary-foreground"
+          }
         >
           <AnnouncementBar
             messages={messages}

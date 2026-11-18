@@ -18,7 +18,7 @@ import { FormField } from "@repo/core/components/form-field";
 import { useAdminCategories, useAdminProducts } from "@repo/core/hooks/use-catalog";
 import { useCreateCollection, useDeleteCollection, useUpdateCollection } from "@repo/core/hooks/use-collections";
 import { useUploadMedia } from "@repo/core/hooks/use-pages";
-import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
 import { errorText } from "@repo/core/lib/action-result";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import { localized, type LocalizedText } from "@repo/core/lib/localized";
@@ -56,7 +56,7 @@ type CollectionEditorProps = {
 };
 
 function firstText(text: LocalizedText): string {
-  return LOCALES.map((locale) => text[locale]).find((value) => value && value.trim()) ?? "";
+  return Object.values(text).find((value) => value && value.trim()) ?? "";
 }
 
 function newRule(field: RuleField): CollectionRule {

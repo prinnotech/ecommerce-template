@@ -16,7 +16,8 @@ import { ThemeSettingsForm } from "./theme-settings-form";
 import { ConfirmDialog } from "@repo/admin-ui/components/confirm-dialog";
 import { StatusBadge } from "@repo/admin-ui/components/status-badge";
 import type { ThemeEditorData } from "@repo/core/actions/themes";
-import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
+import { useStoreLocales } from "@repo/core/providers/store-languages";
 import { useNavigation } from "@repo/core/hooks/use-navigation";
 import { useSavePageSections } from "@repo/core/hooks/use-pages";
 import {
@@ -154,7 +155,8 @@ function Workspace({
   const [save_state, setSaveState] = useState<SaveState>("idle");
   const [has_local_changes, setHasLocalChanges] = useState(false);
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
-  const [preview_lang, setPreviewLang] = useState<Locale>(LOCALES.find((locale) => locale === lang) ?? LOCALES[0]);
+  const locales = useStoreLocales();
+  const [preview_lang, setPreviewLang] = useState<Locale>(locales.includes(lang) ? lang : (locales[0] ?? lang));
   const [refresh_count, setRefreshCount] = useState(0);
   const [page, setPage] = useState<EditorPage>(() => toEditorPage(initial_page, custom_pages));
   const custom_page = page.startsWith("page:") ? custom_pages.find((item) => `page:${item.id}` === page) : undefined;
@@ -487,10 +489,10 @@ function Workspace({
           id="preview-lang"
           size="sm"
           value={preview_lang}
-          onChange={(event) => setPreviewLang(LOCALES.find((locale) => locale === event.target.value) ?? LOCALES[0])}
+          onChange={(event) => setPreviewLang(event.target.value)}
           className="hidden uppercase md:block"
         >
-          {LOCALES.map((locale) => (
+          {locales.map((locale) => (
             <NativeSelectOption key={locale} value={locale}>
               {locale}
             </NativeSelectOption>

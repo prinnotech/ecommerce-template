@@ -62,7 +62,9 @@
     "gift_card_unavailable": "Esta tarjeta regalo ya no se puede usar (sin saldo, caducada o desactivada).",
     "review_exists": "Ya has escrito una reseña de este producto.",
     "review_not_allowed": "Solo los clientes que compraron este producto pueden reseñarlo.",
-    "gift_card_unusable": "Esta tarjeta regalo no se puede usar: no tiene saldo, ha caducado o está desactivada."
+    "gift_card_unusable": "Esta tarjeta regalo no se puede usar: no tiene saldo, ha caducado o está desactivada.",
+    "ai_not_configured": "La IA aún no está configurada: añade una clave API en Ajustes → IA.",
+    "ai_failed": "El servicio de IA no respondió. Revisa la clave y el modelo en Ajustes → IA e inténtalo de nuevo."
   },
   "validation": {
     "required": "Este campo es obligatorio.",

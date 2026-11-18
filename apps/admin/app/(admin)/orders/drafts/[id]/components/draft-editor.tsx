@@ -25,7 +25,8 @@ import {
   useSaveDraftOrder,
   useSendDraftInvoice,
 } from "@repo/core/hooks/use-draft-orders";
-import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
+import { useStoreLocales } from "@repo/core/providers/store-languages";
 import { COUNTRY_CODES } from "@repo/core/lib/locale/countries";
 import { errorText } from "@repo/core/lib/action-result";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
@@ -75,7 +76,7 @@ function toInput(draft: DraftOrder): DraftFieldsInput {
     email: draft.email,
     customer_name: draft.customer_name,
     phone: draft.phone,
-    locale: LOCALES.find((locale) => locale === draft.locale) ?? LOCALES[0],
+    locale: draft.locale,
     lines: draft.lines.map((line) =>
       line.variant_id
         ? { variant_id: line.variant_id, quantity: line.quantity }
@@ -120,6 +121,7 @@ function DraftForm({
   const { draft, priced } = view;
   const initial = toInput(draft);
   const [form, setForm] = useState<DraftForm>(initial);
+  const locales = useStoreLocales();
   const [labels, setLabels] = useState<Record<string, LineLabel>>(() =>
     Object.fromEntries(
       priced.lines
@@ -508,11 +510,9 @@ function DraftForm({
               value={form.locale}
               disabled={is_locked}
               className="w-full uppercase"
-              onChange={(event) =>
-                set({ locale: LOCALES.find((locale) => locale === event.target.value) ?? LOCALES[0] })
-              }
+              onChange={(event) => set({ locale: event.target.value })}
             >
-              {LOCALES.map((locale) => (
+              {locales.map((locale) => (
                 <NativeSelectOption key={locale} value={locale}>
                   {locale}
                 </NativeSelectOption>

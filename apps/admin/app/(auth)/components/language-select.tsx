@@ -1,5 +1,6 @@
 "use client";
 
+import { isBuiltInLocale } from "@repo/core/i18nConfig";
 import { LanguagesIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +27,8 @@ export function LanguageSelect({ lang, label, options }: LanguageSelectProps) {
         value={lang}
         disabled={set_locale.isPending}
         onChange={(event) =>
-          set_locale.mutate({ locale: event.target.value as Locale }, { onSuccess: () => router.refresh() })
+          isBuiltInLocale(event.target.value) &&
+          set_locale.mutate({ locale: event.target.value }, { onSuccess: () => router.refresh() })
         }
         className="h-8 text-sm"
       >

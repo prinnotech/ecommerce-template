@@ -62,7 +62,9 @@
     "gift_card_unavailable": "This gift card can't be used any more (no balance left, expired or switched off).",
     "review_exists": "You've already reviewed this product.",
     "review_not_allowed": "Only customers who bought this product can review it.",
-    "gift_card_unusable": "This gift card can't be used: it's used up, expired or switched off."
+    "gift_card_unusable": "This gift card can't be used: it's used up, expired or switched off.",
+    "ai_not_configured": "AI isn't set up yet: add an API key in Settings → AI.",
+    "ai_failed": "The AI service didn't answer. Check the key and model in Settings → AI, then try again."
   },
   "validation": {
     "required": "This field is required.",

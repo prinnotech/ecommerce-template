@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { LOCALES } from "@repo/core/i18nConfig";
+import { locale_code_schema } from "@repo/core/lib/localized";
+
 import { address_fields_schema } from "@repo/core/lib/schemas/account";
 import { email_schema } from "@repo/core/lib/schemas/auth";
 import { id_schema } from "@repo/core/lib/schemas/ids";
@@ -13,7 +14,7 @@ export const cart_lines_schema = z
   .max(50);
 export type CartLinesInput = z.infer<typeof cart_lines_schema>;
 
-export const create_checkout_schema = z.object({ lines: cart_lines_schema, locale: z.enum(LOCALES) });
+export const create_checkout_schema = z.object({ lines: cart_lines_schema, locale: locale_code_schema });
 export type CreateCheckoutInput = z.infer<typeof create_checkout_schema>;
 
 export const quote_checkout_schema = z.object({

@@ -3,7 +3,8 @@
 import { useState } from "react";
 
 import { LocalizedFields } from "@repo/admin-ui/components/localized-fields";
-import { isLocale, LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
+import { useStoreLocales } from "@repo/core/providers/store-languages";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import { localized, type LocalizedText } from "@repo/core/lib/localized";
 import { SEO_DESCRIPTION_MAX, SEO_TITLE_MAX, type Seo } from "@repo/core/lib/schemas/seo";
@@ -41,7 +42,8 @@ export function SeoFields({
   status_labels,
   dictionary,
 }: SeoFieldsProps) {
-  const [preview_lang, setPreviewLang] = useState<Locale>(isLocale(lang) ? lang : LOCALES[0]);
+  const locales = useStoreLocales();
+  const [preview_lang, setPreviewLang] = useState<Locale>(locales.includes(lang) ? lang : (locales[0] ?? lang));
   const title = clip(localized(value.title, preview_lang) || localized(fallback.title, preview_lang), SEO_TITLE_MAX);
   const description = clip(
     localized(value.description, preview_lang) || localized(fallback.description, preview_lang),
@@ -54,7 +56,7 @@ export function SeoFields({
         <div className="flex items-center justify-between gap-2">
           <span className="text-muted-foreground truncate text-xs">{url(preview_lang)}</span>
           <span className="flex gap-1" role="group" aria-label={dictionary.preview_language}>
-            {LOCALES.map((locale) => (
+            {locales.map((locale) => (
               <button
                 key={locale}
                 type="button"

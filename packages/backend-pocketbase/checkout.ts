@@ -23,7 +23,8 @@ import { parseAttribution } from "@repo/core/lib/tracking/attribution";
 // only). Possessing the session id is what authorizes access to that one session.
 
 // Generic order follows the generated type: description, image_colors, tags, title.
-type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, string[], LocalizedText>;
+// Generic order: description, image_colors, seo, tags, title.
+type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, unknown, string[], LocalizedText>;
 type VariantWithProduct = ProductVariantsResponse<{ product?: ProductRecord }>;
 type SessionRecord = CheckoutSessionsResponse<unknown, AddressFields | null, PricedLine[], AddressFields | null>;
 

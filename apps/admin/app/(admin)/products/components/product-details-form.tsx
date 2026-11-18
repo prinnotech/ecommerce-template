@@ -30,7 +30,7 @@ import { NativeSelect, NativeSelectOption } from "@repo/ui/components/ui/native-
 import { Spinner } from "@repo/ui/components/ui/spinner";
 import { Switch } from "@repo/ui/components/ui/switch";
 import { useAdminCategories, useCreateProduct, useDeleteProduct, useUpdateProduct } from "@repo/core/hooks/use-catalog";
-import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
 import { errorText } from "@repo/core/lib/action-result";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import { localized, type LocalizedText } from "@repo/core/lib/localized";
@@ -73,7 +73,7 @@ function toInput(draft: Draft): ProductInput {
 }
 
 function firstText(text: LocalizedText): string {
-  return LOCALES.map((locale) => text[locale]).find((value) => value && value.trim()) ?? "";
+  return Object.values(text).find((value) => value && value.trim()) ?? "";
 }
 
 type ProductDetailsFormProps = {

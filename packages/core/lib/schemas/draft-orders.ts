@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { LOCALES } from "@repo/core/i18nConfig";
+import { locale_code_schema } from "@repo/core/lib/localized";
+
 import { address_fields_schema } from "@repo/core/lib/schemas/account";
 import { id_schema } from "@repo/core/lib/schemas/ids";
 
@@ -38,7 +39,7 @@ export const draft_fields_schema = z
     email: z.union([z.email(), z.literal("")]),
     customer_name: z.string().trim().max(200),
     phone: z.string().trim().max(50),
-    locale: z.enum(LOCALES),
+    locale: locale_code_schema,
     lines: z.array(draft_line_schema).max(MAX_DRAFT_LINES),
     shipping_address: address_fields_schema.nullable(),
     shipping_method: z.string().max(50),

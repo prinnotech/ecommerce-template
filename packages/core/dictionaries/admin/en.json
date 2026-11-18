@@ -126,7 +126,8 @@
       "email": "Email sending",
       "profile": "Profile",
       "tracking": "Tracking",
-      "api_keys": "API keys"
+      "api_keys": "API keys",
+      "ai": "AI"
     },
     "saved_all": "Settings saved.",
     "assets": {
@@ -287,6 +288,18 @@
       "tracking": {
         "label": "Tracking",
         "description": "Ad and analytics tags (Settings → Tracking)."
+      },
+      "languages": {
+        "label": "Store languages",
+        "description": "Edited in Settings → Languages."
+      },
+      "ui_translations": {
+        "label": "Store text translations",
+        "description": "Edited in Settings → Languages."
+      },
+      "ai": {
+        "label": "AI",
+        "description": "Edited in Settings → AI."
       }
     },
     "groups": {
@@ -2387,5 +2400,88 @@
     "revoke_title": "Revoke this key?",
     "revoke_body": "Anything using “{name}” stops working right away. This can't be undone.",
     "revoked_toast": "Key revoked"
+  },
+  "languages": {
+    "title": "Languages",
+    "description": "The languages your store is in. Published languages are visible to customers; hidden ones can be translated and previewed first.",
+    "add": "Add language",
+    "add_title": "Add a language",
+    "add_body": "Its store text starts in English until you translate it here.",
+    "choose": "Language",
+    "choose_placeholder": "Choose a language",
+    "custom_code": "Or type a language code",
+    "custom_code_hint": "For example fr, de or pt-BR.",
+    "add_confirm": "Add",
+    "column_language": "Language",
+    "column_status": "Status",
+    "column_progress": "Store text",
+    "published": "Published",
+    "hidden": "Hidden",
+    "default": "Default",
+    "make_default": "Make default",
+    "publish": "Publish",
+    "unpublish": "Hide",
+    "remove": "Remove",
+    "remove_title": "Remove {name}?",
+    "remove_body": "Customers won't see it any more. Its translations are kept and come back if you add the language again.",
+    "translate": "Translate",
+    "progress": "{translated} of {total}",
+    "saved": "Languages saved",
+    "more_actions": "More actions",
+    "default_hint": "Customers whose language isn't available see the default language.",
+    "editor": {
+      "back": "Languages",
+      "tab_store": "Store text",
+      "tab_products": "Products",
+      "tab_categories": "Categories",
+      "tab_collections": "Collections",
+      "tab_pages": "Pages",
+      "search": "Search texts",
+      "missing_only": "Missing only",
+      "column_source": "English",
+      "translate_missing": "Translate missing with AI",
+      "translating": "Translating… {done} of {total}",
+      "stop": "Stop",
+      "ai_done": "{count} texts translated. Review them, then save.",
+      "ai_draft": "AI draft",
+      "export": "Export JSON",
+      "import": "Import JSON",
+      "imported": "{count} texts imported. Review them, then save.",
+      "import_invalid": "That file isn't a translation file (a JSON object of texts).",
+      "saved": "Translations saved",
+      "empty": "No texts match.",
+      "english_note": "English is the source language: change a text here to change your store's wording in English (and what the other languages translate from).",
+      "count": "{missing} missing of {total}",
+      "no_ai": "Set up AI in Settings → AI to translate automatically.",
+      "field_title": "Title",
+      "field_description": "Description",
+      "field_name": "Name",
+      "field_seo_title": "SEO title",
+      "field_seo_description": "SEO description",
+      "item_count": "{done} of {total} translated"
+    }
+  },
+  "ai_settings": {
+    "title": "AI",
+    "description": "The AI service the “Translate with AI” buttons use. Keys are stored encrypted and never shown again.",
+    "provider": "Provider",
+    "providers": {
+      "anthropic": "Anthropic (Claude)",
+      "openai": "OpenAI (ChatGPT)",
+      "google": "Google (Gemini)"
+    },
+    "model": "Model",
+    "model_hint_default": "Leave it empty to use {model}.",
+    "model_hint_required": "Type the model name from your provider's dashboard.",
+    "api_key": "API key",
+    "key_saved": "A key is saved. Type a new one to replace it.",
+    "key_from_env": "Set on the server (environment variable).",
+    "key_not_set": "No key yet.",
+    "remove_key": "Remove saved key",
+    "save": "Save",
+    "saved": "AI settings saved",
+    "test": "Test",
+    "test_ok": "It works: “{text}”",
+    "secrets_off": "Keys can't be saved on this server yet (no encryption key)."
   }
 }

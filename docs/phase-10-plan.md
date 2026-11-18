@@ -207,6 +207,47 @@ Each step ends with lint, typecheck and build passing and a check in the browser
   - Existing data keeps working.
   - Needs a migration on all three backends.
 
+**Built 17 Nov 2026** (guide: `docs/languages.md`). Not done yet:
+- The theme's texts and email templates have no AI button; theme texts are translated in the theme editor's language tabs.
+- The CSV product import still reads only `title_en/es/it` columns.
+
+### 4.1 Design (17 Nov 2026)
+
+**Language codes:**
+- `Locale` becomes any language code (`fr`, `de`, `pt-BR`), checked with a pattern.
+- `LOCALES` stays the three languages that ship JSON dictionaries: en, es, it.
+
+**Store languages:**
+- New public setting `LANGUAGES`: `[{ code, is_published }]`.
+- The store proxy routes the published ones, cached for 60 s like `DEFAULT_LOCALE`.
+- Unpublished languages can be previewed but aren't linked from the language switcher.
+
+**UI text:**
+- New private setting `UI_TRANSLATIONS`: `{ [code]: { "dotted.key": text } }`.
+- `getDictionary(lang)` loads the shipped JSON for the language, or English for any other language, then applies these overrides.
+- Settings only, so there's no database migration on any backend.
+
+**Content:**
+- `localized_text_schema` accepts any language code.
+- Products, categories, collections, pages and themes simply get extra keys, so there's no migration here either.
+- Editors show a tab for every language in `LANGUAGES`.
+
+**AI:**
+- New setting `AI`: `{ provider: anthropic | openai | google, model }`.
+- The keys are in `SECRET_KEYS`, stored encrypted: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`.
+- `lib/ai/translate.ts` uses the Vercel AI SDK (`ai` + `@ai-sdk/anthropic` / `openai` / `google`) with `generateObject`.
+- Text is sent in batches of about 80 strings, with `{placeholders}` checked after translation.
+- Results come back as drafts that the owner saves.
+
+**Screens:**
+- Settings → Languages: add a language, publish/unpublish it, set the default.
+- Per-language translation editor:
+  - Tabs: Store text, Products, Collections & categories, Pages, Theme.
+  - Search, and a "missing only" filter.
+  - Import/export JSON.
+  - Translate missing items with AI.
+- Settings → AI: provider, model, API key, "Test".
+
 ## 5. SMS and WhatsApp (Twilio)
 
 **Settings → SMS & WhatsApp:**

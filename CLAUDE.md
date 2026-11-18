@@ -76,6 +76,11 @@ The rebuild plan (Supabase/PocketBase/SQLite backends, Shopify-style admin, doma
 - Image uploads: the `media` table + each backend's file storage (`actions/media.ts`), jpg/png/webp/avif up to 10 MB.
 - The home page's hero and announcement text moved from settings into the theme (`HERO_*`, `ANNOUNCEMENT` and `ABOUT_CONTENT` settings were removed).
 
+### Languages and AI translation (`docs/languages.md`)
+- `LOCALES` (en/es/it) are the languages with JSON dictionaries; `Locale` is any language code. The store's languages are the `LANGUAGES` setting (`lib/languages.ts`); the store proxy routes all of them and detects only published ones. Admin forms get them from `StoreLanguagesProvider` (`useStoreLocales()`), so every per-language field shows a tab per store language. The admin UI itself stays en/es/it (`getAdminLocale()` returns a `BuiltInLocale`).
+- Edited store text is the `UI_TRANSLATIONS` setting, applied by `getDictionary()` over the shipped dictionary (English for other languages). Content is translated in place (`{ [code]: text }`), walked by `lib/content-translation.ts`.
+- "Translate with AI" uses the Vercel AI SDK (`lib/ai/translate.ts`) with the provider/model of the `AI` setting and its key from the encrypted secrets (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`; env wins). Results are drafts until saved; translations that change `{placeholders}` are dropped.
+
 ### UX references
 - **Checkout = Shopify's one-page checkout layout and flow**: two columns on desktop (left: contact → delivery address → shipping method → payment → "Pay now"/"Complete order"; right: sticky order summary with line items, discount field, subtotal, shipping, taxes, total). On mobile the summary collapses into a "Show order summary" bar at the top. Copy the layout, field order, spacing and behaviour. **Don't copy Shopify's logos, brand name or assets.**
 - **Admin dashboard = Stripe Dashboard style**: dense data tables with filters and search, status badges, detail pages with a timeline of events, a left sidebar, quick actions in a top-right menu.

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { LOCALES } from "@repo/core/i18nConfig";
+import { locale_code_schema } from "@repo/core/lib/localized";
+
 import { email_schema } from "@repo/core/lib/schemas/auth";
 import { bulk_ids_schema } from "@repo/core/lib/schemas/admin";
 import { id_schema } from "@repo/core/lib/schemas/ids";
@@ -37,7 +38,7 @@ export type BulkMessageStatusInput = z.infer<typeof bulk_message_status_schema>;
 // The theme's newsletter section. Saved as a message, so staff see sign-ups in Messages.
 export const newsletter_signup_schema = z.object({
   email: email_schema,
-  lang: z.enum(LOCALES),
+  lang: locale_code_schema,
   // Honeypot, like the contact form.
   website: z.string().max(200),
 });

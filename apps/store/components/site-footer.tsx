@@ -8,6 +8,7 @@ import { CookieSettingsButton } from "@/components/tracking/cookie-consent";
 import type { Locale } from "@repo/core/i18nConfig";
 import { getDictionary } from "@repo/core/lib/i18n";
 import { countryName } from "@repo/core/lib/locale/countries";
+import { publishedLocales } from "@repo/core/lib/languages";
 import { languageOptions } from "@repo/core/lib/locale/language-options";
 import { localized } from "@repo/core/lib/localized";
 import { enabledPaymentNames } from "@repo/core/lib/payment-methods";
@@ -175,7 +176,12 @@ export async function SiteFooter({ lang, footer_group, is_preview = false }: Sit
               </span>
             )}
             <CookieSettingsButton label={text.cookie_settings} />
-            <LanguageSwitcher lang={lang} label={text.language} options={languageOptions()} variant="footer" />
+            <LanguageSwitcher
+              lang={lang}
+              label={text.language}
+              options={languageOptions(publishedLocales(settings.LANGUAGES))}
+              variant="footer"
+            />
           </div>
         </div>
       </div>

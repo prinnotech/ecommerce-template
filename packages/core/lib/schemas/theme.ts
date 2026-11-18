@@ -399,9 +399,7 @@ export const FIXED_SECTION: Partial<Record<PageKind, SectionType>> = {
 export function sectionTypesFor(kind: PageKind): SectionType[] {
   return SECTION_TYPES.filter(
     (type) =>
-      type !== "product_main" &&
-      type !== "product_list" &&
-      (kind === "product" || !PRODUCT_ONLY.includes(type)),
+      type !== "product_main" && type !== "product_list" && (kind === "product" || !PRODUCT_ONLY.includes(type)),
   );
 }
 

@@ -5,6 +5,7 @@ import type { Permission } from "@repo/core/lib/permissions";
 export type SettingsNavKey =
   | "general"
   | "languages"
+  | "ai"
   | "domains"
   | "tracking"
   | "payments"
@@ -30,6 +31,7 @@ export const SETTINGS_NAV_GROUPS: readonly SettingsNavGroup[] = [
     items: [
       { key: "general", permission: "settings.view" },
       { key: "languages", permission: "settings.view" },
+      { key: "ai", permission: "settings.view" },
       { key: "domains", permission: "settings.view" },
       { key: "tracking", permission: "settings.view" },
     ],

@@ -4,23 +4,26 @@ import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { cache } from "react";
 
-import type { Locale } from "@repo/core/i18nConfig";
+import { FALLBACK_LOCALE, isBuiltInLocale, LOCALES, type BuiltInLocale } from "@repo/core/i18nConfig";
 import { getCaller } from "@repo/core/lib/auth";
-import { isLocale } from "@repo/core/lib/i18n";
 import { browserLocale } from "@repo/core/lib/locale/detect-locale";
 import { getSiteSetting } from "@repo/core/lib/site-settings-server";
 
 // The admin has no language in its URLs: each staff member picks one (profile menu), saved on their
 // team profile and in this cookie (the cookie also covers the sign-in pages, before there's a session).
-// Without a choice: the browser's language, then the DEFAULT_LOCALE setting.
+// Without a choice: the browser's language, then the DEFAULT_LOCALE setting. The admin itself is in
+// English, Spanish or Italian (the shipped dictionaries), whatever languages the store sells in.
 export const ADMIN_LOCALE_COOKIE = "admin_locale";
 
-export const getAdminLocale = cache(async (): Promise<Locale> => {
+export const getAdminLocale = cache(async (): Promise<BuiltInLocale> => {
   const [caller, cookie_store, header_list] = await Promise.all([getCaller(), cookies(), headers()]);
-  if (caller && isLocale(caller.locale)) return caller.locale;
+  if (caller && isBuiltInLocale(caller.locale)) return caller.locale;
   const saved = cookie_store.get(ADMIN_LOCALE_COOKIE)?.value ?? "";
-  if (isLocale(saved)) return saved;
-  return browserLocale(header_list.get("accept-language")) ?? (await getSiteSetting("DEFAULT_LOCALE"));
+  if (isBuiltInLocale(saved)) return saved;
+  const browser = browserLocale(header_list.get("accept-language"), LOCALES);
+  if (browser && isBuiltInLocale(browser)) return browser;
+  const store_default = await getSiteSetting("DEFAULT_LOCALE");
+  return isBuiltInLocale(store_default) ? store_default : FALLBACK_LOCALE;
 });
 
 // Admin pages are private: a title with the store name, never indexed.

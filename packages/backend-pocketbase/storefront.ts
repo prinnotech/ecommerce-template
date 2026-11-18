@@ -15,7 +15,8 @@ import type { CategoriesResponse, ProductsResponse, TypedPocketBase } from "@rep
 // (active, not deleted products; active variants; visible categories).
 
 // Generic order follows the generated type: description, image_colors, tags, title.
-type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, string[], LocalizedText>;
+// Generic order: description, image_colors, seo, tags, title.
+type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, unknown, string[], LocalizedText>;
 type CategoryRecord = CategoriesResponse<LocalizedText, LocalizedText>;
 
 const CARD_FIELDS = "id,collectionId,slug,title,images,price,compare_at_price,created_at";

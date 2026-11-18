@@ -1,5 +1,6 @@
 "use client";
 
+import { isBuiltInLocale } from "@repo/core/i18nConfig";
 import { ExternalLinkIcon, LanguagesIcon, LogOutIcon, SearchIcon, SunMoonIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -76,8 +77,9 @@ export function TopBar({
   }, []);
 
   function onLanguageChange(value: string) {
+    if (!isBuiltInLocale(value)) return;
     set_locale.mutate(
-      { locale: value as Locale },
+      { locale: value },
       {
         // Server components render the dictionary: refresh them in the new language.
         onSuccess: () => router.refresh(),

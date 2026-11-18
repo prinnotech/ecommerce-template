@@ -1,13 +1,13 @@
 import type { NextRequest } from "next/server";
 
-import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
 
-// Picks the language for a first visit (no locale in the URL, no saved choice):
-// visitor's country → browser language → the DEFAULT_LOCALE setting.
+// Picks the language for a first visit (no locale in the URL, no saved choice), among the store's
+// published languages: visitor's country → browser language → the DEFAULT_LOCALE setting.
 // Runs in the proxy, so it must not import "server-only".
 
-// Countries whose main language is one we ship. Others (e.g. Switzerland, Germany) fall
-// through to the browser language.
+// A country's main language. Used only when the store publishes that language; multilingual
+// countries (e.g. Switzerland, Belgium) fall through to the browser language.
 const COUNTRY_LOCALES: Record<string, Locale> = {
   IT: "it",
   SM: "it",
@@ -33,6 +33,26 @@ const COUNTRY_LOCALES: Record<string, Locale> = {
   UY: "es",
   PR: "es",
   GQ: "es",
+  FR: "fr",
+  MC: "fr",
+  DE: "de",
+  AT: "de",
+  LI: "de",
+  PT: "pt",
+  BR: "pt-BR",
+  NL: "nl",
+  PL: "pl",
+  SE: "sv",
+  DK: "da",
+  NO: "nb",
+  FI: "fi",
+  CZ: "cs",
+  RO: "ro",
+  HU: "hu",
+  GR: "el",
+  TR: "tr",
+  JP: "ja",
+  KR: "ko",
   US: "en",
   GB: "en",
   IE: "en",
@@ -54,11 +74,15 @@ const IP_LOOKUP_TIMEOUT_MS = 1500;
 const IP_CACHE_MAX = 5000;
 const ip_country_cache = new Map<string, string>();
 
-export async function detectLocale(request: NextRequest, fallback: Locale): Promise<Locale> {
+export async function detectLocale(
+  request: NextRequest,
+  fallback: Locale,
+  available: readonly Locale[],
+): Promise<Locale> {
   const country = await visitorCountry(request);
   const country_locale = country ? COUNTRY_LOCALES[country] : undefined;
-  if (country_locale) return country_locale;
-  return browserLocale(request.headers.get("accept-language")) ?? fallback;
+  if (country_locale && available.includes(country_locale)) return country_locale;
+  return browserLocale(request.headers.get("accept-language"), available) ?? fallback;
 }
 
 async function visitorCountry(request: NextRequest): Promise<string> {
@@ -127,18 +151,27 @@ async function lookupCountry(ip: string): Promise<string> {
   return country;
 }
 
-// "it-IT,it;q=0.9,en;q=0.8" → "it". Highest-weighted language we ship, or null.
-export function browserLocale(header: string | null): Locale | null {
+// "it-IT,it;q=0.9,en;q=0.8" → "it". The highest-weighted available language, or null. A
+// regional tag matches a regional language first ("pt-BR"), then the base language ("pt").
+export function browserLocale(header: string | null, available: readonly Locale[]): Locale | null {
   if (!header) return null;
   const ranked = header
     .split(",")
     .map((part) => {
       const [tag = "", ...params] = part.trim().split(";");
       const quality = params.find((param) => param.trim().startsWith("q="));
-      return { language: tag.split("-")[0]?.toLowerCase() ?? "", weight: quality ? Number(quality.split("=")[1]) : 1 };
+      const [base = "", region = ""] = tag.split("-");
+      return {
+        language: base.toLowerCase(),
+        regional: region ? `${base.toLowerCase()}-${region.toUpperCase()}` : "",
+        weight: quality ? Number(quality.split("=")[1]) : 1,
+      };
     })
     .filter((entry) => entry.language && entry.weight > 0)
     .sort((a, b) => b.weight - a.weight);
-  const match = ranked.find((entry) => (LOCALES as readonly string[]).includes(entry.language));
-  return match ? (match.language as Locale) : null;
+  for (const entry of ranked) {
+    if (entry.regional && available.includes(entry.regional)) return entry.regional;
+    if (available.includes(entry.language)) return entry.language;
+  }
+  return null;
 }

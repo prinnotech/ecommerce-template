@@ -1,5 +1,6 @@
 "use client";
 
+import { isBuiltInLocale } from "@repo/core/i18nConfig";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
@@ -68,8 +69,9 @@ export function ProfileScreen({
   }
 
   function onLanguageChange(value: string) {
+    if (!isBuiltInLocale(value)) return;
     set_locale.mutate(
-      { locale: value as Locale },
+      { locale: value },
       {
         onSuccess: () => router.refresh(),
         onError: (error) => toast.error(errorText(errors, error)),

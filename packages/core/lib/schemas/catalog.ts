@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { LOCALES } from "@repo/core/i18nConfig";
+import { locale_code_schema } from "@repo/core/lib/localized";
+
 import { bulk_ids_schema } from "@repo/core/lib/schemas/admin";
 import { id_schema } from "@repo/core/lib/schemas/ids";
 import { seo_schema } from "@repo/core/lib/schemas/seo";
@@ -16,7 +17,7 @@ export const slug_schema = z
   .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "invalid_slug");
 
 function localizedText(max: number) {
-  return z.partialRecord(z.enum(LOCALES), z.string().trim().max(max, "too_long"));
+  return z.record(locale_code_schema, z.string().trim().max(max, "too_long"));
 }
 
 // At least one language must be filled; the storefront falls back to it.

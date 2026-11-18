@@ -1,7 +1,8 @@
 import { i18nRouter } from "next-i18n-router";
 import type { NextRequest } from "next/server";
 
-import i18n_config, { LOCALE_COOKIE, LOCALES } from "@repo/core/i18nConfig";
+import i18n_config, { LOCALE_COOKIE } from "@repo/core/i18nConfig";
+import { publishedLocales, storeLocales } from "@repo/core/lib/languages";
 import { detectLocale } from "@repo/core/lib/locale/detect-locale";
 import { primaryDomainRedirect } from "@repo/core/lib/primary-domain";
 import { hasSessionCookie, updateSession } from "@repo/core/backend/proxy";
@@ -17,14 +18,23 @@ export async function proxy(request: NextRequest) {
   const redirect = primaryDomainRedirect(request, await getProxySetting("PRIMARY_DOMAIN_STORE"));
   if (redirect) return redirect;
 
-  const default_locale = await getProxySetting("DEFAULT_LOCALE");
+  const [languages, stored_default] = await Promise.all([
+    getProxySetting("LANGUAGES"),
+    getProxySetting("DEFAULT_LOCALE"),
+  ]);
+  // Every store language is routed (unpublished ones can be previewed by URL); visitors are only
+  // sent to published ones.
+  const locales = storeLocales(languages);
+  const published = publishedLocales(languages);
+  const default_locale = published.includes(stored_default) ? stored_default : (published[0] ?? stored_default);
 
   // Only first visits without a locale need detection; it may call the IP lookup.
-  const needs_detection = !hasLocalePrefix(request.nextUrl.pathname) && !hasSavedLocale(request);
-  const detected_locale = needs_detection ? await detectLocale(request, default_locale) : default_locale;
+  const needs_detection = !hasLocalePrefix(request.nextUrl.pathname, locales) && !hasSavedLocale(request, published);
+  const detected_locale = needs_detection ? await detectLocale(request, default_locale, published) : default_locale;
 
   const response = i18nRouter(request, {
     ...i18n_config,
+    locales,
     defaultLocale: default_locale,
     localeDetector: () => detected_locale,
   });
@@ -35,13 +45,13 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
-function hasLocalePrefix(pathname: string): boolean {
-  return LOCALES.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
+function hasLocalePrefix(pathname: string, locales: readonly string[]): boolean {
+  return locales.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
 }
 
-function hasSavedLocale(request: NextRequest): boolean {
+function hasSavedLocale(request: NextRequest, published: readonly string[]): boolean {
   const saved = request.cookies.get(LOCALE_COOKIE)?.value ?? "";
-  return (LOCALES as readonly string[]).includes(saved);
+  return published.includes(saved);
 }
 
 export const config = {

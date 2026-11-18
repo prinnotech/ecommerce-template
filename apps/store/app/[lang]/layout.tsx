@@ -9,6 +9,7 @@ import { THEME_FONT_CLASSES } from "@/lib/theme-fonts";
 import { Toaster } from "@repo/ui/components/ui/sonner";
 import { LOCALES } from "@repo/core/i18nConfig";
 import { buildPageMetadata } from "@repo/core/lib/build-page-metadata";
+import { storeLocales } from "@repo/core/lib/languages";
 import { getDictionary, isLocale } from "@repo/core/lib/i18n";
 import { getSiteSetting } from "@repo/core/lib/site-settings-server";
 import { CartHydrator } from "@repo/core/providers/cart-hydrator";
@@ -17,6 +18,7 @@ import { QueryProvider } from "@repo/core/providers/query-provider";
 import { ThemeProvider } from "@repo/core/providers/theme-provider";
 
 // Static pages pick up site setting changes within a minute even without on-demand revalidation.
+// The shipped languages are prerendered; languages added in Settings → Languages render on demand.
 export const revalidate = 60;
 
 export function generateStaticParams() {
@@ -32,11 +34,14 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
 
-  const [dictionary, is_maintenance, tracking] = await Promise.all([
+  const [dictionary, is_maintenance, tracking, languages] = await Promise.all([
     getDictionary(lang),
     getSiteSetting("MAINTENANCE_MODE"),
     getSiteSetting("TRACKING"),
+    getSiteSetting("LANGUAGES"),
   ]);
+  // Any language the store has (unpublished ones can be previewed by address).
+  if (!storeLocales(languages).includes(lang)) notFound();
 
   return (
     <html lang={lang} suppressHydrationWarning className={`${THEME_FONT_CLASSES} h-full antialiased`}>

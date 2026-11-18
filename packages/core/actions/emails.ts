@@ -2,10 +2,12 @@
 
 import { z } from "zod";
 
+import { locale_code_schema } from "@repo/core/lib/localized";
+
 import { failFrom } from "@repo/core/backend/fail-from";
 import { getBackend } from "@repo/core/backend/index";
 import type { AdminOrderDetail, EmailLogEntry, Page } from "@repo/core/backend/types";
-import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import { type Locale } from "@repo/core/i18nConfig";
 import { fail, ok, type ActionResult } from "@repo/core/lib/action-result";
 import { logActivity } from "@repo/core/lib/activity-log";
 import { authorize } from "@repo/core/lib/auth";
@@ -252,7 +254,7 @@ async function previewOrder(): Promise<AdminOrderDetail> {
 
 const preview_schema = z.object({
   template: z.enum(EMAIL_TEMPLATES),
-  locale: z.enum(LOCALES),
+  locale: locale_code_schema,
   config: template_settings_schema,
 });
 export type PreviewEmailInput = z.input<typeof preview_schema>;

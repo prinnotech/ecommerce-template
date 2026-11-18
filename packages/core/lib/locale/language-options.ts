@@ -1,10 +1,9 @@
 import { LOCALES, type Locale } from "@repo/core/i18nConfig";
+import { languageName } from "@repo/core/lib/languages";
 
 // Each language in its own name ("English", "Español", "Italiano"), so visitors find theirs
-// whatever language the page is in.
-export function languageOptions(): { value: Locale; label: string }[] {
-  return LOCALES.map((value) => {
-    const name = new Intl.DisplayNames([value], { type: "language" }).of(value) ?? value;
-    return { value, label: name.charAt(0).toLocaleUpperCase(value) + name.slice(1) };
-  });
+// whatever language the page is in. The admin offers the shipped languages (the default); the
+// store passes its published ones.
+export function languageOptions(locales: readonly Locale[] = LOCALES): { value: Locale; label: string }[] {
+  return locales.map((value) => ({ value, label: languageName(value) }));
 }

@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { LocalizedFields } from "@repo/admin-ui/components/localized-fields";
-import { isLocale, LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
+import { useStoreLocales } from "@repo/core/providers/store-languages";
 import { usePreviewEmail, useSendTemplateTest } from "@repo/core/hooks/use-emails";
 import { errorText } from "@repo/core/lib/action-result";
 import { PLACEHOLDERS, type EmailTemplate, type TemplateSettings } from "@repo/core/lib/email/templates";
@@ -65,7 +66,8 @@ function EditorBody({
 }: TemplateEditorProps & { template: EmailTemplate; value: TemplateSettings; default_value: TemplateSettings }) {
   const preview = usePreviewEmail();
   const test = useSendTemplateTest();
-  const [preview_lang, setPreviewLang] = useState<Locale>(isLocale(lang) ? lang : LOCALES[0]);
+  const locales = useStoreLocales();
+  const [preview_lang, setPreviewLang] = useState<Locale>(locales.includes(lang) ? lang : (locales[0] ?? lang));
   const status_labels = { filled: common.text_filled, missing: common.text_missing };
   const { mutate: requestPreview } = preview;
 
@@ -167,10 +169,10 @@ function EditorBody({
             id="preview-language"
             size="sm"
             value={preview_lang}
-            onChange={(event) => setPreviewLang(LOCALES.find((locale) => locale === event.target.value) ?? LOCALES[0])}
+            onChange={(event) => setPreviewLang(event.target.value)}
             className="uppercase"
           >
-            {LOCALES.map((locale) => (
+            {locales.map((locale) => (
               <NativeSelectOption key={locale} value={locale}>
                 {locale}
               </NativeSelectOption>

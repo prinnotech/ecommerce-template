@@ -126,7 +126,8 @@
       "email": "Invio email",
       "profile": "Profilo",
       "tracking": "Tracciamento",
-      "api_keys": "Chiavi API"
+      "api_keys": "Chiavi API",
+      "ai": "IA"
     },
     "saved_all": "Impostazioni salvate.",
     "assets": {
@@ -287,6 +288,18 @@
       "tracking": {
         "label": "Tracciamento",
         "description": "Tag di annunci e statistiche (Impostazioni → Tracciamento)."
+      },
+      "languages": {
+        "label": "Lingue del negozio",
+        "description": "Si modificano in Impostazioni → Lingue."
+      },
+      "ui_translations": {
+        "label": "Traduzioni dei testi del negozio",
+        "description": "Si modificano in Impostazioni → Lingue."
+      },
+      "ai": {
+        "label": "IA",
+        "description": "Si modifica in Impostazioni → IA."
       }
     },
     "groups": {
@@ -2387,5 +2400,88 @@
     "revoke_title": "Revocare questa chiave?",
     "revoke_body": "Tutto ciò che usa “{name}” smette subito di funzionare. Non si può annullare.",
     "revoked_toast": "Chiave revocata"
+  },
+  "languages": {
+    "title": "Lingue",
+    "description": "Le lingue del tuo negozio. Quelle pubblicate le vedono i clienti; quelle nascoste si possono tradurre e visualizzare in anteprima prima.",
+    "add": "Aggiungi lingua",
+    "add_title": "Aggiungi una lingua",
+    "add_body": "I suoi testi del negozio partono in inglese finché non li traduci qui.",
+    "choose": "Lingua",
+    "choose_placeholder": "Scegli una lingua",
+    "custom_code": "Oppure scrivi un codice lingua",
+    "custom_code_hint": "Per esempio fr, de o pt-BR.",
+    "add_confirm": "Aggiungi",
+    "column_language": "Lingua",
+    "column_status": "Stato",
+    "column_progress": "Testi del negozio",
+    "published": "Pubblicata",
+    "hidden": "Nascosta",
+    "default": "Predefinita",
+    "make_default": "Rendi predefinita",
+    "publish": "Pubblica",
+    "unpublish": "Nascondi",
+    "remove": "Rimuovi",
+    "remove_title": "Rimuovere {name}?",
+    "remove_body": "I clienti non la vedranno più. Le sue traduzioni restano e tornano se aggiungi di nuovo la lingua.",
+    "translate": "Traduci",
+    "progress": "{translated} di {total}",
+    "saved": "Lingue salvate",
+    "more_actions": "Altre azioni",
+    "default_hint": "I clienti la cui lingua non è disponibile vedono la lingua predefinita.",
+    "editor": {
+      "back": "Lingue",
+      "tab_store": "Testi del negozio",
+      "tab_products": "Prodotti",
+      "tab_categories": "Categorie",
+      "tab_collections": "Collezioni",
+      "tab_pages": "Pagine",
+      "search": "Cerca testi",
+      "missing_only": "Solo mancanti",
+      "column_source": "Inglese",
+      "translate_missing": "Traduci i mancanti con l'IA",
+      "translating": "Traduzione in corso… {done} di {total}",
+      "stop": "Ferma",
+      "ai_done": "{count} testi tradotti. Controllali, poi salva.",
+      "ai_draft": "Bozza IA",
+      "export": "Esporta JSON",
+      "import": "Importa JSON",
+      "imported": "{count} testi importati. Controllali, poi salva.",
+      "import_invalid": "Questo file non è un file di traduzioni (un oggetto JSON di testi).",
+      "saved": "Traduzioni salvate",
+      "empty": "Nessun testo corrisponde.",
+      "english_note": "L'inglese è la lingua di partenza: cambia un testo qui per cambiare come lo dice il tuo negozio in inglese (e da cosa traducono le altre lingue).",
+      "count": "{missing} mancanti su {total}",
+      "no_ai": "Configura l'IA in Impostazioni → IA per tradurre automaticamente.",
+      "field_title": "Titolo",
+      "field_description": "Descrizione",
+      "field_name": "Nome",
+      "field_seo_title": "Titolo SEO",
+      "field_seo_description": "Descrizione SEO",
+      "item_count": "{done} di {total} tradotti"
+    }
+  },
+  "ai_settings": {
+    "title": "IA",
+    "description": "Il servizio di IA usato dai pulsanti «Traduci con l'IA». Le chiavi sono salvate cifrate e non vengono più mostrate.",
+    "provider": "Fornitore",
+    "providers": {
+      "anthropic": "Anthropic (Claude)",
+      "openai": "OpenAI (ChatGPT)",
+      "google": "Google (Gemini)"
+    },
+    "model": "Modello",
+    "model_hint_default": "Lascialo vuoto per usare {model}.",
+    "model_hint_required": "Scrivi il nome del modello dal pannello del tuo fornitore.",
+    "api_key": "Chiave API",
+    "key_saved": "Una chiave è salvata. Scrivine una nuova per sostituirla.",
+    "key_from_env": "Impostata sul server (variabile d'ambiente).",
+    "key_not_set": "Nessuna chiave per ora.",
+    "remove_key": "Rimuovi la chiave salvata",
+    "save": "Salva",
+    "saved": "Impostazioni IA salvate",
+    "test": "Prova",
+    "test_ok": "Funziona: «{text}»",
+    "secrets_off": "Questo server non può ancora salvare chiavi (manca la chiave di cifratura)."
   }
 }

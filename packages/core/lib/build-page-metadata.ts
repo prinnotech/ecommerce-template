@@ -2,8 +2,8 @@ import "server-only";
 
 import type { Metadata } from "next";
 
-import { LOCALES } from "@repo/core/i18nConfig";
 import { SITE_URL } from "@repo/core/lib/site-config";
+import { publishedLocales } from "@repo/core/lib/languages";
 import { getSiteSetting } from "@repo/core/lib/site-settings-server";
 
 type PageMetadataInput = {
@@ -25,7 +25,9 @@ export async function buildPageMetadata({
 }: PageMetadataInput): Promise<Metadata> {
   const site_name = await getSiteSetting("SITE_NAME");
   const favicon_url = await getSiteSetting("SITE_FAVICON_URL");
-  const languages = Object.fromEntries(LOCALES.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]));
+  // hreflang for the published languages only: unpublished ones aren't meant to be found yet.
+  const published = publishedLocales(await getSiteSetting("LANGUAGES"));
+  const languages = Object.fromEntries(published.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]));
   const full_title = title ? `${title} | ${site_name}` : site_name;
 
   return {

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { LOCALES } from "@repo/core/i18nConfig";
+import { locale_code_schema } from "@repo/core/lib/localized";
+
 import { PRODUCT_STATUSES, slug_schema } from "@repo/core/lib/schemas/catalog";
 
 // One CSV product (rows grouped by handle) / one CSV category, after parsing.
@@ -9,7 +10,7 @@ import { PRODUCT_STATUSES, slug_schema } from "@repo/core/lib/schemas/catalog";
 const cents_schema = z.number().int().min(0).max(100_000_000);
 
 function localizedText(max: number) {
-  return z.partialRecord(z.enum(LOCALES), z.string().trim().max(max));
+  return z.record(locale_code_schema, z.string().trim().max(max));
 }
 
 const image_url_schema = z.url({ protocol: /^https?$/ }).max(2000);

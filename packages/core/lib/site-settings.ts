@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-import { LOCALES } from "@repo/core/i18nConfig";
-import { localized_text_schema } from "@repo/core/lib/localized";
+import { DEFAULT_LANGUAGES, languages_schema } from "@repo/core/lib/languages";
+import { locale_code_schema, localized_text_schema } from "@repo/core/lib/localized";
+import { ai_settings_schema, DEFAULT_AI_SETTINGS } from "@repo/core/lib/schemas/ai";
 import { COUNTRY_CODES } from "@repo/core/lib/locale/countries";
 import { hostname_schema } from "@repo/core/lib/schemas/domains";
 import { DEFAULT_NAVIGATION, navigation_schema } from "@repo/core/lib/schemas/navigation";
@@ -34,6 +35,10 @@ export type SettingCategory =
   | "notifications"
   // Products → Inventory.
   | "inventory"
+  // Settings → Languages (own screen): the store's languages and edited UI text.
+  | "languages"
+  // Settings → AI (own screen): the provider used to translate.
+  | "ai"
   // Settings → Tracking (own screen; the Meta CAPI token is an encrypted secret).
   | "tracking";
 
@@ -221,11 +226,35 @@ export const SITE_SETTINGS = {
     input: "currency",
   }),
   DEFAULT_LOCALE: setting({
-    category: "localization",
-    schema: z.enum(LOCALES),
+    category: "languages",
+    schema: locale_code_schema,
     default_value: "en",
     is_public: true,
     input: "locale",
+  }),
+  // The store's languages; published ones are routed (Settings → Languages).
+  LANGUAGES: setting({
+    category: "languages",
+    schema: languages_schema,
+    default_value: DEFAULT_LANGUAGES,
+    is_public: true,
+    input: "json",
+  }),
+  // Store text edited in Settings → Languages, per language: { fr: { "store.header.cart": "…" } }.
+  // Applied over the shipped dictionaries (English for languages without one).
+  UI_TRANSLATIONS: setting({
+    category: "languages",
+    schema: z.record(locale_code_schema, z.record(z.string().max(200), z.string().max(5000))),
+    default_value: {},
+    is_public: false,
+    input: "json",
+  }),
+  AI: setting({
+    category: "ai",
+    schema: ai_settings_schema,
+    default_value: DEFAULT_AI_SETTINGS,
+    is_public: false,
+    input: "json",
   }),
   TIMEZONE: setting({
     category: "localization",

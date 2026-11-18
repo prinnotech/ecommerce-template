@@ -21,7 +21,8 @@ import type { CategoriesResponse, ProductsResponse, TypedPocketBase } from "@rep
 
 type CategoryRecord = CategoriesResponse<LocalizedText, LocalizedText>;
 // Generic order follows the generated type: description, image_colors, tags, title.
-type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, string[], LocalizedText>;
+// Generic order: description, image_colors, seo, tags, title.
+type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, unknown, string[], LocalizedText>;
 
 const VARIANT_FIELDS = "id,size,color,color_hex,sku,price_override,stock,is_active,sort_order";
 const BATCH_LIMIT = 100; // batch.maxRequests (pb_migrations/1793059200)

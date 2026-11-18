@@ -111,6 +111,7 @@ Run `npm run db:setup`, then `npm run build`, then `PORT=3000 npm run start:stor
 | `HOSTING_PROVIDER`, `HOSTING_API_TOKEN` and the `RAILWAY_*` / `VERCEL_*` ids | Connect domains from the admin ([domains.md](domains.md)). Admin only |
 | `SETTINGS_ENCRYPTION_KEY`, `THEME_PREVIEW_SECRET` | 16+ random characters each, the same on the store and the admin. Optional: derived from the backend secret when missing |
 | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `SMTP_PASSWORD` | Optional: the same secrets as env variables instead of the admin (env wins) |
+| `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY` | Admin only. Optional: the AI key for Settings → Languages → "Translate with AI" (or type it in Settings → AI) |
 | `CRON_SECRET` | Store only. Turns on the automatic abandoned-checkout email: schedule `GET https://<store>/api/cron/abandoned-checkouts` every 15–60 min with `Authorization: Bearer <CRON_SECRET>` (Vercel Cron, Railway cron, or any scheduler) |
 | `SLACK_ERROR_WEBHOOK` | Server errors posted to Slack |
 | `DEMO_MODE=true`, `DEMO_ADMIN_PASSWORD` | A public demo: shows the demo login on the admin's sign-in page. Seed it with `npm run demo:seed` |

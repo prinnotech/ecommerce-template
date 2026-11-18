@@ -14,7 +14,15 @@ import { reportError } from "@repo/core/lib/server-log";
 // each one is set. An environment variable with the same name wins over the stored value, for
 // hosts that prefer to keep secrets in env.
 
-export const SECRET_KEYS = ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "SMTP_PASSWORD", "META_CAPI_TOKEN"] as const;
+export const SECRET_KEYS = [
+  "STRIPE_SECRET_KEY",
+  "STRIPE_WEBHOOK_SECRET",
+  "SMTP_PASSWORD",
+  "META_CAPI_TOKEN",
+  "ANTHROPIC_API_KEY",
+  "OPENAI_API_KEY",
+  "GOOGLE_GENERATIVE_AI_API_KEY",
+] as const;
 export type SecretKey = (typeof SECRET_KEYS)[number];
 
 const CATEGORY = "secrets";
