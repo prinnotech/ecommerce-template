@@ -52,6 +52,7 @@ export function orderFromSession(
     attribution: orderAttribution(session.attribution),
     gift_card_total: session.gift_card_amount,
     sms_opt_in: session.sms_opt_in,
+    applied_discounts: session.applied_discounts,
     payment:
       payment.status === "paid"
         ? { provider_ref: payment.provider_ref ?? "", status: "succeeded" }

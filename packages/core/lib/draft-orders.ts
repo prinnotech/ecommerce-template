@@ -49,7 +49,10 @@ export function draftTotals(
       : (findShippingRate(settings, draft.shipping_method)?.price ?? null),
     // A shipping price typed on the draft is final: the free-shipping offer doesn't apply.
     free_shipping_threshold: has_own_price ? 0 : settings.FREE_SHIPPING_THRESHOLD,
-    discount: draft.discount ? { type: draft.discount.type, value: draft.discount.value, min_subtotal: 0 } : null,
+    // The draft's own discount counts like a typed code (no automatic discounts on drafts).
+    discounts: draft.discount
+      ? [{ type: draft.discount.type, value: draft.discount.value, min_subtotal: 0, is_code: true }]
+      : [],
     tax_rate: taxRateFor(settings, country),
     tax_included: settings.TAX_INCLUDED,
     payment_fee,

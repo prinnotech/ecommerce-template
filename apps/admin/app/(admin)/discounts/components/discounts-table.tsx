@@ -39,16 +39,53 @@ type DiscountsTableProps = {
   errors: AdminDictionary["errors"];
 };
 
-// "10% off", "€5.00 off", "Free shipping" — the same words the editor's summary uses.
+// "10% off", "€5.00 off", "Free shipping", "Buy 2, get 1 free" — the same words the editor's
+// summary uses.
 export function discountValueText(
-  discount: Pick<AdminDiscount, "type" | "value">,
+  discount: Pick<AdminDiscount, "type" | "value" | "buy_x_get_y">,
   currency: string,
   lang: string,
   dictionary: AdminDictionary["discounts"],
 ): string {
   if (discount.type === "free_shipping") return dictionary.types.free_shipping;
+  if (discount.type === "buy_x_get_y") {
+    const deal = discount.buy_x_get_y;
+    if (!deal) return dictionary.types.buy_x_get_y;
+    const is_free = deal.get.percent === 100;
+    const text =
+      deal.buy.kind === "quantity"
+        ? is_free
+          ? dictionary.deal.text.quantity_free
+          : dictionary.deal.text.quantity_off
+        : is_free
+          ? dictionary.deal.text.amount_free
+          : dictionary.deal.text.amount_off;
+    return text
+      .replace("{buy}", String(deal.buy.value))
+      .replace("{amount}", formatCurrency(deal.buy.value, currency, lang))
+      .replace("{get}", String(deal.get.quantity))
+      .replace("{percent}", String(deal.get.percent));
+  }
   const amount = discount.type === "percent" ? `${discount.value}%` : formatCurrency(discount.value, currency, lang);
   return dictionary.value_off.replace("{amount}", amount);
+}
+
+// Codes show the code (and the internal name); automatic discounts show their title and a badge.
+function DiscountName({ discount, automatic_label }: { discount: AdminDiscount; automatic_label: string }) {
+  if (discount.method === "automatic") {
+    return (
+      <span className="flex min-w-0 flex-col items-start gap-0.5">
+        <span className="truncate text-sm font-medium">{discount.title}</span>
+        <StatusBadge tone="info">{automatic_label}</StatusBadge>
+      </span>
+    );
+  }
+  return (
+    <span className="flex min-w-0 flex-col">
+      <span className="truncate font-mono text-sm font-medium">{discount.code}</span>
+      {discount.title && <span className="text-muted-foreground truncate text-xs">{discount.title}</span>}
+    </span>
+  );
 }
 
 export function DiscountsTable({ lang, currency, can_edit, dictionary, index_table, errors }: DiscountsTableProps) {
@@ -78,12 +115,7 @@ export function DiscountsTable({ lang, currency, can_edit, dictionary, index_tab
       key: "code",
       header: dictionary.columns.code,
       is_primary: true,
-      cell: (discount) => (
-        <span className="flex min-w-0 flex-col">
-          <span className="truncate font-mono text-sm font-medium">{discount.code}</span>
-          {discount.title && <span className="text-muted-foreground truncate text-xs">{discount.title}</span>}
-        </span>
-      ),
+      cell: (discount) => <DiscountName discount={discount} automatic_label={dictionary.automatic_badge} />,
     },
     {
       key: "status",
@@ -155,7 +187,7 @@ export function DiscountsTable({ lang, currency, can_edit, dictionary, index_tab
           return (
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 flex-col gap-1">
-                <span className="truncate font-mono text-sm font-medium">{discount.code}</span>
+                <DiscountName discount={discount} automatic_label={dictionary.automatic_badge} />
                 <StatusBadge tone={DISCOUNT_TONE[status]}>{dictionary.status[status]}</StatusBadge>
               </div>
               <span className="text-sm">{discountValueText(discount, currency, lang, dictionary)}</span>

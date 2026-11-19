@@ -206,7 +206,7 @@ function createServer(): McpServer {
   server.registerTool(
     "list_discounts",
     {
-      description: "List discount codes with their status and usage.",
+      description: "List discounts (codes and automatic discounts) with their status and usage.",
       inputSchema: { search, status: z.enum(["all", ...DISCOUNT_STATUSES]).optional(), page },
       annotations: READ,
     },
@@ -214,7 +214,7 @@ function createServer(): McpServer {
   );
   server.registerTool(
     "get_discount",
-    { description: "One discount code.", inputSchema: { id: z.string() }, annotations: READ },
+    { description: "One discount (code or automatic).", inputSchema: { id: z.string() }, annotations: READ },
     async ({ id }) => toToolResult(await getDiscount(id)),
   );
   server.registerTool(

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { discountLines } from "@repo/core/lib/checkout/pricing";
 import { getMyOrder, type OrderDetail } from "@repo/core/actions/account";
 import { AddressBlock } from "@repo/core/components/address-block";
 import { OrderStatusBadge, PaymentStatusBadge } from "@repo/core/components/order-status-badge";
@@ -58,7 +59,11 @@ export default async function AccountOrderPage({ params }: PageProps<"/[lang]/ac
 
   const summary_rows = [
     { label: text.subtotal, value: order.subtotal, is_shown: true },
-    { label: text.discount, value: -order.discount_total, is_shown: order.discount_total > 0 },
+    ...discountLines(order).map((line) => ({
+      label: line.label ? `${text.discount} (${line.label})` : text.discount,
+      value: -line.amount,
+      is_shown: true,
+    })),
     { label: text.shipping, value: order.shipping_total, is_shown: true },
     { label: text.cod_fee, value: order.cod_fee, is_shown: order.cod_fee > 0 },
     { label: text.tax, value: order.tax_total, is_shown: order.tax_total > 0 },

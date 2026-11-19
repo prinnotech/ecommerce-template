@@ -8,7 +8,7 @@ import { FloatingInput } from "./floating-field";
 import { Button } from "@repo/ui/components/ui/button";
 import { Spinner } from "@repo/ui/components/ui/spinner";
 import type { PricedLine } from "@repo/core/lib/checkout/checkout-server";
-import type { Totals } from "@repo/core/lib/checkout/pricing";
+import { discountLines, type Totals } from "@repo/core/lib/checkout/pricing";
 import type { Dictionary } from "@repo/core/lib/i18n";
 import { formatCurrency } from "@repo/core/lib/utils/format";
 import type { AppliedGiftCard } from "@repo/core/actions/checkout";
@@ -150,7 +150,13 @@ export function OrderSummary({
 
       <dl className="flex flex-col gap-2 text-sm">
         <Row label={dictionary.subtotal} value={money(totals.subtotal)} />
-        {totals.discount_total > 0 && <Row label={dictionary.discount} value={`−${money(totals.discount_total)}`} />}
+        {discountLines(totals).map((line) => (
+          <Row
+            key={line.label}
+            label={line.label ? `${dictionary.discount} (${line.label})` : dictionary.discount}
+            value={`−${money(line.amount)}`}
+          />
+        ))}
         <Row
           label={dictionary.shipping}
           value={totals.shipping_total === 0 ? dictionary.free : money(totals.shipping_total)}

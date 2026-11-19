@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { ClearCart } from "./components/clear-cart";
 import { PaymentProcessing } from "./components/payment-processing";
 import { RichText } from "@/components/storefront/rich-text";
+import { discountLines } from "@repo/core/lib/checkout/pricing";
 import { getOrderConfirmation } from "@repo/core/actions/checkout";
 import { AddressBlock } from "@repo/core/components/address-block";
 import { Button } from "@repo/ui/components/ui/button";
@@ -52,11 +53,11 @@ export default async function ThankYouPage({ params }: PageProps<"/[lang]/checko
   const amount_due = Math.max(0, order.totals.total - order.gift_card_total);
   const rows = [
     { label: dictionary.checkout.subtotal, value: money(order.totals.subtotal), is_shown: true },
-    {
-      label: dictionary.checkout.discount,
-      value: `−${money(order.totals.discount_total)}`,
-      is_shown: order.totals.discount_total > 0,
-    },
+    ...discountLines(order.totals).map((line) => ({
+      label: line.label ? `${dictionary.checkout.discount} (${line.label})` : dictionary.checkout.discount,
+      value: `−${money(line.amount)}`,
+      is_shown: true,
+    })),
     {
       label: dictionary.checkout.shipping,
       value: order.totals.shipping_total === 0 ? dictionary.checkout.free : money(order.totals.shipping_total),

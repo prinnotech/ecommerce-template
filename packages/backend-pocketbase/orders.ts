@@ -1,5 +1,6 @@
 import "server-only";
 
+import { parseAppliedDiscounts } from "@repo/core/lib/schemas/discounts";
 import { BackendError } from "@repo/core/backend/errors";
 import type { AdminOrderRow, OrderState, OrdersBackend } from "@repo/core/backend/types";
 import { ARCHIVED_STATUSES, OPEN_STATUSES } from "@repo/core/lib/orders";
@@ -18,7 +19,7 @@ import { parseAttribution } from "@repo/core/lib/tracking/attribution";
 // Admin order work with the superuser client. Callers are authorized and the lifecycle rules
 // (lib/orders.ts) checked in the actions first.
 
-export type OrderRecord = OrdersResponse<unknown, AddressFields | null, AddressFields | null>;
+export type OrderRecord = OrdersResponse<unknown, unknown, AddressFields | null, AddressFields | null>;
 type Batch = ReturnType<TypedPocketBase["createBatch"]>;
 
 export const ORDER_ROW_FIELDS =
@@ -249,6 +250,7 @@ export const orders: OrdersBackend = {
       currency: order.currency,
       subtotal: order.subtotal,
       discount_total: order.discount_total,
+      applied_discounts: parseAppliedDiscounts(order.applied_discounts),
       shipping_total: order.shipping_total,
       tax_total: order.tax_total,
       cod_fee: order.cod_fee,

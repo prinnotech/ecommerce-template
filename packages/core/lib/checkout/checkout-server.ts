@@ -1,11 +1,13 @@
 import "server-only";
 
 import { getBackend } from "@repo/core/backend/index";
+import type { DiscountCode } from "@repo/core/backend/types";
 import type { Locale } from "@repo/core/i18nConfig";
 import type { PricingDiscount } from "@repo/core/lib/checkout/pricing";
 import { localized } from "@repo/core/lib/localized";
 import { variantPrice } from "@repo/core/lib/product-cards";
 import type { CartLinesInput } from "@repo/core/lib/schemas/checkout";
+import type { DiscountAppliesTo } from "@repo/core/lib/schemas/discounts";
 import type { ShippingRate, SiteSettings } from "@repo/core/lib/site-settings";
 import type { PaymentMethodConfig } from "@repo/core/lib/schemas/payments";
 import { isStripeReady } from "@repo/core/lib/stripe/stripe-server";
@@ -72,33 +74,91 @@ export async function priceLines(lines: CartLinesInput, locale: Locale): Promise
 
 export type FoundDiscount = { id: string; code: string; once_per_customer: boolean; discount: PricingDiscount };
 
+function isLive(record: DiscountCode, now: number): boolean {
+  if (!record.is_active) return false;
+  if (record.starts_at && new Date(record.starts_at).getTime() > now) return false;
+  if (record.ends_at && new Date(record.ends_at).getTime() < now) return false;
+  return !(record.usage_limit > 0 && record.used_count >= record.usage_limit);
+}
+
+// Product ids a part of a discount is limited to (null = every product). Categories are looked up
+// once per request.
+type CategoryLookup = (category_ids: string[]) => Promise<string[]>;
+
+function categoryLookup(): CategoryLookup {
+  const cache = new Map<string, Promise<string[]>>();
+  return (category_ids) => {
+    const key = [...category_ids].sort().join(",");
+    let found = cache.get(key);
+    if (!found) {
+      found = getBackend().discounts.productIdsInCategories(category_ids);
+      cache.set(key, found);
+    }
+    return found;
+  };
+}
+
+async function productIds(applies_to: DiscountAppliesTo, lookup: CategoryLookup): Promise<string[] | null> {
+  if (applies_to.kind === "products") return applies_to.ids;
+  if (applies_to.kind === "categories") return lookup(applies_to.ids);
+  return null;
+}
+
+async function toPricingDiscount(
+  record: DiscountCode,
+  is_code: boolean,
+  lookup: CategoryLookup,
+): Promise<PricingDiscount> {
+  const deal = record.buy_x_get_y;
+  return {
+    id: record.id,
+    // Automatic discounts show their name; codes show the code.
+    label: record.method === "automatic" ? record.title || record.code : record.code,
+    type: record.type,
+    value: record.value,
+    min_subtotal: record.min_subtotal,
+    product_ids: record.type === "buy_x_get_y" ? null : await productIds(record.applies_to, lookup),
+    buy_x_get_y:
+      record.type === "buy_x_get_y" && deal
+        ? {
+            buy: {
+              kind: deal.buy.kind,
+              value: deal.buy.value,
+              product_ids: await productIds(deal.buy.applies_to, lookup),
+            },
+            get: {
+              quantity: deal.get.quantity,
+              percent: deal.get.percent,
+              product_ids: await productIds(deal.get.applies_to, lookup),
+            },
+            max_uses: deal.max_uses,
+          }
+        : null,
+    combines_with: record.combines_with,
+    is_code,
+  };
+}
+
 // Active, within its dates and under its usage limit. Discount codes are private; this only
 // ever returns the one code the customer typed.
 export async function findDiscount(code: string): Promise<FoundDiscount | null> {
   if (!code) return null;
   const record = await getBackend().checkout.findDiscount(code.toUpperCase());
-  if (!record || !record.is_active) return null;
-
-  const now = Date.now();
-  if (record.starts_at && new Date(record.starts_at).getTime() > now) return null;
-  if (record.ends_at && new Date(record.ends_at).getTime() < now) return null;
-  if (record.usage_limit > 0 && record.used_count >= record.usage_limit) return null;
-
-  // A discount limited to products or categories lowers only those products' lines.
-  const { applies_to } = record;
-  const product_ids =
-    applies_to.kind === "products"
-      ? applies_to.ids
-      : applies_to.kind === "categories"
-        ? await getBackend().discounts.productIdsInCategories(applies_to.ids)
-        : null;
-
+  if (!record || record.method !== "code" || !isLive(record, Date.now())) return null;
   return {
     id: record.id,
     code: record.code,
     once_per_customer: record.once_per_customer,
-    discount: { type: record.type, value: record.value, min_subtotal: record.min_subtotal, product_ids },
+    discount: await toPricingDiscount(record, true, categoryLookup()),
   };
+}
+
+// Every automatic discount live now, for computeTotals to pick from.
+export async function liveAutomaticDiscounts(): Promise<PricingDiscount[]> {
+  const now = Date.now();
+  const lookup = categoryLookup();
+  const records = (await getBackend().checkout.automaticDiscounts()).filter((record) => isLive(record, now));
+  return Promise.all(records.map((record) => toPricingDiscount(record, false, lookup)));
 }
 
 // "Once per customer": an earlier order (not cancelled) by the same email used it.

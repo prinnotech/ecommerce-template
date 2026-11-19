@@ -85,6 +85,7 @@ export async function sendGiftCardEmail(
     customer_note: "",
     internal_note: "",
     sms_opt_in: false,
+    applied_discounts: [],
     attribution: null,
     refunded_total: 0,
     refunds: [],

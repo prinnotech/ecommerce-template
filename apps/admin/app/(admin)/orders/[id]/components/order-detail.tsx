@@ -13,6 +13,7 @@ import { DetailLayout, SectionCard } from "@repo/admin-ui/components/detail-layo
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge } from "@repo/admin-ui/components/status-badge";
 import { Thumbnail } from "@repo/admin-ui/components/thumbnail";
+import { discountLines } from "@repo/core/lib/checkout/pricing";
 import { AddressBlock } from "@repo/core/components/address-block";
 import { Badge } from "@repo/ui/components/ui/badge";
 import { Button } from "@repo/ui/components/ui/button";
@@ -67,11 +68,15 @@ export function OrderDetail({
 
   const summary_rows = [
     { label: dictionary.subtotal, value: money(order.subtotal), is_shown: true },
-    {
-      label: order.discount_code ? `${dictionary.discount} (${order.discount_code})` : dictionary.discount,
-      value: `−${money(order.discount_total)}`,
-      is_shown: order.discount_total > 0,
-    },
+    // One line per discount; older orders only know their code.
+    ...discountLines(order).map((line) => {
+      const name = line.label || order.discount_code;
+      return {
+        label: name ? `${dictionary.discount} (${name})` : dictionary.discount,
+        value: `−${money(line.amount)}`,
+        is_shown: true,
+      };
+    }),
     { label: dictionary.shipping, value: money(order.shipping_total), is_shown: true },
     { label: dictionary.cod_fee, value: money(order.cod_fee), is_shown: order.cod_fee > 0 },
     { label: dictionary.taxes, value: money(order.tax_total), is_shown: order.tax_total > 0 },

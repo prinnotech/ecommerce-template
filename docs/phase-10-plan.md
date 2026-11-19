@@ -295,6 +295,19 @@ Each step ends with lint, typecheck and build passing and a check in the browser
 | **Analytics reports** | More reports: sales by product, channel, discount, returning customers, conversion funnel |
 | **Shipping labels / fulfillment** | Partial fulfillment, multiple packages, carrier tracking links |
 
+### 6.1 Build order and defaults (approved 19 Nov 2026)
+
+Each step has its own migrations (PocketBase + SQL) and ends with lint, typecheck, build and a browser check.
+
+1. **Automatic discounts + Buy X get Y.** Discounts get a method (code or automatic), a `buy_x_get_y` type (buy N items or spend X on some products/categories, get M items at a percentage off) and "combines with" flags (order / product / shipping). One typed code plus any automatic discounts that combine; product discounts apply first, then order, then shipping. Sessions and orders keep `applied_discounts` (one line each in the summary). **Built 19 Nov 2026** (migrations `1793059225_discounts_v2.js` / `0020_discounts_v2`).
+2. **Fulfillment.** A `fulfillments` table (lines and quantities, carrier, tracking number and link), partial shipping, several packages, tracking-link patterns per carrier, a shipping email per package. No label buying.
+3. **Files.** The `media` table grows (alt text, type, size); Content → Files with search and multi-upload; one picker for themes, pages, blog and products.
+4. **Blog.** `blog_posts` (localized title, excerpt, block body, cover, tags, SEO, publish date); Online store → Blog; store `/blog`, `/blog/[slug]`, tag pages, sitemap, a "Latest posts" section. Body = JSON blocks (heading, paragraph, image, quote), no new dependency.
+5. **Metafields.** Definitions for products, collections and customers (text, number, true/false, date, link, colour, file); customer values in their own table; a theme block shows a value.
+6. **Segments + campaigns.** Saved customer filters with CSV export; email campaigns to consenting customers through the existing SMTP, in batches via the cron route, with a signed unsubscribe link.
+7. **Reports.** Sales by product, variant, channel, discount and country; new vs returning; checkout funnel; CSV export.
+8. **Markets.** `MARKETS` setting (countries, currency, manual rate + rounding, default language). Orders are **charged in the market currency** and keep the currency and rate; analytics converts back to the base currency.
+
 ## 7. Decisions needed
 
 1. **AI provider** for translations: Claude (Anthropic) is my suggestion. Other options: OpenAI, or let the owner choose.

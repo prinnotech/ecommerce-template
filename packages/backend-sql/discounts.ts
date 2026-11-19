@@ -5,7 +5,14 @@ import type { ExpressionBuilder, Selectable } from "kysely";
 import { BackendError } from "@repo/core/backend/errors";
 import type { AdminDiscount, DiscountCode, DiscountsBackend } from "@repo/core/backend/types";
 import type { LocalizedText } from "@repo/core/lib/localized";
-import { APPLIES_TO_ALL, applies_to_schema, type DiscountInput } from "@repo/core/lib/schemas/discounts";
+import {
+  APPLIES_TO_ALL,
+  applies_to_schema,
+  buy_x_get_y_schema,
+  combines_with_schema,
+  COMBINES_WITH_NONE,
+  type DiscountInput,
+} from "@repo/core/lib/schemas/discounts";
 import { contains, paginate, toCount, type SqlContext } from "@repo/backend-sql/context";
 import { uniqueViolation } from "@repo/backend-sql/errors";
 import type { Database, DiscountCodesTable } from "@repo/backend-sql/schema";
@@ -28,6 +35,10 @@ export function toDiscountCode(row: Row): DiscountCode {
     title: row.title,
     applies_to: applies_to_schema.catch(APPLIES_TO_ALL).parse(json(row.applies_to, APPLIES_TO_ALL)),
     once_per_customer: bool(row.once_per_customer),
+    method: row.method === "automatic" ? "automatic" : "code",
+    buy_x_get_y:
+      row.type === "buy_x_get_y" ? buy_x_get_y_schema.nullable().catch(null).parse(json(row.buy_x_get_y, null)) : null,
+    combines_with: combines_with_schema.catch(COMBINES_WITH_NONE).parse(json(row.combines_with, COMBINES_WITH_NONE)),
   };
 }
 
@@ -35,8 +46,11 @@ function toAdmin(row: Row): AdminDiscount {
   return { ...toDiscountCode(row), created_at: iso(row.created_at), updated_at: iso(row.updated_at) };
 }
 
+// Automatic discounts have no usage limits (Shopify works the same way).
 function columns(input: DiscountInput) {
+  const is_automatic = input.method === "automatic";
   return {
+    method: input.method,
     code: input.code,
     title: input.title,
     type: input.type,
@@ -44,10 +58,12 @@ function columns(input: DiscountInput) {
     min_subtotal: input.min_subtotal,
     starts_at: input.starts_at || null,
     ends_at: input.ends_at || null,
-    usage_limit: input.usage_limit,
-    once_per_customer: input.once_per_customer,
+    usage_limit: is_automatic ? 0 : input.usage_limit,
+    once_per_customer: is_automatic ? false : input.once_per_customer,
     is_active: input.is_active,
-    applies_to: input.applies_to.kind === "all" ? null : input.applies_to,
+    applies_to: input.applies_to.kind === "all" || input.type === "buy_x_get_y" ? null : input.applies_to,
+    buy_x_get_y: input.type === "buy_x_get_y" ? input.buy_x_get_y : null,
+    combines_with: input.combines_with,
   };
 }
 
@@ -102,6 +118,7 @@ export function createDiscounts(ctx: SqlContext): DiscountsBackend {
         const status = filters.status;
         query = query.where((eb) => statusFilter(eb, status, now));
       }
+      if (filters.method !== "all") query = query.where("method", "=", filters.method);
       if (filters.search) {
         const search = filters.search;
         query = query.where((eb) => eb.or([contains(ctx, "code", search), contains(ctx, "title", search)]));

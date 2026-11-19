@@ -16,6 +16,7 @@ import type { Database } from "@repo/backend-sql/schema";
 import { imagesFor, sellableVariant } from "@repo/backend-sql/storefront";
 import { bool, iso, json, newId, nowIso } from "@repo/backend-sql/values";
 import { parseAttribution } from "@repo/core/lib/tracking/attribution";
+import { parseAppliedDiscounts, usedDiscountIds } from "@repo/core/lib/schemas/discounts";
 
 // Checkout sessions, payments and discount codes are only reachable from the server.
 // Possessing the session id is what authorizes access to that one session.
@@ -51,6 +52,7 @@ function toSession(row: SessionRow): CheckoutSession {
     gift_card_id: String(row.gift_card_id ?? ""),
     gift_card_amount: Number(row.gift_card_amount ?? 0),
     sms_opt_in: bool(row.sms_opt_in),
+    applied_discounts: parseAppliedDiscounts(json(row.applied_discounts, [])),
   };
 }
 
@@ -98,9 +100,25 @@ export function createCheckout(ctx: SqlContext): CheckoutBackend {
     },
 
     async findDiscount(code) {
-      const row = await db.selectFrom("discount_codes").selectAll().where("code", "=", code).executeTakeFirst();
+      const row = await db
+        .selectFrom("discount_codes")
+        .selectAll()
+        .where("code", "=", code)
+        .where("method", "!=", "automatic")
+        .executeTakeFirst();
       if (!row || row.deleted_at) return null;
       return toDiscountCode(row);
+    },
+
+    async automaticDiscounts() {
+      const rows = await db
+        .selectFrom("discount_codes")
+        .selectAll()
+        .where("method", "=", "automatic")
+        .where("is_active", "=", true)
+        .where("deleted_at", "is", null)
+        .execute();
+      return rows.map(toDiscountCode);
     },
 
     async getDiscountCode(id) {
@@ -213,11 +231,12 @@ export function createCheckout(ctx: SqlContext): CheckoutBackend {
                 status: payment?.status ?? "pending",
               })
               .execute();
-            if (discount_code) {
+            const used_ids = usedDiscountIds(discount_code, order.applied_discounts);
+            if (used_ids.length > 0) {
               await trx
                 .updateTable("discount_codes")
                 .set({ used_count: sql`used_count + 1` })
-                .where("id", "=", discount_code)
+                .where("id", "in", used_ids)
                 .execute();
             }
             await trx
@@ -251,6 +270,7 @@ export function createCheckout(ctx: SqlContext): CheckoutBackend {
         currency: row.currency,
         subtotal: row.subtotal,
         discount_total: row.discount_total,
+        applied_discounts: parseAppliedDiscounts(json(row.applied_discounts, [])),
         shipping_total: row.shipping_total,
         tax_total: row.tax_total,
         cod_fee: row.cod_fee,

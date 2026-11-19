@@ -114,9 +114,13 @@ export type DiscountCodesTable = Timestamps & {
   applies_to: Json;
   once_per_customer: Bool;
   deleted_at: Time;
+  method: Text;
+  buy_x_get_y: Json;
+  combines_with: Json;
 };
 type TotalsColumns = {
   currency: Text;
+  applied_discounts: Json;
   subtotal: Int;
   discount_total: Int;
   shipping_total: Int;

@@ -15,6 +15,7 @@ import {
   findDiscount,
   findShippingRateFor,
   isDiscountUsedBy,
+  liveAutomaticDiscounts,
   priceLines,
   type FoundDiscount,
   type PricedCart,
@@ -22,7 +23,7 @@ import {
 } from "@repo/core/lib/checkout/checkout-server";
 import { placeSessionOrder, viewPaymentMethod, type CheckoutPaymentMethod } from "@repo/core/lib/checkout/place-order";
 import { offersCustomerMessages } from "@repo/core/lib/schemas/messaging";
-import { computeTotals, type Totals } from "@repo/core/lib/checkout/pricing";
+import { computeTotals, type PricingDiscount, type Totals } from "@repo/core/lib/checkout/pricing";
 import { draftForSession, draftTotals } from "@repo/core/lib/draft-orders";
 import { shippingRatesFor, taxRateFor } from "@repo/core/lib/shipping";
 import { sendOrderEmails } from "@repo/core/lib/email/order-emails";
@@ -101,14 +102,14 @@ function totalsFor(
   lines: PricedLine[],
   shipping_method: string,
   method: PaymentMethodConfig | undefined,
-  discount: FoundDiscount | null,
+  discounts: PricingDiscount[],
   country: string,
 ): Totals {
   return computeTotals({
     lines,
     shipping_price: findShippingRateFor(settings, shipping_method, country)?.price ?? null,
     free_shipping_threshold: settings.FREE_SHIPPING_THRESHOLD,
-    discount: discount?.discount ?? null,
+    discounts,
     tax_rate: taxRateFor(settings, country),
     tax_included: settings.TAX_INCLUDED,
     payment_fee: paymentFee(method),
@@ -128,7 +129,13 @@ function totalsFields(totals: Totals): CheckoutTotalsFields {
     tax_total: totals.tax_total,
     cod_fee: totals.cod_fee,
     total: totals.total,
+    applied_discounts: totals.applied_discounts,
   };
+}
+
+// The typed code (if any) and every live automatic discount: computeTotals picks what applies.
+function candidates(code: FoundDiscount | null, automatic: PricingDiscount[]): PricingDiscount[] {
+  return [...(code ? [code.discount] : []), ...automatic];
 }
 
 async function loadOpenSession(id: string): Promise<CheckoutSession | "expired" | "completed" | null> {
@@ -148,17 +155,18 @@ export async function createCheckoutSession(input: CreateCheckoutInput): Promise
   if (isRateLimited(`checkout_create:${ip}`, 30, 10 * 60_000)) return fail("rate_limited");
 
   try {
-    const [settings, user, priced] = await Promise.all([
+    const [settings, user, priced, automatic] = await Promise.all([
       getSiteSettings(),
       getCurrentUser(),
       priceLines(parsed.data.lines, parsed.data.locale),
+      liveAutomaticDiscounts(),
     ]);
     if (priced.lines.length === 0) return fail("out_of_stock");
 
     const methods = await checkoutPaymentMethods(settings);
     const country = settings.STORE_ADDRESS.country;
     const shipping_method = shippingRatesFor(settings, country)[0]?.id ?? "";
-    const totals = totalsFor(settings, priced.lines, shipping_method, methods[0], null, country);
+    const totals = totalsFor(settings, priced.lines, shipping_method, methods[0], automatic, country);
 
     const attribution = await requestAttribution();
     const created = await getBackend().checkout.createSession({
@@ -225,6 +233,7 @@ export async function getCheckout(id: string): Promise<ActionResult<CheckoutStat
           cod_fee: session.cod_fee,
           tax_total: session.tax_total,
           total: session.total,
+          applied_discounts: session.applied_discounts,
         },
         shipping_method: rates.some((rate) => rate.id === session.shipping_method)
           ? session.shipping_method
@@ -322,7 +331,14 @@ export async function quoteCheckout(input: QuoteCheckoutInput): Promise<ActionRe
         : discount;
     const totals = draft
       ? draftTotals(session.line_items, { ...draft, shipping_method }, settings, paymentFee(method), country)
-      : totalsFor(settings, session.line_items, shipping_method, method, kept_discount, country);
+      : totalsFor(
+          settings,
+          session.line_items,
+          shipping_method,
+          method,
+          candidates(kept_discount, await liveAutomaticDiscounts()),
+          country,
+        );
     const gift = giftCardApplied(card, totals);
     const is_code_rejected = Boolean(typed) && !discount && !typed_card;
     const is_gift_card_unusable = is_code_rejected && (await isUnusableGiftCard(typed, settings));
@@ -399,7 +415,14 @@ export async function completeCheckout(input: CompleteCheckoutInput): Promise<Ac
           paymentFee(method),
           country,
         )
-      : totalsFor(settings, priced.lines, data.shipping_method, method, discount, country);
+      : totalsFor(
+          settings,
+          priced.lines,
+          data.shipping_method,
+          method,
+          candidates(discount, await liveAutomaticDiscounts()),
+          country,
+        );
 
     if (priced.removed.length > 0 || priced.adjusted.length > 0 || priced.lines.length === 0) {
       await checkout.updateSession(session.id, { line_items: priced.lines, ...totalsFields(totals) });
@@ -570,6 +593,7 @@ export async function getOrderConfirmation(session_id: string): Promise<ActionRe
           cod_fee: order.cod_fee,
           tax_total: order.tax_total,
           total: order.total,
+          applied_discounts: order.applied_discounts,
         },
         gift_card_total: order.gift_card_total,
         shipping_address: order.shipping_address,

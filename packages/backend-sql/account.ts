@@ -1,5 +1,6 @@
 import "server-only";
 
+import { parseAppliedDiscounts } from "@repo/core/lib/schemas/discounts";
 import type { Kysely } from "kysely";
 
 import { BackendError } from "@repo/core/backend/errors";
@@ -150,6 +151,7 @@ export function createAccount({ db }: SqlContext, auth: AccountAuth): AccountBac
         shipping_total: order.shipping_total,
         tax_total: order.tax_total,
         discount_total: order.discount_total,
+        applied_discounts: parseAppliedDiscounts(json(order.applied_discounts, [])),
         cod_fee: order.cod_fee,
         total: order.total,
         gift_card_total: order.gift_card_total,

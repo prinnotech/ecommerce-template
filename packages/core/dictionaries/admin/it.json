@@ -2022,11 +2022,12 @@
       "other": "{count} sconti"
     },
     "empty_title": "Dai un codice ai clienti",
-    "empty_body": "Percentuale, importo fisso o spedizione gratuita, su tutto l'ordine o su alcuni prodotti, con date e limiti.",
+    "empty_body": "Codici da inserire o sconti automatici come Prendi 3 paghi 2: percentuale, importo fisso o spedizione gratuita, con date e limiti.",
     "types": {
       "percent": "Percentuale",
       "fixed": "Importo fisso",
-      "free_shipping": "Spedizione gratuita"
+      "free_shipping": "Spedizione gratuita",
+      "buy_x_get_y": "Compra X, ricevi Y"
     },
     "value_off": "{amount} di sconto",
     "code_title": "Codice sconto",
@@ -2072,7 +2073,14 @@
       "no_minimum": "Nessun minimo",
       "limit": "{count} usi in totale",
       "no_limit": "Nessun limite di usi",
-      "once_per_customer": "Una volta per cliente"
+      "once_per_customer": "Una volta per cliente",
+      "automatic": "Applicato automaticamente",
+      "combines": "Si combina con: {list}",
+      "combines_none": "Non si combina con altri sconti",
+      "max_uses": {
+        "one": "Una volta per ordine",
+        "other": "Fino a {count} volte per ordine"
+      }
     },
     "used": "Usato {count} volte",
     "created": "Creato il {date}",
@@ -2082,12 +2090,67 @@
       "code": "3–50 caratteri: lettere, numeri, - e _.",
       "value": "Inserisci un valore (percentuali da 1 a 100).",
       "applies_to": "Scegline almeno uno.",
-      "ends_at": "La fine deve essere dopo l'inizio."
+      "ends_at": "La fine deve essere dopo l'inizio.",
+      "title": "Inserisci il titolo che vedranno i clienti.",
+      "buy_x_get_y": "Scegli almeno un prodotto o una categoria."
     },
     "saved": "Sconto salvato.",
     "delete": "Elimina sconto",
     "delete_title": "Eliminare questo sconto?",
-    "delete_body": "Il codice smette di funzionare al pagamento. Gli ordini passati mantengono lo sconto. Non si può annullare."
+    "delete_body": "Il codice smette di funzionare al pagamento. Gli ordini passati mantengono lo sconto. Non si può annullare.",
+    "automatic_badge": "Automatico",
+    "method_title": "Metodo",
+    "methods": {
+      "code": {
+        "title": "Codice sconto",
+        "hint": "I clienti inseriscono un codice al checkout."
+      },
+      "automatic": {
+        "title": "Sconto automatico",
+        "hint": "Applicato al checkout senza codice."
+      }
+    },
+    "automatic_title": "Titolo",
+    "automatic_title_hint": "I clienti lo vedono nel riepilogo del carrello e del checkout.",
+    "automatic_title_placeholder": "Saldi estivi",
+    "automatic_no_limits": "Gli sconti automatici non hanno limiti di utilizzo: valgono per ogni ordine che soddisfa le condizioni.",
+    "deal": {
+      "buys_title": "Il cliente compra",
+      "gets_title": "Il cliente riceve",
+      "gets_hint": "Lo sconto va agli articoli idonei meno cari nel carrello.",
+      "buy_kind": "Minimo",
+      "buy_kinds": {
+        "quantity": "Numero di articoli",
+        "amount": "Importo speso"
+      },
+      "quantity": "Quantità",
+      "amount": "Importo",
+      "from": "Da",
+      "any_product": "Qualsiasi prodotto",
+      "percent": "Sconto su questi articoli (%)",
+      "percent_hint": "100 = gratis.",
+      "max_uses": "Limita gli utilizzi per ordine",
+      "text": {
+        "quantity_free": "Compra {buy}, ricevi {get} gratis",
+        "quantity_off": "Compra {buy}, ricevi {get} con il {percent}% di sconto",
+        "amount_free": "Spendi {amount}, ricevi {get} gratis",
+        "amount_off": "Spendi {amount}, ricevi {get} con il {percent}% di sconto"
+      }
+    },
+    "combine": {
+      "title": "Combinazioni",
+      "hint": "È {class}. Si usa insieme a un altro sconto solo se entrambi lo consentono.",
+      "classes": {
+        "product": "Sconti sui prodotti",
+        "order": "Sconti sull'ordine",
+        "shipping": "Sconti sulla spedizione"
+      },
+      "own": {
+        "product": "uno sconto sui prodotti",
+        "order": "uno sconto sull'ordine",
+        "shipping": "uno sconto sulla spedizione"
+      }
+    }
   },
   "abandoned": {
     "title": "Checkout abbandonati",

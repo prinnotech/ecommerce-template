@@ -188,7 +188,8 @@ export const CheckoutSessionsStatusOptions = {
 	"failed": "failed",
 } as const
 export type CheckoutSessionsStatusOptions = typeof CheckoutSessionsStatusOptions[keyof typeof CheckoutSessionsStatusOptions]
-export type CheckoutSessionsRecord<Tattribution = unknown, Tbilling_address = unknown, Tline_items = unknown, Tshipping_address = unknown> = {
+export type CheckoutSessionsRecord<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tline_items = unknown, Tshipping_address = unknown> = {
+	applied_discounts?: null | Tapplied_discounts
 	attribution?: null | Tattribution
 	billing_address?: null | Tbilling_address
 	cod_fee?: number
@@ -290,16 +291,20 @@ export const DiscountCodesTypeOptions = {
 	"percent": "percent",
 	"fixed": "fixed",
 	"free_shipping": "free_shipping",
+	"buy_x_get_y": "buy_x_get_y",
 } as const
 export type DiscountCodesTypeOptions = typeof DiscountCodesTypeOptions[keyof typeof DiscountCodesTypeOptions]
-export type DiscountCodesRecord<Tapplies_to = unknown> = {
+export type DiscountCodesRecord<Tapplies_to = unknown, Tbuy_x_get_y = unknown, Tcombines_with = unknown> = {
 	applies_to?: null | Tapplies_to
+	buy_x_get_y?: null | Tbuy_x_get_y
 	code: string
+	combines_with?: null | Tcombines_with
 	created_at: IsoAutoDateString
 	deleted_at?: IsoDateString
 	ends_at?: IsoDateString
 	id: string
 	is_active?: boolean
+	method?: string
 	min_subtotal?: number
 	once_per_customer?: boolean
 	starts_at?: IsoDateString
@@ -494,7 +499,8 @@ export const OrdersPaymentStatusOptions = {
 	"refunded": "refunded",
 } as const
 export type OrdersPaymentStatusOptions = typeof OrdersPaymentStatusOptions[keyof typeof OrdersPaymentStatusOptions]
-export type OrdersRecord<Tattribution = unknown, Tbilling_address = unknown, Tshipping_address = unknown> = {
+export type OrdersRecord<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tshipping_address = unknown> = {
+	applied_discounts?: null | Tapplied_discounts
 	attribution?: null | Tattribution
 	billing_address?: null | Tbilling_address
 	cancelled_at?: IsoDateString
@@ -741,12 +747,12 @@ export type ActivityLogResponse<Tdetails = unknown, Texpand = unknown> = Require
 export type AddressesResponse<Texpand = unknown> = Required<AddressesRecord> & BaseSystemFields<Texpand>
 export type ApiKeysResponse<Texpand = unknown> = Required<ApiKeysRecord> & BaseSystemFields<Texpand>
 export type CategoriesResponse<Tdescription = unknown, Tname = unknown, Tseo = unknown, Texpand = unknown> = Required<CategoriesRecord<Tdescription, Tname, Tseo>> & BaseSystemFields<Texpand>
-export type CheckoutSessionsResponse<Tattribution = unknown, Tbilling_address = unknown, Tline_items = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<CheckoutSessionsRecord<Tattribution, Tbilling_address, Tline_items, Tshipping_address>> & BaseSystemFields<Texpand>
+export type CheckoutSessionsResponse<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tline_items = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<CheckoutSessionsRecord<Tapplied_discounts, Tattribution, Tbilling_address, Tline_items, Tshipping_address>> & BaseSystemFields<Texpand>
 export type CollectionProductsResponse<Texpand = unknown> = Required<CollectionProductsRecord> & BaseSystemFields<Texpand>
 export type CollectionsResponse<Tdescription = unknown, Trules = unknown, Tseo = unknown, Ttitle = unknown, Texpand = unknown> = Required<CollectionsRecord<Tdescription, Trules, Tseo, Ttitle>> & BaseSystemFields<Texpand>
 export type ContactMessagesResponse<Texpand = unknown> = Required<ContactMessagesRecord> & BaseSystemFields<Texpand>
 export type CustomerNotesResponse<Texpand = unknown> = Required<CustomerNotesRecord> & BaseSystemFields<Texpand>
-export type DiscountCodesResponse<Tapplies_to = unknown, Texpand = unknown> = Required<DiscountCodesRecord<Tapplies_to>> & BaseSystemFields<Texpand>
+export type DiscountCodesResponse<Tapplies_to = unknown, Tbuy_x_get_y = unknown, Tcombines_with = unknown, Texpand = unknown> = Required<DiscountCodesRecord<Tapplies_to, Tbuy_x_get_y, Tcombines_with>> & BaseSystemFields<Texpand>
 export type DomainsResponse<Tdns_records = unknown, Texpand = unknown> = Required<DomainsRecord<Tdns_records>> & BaseSystemFields<Texpand>
 export type DraftOrdersResponse<Tdiscount = unknown, Tlines = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<DraftOrdersRecord<Tdiscount, Tlines, Tshipping_address>> & BaseSystemFields<Texpand>
 export type EmailLogResponse<Texpand = unknown> = Required<EmailLogRecord> & BaseSystemFields<Texpand>
@@ -757,7 +763,7 @@ export type MediaResponse<Texpand = unknown> = Required<MediaRecord> & BaseSyste
 export type MessageLogResponse<Texpand = unknown> = Required<MessageLogRecord> & BaseSystemFields<Texpand>
 export type OrderEventsResponse<Texpand = unknown> = Required<OrderEventsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
-export type OrdersResponse<Tattribution = unknown, Tbilling_address = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<OrdersRecord<Tattribution, Tbilling_address, Tshipping_address>> & BaseSystemFields<Texpand>
+export type OrdersResponse<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<OrdersRecord<Tapplied_discounts, Tattribution, Tbilling_address, Tshipping_address>> & BaseSystemFields<Texpand>
 export type PagesResponse<Tsections = unknown, Tseo = unknown, Ttitle = unknown, Texpand = unknown> = Required<PagesRecord<Tsections, Tseo, Ttitle>> & BaseSystemFields<Texpand>
 export type PaymentsResponse<Traw = unknown, Texpand = unknown> = Required<PaymentsRecord<Traw>> & BaseSystemFields<Texpand>
 export type ProductVariantsResponse<Texpand = unknown> = Required<ProductVariantsRecord> & BaseSystemFields<Texpand>

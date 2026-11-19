@@ -2022,11 +2022,12 @@
       "other": "{count} discounts"
     },
     "empty_title": "Give customers a code",
-    "empty_body": "Percentage off, a fixed amount or free shipping, for the whole order or some products, with dates and limits.",
+    "empty_body": "Codes customers type, or automatic discounts like Buy 2 get 1 free: percentage, fixed amount or free shipping, with dates and limits.",
     "types": {
       "percent": "Percentage",
       "fixed": "Fixed amount",
-      "free_shipping": "Free shipping"
+      "free_shipping": "Free shipping",
+      "buy_x_get_y": "Buy X get Y"
     },
     "value_off": "{amount} off",
     "code_title": "Discount code",
@@ -2072,7 +2073,14 @@
       "no_minimum": "No minimum",
       "limit": "{count} uses in total",
       "no_limit": "No usage limit",
-      "once_per_customer": "Once per customer"
+      "once_per_customer": "Once per customer",
+      "automatic": "Applied automatically",
+      "combines": "Combines with: {list}",
+      "combines_none": "Not combined with other discounts",
+      "max_uses": {
+        "one": "Once per order",
+        "other": "Up to {count} times per order"
+      }
     },
     "used": "Used {count} times",
     "created": "Created {date}",
@@ -2082,12 +2090,67 @@
       "code": "3–50 characters: letters, numbers, - and _.",
       "value": "Enter a value (percentages from 1 to 100).",
       "applies_to": "Choose at least one.",
-      "ends_at": "The end must be after the start."
+      "ends_at": "The end must be after the start.",
+      "title": "Enter the title customers will see.",
+      "buy_x_get_y": "Choose at least one product or category."
     },
     "saved": "Discount saved.",
     "delete": "Delete discount",
     "delete_title": "Delete this discount?",
-    "delete_body": "The code stops working at checkout. Past orders keep their discount. This can't be undone."
+    "delete_body": "The code stops working at checkout. Past orders keep their discount. This can't be undone.",
+    "automatic_badge": "Automatic",
+    "method_title": "Method",
+    "methods": {
+      "code": {
+        "title": "Discount code",
+        "hint": "Customers type a code at checkout."
+      },
+      "automatic": {
+        "title": "Automatic discount",
+        "hint": "Applied at checkout without a code."
+      }
+    },
+    "automatic_title": "Title",
+    "automatic_title_hint": "Customers see it in the cart and checkout summary.",
+    "automatic_title_placeholder": "Summer sale",
+    "automatic_no_limits": "Automatic discounts have no usage limits: they apply to every order that qualifies.",
+    "deal": {
+      "buys_title": "Customer buys",
+      "gets_title": "Customer gets",
+      "gets_hint": "The cheapest matching items in the cart get the discount.",
+      "buy_kind": "Minimum",
+      "buy_kinds": {
+        "quantity": "Number of items",
+        "amount": "Amount spent"
+      },
+      "quantity": "Quantity",
+      "amount": "Amount",
+      "from": "From",
+      "any_product": "Any product",
+      "percent": "Discount on these items (%)",
+      "percent_hint": "100 = free.",
+      "max_uses": "Limit the uses per order",
+      "text": {
+        "quantity_free": "Buy {buy}, get {get} free",
+        "quantity_off": "Buy {buy}, get {get} at {percent}% off",
+        "amount_free": "Spend {amount}, get {get} free",
+        "amount_off": "Spend {amount}, get {get} at {percent}% off"
+      }
+    },
+    "combine": {
+      "title": "Combinations",
+      "hint": "This is {class}. It is used together with another discount only when both allow it.",
+      "classes": {
+        "product": "Product discounts",
+        "order": "Order discounts",
+        "shipping": "Shipping discounts"
+      },
+      "own": {
+        "product": "a product discount",
+        "order": "an order discount",
+        "shipping": "a shipping discount"
+      }
+    }
   },
   "abandoned": {
     "title": "Abandoned checkouts",

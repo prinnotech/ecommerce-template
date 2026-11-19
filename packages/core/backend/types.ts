@@ -8,7 +8,7 @@
 // - Ids are opaque strings.
 
 import type { PricedLine } from "@repo/core/lib/checkout/checkout-server";
-import type { PricingDiscount } from "@repo/core/lib/checkout/pricing";
+import type { AppliedDiscount } from "@repo/core/lib/checkout/pricing";
 import type { LocalizedText } from "@repo/core/lib/localized";
 import type {
   OrderEventType,
@@ -21,7 +21,15 @@ import type { AddressFields } from "@repo/core/lib/schemas/account";
 import type { Seo } from "@repo/core/lib/schemas/seo";
 import type { AdjustmentReason, InventoryFilters } from "@repo/core/lib/schemas/inventory";
 import type { DraftDiscount, DraftListFilters, DraftStatus } from "@repo/core/lib/schemas/draft-orders";
-import type { DiscountAppliesTo, DiscountInput, DiscountListFilters } from "@repo/core/lib/schemas/discounts";
+import type {
+  BuyXGetY,
+  CombinesWith,
+  DiscountAppliesTo,
+  DiscountInput,
+  DiscountListFilters,
+  DiscountMethod,
+  DiscountType,
+} from "@repo/core/lib/schemas/discounts";
 import type { AbandonedCheckoutFilters } from "@repo/core/lib/schemas/abandoned-checkouts";
 import type {
   CategoryInput,
@@ -849,8 +857,10 @@ export type PricingVariant = {
 
 export type DiscountCode = {
   id: string;
+  // Automatic discounts have a hidden AUTO-... code nobody types.
+  method: DiscountMethod;
   code: string;
-  type: PricingDiscount["type"];
+  type: DiscountType;
   value: number;
   min_subtotal: number;
   starts_at: string;
@@ -861,6 +871,9 @@ export type DiscountCode = {
   title: string;
   applies_to: DiscountAppliesTo;
   once_per_customer: boolean;
+  // Set only for type buy_x_get_y.
+  buy_x_get_y: BuyXGetY | null;
+  combines_with: CombinesWith;
 };
 
 export type CheckoutTotalsFields = Omit<OrderTotals, "currency">;
@@ -935,8 +948,11 @@ export type OrderConfirmationRecord = OrderTotals & {
 
 export type CheckoutBackend = {
   pricingVariants(variant_ids: string[]): Promise<PricingVariant[]>;
-  // The active code with this (upper-cased) code, whatever its dates and usage; null if none.
+  // The code discount with this (upper-cased) code, whatever its dates and usage; null if none
+  // (automatic discounts are never found by their code).
   findDiscount(code: string): Promise<DiscountCode | null>;
+  // Automatic discounts that are switched on and not deleted, whatever their dates and usage.
+  automaticDiscounts(): Promise<DiscountCode[]>;
   getDiscountCode(id: string): Promise<string | null>;
   createSession(
     session: Omit<
@@ -999,6 +1015,8 @@ export type OrderEvent = {
 
 export type OrderTotals = {
   currency: string;
+  // One entry per discount used (code and automatic), for the summary and reports.
+  applied_discounts: AppliedDiscount[];
   subtotal: number;
   shipping_total: number;
   tax_total: number;

@@ -11,12 +11,12 @@ import { createAdminPocketBase, createPublicPocketBase } from "@repo/backend-poc
 import { getFileUrl } from "@repo/backend-pocketbase/files";
 import type {
   CheckoutSessionsResponse,
-  DiscountCodesResponse,
   ProductsResponse,
   ProductVariantsResponse,
 } from "@repo/backend-pocketbase/pocketbase-types";
 import { reportError } from "@repo/core/lib/server-log";
-import { toDiscountCode } from "@repo/backend-pocketbase/discounts";
+import { toDiscountCode, type DiscountRecord } from "@repo/backend-pocketbase/discounts";
+import { parseAppliedDiscounts, usedDiscountIds } from "@repo/core/lib/schemas/discounts";
 import { parseAttribution } from "@repo/core/lib/tracking/attribution";
 
 // Checkout sessions, payments and discount codes are locked in PocketBase (superuser client
@@ -26,7 +26,13 @@ import { parseAttribution } from "@repo/core/lib/tracking/attribution";
 // Generic order: description, image_colors, seo, tags, title.
 type ProductRecord = ProductsResponse<LocalizedText, Record<string, string>, unknown, string[], LocalizedText>;
 type VariantWithProduct = ProductVariantsResponse<{ product?: ProductRecord }>;
-type SessionRecord = CheckoutSessionsResponse<unknown, AddressFields | null, PricedLine[], AddressFields | null>;
+type SessionRecord = CheckoutSessionsResponse<
+  unknown,
+  unknown,
+  AddressFields | null,
+  PricedLine[],
+  AddressFields | null
+>;
 
 // PocketBase-style id (15 chars, a-z0-9), so batch requests can reference records created in the same batch.
 function newRecordId(): string {
@@ -57,6 +63,7 @@ function toSession(record: SessionRecord): CheckoutSession {
     billing_address: record.billing_address ?? null,
     customer_note: record.customer_note ?? "",
     attribution: record.attribution ? parseAttribution(record.attribution) : null,
+    applied_discounts: parseAppliedDiscounts(record.applied_discounts),
     gift_card_id: record.gift_card_id ?? "",
     gift_card_amount: record.gift_card_amount ?? 0,
     sms_opt_in: record.sms_opt_in ?? false,
@@ -98,10 +105,18 @@ export const checkout: CheckoutBackend = {
     const pb = await createAdminPocketBase();
     const record = await pb
       .collection("discount_codes")
-      .getFirstListItem<DiscountCodesResponse<unknown>>(pb.filter("code = {:code}", { code }))
+      .getFirstListItem<DiscountRecord>(pb.filter('code = {:code} && method != "automatic"', { code }))
       .catch(() => null);
     if (!record || record.deleted_at) return null;
     return toDiscountCode(record);
+  },
+
+  async automaticDiscounts() {
+    const pb = await createAdminPocketBase();
+    const records = await pb.collection("discount_codes").getFullList<DiscountRecord>({
+      filter: 'method = "automatic" && is_active = true && deleted_at = ""',
+    });
+    return records.map(toDiscountCode);
   },
 
   async getDiscountCode(id) {
@@ -190,7 +205,9 @@ export const checkout: CheckoutBackend = {
       currency: order.currency,
       status: payment?.status ?? "pending",
     });
-    if (order.discount_code) batch.collection("discount_codes").update(order.discount_code, { "used_count+": 1 });
+    for (const id of usedDiscountIds(order.discount_code, order.applied_discounts)) {
+      batch.collection("discount_codes").update(id, { "used_count+": 1 });
+    }
     batch.collection("checkout_sessions").update(order.checkout_session, { ...session_patch, status: "completed" });
 
     try {
@@ -238,6 +255,7 @@ export const checkout: CheckoutBackend = {
       currency: order.currency,
       subtotal: order.subtotal,
       discount_total: order.discount_total,
+      applied_discounts: parseAppliedDiscounts(order.applied_discounts),
       shipping_total: order.shipping_total,
       tax_total: order.tax_total,
       cod_fee: order.cod_fee,

@@ -5,7 +5,7 @@ import type { PricedLine } from "@repo/core/lib/checkout/checkout-server";
 import { createAdminPocketBase } from "@repo/backend-pocketbase/client";
 import type { CheckoutSessionsResponse } from "@repo/backend-pocketbase/pocketbase-types";
 
-type SessionRecord = CheckoutSessionsResponse<unknown, unknown, PricedLine[] | null>;
+type SessionRecord = CheckoutSessionsResponse<unknown, unknown, unknown, PricedLine[] | null>;
 
 const pbDate = (iso: string) => iso.replace("T", " ");
 const ABANDONED = '(status = "open" || status = "expired") && email != ""';

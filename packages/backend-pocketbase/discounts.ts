@@ -6,6 +6,9 @@ import type { LocalizedText } from "@repo/core/lib/localized";
 import {
   APPLIES_TO_ALL,
   applies_to_schema,
+  buy_x_get_y_schema,
+  combines_with_schema,
+  COMBINES_WITH_NONE,
   type DiscountInput,
   type DiscountListFilters,
 } from "@repo/core/lib/schemas/discounts";
@@ -13,7 +16,7 @@ import { createAdminPocketBase } from "@repo/backend-pocketbase/client";
 import { pocketBaseFieldCode, pocketBaseStatus } from "@repo/backend-pocketbase/errors";
 import type { DiscountCodesResponse, TypedPocketBase } from "@repo/backend-pocketbase/pocketbase-types";
 
-type DiscountRecord = DiscountCodesResponse<unknown>;
+export type DiscountRecord = DiscountCodesResponse<unknown, unknown, unknown>;
 
 const pbDate = (iso: string) => iso.replace("T", " ");
 
@@ -32,6 +35,16 @@ export function toDiscountCode(record: DiscountRecord): DiscountCode {
     title: record.title,
     applies_to: applies_to_schema.catch(APPLIES_TO_ALL).parse(record.applies_to ?? APPLIES_TO_ALL),
     once_per_customer: record.once_per_customer,
+    // Records from before automatic discounts have no method: they are codes.
+    method: record.method === "automatic" ? "automatic" : "code",
+    buy_x_get_y:
+      record.type === "buy_x_get_y"
+        ? buy_x_get_y_schema
+            .nullable()
+            .catch(null)
+            .parse(record.buy_x_get_y ?? null)
+        : null,
+    combines_with: combines_with_schema.catch(COMBINES_WITH_NONE).parse(record.combines_with ?? COMBINES_WITH_NONE),
   };
 }
 
@@ -39,8 +52,11 @@ function toAdmin(record: DiscountRecord): AdminDiscount {
   return { ...toDiscountCode(record), created_at: record.created_at, updated_at: record.updated_at };
 }
 
+// Automatic discounts have no usage limits (Shopify works the same way).
 function fieldsOf(input: DiscountInput) {
+  const is_automatic = input.method === "automatic";
   return {
+    method: input.method,
     code: input.code,
     title: input.title,
     type: input.type,
@@ -48,10 +64,12 @@ function fieldsOf(input: DiscountInput) {
     min_subtotal: input.min_subtotal,
     starts_at: input.starts_at,
     ends_at: input.ends_at,
-    usage_limit: input.usage_limit,
-    once_per_customer: input.once_per_customer,
+    usage_limit: is_automatic ? 0 : input.usage_limit,
+    once_per_customer: is_automatic ? false : input.once_per_customer,
     is_active: input.is_active,
-    applies_to: input.applies_to.kind === "all" ? null : input.applies_to,
+    applies_to: input.applies_to.kind === "all" || input.type === "buy_x_get_y" ? null : input.applies_to,
+    buy_x_get_y: input.type === "buy_x_get_y" ? input.buy_x_get_y : null,
+    combines_with: input.combines_with,
   };
 }
 
@@ -79,6 +97,8 @@ function statusFilter(pb: TypedPocketBase, status: string, now: string): string 
 function buildFilter(pb: TypedPocketBase, filters: DiscountListFilters, now: string): string {
   const parts = ['deleted_at = ""'];
   if (filters.status !== "all") parts.push(`(${statusFilter(pb, filters.status, now)})`);
+  if (filters.method === "automatic") parts.push('method = "automatic"');
+  if (filters.method === "code") parts.push('method != "automatic"');
   if (filters.search) parts.push(pb.filter("(code ~ {:search} || title ~ {:search})", { search: filters.search }));
   return parts.join(" && ");
 }

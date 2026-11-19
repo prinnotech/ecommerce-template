@@ -925,6 +925,24 @@ const messages: Migration = {
   },
 };
 
+// Automatic discounts and Buy X get Y: the method, the deal, which discounts combine, and the
+// discounts each checkout and order used.
+const discounts_v2: Migration = {
+  name: "0020_discounts_v2",
+  async up(db, { dialect }) {
+    const t = types(dialect);
+    const table = () => db.schema.alterTable("discount_codes");
+    await table()
+      .addColumn("method", "text", (col) => col.notNull().defaultTo("code"))
+      .execute();
+    await table().addColumn("buy_x_get_y", sql.raw(t.json)).execute();
+    await table().addColumn("combines_with", sql.raw(t.json)).execute();
+    for (const name of ["checkout_sessions", "orders"]) {
+      await db.schema.alterTable(name).addColumn("applied_discounts", sql.raw(t.json)).execute();
+    }
+  },
+};
+
 export const MIGRATIONS: Migration[] = [
   initial,
   supabase,
@@ -945,6 +963,7 @@ export const MIGRATIONS: Migration[] = [
   wishlist,
   api_keys,
   messages,
+  discounts_v2,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

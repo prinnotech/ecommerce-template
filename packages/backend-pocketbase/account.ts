@@ -1,5 +1,6 @@
 import "server-only";
 
+import { parseAppliedDiscounts } from "@repo/core/lib/schemas/discounts";
 import { BackendError } from "@repo/core/backend/errors";
 import type { AccountBackend, Address, CustomerOrderDetail } from "@repo/core/backend/types";
 import type { AddressFields } from "@repo/core/lib/schemas/account";
@@ -113,10 +114,10 @@ export const account: AccountBackend = {
     const pb = await createServerPocketBase();
     const order = await pb
       .collection("orders")
-      .getOne<OrdersResponse<unknown, AddressFields | null, AddressFields | null>>(id, {
+      .getOne<OrdersResponse<unknown, unknown, AddressFields | null, AddressFields | null>>(id, {
         fields:
           "id,order_number,status,payment_status,payment_method,currency,subtotal,shipping_total,tax_total," +
-          "discount_total,cod_fee,total,gift_card_total,shipping_address,billing_address,shipping_method," +
+          "discount_total,applied_discounts,cod_fee,total,gift_card_total,shipping_address,billing_address,shipping_method," +
           "customer_note,tracking_number,carrier,tracking_url,email,created_at,deleted_at,user",
       })
       .catch(notFoundOn404);
@@ -137,7 +138,12 @@ export const account: AccountBackend = {
       }),
     ]);
 
-    const { deleted_at: _deleted_at, user: _user, ...detail } = order;
-    return { ...detail, items, events } satisfies CustomerOrderDetail;
+    const { deleted_at: _deleted_at, user: _user, applied_discounts, ...detail } = order;
+    return {
+      ...detail,
+      applied_discounts: parseAppliedDiscounts(applied_discounts),
+      items,
+      events,
+    } satisfies CustomerOrderDetail;
   },
 };
