@@ -5,12 +5,15 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import {
   addOrderNote,
   bulkFulfillOrders,
+  cancelFulfillment,
+  createFulfillment,
   exportOrdersCsv,
   getAdminOrder,
   getAdminOrders,
   markOrderPaid,
   refundOrder,
   updateInternalNote,
+  updateFulfillment,
   updateOrderStatus,
   updateTracking,
 } from "@repo/core/actions/orders";
@@ -46,7 +49,11 @@ function useOrderMutation<I extends { id: string }, T>(action: (input: I) => Pro
 export const useUpdateOrderStatus = () => useOrderMutation(updateOrderStatus);
 export const useMarkOrderPaid = () => useOrderMutation(markOrderPaid);
 export const useRefundOrder = () => useOrderMutation(refundOrder);
+// Orders shipped before packages existed keep their tracking on the order itself.
 export const useUpdateTracking = () => useOrderMutation(updateTracking);
+export const useCreateFulfillment = () => useOrderMutation(createFulfillment);
+export const useUpdateFulfillment = () => useOrderMutation(updateFulfillment);
+export const useCancelFulfillment = () => useOrderMutation(cancelFulfillment);
 export const useAddOrderNote = () => useOrderMutation(addOrderNote);
 export const useUpdateInternalNote = () => useOrderMutation(updateInternalNote);
 

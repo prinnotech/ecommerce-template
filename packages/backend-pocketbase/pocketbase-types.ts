@@ -24,6 +24,7 @@ export const Collections = {
 	Domains: "domains",
 	DraftOrders: "draft_orders",
 	EmailLog: "email_log",
+	Fulfillments: "fulfillments",
 	GiftCardTransactions: "gift_card_transactions",
 	GiftCards: "gift_cards",
 	InventoryAdjustments: "inventory_adjustments",
@@ -380,6 +381,19 @@ export type EmailLogRecord = {
 	updated_at: IsoAutoDateString
 }
 
+export type FulfillmentsRecord<Tlines = unknown> = {
+	actor_id?: string
+	carrier?: string
+	created_at: IsoAutoDateString
+	id: string
+	lines?: null | Tlines
+	order: RecordIdString
+	status: string
+	tracking_number?: string
+	tracking_url?: string
+	updated_at: IsoAutoDateString
+}
+
 export type GiftCardTransactionsRecord = {
 	amount?: number
 	created_at: IsoAutoDateString
@@ -449,6 +463,8 @@ export const OrderEventsTypeOptions = {
 	"shipped": "shipped",
 	"email_sent": "email_sent",
 	"refund": "refund",
+	"fulfilled": "fulfilled",
+	"fulfillment_cancelled": "fulfillment_cancelled",
 } as const
 export type OrderEventsTypeOptions = typeof OrderEventsTypeOptions[keyof typeof OrderEventsTypeOptions]
 export type OrderEventsRecord = {
@@ -756,6 +772,7 @@ export type DiscountCodesResponse<Tapplies_to = unknown, Tbuy_x_get_y = unknown,
 export type DomainsResponse<Tdns_records = unknown, Texpand = unknown> = Required<DomainsRecord<Tdns_records>> & BaseSystemFields<Texpand>
 export type DraftOrdersResponse<Tdiscount = unknown, Tlines = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<DraftOrdersRecord<Tdiscount, Tlines, Tshipping_address>> & BaseSystemFields<Texpand>
 export type EmailLogResponse<Texpand = unknown> = Required<EmailLogRecord> & BaseSystemFields<Texpand>
+export type FulfillmentsResponse<Tlines = unknown, Texpand = unknown> = Required<FulfillmentsRecord<Tlines>> & BaseSystemFields<Texpand>
 export type GiftCardTransactionsResponse<Texpand = unknown> = Required<GiftCardTransactionsRecord> & BaseSystemFields<Texpand>
 export type GiftCardsResponse<Texpand = unknown> = Required<GiftCardsRecord> & BaseSystemFields<Texpand>
 export type InventoryAdjustmentsResponse<Texpand = unknown> = Required<InventoryAdjustmentsRecord> & BaseSystemFields<Texpand>
@@ -800,6 +817,7 @@ export type CollectionRecords = {
 	domains: DomainsRecord
 	draft_orders: DraftOrdersRecord
 	email_log: EmailLogRecord
+	fulfillments: FulfillmentsRecord
 	gift_card_transactions: GiftCardTransactionsRecord
 	gift_cards: GiftCardsRecord
 	inventory_adjustments: InventoryAdjustmentsRecord
@@ -843,6 +861,7 @@ export type CollectionResponses = {
 	domains: DomainsResponse
 	draft_orders: DraftOrdersResponse
 	email_log: EmailLogResponse
+	fulfillments: FulfillmentsResponse
 	gift_card_transactions: GiftCardTransactionsResponse
 	gift_cards: GiftCardsResponse
 	inventory_adjustments: InventoryAdjustmentsResponse

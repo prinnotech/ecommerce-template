@@ -177,7 +177,7 @@ export function createOrders(ctx: SqlContext): OrdersBackend {
       const order = await db.selectFrom("orders").selectAll().where("id", "=", id).executeTakeFirst();
       if (!order || order.deleted_at) throw new BackendError("not_found");
 
-      const [items, events, payments, customer_orders, user, discount, refunds] = await Promise.all([
+      const [items, events, payments, customer_orders, user, discount, refunds, fulfillments] = await Promise.all([
         db.selectFrom("order_items").selectAll().where("order_id", "=", id).orderBy("created_at").execute(),
         db
           .selectFrom("order_events")
@@ -234,6 +234,23 @@ export function createOrders(ctx: SqlContext): OrdersBackend {
           ])
           .where("refunds.order_id", "=", id)
           .orderBy("refunds.created_at", "desc")
+          .execute(),
+        db
+          .selectFrom("fulfillments")
+          .leftJoin("users", "users.id", "fulfillments.actor_id")
+          .select([
+            "fulfillments.id",
+            "fulfillments.created_at",
+            "fulfillments.status",
+            "fulfillments.lines",
+            "fulfillments.carrier",
+            "fulfillments.tracking_number",
+            "fulfillments.tracking_url",
+            "users.name as actor_name",
+            "users.email as actor_email",
+          ])
+          .where("fulfillments.order_id", "=", id)
+          .orderBy("fulfillments.created_at")
           .execute(),
       ]);
 
@@ -292,6 +309,16 @@ export function createOrders(ctx: SqlContext): OrdersBackend {
           unit_price: item.unit_price,
           quantity: item.quantity,
           line_total: item.line_total,
+        })),
+        fulfillments: fulfillments.map((fulfillment) => ({
+          id: fulfillment.id,
+          created_at: iso(fulfillment.created_at),
+          status: fulfillment.status === "cancelled" ? "cancelled" : "shipped",
+          lines: json<{ item_id: string; quantity: number }[]>(fulfillment.lines, []),
+          carrier: fulfillment.carrier,
+          tracking_number: fulfillment.tracking_number,
+          tracking_url: fulfillment.tracking_url,
+          actor_name: fulfillment.actor_name || fulfillment.actor_email || "",
         })),
         events: events.map((event) => ({
           id: event.id,
@@ -487,6 +514,94 @@ export function createOrders(ctx: SqlContext): OrdersBackend {
           actor,
           // A tracking update without shipping is internal bookkeeping.
           is_customer_visible: ship,
+        });
+      });
+    },
+
+    async createFulfillment(order, fulfillment) {
+      const id = newId();
+      const { lines, carrier, tracking_number, tracking_url, actor, to_status } = fulfillment;
+      await db.transaction().execute(async (trx) => {
+        await trx
+          .insertInto("fulfillments")
+          .values({
+            id,
+            order_id: order.id,
+            status: "shipped",
+            lines,
+            carrier,
+            tracking_number,
+            tracking_url,
+            actor_id: actor || null,
+          })
+          .execute();
+        await trx
+          .updateTable("orders")
+          .set({
+            carrier,
+            tracking_number,
+            tracking_url,
+            ...(to_status ? { status: to_status } : {}),
+            ...(to_status === "shipped" ? { shipped_at: nowIso() } : {}),
+            updated_at: nowIso(),
+          })
+          .where("id", "=", order.id)
+          .execute();
+        await addEvent(trx, order.id, {
+          type: "fulfilled",
+          from_status: to_status ? order.status : "",
+          to_status: to_status ?? "",
+          message: [carrier, tracking_number].filter(Boolean).join(" · "),
+          actor,
+          is_customer_visible: true,
+        });
+      });
+      return { id };
+    },
+
+    async updateFulfillment(order, fulfillment_id, tracking, actor) {
+      await db.transaction().execute(async (trx) => {
+        const updated = await trx
+          .updateTable("fulfillments")
+          .set({ ...tracking, updated_at: nowIso() })
+          .where("id", "=", fulfillment_id)
+          .where("order_id", "=", order.id)
+          .executeTakeFirst();
+        if (Number(updated.numUpdatedRows) === 0) throw new BackendError("not_found");
+        await trx
+          .updateTable("orders")
+          .set({ ...tracking, updated_at: nowIso() })
+          .where("id", "=", order.id)
+          .execute();
+        await addEvent(trx, order.id, {
+          type: "note",
+          message: [tracking.carrier, tracking.tracking_number].filter(Boolean).join(" · "),
+          actor,
+          is_customer_visible: false,
+        });
+      });
+    },
+
+    async cancelFulfillment(order, fulfillment_id, actor) {
+      await db.transaction().execute(async (trx) => {
+        const row = await trx
+          .selectFrom("fulfillments")
+          .select(["carrier", "tracking_number"])
+          .where("id", "=", fulfillment_id)
+          .where("order_id", "=", order.id)
+          .where("status", "=", "shipped")
+          .executeTakeFirst();
+        if (!row) throw new BackendError("not_found");
+        await trx
+          .updateTable("fulfillments")
+          .set({ status: "cancelled", updated_at: nowIso() })
+          .where("id", "=", fulfillment_id)
+          .execute();
+        await addEvent(trx, order.id, {
+          type: "fulfillment_cancelled",
+          message: [row.carrier, row.tracking_number].filter(Boolean).join(" · "),
+          actor,
+          is_customer_visible: false,
         });
       });
     },

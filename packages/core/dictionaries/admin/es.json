@@ -1000,7 +1000,7 @@
       "tracking_saved": "Seguimiento guardado.",
       "fulfill": "Preparar",
       "fulfill_title": "Preparar pedido #{number}",
-      "fulfill_body": "Añade la empresa de mensajería y el número de seguimiento para que el cliente pueda seguir el envío.",
+      "fulfill_body": "Elige qué va en este paquete y añade el transportista y el número de seguimiento.",
       "edit_tracking": "Editar seguimiento",
       "unfulfilled": "Sin preparar",
       "fulfilled": "Preparado",
@@ -1029,7 +1029,9 @@
         "note": "Nota",
         "shipped": "Marcado como enviado",
         "email_sent": "Correo enviado",
-        "refund": "Reembolso: pago {to}"
+        "refund": "Reembolso: pago {to}",
+        "fulfilled": "Paquete enviado",
+        "fulfillment_cancelled": "Paquete cancelado"
       },
       "payment_record": {
         "pending": "Pendiente",
@@ -1051,7 +1053,29 @@
       "message_channels": {
         "sms": "SMS",
         "whatsapp": "WhatsApp"
-      }
+      },
+      "carrier_none": "Sin transportista",
+      "carrier_other": "Otro transportista",
+      "carrier_name": "Nombre del transportista",
+      "tracking_link_preview": "Enlace de seguimiento:",
+      "quantity_to_ship": "Cantidad de {name} a enviar",
+      "of_left": "de {count}",
+      "notify_customer": "Enviar al cliente el aviso de envío",
+      "ship_items": {
+        "one": "Enviar {count} artículo",
+        "other": "Enviar {count} artículos"
+      },
+      "items_count": {
+        "one": "{count} artículo",
+        "other": "{count} artículos"
+      },
+      "package_created": "Paquete enviado.",
+      "package_title": "Paquete {number}",
+      "track_package": "Seguir el paquete",
+      "cancel_package": "Cancelar paquete",
+      "cancel_package_title": "¿Cancelar este paquete?",
+      "cancel_package_body": "Sus artículos vuelven a estar sin preparar para que puedas enviarlos otra vez. No se avisa al cliente.",
+      "package_cancelled": "Paquete cancelado."
     }
   },
   "messages": {

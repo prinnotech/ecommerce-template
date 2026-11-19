@@ -10,13 +10,24 @@ import { logActivity } from "@repo/core/lib/activity-log";
 import { authorize, type Caller } from "@repo/core/lib/auth";
 import { sendOrderEmails } from "@repo/core/lib/email/order-emails";
 import type { EmailTemplate } from "@repo/core/lib/email/templates";
-import { canMarkPaid, canRefund, canTransition, splitRefund, type OrderStatus } from "@repo/core/lib/orders";
+import { trackingUrlFor, unfulfilledQuantities } from "@repo/core/lib/fulfillment";
+import {
+  canMarkPaid,
+  canRefund,
+  canTransition,
+  OPEN_STATUSES,
+  splitRefund,
+  type OrderStatus,
+} from "@repo/core/lib/orders";
 import { refundStripePayment } from "@repo/core/lib/stripe/stripe-orders";
 import { toCsv } from "@repo/core/lib/utils/csv";
 import { readAdminOrder, readAdminOrders } from "@repo/core/lib/orders-read";
 import {
   add_order_note_schema,
   bulk_orders_schema,
+  cancel_fulfillment_schema,
+  create_fulfillment_schema,
+  update_fulfillment_schema,
   order_id_input_schema,
   order_list_filters_schema,
   refund_order_schema,
@@ -25,6 +36,9 @@ import {
   update_tracking_schema,
   type AddOrderNoteInput,
   type BulkOrdersInput,
+  type CancelFulfillmentInput,
+  type CreateFulfillmentInput,
+  type UpdateFulfillmentInput,
   type OrderIdInput,
   type OrderListFilters,
   type RefundOrderInput,
@@ -230,6 +244,124 @@ export async function updateTracking(input: UpdateTrackingInput): Promise<Action
   }
 }
 
+// ---------- Packages (fulfillments) ----------
+
+// The status a new package moves the order to: shipped once nothing is left, processing for a
+// first partial package, else unchanged.
+function statusAfterPackage(status: OrderStatus, is_everything_shipped: boolean): OrderStatus | null {
+  const to: OrderStatus = is_everything_shipped ? "shipped" : "processing";
+  return status !== to && canTransition(status, to) ? to : null;
+}
+
+type PackageLine = { item_id: string; quantity: number };
+
+// Ships one package: the lines must still be waiting (cancelled packages give theirs back).
+// A known carrier with a number gets its tracking link when none was typed.
+async function shipPackage(
+  caller: Caller,
+  order_id: string,
+  package_lines: PackageLine[] | "rest",
+  tracking: { carrier: string; tracking_number: string; tracking_url: string },
+  is_notify: boolean,
+): Promise<ActionResult<{ id: string }>> {
+  const orders = getBackend().orders;
+  const order = await orders.getState(order_id);
+  if (!order) return fail("not_found");
+  if (!OPEN_STATUSES.includes(order.status)) return fail("invalid_transition");
+  const detail = await orders.get(order_id);
+  const left = unfulfilledQuantities(detail.items, detail.fulfillments);
+
+  const wanted = new Map<string, number>();
+  for (const line of package_lines === "rest"
+    ? [...left].map(([item_id, quantity]) => ({ item_id, quantity }))
+    : package_lines) {
+    if (line.quantity > 0) wanted.set(line.item_id, (wanted.get(line.item_id) ?? 0) + line.quantity);
+  }
+  if (wanted.size === 0) return fail("fulfillment_too_large");
+  for (const [item_id, quantity] of wanted) {
+    if (quantity > (left.get(item_id) ?? 0)) return fail("fulfillment_too_large");
+  }
+  const is_everything_shipped = [...left].every(([item_id, quantity]) => quantity === (wanted.get(item_id) ?? 0));
+  const to_status = statusAfterPackage(order.status, is_everything_shipped);
+
+  const tracking_url = tracking.tracking_url || trackingUrlFor(tracking.carrier, tracking.tracking_number);
+  const created = await orders.createFulfillment(order, {
+    lines: [...wanted].map(([item_id, quantity]) => ({ item_id, quantity })),
+    carrier: tracking.carrier,
+    tracking_number: tracking.tracking_number,
+    tracking_url,
+    actor: caller.user_id,
+    to_status,
+  });
+  await log(caller, "fulfill an order", order, {
+    items: [...wanted.values()].reduce((sum, quantity) => sum + quantity, 0),
+    carrier: tracking.carrier,
+    tracking_number: tracking.tracking_number,
+    to: to_status,
+  });
+  // The shipping email and SMS use the order's tracking, which is now this package's.
+  if (is_notify) await sendOrderEmails("order_shipped", { id: order.id });
+  return ok(created);
+}
+
+export async function createFulfillment(input: CreateFulfillmentInput): Promise<ActionResult<{ id: string }>> {
+  const auth = await authorize("orders.edit", "fulfill an order");
+  if (!auth.ok) return auth;
+  const parsed = create_fulfillment_schema.safeParse(input);
+  if (!parsed.success) return fail("invalid_input");
+  const { id, lines, is_notify, ...tracking } = parsed.data;
+  try {
+    return await shipPackage(auth.caller, id, lines, tracking, is_notify);
+  } catch (error) {
+    return failFrom(error, "orders", "createFulfillment");
+  }
+}
+
+export async function updateFulfillment(input: UpdateFulfillmentInput): Promise<ActionResult<null>> {
+  const auth = await authorize("orders.edit", "update a package's tracking");
+  if (!auth.ok) return auth;
+  const parsed = update_fulfillment_schema.safeParse(input);
+  if (!parsed.success) return fail("invalid_input");
+  const { id, fulfillment_id, carrier, tracking_number } = parsed.data;
+  const tracking_url = parsed.data.tracking_url || trackingUrlFor(carrier, tracking_number);
+
+  try {
+    const orders = getBackend().orders;
+    const order = await orders.getState(id);
+    if (!order) return fail("not_found");
+    await orders.updateFulfillment(
+      order,
+      fulfillment_id,
+      { carrier, tracking_number, tracking_url },
+      auth.caller.user_id,
+    );
+    await log(auth.caller, "update a package's tracking", order, { fulfillment_id, carrier, tracking_number });
+    return ok(null);
+  } catch (error) {
+    return failFrom(error, "orders", "updateFulfillment");
+  }
+}
+
+// Only while the order is still open: a package of a shipped or delivered order stays.
+export async function cancelFulfillment(input: CancelFulfillmentInput): Promise<ActionResult<null>> {
+  const auth = await authorize("orders.edit", "cancel a package");
+  if (!auth.ok) return auth;
+  const parsed = cancel_fulfillment_schema.safeParse(input);
+  if (!parsed.success) return fail("invalid_input");
+
+  try {
+    const orders = getBackend().orders;
+    const order = await orders.getState(parsed.data.id);
+    if (!order) return fail("not_found");
+    if (!OPEN_STATUSES.includes(order.status)) return fail("invalid_transition");
+    await orders.cancelFulfillment(order, parsed.data.fulfillment_id, auth.caller.user_id);
+    await log(auth.caller, "cancel a package", order, { fulfillment_id: parsed.data.fulfillment_id });
+    return ok(null);
+  } catch (error) {
+    return failFrom(error, "orders", "cancelFulfillment");
+  }
+}
+
 export async function addOrderNote(input: AddOrderNoteInput): Promise<ActionResult<null>> {
   const auth = await authorize("orders.edit", "add an order note");
   if (!auth.ok) return auth;
@@ -270,8 +402,9 @@ export async function updateInternalNote(input: UpdateInternalNoteInput): Promis
 
 // ---------- Bulk actions from the orders list ----------
 
-// "Mark as fulfilled" = shipped. Orders that can't be shipped from their status are skipped and
-// reported, so one cancelled order doesn't block the rest.
+// "Mark as fulfilled" = one package with everything still to ship (no tracking). Orders that
+// can't be shipped from their status are skipped and reported, so one cancelled order doesn't
+// block the rest.
 export async function bulkFulfillOrders(
   input: BulkOrdersInput,
 ): Promise<ActionResult<{ fulfilled: number; skipped: number }>> {
@@ -281,19 +414,16 @@ export async function bulkFulfillOrders(
   if (!parsed.success) return fail("invalid_input");
 
   try {
-    const orders = getBackend().orders;
     let fulfilled = 0;
     for (const id of parsed.data.ids) {
-      const order = await orders.getState(id);
-      if (!order || !canTransition(order.status, "shipped")) continue;
-      await orders.changeStatus(order, "shipped", {
-        actor: auth.caller.user_id,
-        timestamp_field: "shipped_at",
-        restock: false,
-      });
-      await log(auth.caller, "fulfill an order", order, { from: order.status, to: "shipped" });
-      await sendOrderEmails("order_shipped", { id: order.id });
-      fulfilled++;
+      const shipped = await shipPackage(
+        auth.caller,
+        id,
+        "rest",
+        { carrier: "", tracking_number: "", tracking_url: "" },
+        true,
+      );
+      if (shipped.ok) fulfilled++;
     }
     return ok({ fulfilled, skipped: parsed.data.ids.length - fulfilled });
   } catch (error) {

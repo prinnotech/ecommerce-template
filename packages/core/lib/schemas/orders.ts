@@ -48,6 +48,32 @@ export const update_tracking_schema = z.object({
 });
 export type UpdateTrackingInput = z.infer<typeof update_tracking_schema>;
 
+const tracking_fields = {
+  carrier: z.string().trim().max(100, "too_long"),
+  tracking_number: z.string().trim().max(100, "too_long"),
+  tracking_url: z.union([z.url("invalid"), z.literal("")]),
+};
+
+// One package: some or all of the lines still to ship (quantities are checked on the server).
+export const create_fulfillment_schema = z.object({
+  id: id_schema,
+  lines: z
+    .array(z.object({ item_id: z.string().min(1).max(40), quantity: z.number().int().min(1).max(10_000) }))
+    .min(1)
+    .max(500),
+  ...tracking_fields,
+  // Send the shipping email/SMS for this package.
+  is_notify: z.boolean(),
+});
+export type CreateFulfillmentInput = z.infer<typeof create_fulfillment_schema>;
+
+// id = the order; fulfillment_id = the package.
+export const update_fulfillment_schema = z.object({ id: id_schema, fulfillment_id: id_schema, ...tracking_fields });
+export type UpdateFulfillmentInput = z.infer<typeof update_fulfillment_schema>;
+
+export const cancel_fulfillment_schema = z.object({ id: id_schema, fulfillment_id: id_schema });
+export type CancelFulfillmentInput = z.infer<typeof cancel_fulfillment_schema>;
+
 export const add_order_note_schema = z.object({
   id: id_schema,
   message: z.string().trim().min(1, "required").max(2000, "too_long"),

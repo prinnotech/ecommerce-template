@@ -203,6 +203,10 @@ Don't create collections by clicking in the admin UI. If you do it while explori
   - **Stripe**: a Stripe Checkout Session (`ui_mode: "elements"`) charging the server's total; the **webhook** (`apps/store/app/api/stripe/webhook`) places the order (`lib/stripe/stripe-orders.ts`). Shown only when both keys are set.
 - Secrets (Stripe secret key, webhook secret, SMTP password) are typed in the admin and stored encrypted (`lib/secrets.ts`, `SETTINGS_ENCRYPTION_KEY`, same value in both apps); an env variable with the same name wins.
 
+### Packages (fulfillment)
+- An order ships in one or more **packages** (`fulfillments`: lines + quantities, carrier, tracking; `lib/fulfillment.ts`). `createFulfillment` only accepts lines still waiting (`unfulfilledQuantities`, cancelled packages give theirs back); the first partial package moves the order to `processing`, the last one to `shipped`. The order's `carrier` / `tracking_*` always hold the latest package, so the `order_shipped` email/SMS and older code keep working.
+- Carriers are stored by display name; `CARRIERS` builds the tracking link from the number (any other carrier is typed by name with its own link). Customers read their own packages (PocketBase rule `order.user = @request.auth.id`). Orders shipped before packages show their order-level tracking (`updateTracking`).
+
 ### Emails, inventory, draft orders
 - Order emails: `sendOrderEmails(template, order)` (`lib/email/order-emails.ts`) runs after the response (`after()`), logs to `email_log`, and is a no-op until SMTP is set up. Templates and their placeholders: `lib/email/templates.ts`.
 - Inventory (Products → Inventory): every stock change made there goes through `inventory.adjust()` and is logged in `inventory_adjustments`. Orders (`reason: "order"`) and restocks on cancel/refund (`"restock"`) are logged too, with the order number as the note.

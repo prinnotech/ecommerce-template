@@ -44,6 +44,9 @@ export const ORDER_EVENT_TYPES = [
   "shipped",
   "email_sent",
   "refund",
+  // A package left (some or all of the lines), and a package taken back by staff.
+  "fulfilled",
+  "fulfillment_cancelled",
 ] as const;
 export type OrderEventType = (typeof ORDER_EVENT_TYPES)[number];
 

@@ -125,7 +125,7 @@ export const account: AccountBackend = {
 
     // order_events' API rules only return customer-visible events to the customer.
     const order_filter = pb.filter("order = {:order}", { order: id });
-    const [items, events] = await Promise.all([
+    const [items, events, fulfillments] = await Promise.all([
       pb.collection("order_items").getFullList({
         filter: order_filter,
         sort: "created_at",
@@ -136,6 +136,12 @@ export const account: AccountBackend = {
         sort: "-created_at",
         fields: "id,type,to_status,message,created_at",
       }),
+      // Readable through the collection's own-order rule.
+      pb.collection("fulfillments").getFullList({
+        filter: pb.filter('order = {:order} && status = "shipped"', { order: id }),
+        sort: "created_at",
+        fields: "id,created_at,lines,carrier,tracking_number,tracking_url",
+      }),
     ]);
 
     const { deleted_at: _deleted_at, user: _user, applied_discounts, ...detail } = order;
@@ -143,6 +149,15 @@ export const account: AccountBackend = {
       ...detail,
       applied_discounts: parseAppliedDiscounts(applied_discounts),
       items,
+      fulfillments: fulfillments.map((fulfillment) => ({
+        id: fulfillment.id,
+        created_at: fulfillment.created_at,
+        status: "shipped" as const,
+        lines: Array.isArray(fulfillment.lines) ? (fulfillment.lines as { item_id: string; quantity: number }[]) : [],
+        carrier: fulfillment.carrier,
+        tracking_number: fulfillment.tracking_number,
+        tracking_url: fulfillment.tracking_url,
+      })),
       events,
     } satisfies CustomerOrderDetail;
   },

@@ -1087,6 +1087,8 @@ export type AdminOrderDetail = OrderTotals & {
   delivered_at: string;
   cancelled_at: string;
   items: OrderItem[];
+  // Packages, oldest first (cancelled ones included). Empty for orders shipped before packages.
+  fulfillments: AdminOrderFulfillment[];
   events: AdminOrderEvent[];
   payments: AdminPayment[];
   customer: { user_id: string; name: string; order_count: number } | null;
@@ -1103,6 +1105,30 @@ export type OrderState = {
   total: number;
   currency: string;
   refunded_total: number;
+};
+
+// A package: the lines and quantities that went out together, and its tracking.
+export type OrderFulfillment = {
+  id: string;
+  created_at: string;
+  status: "shipped" | "cancelled";
+  lines: { item_id: string; quantity: number }[];
+  carrier: string;
+  tracking_number: string;
+  tracking_url: string;
+};
+
+export type AdminOrderFulfillment = OrderFulfillment & { actor_name: string };
+
+export type NewFulfillment = {
+  lines: { item_id: string; quantity: number }[];
+  carrier: string;
+  tracking_number: string;
+  tracking_url: string;
+  actor: string;
+  // Move the order to this status in the same step (shipped once everything has left,
+  // processing for a first partial package), or null to leave it.
+  to_status: OrderStatus | null;
 };
 
 export type OrderRefund = {
@@ -1151,6 +1177,18 @@ export type OrdersBackend = {
     tracking: { carrier: string; tracking_number: string; tracking_url: string },
     options: { actor: string; ship: boolean },
   ): Promise<void>;
+  // A package: the fulfillment row, the order's tracking set to it, the optional status change and
+  // a "fulfilled" event (customer-visible), all at once.
+  createFulfillment(order: OrderState, fulfillment: NewFulfillment): Promise<{ id: string }>;
+  // Tracking of one package (and the order's, so emails and the account page show it).
+  updateFulfillment(
+    order: OrderState,
+    fulfillment_id: string,
+    tracking: { carrier: string; tracking_number: string; tracking_url: string },
+    actor: string,
+  ): Promise<void>; // not_found
+  // Marks a package cancelled (its lines can be shipped again) with an internal event.
+  cancelFulfillment(order: OrderState, fulfillment_id: string, actor: string): Promise<void>; // not_found
   addNote(order_id: string, note: { message: string; is_customer_visible: boolean; actor: string }): Promise<void>;
   setInternalNote(order_id: string, internal_note: string): Promise<void>;
 };
@@ -1281,6 +1319,8 @@ export type CustomerOrderDetail = OrderTotals & {
     OrderItem,
     "id" | "title" | "variant_label" | "sku" | "image" | "unit_price" | "quantity" | "line_total"
   >[];
+  // Packages that weren't cancelled, oldest first.
+  fulfillments: OrderFulfillment[];
   events: Pick<OrderEvent, "id" | "type" | "to_status" | "message" | "created_at">[];
 };
 

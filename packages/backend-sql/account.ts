@@ -124,7 +124,7 @@ export function createAccount({ db }: SqlContext, auth: AccountAuth): AccountBac
     async getOrder(user_id, id) {
       const order = await db.selectFrom("orders").selectAll().where("id", "=", id).executeTakeFirst();
       if (!order || order.deleted_at || order.user_id !== user_id) throw new BackendError("not_found");
-      const [items, events] = await Promise.all([
+      const [items, events, fulfillments] = await Promise.all([
         db
           .selectFrom("order_items")
           .select(["id", "title", "variant_label", "sku", "image", "unit_price", "quantity", "line_total"])
@@ -138,6 +138,13 @@ export function createAccount({ db }: SqlContext, auth: AccountAuth): AccountBac
           .where("order_id", "=", id)
           .where("is_customer_visible", "=", true)
           .orderBy("created_at", "desc")
+          .execute(),
+        db
+          .selectFrom("fulfillments")
+          .select(["id", "created_at", "lines", "carrier", "tracking_number", "tracking_url"])
+          .where("order_id", "=", id)
+          .where("status", "=", "shipped")
+          .orderBy("created_at")
           .execute(),
       ]);
       return {
@@ -165,6 +172,12 @@ export function createAccount({ db }: SqlContext, auth: AccountAuth): AccountBac
         email: order.email,
         created_at: iso(order.created_at),
         items,
+        fulfillments: fulfillments.map((fulfillment) => ({
+          ...fulfillment,
+          status: "shipped" as const,
+          created_at: iso(fulfillment.created_at),
+          lines: json<{ item_id: string; quantity: number }[]>(fulfillment.lines, []),
+        })),
         events: events.map((event) => ({
           ...event,
           type: event.type as OrderEventType,

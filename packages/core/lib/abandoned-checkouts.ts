@@ -66,6 +66,7 @@ function sessionAsOrder(session: CheckoutSession, settings: SiteSettings): Admin
       quantity: line.quantity,
       line_total: line.line_total,
     })),
+    fulfillments: [],
     events: [],
     payments: [],
     customer: null,

@@ -3,12 +3,15 @@
 import { MailIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { FulfillDialog } from "./fulfill-dialog";
+import { TrackingDialog, type TrackingTarget } from "./tracking-dialog";
 import { OrderActions } from "./order-actions";
 import { InternalNoteCard } from "./order-side-cards";
 import { OrderTimeline } from "./order-timeline";
 import { ORDER_TONE, PAYMENT_TONE } from "@/components/order-status-tone";
+import { ConfirmDialog } from "@repo/admin-ui/components/confirm-dialog";
 import { DetailLayout, SectionCard } from "@repo/admin-ui/components/detail-layout";
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge } from "@repo/admin-ui/components/status-badge";
@@ -19,7 +22,8 @@ import { Badge } from "@repo/ui/components/ui/badge";
 import { Button } from "@repo/ui/components/ui/button";
 import { Skeleton } from "@repo/ui/components/ui/skeleton";
 import type { AdminOrderDetail } from "@repo/core/actions/orders";
-import { useAdminOrder } from "@repo/core/hooks/use-orders";
+import { useAdminOrder, useCancelFulfillment } from "@repo/core/hooks/use-orders";
+import { unfulfilledQuantities } from "@repo/core/lib/fulfillment";
 import { errorText } from "@repo/core/lib/action-result";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
 import { OPEN_STATUSES } from "@repo/core/lib/orders";
@@ -56,6 +60,9 @@ export function OrderDetail({
 }: OrderDetailProps) {
   const query = useAdminOrder(order_id);
   const [is_fulfill_open, setIsFulfillOpen] = useState(false);
+  const [tracking_target, setTrackingTarget] = useState<TrackingTarget | null>(null);
+  const [cancel_package_id, setCancelPackageId] = useState<string | null>(null);
+  const cancel_package = useCancelFulfillment();
   if (query.isPending) return <Skeleton className="h-[32rem] w-full" />;
   if (query.isError) return <p className="text-destructive text-sm">{errorText(errors, query.error)}</p>;
 
@@ -65,6 +72,12 @@ export function OrderDetail({
   const method_label = payment_method[order.payment_method] ?? order.payment_method;
   const is_unfulfilled = OPEN_STATUSES.includes(order.status);
   const is_fulfilled = order.status === "shipped" || order.status === "delivered";
+  // Packages that weren't cancelled, and what is still to ship. Orders closed without any package
+  // (shipped before packages existed, or cancelled) keep the single items card.
+  const packages = order.fulfillments.filter((fulfillment) => fulfillment.status === "shipped");
+  const left = unfulfilledQuantities(order.items, order.fulfillments);
+  const left_count = [...left.values()].reduce((sum, quantity) => sum + quantity, 0);
+  const is_legacy = packages.length === 0 && !is_unfulfilled;
 
   const summary_rows = [
     { label: dictionary.subtotal, value: money(order.subtotal), is_shown: true },
@@ -110,68 +123,129 @@ export function OrderDetail({
       <DetailLayout
         main={
           <>
-            <SectionCard
-              title={dictionary.items}
-              action={
-                <div className="flex items-center gap-2">
-                  {is_unfulfilled && <StatusBadge tone="attention">{dictionary.unfulfilled}</StatusBadge>}
-                  {is_fulfilled && <StatusBadge tone="success">{dictionary.fulfilled}</StatusBadge>}
-                  {can_edit && (is_unfulfilled || is_fulfilled) && (
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant={is_unfulfilled ? "default" : "outline"}
-                      onClick={() => setIsFulfillOpen(true)}
-                    >
-                      {is_unfulfilled ? dictionary.fulfill : dictionary.edit_tracking}
-                    </Button>
-                  )}
-                </div>
-              }
-              is_flush
-              footer={
-                is_fulfilled ? (
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-                    <span className="text-muted-foreground">
-                      {order.tracking_number
-                        ? `${dictionary.tracking}: ${[order.carrier, order.tracking_number].filter(Boolean).join(" · ")}`
-                        : dictionary.no_tracking}
-                    </span>
-                    {order.tracking_url && (
-                      <a href={order.tracking_url} target="_blank" rel="noreferrer" className="hover:underline">
-                        {dictionary.tracking_number}
-                      </a>
+            {is_legacy ? (
+              <SectionCard
+                title={dictionary.items}
+                action={
+                  <div className="flex items-center gap-2">
+                    {is_fulfilled && <StatusBadge tone="success">{dictionary.fulfilled}</StatusBadge>}
+                    {can_edit && is_fulfilled && (
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setTrackingTarget({ kind: "order" })}
+                      >
+                        {dictionary.edit_tracking}
+                      </Button>
                     )}
                   </div>
-                ) : undefined
-              }
-            >
-              <ul className="divide-y">
-                {order.items.map((item) => (
-                  <li key={item.id} className="flex items-center gap-3 px-4 py-3">
-                    <Thumbnail src={item.image} alt={item.title} size="md" />
-                    <div className="min-w-0 flex-1">
-                      {item.product ? (
-                        <Link href={`/products/${item.product}`} className="text-sm font-medium hover:underline">
-                          {item.title}
-                        </Link>
-                      ) : (
-                        <p className="text-sm font-medium">{item.title}</p>
-                      )}
-                      <p className="text-muted-foreground text-xs">
-                        {[item.variant_label, item.sku && dictionary.sku.replace("{sku}", item.sku)]
-                          .filter(Boolean)
-                          .join(" · ")}
-                      </p>
-                    </div>
-                    <p className="text-muted-foreground text-sm tabular-nums">
-                      {money(item.unit_price)} × {item.quantity}
-                    </p>
-                    <p className="w-24 text-right text-sm font-medium tabular-nums">{money(item.line_total)}</p>
-                  </li>
+                }
+                is_flush
+                footer={is_fulfilled ? <TrackingLine tracking={order} dictionary={dictionary} /> : undefined}
+              >
+                <ul className="divide-y">
+                  {order.items.map((item) => (
+                    <ItemRow key={item.id} item={item} quantity={item.quantity} money={money} dictionary={dictionary} />
+                  ))}
+                </ul>
+              </SectionCard>
+            ) : (
+              <>
+                {left_count > 0 && (
+                  <SectionCard
+                    title={dictionary.unfulfilled}
+                    action={
+                      <div className="flex items-center gap-2">
+                        <StatusBadge tone="attention">
+                          {formatPlural(left_count, dictionary.items_count, lang)}
+                        </StatusBadge>
+                        {can_edit && is_unfulfilled && (
+                          <Button type="button" size="sm" onClick={() => setIsFulfillOpen(true)}>
+                            {dictionary.fulfill}
+                          </Button>
+                        )}
+                      </div>
+                    }
+                    is_flush
+                  >
+                    <ul className="divide-y">
+                      {order.items
+                        .filter((item) => (left.get(item.id) ?? 0) > 0)
+                        .map((item) => (
+                          <ItemRow
+                            key={item.id}
+                            item={item}
+                            quantity={left.get(item.id) ?? 0}
+                            money={money}
+                            dictionary={dictionary}
+                          />
+                        ))}
+                    </ul>
+                  </SectionCard>
+                )}
+                {packages.map((fulfillment, index) => (
+                  <SectionCard
+                    key={fulfillment.id}
+                    title={dictionary.package_title.replace("{number}", String(index + 1))}
+                    description={[
+                      formatDateTime(fulfillment.created_at, lang),
+                      fulfillment.actor_name && dictionary.by.replace("{name}", fulfillment.actor_name),
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                    action={<StatusBadge tone="success">{dictionary.fulfilled}</StatusBadge>}
+                    is_flush
+                    footer={
+                      <TrackingLine tracking={fulfillment} dictionary={dictionary}>
+                        {can_edit && (
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() =>
+                              setTrackingTarget({
+                                kind: "package",
+                                fulfillment_id: fulfillment.id,
+                                tracking: fulfillment,
+                              })
+                            }
+                          >
+                            {dictionary.edit_tracking}
+                          </Button>
+                        )}
+                        {can_edit && is_unfulfilled && (
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="ghost"
+                            className="text-destructive"
+                            onClick={() => setCancelPackageId(fulfillment.id)}
+                          >
+                            {dictionary.cancel_package}
+                          </Button>
+                        )}
+                      </TrackingLine>
+                    }
+                  >
+                    <ul className="divide-y">
+                      {fulfillment.lines.map((line) => {
+                        const item = order.items.find((candidate) => candidate.id === line.item_id);
+                        return item ? (
+                          <ItemRow
+                            key={line.item_id}
+                            item={item}
+                            quantity={line.quantity}
+                            money={money}
+                            dictionary={dictionary}
+                          />
+                        ) : null;
+                      })}
+                    </ul>
+                  </SectionCard>
                 ))}
-              </ul>
-            </SectionCard>
+              </>
+            )}
 
             <SectionCard
               title={dictionary.payment}
@@ -326,6 +400,7 @@ export function OrderDetail({
       />
 
       <FulfillDialog
+        lang={lang}
         order={order}
         is_open={is_fulfill_open}
         onOpenChange={setIsFulfillOpen}
@@ -333,7 +408,101 @@ export function OrderDetail({
         common={common}
         errors={errors}
       />
+      <TrackingDialog
+        order={order}
+        target={tracking_target}
+        onClose={() => setTrackingTarget(null)}
+        dictionary={dictionary}
+        common={common}
+        errors={errors}
+      />
+      <ConfirmDialog
+        is_open={cancel_package_id !== null}
+        onOpenChange={(is_open) => !is_open && setCancelPackageId(null)}
+        title={dictionary.cancel_package_title}
+        body={dictionary.cancel_package_body}
+        confirm_label={dictionary.cancel_package}
+        cancel_label={common.cancel}
+        is_pending={cancel_package.isPending}
+        is_destructive
+        onConfirm={() =>
+          cancel_package_id &&
+          cancel_package.mutate(
+            { id: order.id, fulfillment_id: cancel_package_id },
+            {
+              onSuccess: () => {
+                setCancelPackageId(null);
+                toast.success(dictionary.package_cancelled);
+              },
+              onError: (error) => toast.error(errorText(errors, error)),
+            },
+          )
+        }
+      />
     </Page>
+  );
+}
+
+function ItemRow({
+  item,
+  quantity,
+  money,
+  dictionary,
+}: {
+  item: AdminOrderDetail["items"][number];
+  // How many of the line this card is about (all of it, what is left, or what a package holds).
+  quantity: number;
+  money: (cents: number) => string;
+  dictionary: AdminDictionary["orders_admin"]["detail"];
+}) {
+  return (
+    <li className="flex items-center gap-3 px-4 py-3">
+      <Thumbnail src={item.image} alt={item.title} size="md" />
+      <div className="min-w-0 flex-1">
+        {item.product ? (
+          <Link href={`/products/${item.product}`} className="text-sm font-medium hover:underline">
+            {item.title}
+          </Link>
+        ) : (
+          <p className="text-sm font-medium">{item.title}</p>
+        )}
+        <p className="text-muted-foreground text-xs">
+          {[item.variant_label, item.sku && dictionary.sku.replace("{sku}", item.sku)].filter(Boolean).join(" · ")}
+        </p>
+      </div>
+      <p className="text-muted-foreground text-sm tabular-nums">
+        {money(item.unit_price)} × {quantity}
+      </p>
+      <p className="w-24 text-right text-sm font-medium tabular-nums">{money(item.unit_price * quantity)}</p>
+    </li>
+  );
+}
+
+function TrackingLine({
+  tracking,
+  dictionary,
+  children,
+}: {
+  tracking: { carrier: string; tracking_number: string; tracking_url: string };
+  dictionary: AdminDictionary["orders_admin"]["detail"];
+  // Buttons for this package (edit tracking, cancel).
+  children?: React.ReactNode;
+}) {
+  const label = [tracking.carrier, tracking.tracking_number].filter(Boolean).join(" · ");
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+      <span className="text-muted-foreground">
+        {label ? `${dictionary.tracking}: ${label}` : dictionary.no_tracking}
+      </span>
+      <div className="flex flex-wrap items-center gap-2">
+        {tracking.tracking_url && (
+          <a href={tracking.tracking_url} target="_blank" rel="noreferrer" className="hover:underline">
+            {dictionary.track_package}
+          </a>
+        )}
+        {children}
+      </div>
+    </div>
   );
 }
 

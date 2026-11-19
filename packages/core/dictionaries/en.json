@@ -67,7 +67,8 @@
     "ai_failed": "The AI service didn't answer. Check the key and model in Settings → AI, then try again.",
     "messaging_not_configured": "SMS and WhatsApp aren't set up yet: add your Twilio account and save first.",
     "messaging_failed": "Twilio didn't send the message. Recent messages shows the reason.",
-    "invalid_phone": "That phone number isn't valid. Include the country code, for example +39 333 123 4567."
+    "invalid_phone": "That phone number isn't valid. Include the country code, for example +39 333 123 4567.",
+    "fulfillment_too_large": "That's more than is left to ship on this order. Refresh and try again."
   },
   "validation": {
     "required": "This field is required.",
@@ -197,7 +198,8 @@
       "timeline": "Order updates",
       "tracking": "Tracking",
       "track_package": "Track package",
-      "customer_note": "Your note"
+      "customer_note": "Your note",
+      "package_title": "Package {number}"
     },
     "addresses": {
       "title": "Addresses",
@@ -279,7 +281,9 @@
     "note": "Note",
     "shipped": "Order shipped",
     "email_sent": "Email sent",
-    "refund": "Refund"
+    "refund": "Refund",
+    "fulfilled": "Package shipped",
+    "fulfillment_cancelled": "Package cancelled"
   },
   "store": {
     "header": {

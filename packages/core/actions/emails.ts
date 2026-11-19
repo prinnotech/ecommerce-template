@@ -240,6 +240,7 @@ async function previewOrder(): Promise<AdminOrderDetail> {
     delivered_at: "",
     cancelled_at: "",
     items: [],
+    fulfillments: [],
     events: [],
     payments: [],
     customer: null,

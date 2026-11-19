@@ -67,7 +67,8 @@
     "ai_failed": "Il servizio di IA non ha risposto. Controlla la chiave e il modello in Impostazioni → IA e riprova.",
     "messaging_not_configured": "SMS e WhatsApp non sono ancora configurati: aggiungi il tuo account Twilio e salva.",
     "messaging_failed": "Twilio non ha inviato il messaggio. In Messaggi recenti trovi il motivo.",
-    "invalid_phone": "Il numero di telefono non è valido. Includi il prefisso, per esempio +39 333 123 4567."
+    "invalid_phone": "Il numero di telefono non è valido. Includi il prefisso, per esempio +39 333 123 4567.",
+    "fulfillment_too_large": "È più di quanto resta da spedire in questo ordine. Aggiorna e riprova."
   },
   "validation": {
     "required": "Questo campo è obbligatorio.",
@@ -197,7 +198,8 @@
       "timeline": "Aggiornamenti dell'ordine",
       "tracking": "Tracciamento",
       "track_package": "Traccia pacco",
-      "customer_note": "La tua nota"
+      "customer_note": "La tua nota",
+      "package_title": "Pacco {number}"
     },
     "addresses": {
       "title": "Indirizzi",
@@ -279,7 +281,9 @@
     "note": "Nota",
     "shipped": "Ordine spedito",
     "email_sent": "Email inviata",
-    "refund": "Rimborso"
+    "refund": "Rimborso",
+    "fulfilled": "Pacco spedito",
+    "fulfillment_cancelled": "Pacco annullato"
   },
   "store": {
     "header": {

@@ -1000,7 +1000,7 @@
       "tracking_saved": "Tracking saved.",
       "fulfill": "Fulfill",
       "fulfill_title": "Fulfill order #{number}",
-      "fulfill_body": "Add the carrier and tracking number so the customer can follow the shipment.",
+      "fulfill_body": "Choose what goes in this package, then add the carrier and tracking number.",
       "edit_tracking": "Edit tracking",
       "unfulfilled": "Unfulfilled",
       "fulfilled": "Fulfilled",
@@ -1029,7 +1029,9 @@
         "note": "Note",
         "shipped": "Marked as shipped",
         "email_sent": "Email sent",
-        "refund": "Refunded: payment {to}"
+        "refund": "Refunded: payment {to}",
+        "fulfilled": "Package shipped",
+        "fulfillment_cancelled": "Package cancelled"
       },
       "payment_record": {
         "pending": "Pending",
@@ -1051,7 +1053,29 @@
       "message_channels": {
         "sms": "SMS",
         "whatsapp": "WhatsApp"
-      }
+      },
+      "carrier_none": "No carrier",
+      "carrier_other": "Other carrier",
+      "carrier_name": "Carrier name",
+      "tracking_link_preview": "Tracking link:",
+      "quantity_to_ship": "Quantity of {name} to ship",
+      "of_left": "of {count}",
+      "notify_customer": "Send the shipping notification to the customer",
+      "ship_items": {
+        "one": "Ship {count} item",
+        "other": "Ship {count} items"
+      },
+      "items_count": {
+        "one": "{count} item",
+        "other": "{count} items"
+      },
+      "package_created": "Package shipped.",
+      "package_title": "Package {number}",
+      "track_package": "Track package",
+      "cancel_package": "Cancel package",
+      "cancel_package_title": "Cancel this package?",
+      "cancel_package_body": "Its items go back to unfulfilled so you can ship them again. The customer isn't notified.",
+      "package_cancelled": "Package cancelled."
     }
   },
   "messages": {

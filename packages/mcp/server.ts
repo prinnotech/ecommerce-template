@@ -14,6 +14,7 @@ import {
   getAdminOrder,
   getAdminOrders,
   updateOrderStatus,
+  createFulfillment,
   updateTracking,
 } from "@repo/core/actions/orders";
 import { getAdminProduct, getAdminProducts } from "@repo/core/actions/products";
@@ -107,6 +108,35 @@ function createServer(): McpServer {
           ...input,
           tracking_url: input.tracking_url ?? "",
           is_mark_shipped: input.is_mark_shipped ?? false,
+        }),
+      ),
+  );
+  server.registerTool(
+    "ship_package",
+    {
+      description:
+        "Ship a package: some or all of the order lines still waiting (item ids and quantities from get_order), " +
+        "with optional carrier and tracking. Known carriers (UPS, FedEx, DHL, USPS, Poste Italiane…) get their tracking link automatically. " +
+        "The order becomes shipped once nothing is left.",
+      inputSchema: {
+        id: z.string(),
+        lines: z.array(z.object({ item_id: z.string(), quantity: z.number().int().min(1) })).min(1),
+        carrier: z.string().max(100).optional(),
+        tracking_number: z.string().max(100).optional(),
+        tracking_url: z.string().optional().describe("Full https URL, or empty"),
+        notify_customer: z.boolean().optional(),
+      },
+      annotations: WRITE,
+    },
+    async (input) =>
+      toToolResult(
+        await createFulfillment({
+          id: input.id,
+          lines: input.lines,
+          carrier: input.carrier ?? "",
+          tracking_number: input.tracking_number ?? "",
+          tracking_url: input.tracking_url ?? "",
+          is_notify: input.notify_customer ?? true,
         }),
       ),
   );

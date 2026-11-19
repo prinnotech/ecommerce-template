@@ -305,6 +305,16 @@ export type InventoryAdjustmentsTable = Timestamps & {
   actor_id: string | null;
 };
 
+export type FulfillmentsTable = Timestamps & {
+  order_id: string;
+  status: string;
+  lines: Json;
+  carrier: Text;
+  tracking_number: Text;
+  tracking_url: Text;
+  actor_id: string | null;
+};
+
 export type DraftOrdersTable = Timestamps & {
   draft_number: number;
   status: Text;
@@ -415,6 +425,7 @@ export type Database = {
   orders: OrdersTable;
   order_items: OrderItemsTable;
   order_events: OrderEventsTable;
+  fulfillments: FulfillmentsTable;
   payments: PaymentsTable;
   contact_messages: ContactMessagesTable;
   customer_notes: CustomerNotesTable;

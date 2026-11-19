@@ -56,6 +56,20 @@ export default async function AccountOrderPage({ params }: PageProps<"/[lang]/ac
   const money = (cents: number) => formatCurrency(cents, order.currency || default_currency, lang);
   const shipping_address = address_fields_schema.safeParse(order.shipping_address);
   const billing_address = address_fields_schema.safeParse(order.billing_address);
+  // One tracking block per package; orders shipped before packages show the order's own tracking.
+  const packages =
+    order.fulfillments.length > 0
+      ? order.fulfillments.filter((tracking) => tracking.carrier || tracking.tracking_number || tracking.tracking_url)
+      : order.tracking_number || order.tracking_url
+        ? [
+            {
+              id: "order",
+              carrier: order.carrier,
+              tracking_number: order.tracking_number,
+              tracking_url: order.tracking_url,
+            },
+          ]
+        : [];
 
   const summary_rows = [
     { label: text.subtotal, value: order.subtotal, is_shown: true },
@@ -199,24 +213,44 @@ export default async function AccountOrderPage({ params }: PageProps<"/[lang]/ac
               </CardContent>
             </Card>
           )}
-          {(order.tracking_number || order.tracking_url) && (
+          {packages.length > 0 && (
             <Card>
               <CardHeader>
                 <CardTitle>{text.tracking}</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col gap-2 text-sm">
-                <span>{[order.carrier, order.tracking_number].filter(Boolean).join(" · ")}</span>
-                {order.tracking_url && (
-                  <a
-                    href={order.tracking_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex w-fit items-center gap-1 font-medium underline-offset-4 hover:underline"
-                  >
-                    {text.track_package}
-                    <ExternalLinkIcon className="size-3.5" aria-hidden />
-                  </a>
-                )}
+              <CardContent className="flex flex-col gap-4 text-sm">
+                {packages.map((tracking, index) => (
+                  <div key={tracking.id} className="flex flex-col gap-1.5">
+                    {packages.length > 1 && (
+                      <span className="font-medium">{text.package_title.replace("{number}", String(index + 1))}</span>
+                    )}
+                    {"lines" in tracking && tracking.lines.length > 0 && packages.length > 1 && (
+                      <span className="text-muted-foreground">
+                        {tracking.lines
+                          .map((line) => {
+                            const item = order.items.find((candidate) => candidate.id === line.item_id);
+                            return item ? `${line.quantity} × ${item.title}` : "";
+                          })
+                          .filter(Boolean)
+                          .join(", ")}
+                      </span>
+                    )}
+                    {(tracking.carrier || tracking.tracking_number) && (
+                      <span>{[tracking.carrier, tracking.tracking_number].filter(Boolean).join(" · ")}</span>
+                    )}
+                    {tracking.tracking_url && (
+                      <a
+                        href={tracking.tracking_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex w-fit items-center gap-1 font-medium underline-offset-4 hover:underline"
+                      >
+                        {text.track_package}
+                        <ExternalLinkIcon className="size-3.5" aria-hidden />
+                      </a>
+                    )}
+                  </div>
+                ))}
               </CardContent>
             </Card>
           )}

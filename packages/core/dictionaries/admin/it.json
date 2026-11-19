@@ -1000,7 +1000,7 @@
       "tracking_saved": "Tracciamento salvato.",
       "fulfill": "Evadi",
       "fulfill_title": "Evadi ordine #{number}",
-      "fulfill_body": "Aggiungi il corriere e il numero di tracciamento così il cliente può seguire la spedizione.",
+      "fulfill_body": "Scegli cosa va in questo pacco, poi aggiungi il corriere e il numero di tracciamento.",
       "edit_tracking": "Modifica tracciamento",
       "unfulfilled": "Da evadere",
       "fulfilled": "Evaso",
@@ -1029,7 +1029,9 @@
         "note": "Nota",
         "shipped": "Segnato come spedito",
         "email_sent": "Email inviata",
-        "refund": "Rimborso: pagamento {to}"
+        "refund": "Rimborso: pagamento {to}",
+        "fulfilled": "Pacco spedito",
+        "fulfillment_cancelled": "Pacco annullato"
       },
       "payment_record": {
         "pending": "In attesa",
@@ -1051,7 +1053,29 @@
       "message_channels": {
         "sms": "SMS",
         "whatsapp": "WhatsApp"
-      }
+      },
+      "carrier_none": "Nessun corriere",
+      "carrier_other": "Altro corriere",
+      "carrier_name": "Nome del corriere",
+      "tracking_link_preview": "Link di tracciamento:",
+      "quantity_to_ship": "Quantità di {name} da spedire",
+      "of_left": "di {count}",
+      "notify_customer": "Invia al cliente l'avviso di spedizione",
+      "ship_items": {
+        "one": "Spedisci {count} articolo",
+        "other": "Spedisci {count} articoli"
+      },
+      "items_count": {
+        "one": "{count} articolo",
+        "other": "{count} articoli"
+      },
+      "package_created": "Pacco spedito.",
+      "package_title": "Pacco {number}",
+      "track_package": "Traccia il pacco",
+      "cancel_package": "Annulla pacco",
+      "cancel_package_title": "Annullare questo pacco?",
+      "cancel_package_body": "I suoi articoli tornano da evadere così puoi spedirli di nuovo. Il cliente non riceve avvisi.",
+      "package_cancelled": "Pacco annullato."
     }
   },
   "messages": {

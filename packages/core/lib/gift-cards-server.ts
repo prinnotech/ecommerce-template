@@ -99,6 +99,7 @@ export async function sendGiftCardEmail(
     delivered_at: "",
     cancelled_at: "",
     items: [],
+    fulfillments: [],
     events: [],
     payments: [],
     customer: null,

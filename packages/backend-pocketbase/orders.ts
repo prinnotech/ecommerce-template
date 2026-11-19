@@ -9,6 +9,7 @@ import type { OrderListFilters } from "@repo/core/lib/schemas/orders";
 import { createAdminPocketBase } from "@repo/backend-pocketbase/client";
 import { pocketBaseStatus } from "@repo/backend-pocketbase/errors";
 import type {
+  FulfillmentsResponse,
   OrderEventsResponse,
   OrdersResponse,
   TypedPocketBase,
@@ -155,8 +156,9 @@ type RefundRecord = {
   actor_id: string;
 };
 
-async function refundsWithActors(pb: TypedPocketBase, refunds: RefundRecord[]) {
-  const actor_ids = [...new Set(refunds.map((refund) => refund.actor_id).filter(Boolean))];
+// Staff names for the "by …" lines (refunds and packages keep the actor's user id).
+async function actorNames(pb: TypedPocketBase, ids: string[]): Promise<Map<string, string>> {
+  const actor_ids = [...new Set(ids.filter(Boolean))];
   const actors =
     actor_ids.length > 0
       ? await pb.collection("users").getFullList({
@@ -164,7 +166,35 @@ async function refundsWithActors(pb: TypedPocketBase, refunds: RefundRecord[]) {
           fields: "id,name,email",
         })
       : [];
-  const names = new Map(actors.map((actor) => [actor.id, actor.name || actor.email]));
+  return new Map(actors.map((actor) => [actor.id, actor.name || actor.email]));
+}
+
+function fulfillmentLines(value: unknown): { item_id: string; quantity: number }[] {
+  return Array.isArray(value) ? (value as { item_id: string; quantity: number }[]) : [];
+}
+
+async function fulfillmentsWithActors(pb: TypedPocketBase, fulfillments: FulfillmentsResponse[]) {
+  const names = await actorNames(
+    pb,
+    fulfillments.map((fulfillment) => fulfillment.actor_id),
+  );
+  return fulfillments.map((fulfillment) => ({
+    id: fulfillment.id,
+    created_at: fulfillment.created_at,
+    status: fulfillment.status === "cancelled" ? ("cancelled" as const) : ("shipped" as const),
+    lines: fulfillmentLines(fulfillment.lines),
+    carrier: fulfillment.carrier,
+    tracking_number: fulfillment.tracking_number,
+    tracking_url: fulfillment.tracking_url,
+    actor_name: names.get(fulfillment.actor_id) ?? "",
+  }));
+}
+
+async function refundsWithActors(pb: TypedPocketBase, refunds: RefundRecord[]) {
+  const names = await actorNames(
+    pb,
+    refunds.map((refund) => refund.actor_id),
+  );
   return refunds.map((refund) => ({
     id: refund.id,
     created_at: refund.created_at,
@@ -212,7 +242,7 @@ export const orders: OrdersBackend = {
     if (order.deleted_at) throw new BackendError("not_found");
 
     const by_order = pb.filter("order = {:id}", { id });
-    const [items, events, payments, customer_orders, user, refunds] = await Promise.all([
+    const [items, events, payments, customer_orders, user, refunds, fulfillments] = await Promise.all([
       pb.collection("order_items").getFullList({ filter: by_order, sort: "created_at" }),
       pb.collection("order_events").getFullList<OrderEventsResponse<{ actor?: UsersResponse }>>({
         filter: by_order,
@@ -237,6 +267,7 @@ export const orders: OrdersBackend = {
             .catch(() => null)
         : null,
       pb.collection("refunds").getFullList({ filter: by_order, sort: "-created_at" }),
+      pb.collection("fulfillments").getFullList({ filter: by_order, sort: "created_at" }),
     ]);
 
     const discount = (order.expand as { discount_code?: { code: string } } | undefined)?.discount_code;
@@ -288,6 +319,7 @@ export const orders: OrdersBackend = {
         quantity: item.quantity,
         line_total: item.line_total,
       })),
+      fulfillments: await fulfillmentsWithActors(pb, fulfillments),
       events: events.map((event) => ({
         id: event.id,
         type: event.type,
@@ -432,6 +464,79 @@ export const orders: OrdersBackend = {
       actor,
       // A tracking update without shipping is internal bookkeeping.
       is_customer_visible: ship,
+    });
+    await batch.send();
+  },
+
+  async createFulfillment(order, fulfillment) {
+    const pb = await createAdminPocketBase();
+    const { lines, carrier, tracking_number, tracking_url, actor, to_status } = fulfillment;
+    const batch = pb.createBatch();
+    batch.collection("fulfillments").create({
+      order: order.id,
+      status: "shipped",
+      lines,
+      carrier,
+      tracking_number,
+      tracking_url,
+      actor_id: actor,
+    });
+    batch.collection("orders").update(order.id, {
+      carrier,
+      tracking_number,
+      tracking_url,
+      ...(to_status ? { status: to_status } : {}),
+      ...(to_status === "shipped" ? { shipped_at: new Date().toISOString() } : {}),
+    });
+    batch.collection("order_events").create({
+      order: order.id,
+      type: "fulfilled",
+      from_status: to_status ? order.status : "",
+      to_status: to_status ?? "",
+      message: [carrier, tracking_number].filter(Boolean).join(" · "),
+      actor,
+      is_customer_visible: true,
+    });
+    // The fulfillment is the first request in the batch.
+    const [created] = await batch.send();
+    return { id: String((created?.body as { id?: string } | undefined)?.id ?? "") };
+  },
+
+  async updateFulfillment(order, fulfillment_id, tracking, actor) {
+    const pb = await createAdminPocketBase();
+    const record = await pb
+      .collection("fulfillments")
+      .getOne(fulfillment_id, { fields: "id,order" })
+      .catch(() => null);
+    if (!record || record.order !== order.id) throw new BackendError("not_found");
+    const batch = pb.createBatch();
+    batch.collection("fulfillments").update(fulfillment_id, tracking);
+    batch.collection("orders").update(order.id, tracking);
+    batch.collection("order_events").create({
+      order: order.id,
+      type: "note",
+      message: [tracking.carrier, tracking.tracking_number].filter(Boolean).join(" · "),
+      actor,
+      is_customer_visible: false,
+    });
+    await batch.send();
+  },
+
+  async cancelFulfillment(order, fulfillment_id, actor) {
+    const pb = await createAdminPocketBase();
+    const record = await pb
+      .collection("fulfillments")
+      .getOne(fulfillment_id)
+      .catch(() => null);
+    if (!record || record.order !== order.id || record.status !== "shipped") throw new BackendError("not_found");
+    const batch = pb.createBatch();
+    batch.collection("fulfillments").update(fulfillment_id, { status: "cancelled" });
+    batch.collection("order_events").create({
+      order: order.id,
+      type: "fulfillment_cancelled",
+      message: [record.carrier, record.tracking_number].filter(Boolean).join(" · "),
+      actor,
+      is_customer_visible: false,
     });
     await batch.send();
   },

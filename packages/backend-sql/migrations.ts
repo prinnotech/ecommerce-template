@@ -943,6 +943,29 @@ const discounts_v2: Migration = {
   },
 };
 
+// Packages: the lines and quantities that went out together, with their tracking.
+const fulfillments: Migration = {
+  name: "0021_fulfillments",
+  async up(db, { dialect, supabase: is_supabase }) {
+    const t = types(dialect);
+    await db.schema
+      .createTable("fulfillments")
+      .addColumn("id", "text", (col) => col.primaryKey())
+      .addColumn("created_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("updated_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("order_id", "text", (col) => col.notNull().references("orders.id").onDelete("cascade"))
+      .addColumn("status", "text", (col) => col.notNull())
+      .addColumn("lines", sql.raw(t.json), (col) => col.notNull().defaultTo(t.empty_array))
+      .addColumn("carrier", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("tracking_number", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("tracking_url", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("actor_id", "text")
+      .execute();
+    await db.schema.createIndex("idx_fulfillments_order").on("fulfillments").column("order_id").execute();
+    if (is_supabase) await sql`alter table fulfillments enable row level security`.execute(db);
+  },
+};
+
 export const MIGRATIONS: Migration[] = [
   initial,
   supabase,
@@ -964,6 +987,7 @@ export const MIGRATIONS: Migration[] = [
   api_keys,
   messages,
   discounts_v2,
+  fulfillments,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

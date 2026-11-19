@@ -153,6 +153,7 @@ function draftAsOrder(draft: DraftOrder, priced: PricedDraft, settings: SiteSett
       quantity: line.quantity,
       line_total: line.line_total,
     })),
+    fulfillments: [],
     events: [],
     payments: [],
     customer: null,
