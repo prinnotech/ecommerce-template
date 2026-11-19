@@ -31,8 +31,13 @@ export const ADMIN_NAV = [
   },
   { key: "customers", path: "/customers", permission: "customers.view" },
   { key: "analytics", path: "/analytics", permission: "analytics.view" },
-  // Marketing → Discounts.
-  { key: "discounts", path: "/discounts", permission: "discounts.view" },
+  // Marketing → Discounts and Campaigns.
+  {
+    key: "discounts",
+    path: "/discounts",
+    permission: "discounts.view",
+    children: [{ key: "campaigns", path: "/campaigns", permission: "campaigns.view" }],
+  },
   { key: "messages", path: "/messages", permission: "messages.view" },
   // Content → Files (the media library shared by themes, pages and products) and Blog posts.
   {
@@ -70,4 +75,5 @@ export type AdminNavChildKey =
   | "categories"
   | "import"
   | "pages"
-  | "blog";
+  | "blog"
+  | "campaigns";

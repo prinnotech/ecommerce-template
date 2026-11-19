@@ -18,6 +18,8 @@ export type OutgoingEmail = {
   text: string;
   template: string;
   order_id?: string;
+  // Extra headers (marketing emails: List-Unsubscribe).
+  headers?: Record<string, string>;
 };
 
 export type SendResult = { ok: true } | { ok: false; error: string };
@@ -71,6 +73,7 @@ export async function sendEmail(email: OutgoingEmail): Promise<SendResult> {
       subject: email.subject,
       html: email.html,
       text: email.text,
+      headers: email.headers,
     });
     await log.log({ ...base, status: "sent", error: "" }).catch(() => undefined);
     return { ok: true };

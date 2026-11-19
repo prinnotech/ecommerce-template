@@ -6,7 +6,7 @@ import { CustomersTable } from "./components/customers-table";
 import { IndexTableSkeleton } from "@repo/admin-ui/components/skeletons";
 import { getCustomers } from "@repo/core/actions/customers";
 import { buildAdminMetadata, getAdminLocale } from "@repo/core/lib/admin-locale";
-import { requirePermission } from "@repo/core/lib/auth";
+import { callerShows, requirePermission } from "@repo/core/lib/auth";
 import { getAdminDictionary } from "@repo/core/lib/i18n";
 import { query_keys } from "@repo/core/lib/query-keys";
 import { customer_list_filters_schema } from "@repo/core/lib/schemas/customers";
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CustomersPage({ searchParams }: PageProps<"/customers">) {
   const lang = await getAdminLocale();
-  await requirePermission("customers.view");
+  const caller = await requirePermission("customers.view");
   const filters = customer_list_filters_schema.parse(await searchParams);
   const [dictionary, currency, result] = await Promise.all([
     getAdminDictionary(lang),
@@ -36,6 +36,7 @@ export default async function CustomersPage({ searchParams }: PageProps<"/custom
         <CustomersTable
           lang={lang}
           currency={currency}
+          can_edit={callerShows(caller, "customers.edit") && !caller.is_read_only}
           dictionary={dictionary.customers}
           index_table={dictionary.admin_ui.index_table}
           errors={dictionary.errors}

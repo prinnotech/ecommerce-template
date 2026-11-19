@@ -33,7 +33,8 @@
       "gift_cards": "Carte regalo",
       "reviews": "Recensioni",
       "content": "Contenuti",
-      "blog": "Articoli del blog"
+      "blog": "Articoli del blog",
+      "campaigns": "Campagne"
     },
     "home": {
       "title": "Home",
@@ -421,6 +422,10 @@
     "blog": {
       "view": "Vedere gli articoli del blog",
       "edit": "Scrivere, pubblicare ed eliminare articoli"
+    },
+    "campaigns": {
+      "view": "Vedere le campagne",
+      "edit": "Scrivere e inviare campagne"
     }
   },
   "roles": {
@@ -1178,6 +1183,62 @@
     "order_count": {
       "one": "{count} ordine",
       "other": "{count} ordini"
+    },
+    "export": "Esporta",
+    "export_filename": "clienti.csv",
+    "segments": {
+      "create": "Crea segmento",
+      "edit": "Modifica segmento",
+      "edit_title": "Modifica segmento",
+      "hint": "Un filtro salvato. Compare come scheda dell'elenco clienti e può ricevere campagne email.",
+      "name": "Nome",
+      "name_placeholder": "Migliori clienti",
+      "match_label": "I clienti devono soddisfare",
+      "match": {
+        "all": "tutte le condizioni",
+        "any": "almeno una condizione"
+      },
+      "field_label": "Condizione",
+      "fields": {
+        "total_spent": "Totale speso",
+        "order_count": "Numero di ordini",
+        "last_order": "Ultimo ordine",
+        "signed_up": "Registrazione",
+        "accepts_marketing": "Accetta email di marketing",
+        "country": "Paese (ultimo ordine)",
+        "customer_type": "Tipo di cliente"
+      },
+      "operator_label": "Confronto",
+      "ops": {
+        "gte": "almeno",
+        "lte": "al massimo",
+        "eq": "esattamente",
+        "within": "negli ultimi",
+        "not_within": "non negli ultimi",
+        "is": "è",
+        "is_not": "non è"
+      },
+      "days": "giorni",
+      "yes": "Sì",
+      "no": "No",
+      "registered": "Ha un account",
+      "guest": "Ospite",
+      "add_condition": "Aggiungi condizione",
+      "remove_condition": "Rimuovi condizione",
+      "count": {
+        "one": "{count} cliente corrisponde",
+        "other": "{count} clienti corrispondono"
+      },
+      "subscribed_count": {
+        "one": "{count} può ricevere campagne",
+        "other": "{count} possono ricevere campagne"
+      },
+      "delete": "Elimina segmento",
+      "delete_confirm": "Eliminare definitivamente?",
+      "deleted": "Segmento eliminato.",
+      "cancel": "Annulla",
+      "save": "Salva segmento",
+      "saved": "Segmento salvato."
     }
   },
   "admin_ui": {
@@ -2913,5 +2974,74 @@
     "discard": "Annulla",
     "save_values": "Salva campi",
     "values_saved": "Campi personalizzati salvati."
+  },
+  "campaigns": {
+    "title": "Campagne",
+    "subtitle": "Email per i clienti che hanno accettato di ricevere email di marketing.",
+    "create": "Crea campagna",
+    "all": "Tutte",
+    "status": {
+      "draft": "Bozza",
+      "sending": "In invio",
+      "sent": "Inviata"
+    },
+    "columns": {
+      "name": "Campagna",
+      "status": "Stato",
+      "recipients": "Destinatari",
+      "sent": "Inviate",
+      "date": "Data"
+    },
+    "results": {
+      "one": "{count} campagna",
+      "other": "{count} campagne"
+    },
+    "empty_title": "Invia la tua prima campagna",
+    "empty_body": "Scrivi un'email una volta, in tutte le lingue del negozio, e inviala a chi ha accettato o a un segmento.",
+    "new_title": "Nuova campagna",
+    "name": "Nome",
+    "name_hint": "Lo vede solo lo staff.",
+    "content_title": "Email",
+    "placeholders_hint": "Puoi usare {placeholders} nell'oggetto e nel testo.",
+    "subject": "Oggetto",
+    "body": "Testo",
+    "body_hint": "Una riga vuota inizia un paragrafo, le righe con “- ” formano un elenco, “# ” un titolo.",
+    "audience_title": "Destinatari",
+    "segment": "Invia a",
+    "all_subscribers": "Tutti quelli che accettano email di marketing",
+    "recipients": {
+      "one": "{count} destinatario ora",
+      "other": "{count} destinatari ora"
+    },
+    "audience_hint": "Ricevono le campagne solo i clienti con un account che hanno accettato le email di marketing. Ogni email ha un link per disiscriversi.",
+    "send_title": "Invia",
+    "smtp_missing": "Configura prima Impostazioni → Invio email.",
+    "test_language": "Prova in",
+    "send_test": "Inviami una prova",
+    "test_sent": "Prova inviata a {email}.",
+    "save_first": "Salva le modifiche prima di inviare.",
+    "send_now": {
+      "one": "Invia a {count} cliente",
+      "other": "Invia a {count} clienti"
+    },
+    "delete": "Elimina campagna",
+    "delete_title": "Eliminare questa campagna?",
+    "delete_body": "Non si può annullare.",
+    "send_confirm_title": "Inviare ora questa campagna?",
+    "send_confirm_body": {
+      "one": "Arriva a {count} cliente e poi non si può fermare né modificare.",
+      "other": "Arriva a {count} clienti e poi non si può fermare né modificare."
+    },
+    "sending_started": "Invio avviato.",
+    "saved": "Campagna salvata.",
+    "stats": {
+      "recipients": "Destinatari",
+      "sent": "Inviate",
+      "failed": "Non riuscite",
+      "pending": "In attesa"
+    },
+    "sending_hint": "Le email partono a blocchi. Se i numeri non si muovono più, controlla che il cron del negozio chiami /api/cron/campaigns.",
+    "sent_on": "Inviata il {date}",
+    "deleted_segment": "Un segmento eliminato"
   }
 }

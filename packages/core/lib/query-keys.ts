@@ -2,6 +2,7 @@ import type { ProductListFilters } from "@repo/core/lib/schemas/catalog";
 import type { MessageFilters } from "@repo/core/lib/schemas/contact";
 import type { ActivityFilters, SavedViewResource } from "@repo/core/lib/schemas/admin";
 import type { CustomerListFilters } from "@repo/core/lib/schemas/customers";
+import type { CampaignListFilters } from "@repo/core/lib/schemas/campaigns";
 import type { OrderListFilters } from "@repo/core/lib/schemas/orders";
 import type { AnalyticsFilters } from "@repo/core/lib/analytics";
 import type { AbandonedCheckoutFilters } from "@repo/core/lib/schemas/abandoned-checkouts";
@@ -82,7 +83,14 @@ export const query_keys = {
   roles: ["roles"] as const,
   activity: (filters: ActivityFilters) => ["activity", filters] as const,
   saved_views: (resource: SavedViewResource) => ["saved_views", resource] as const,
+  admin_customers_all: ["admin_customers"] as const,
   admin_customers: (filters: CustomerListFilters) => ["admin_customers", filters] as const,
+  segments: ["segments"] as const,
+  segment_count: (rules: unknown) => ["segments", "count", rules] as const,
+  campaigns_all: ["campaigns"] as const,
+  campaigns: (filters: CampaignListFilters) => ["campaigns", filters] as const,
+  campaign: (id: string) => ["campaigns", "one", id] as const,
+  campaign_recipients: (segment_id: string) => ["campaigns", "recipients", segment_id] as const,
   customer_note: (key: string) => ["customer_note", key] as const,
   messages_all: ["messages"] as const,
   messages: (filters: MessageFilters) => ["messages", filters] as const,

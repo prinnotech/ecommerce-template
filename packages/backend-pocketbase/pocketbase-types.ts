@@ -15,15 +15,18 @@ export const Collections = {
 	Addresses: "addresses",
 	ApiKeys: "api_keys",
 	BlogPosts: "blog_posts",
+	CampaignDeliveries: "campaign_deliveries",
 	Categories: "categories",
 	CheckoutSessions: "checkout_sessions",
 	CollectionProducts: "collection_products",
 	Collections: "collections",
 	ContactMessages: "contact_messages",
 	CustomerNotes: "customer_notes",
+	CustomerSegments: "customer_segments",
 	DiscountCodes: "discount_codes",
 	Domains: "domains",
 	DraftOrders: "draft_orders",
+	EmailCampaigns: "email_campaigns",
 	EmailLog: "email_log",
 	Fulfillments: "fulfillments",
 	GiftCardTransactions: "gift_card_transactions",
@@ -188,6 +191,19 @@ export type BlogPostsRecord<Tbody = unknown, Tcover_alt = unknown, Texcerpt = un
 	updated_at: IsoAutoDateString
 }
 
+export type CampaignDeliveriesRecord = {
+	campaign: RecordIdString
+	created_at: IsoAutoDateString
+	email: string
+	error?: string
+	id: string
+	locale?: string
+	name?: string
+	status: string
+	updated_at: IsoAutoDateString
+	user_id?: string
+}
+
 export type CategoriesRecord<Tdescription = unknown, Tname = unknown, Tseo = unknown> = {
 	created_at: IsoAutoDateString
 	description?: null | Tdescription
@@ -308,6 +324,14 @@ export type CustomerNotesRecord = {
 	updated_by?: RecordIdString
 }
 
+export type CustomerSegmentsRecord<Trules = unknown> = {
+	created_at: IsoAutoDateString
+	id: string
+	name: string
+	rules?: null | Trules
+	updated_at: IsoAutoDateString
+}
+
 export const DiscountCodesTypeOptions = {
 	"percent": "percent",
 	"fixed": "fixed",
@@ -387,6 +411,21 @@ export type DraftOrdersRecord<Tdiscount = unknown, Tlines = unknown, Tshipping_a
 	total?: number
 	updated_at: IsoAutoDateString
 	user?: RecordIdString
+}
+
+export type EmailCampaignsRecord<Tbody = unknown, Tsubject = unknown> = {
+	body?: null | Tbody
+	created_at: IsoAutoDateString
+	failed_count?: number
+	id: string
+	name: string
+	recipient_count?: number
+	segment_id?: string
+	sent_at?: IsoDateString
+	sent_count?: number
+	status: string
+	subject?: null | Tsubject
+	updated_at: IsoAutoDateString
 }
 
 export type EmailLogRecord = {
@@ -808,15 +847,18 @@ export type ActivityLogResponse<Tdetails = unknown, Texpand = unknown> = Require
 export type AddressesResponse<Texpand = unknown> = Required<AddressesRecord> & BaseSystemFields<Texpand>
 export type ApiKeysResponse<Texpand = unknown> = Required<ApiKeysRecord> & BaseSystemFields<Texpand>
 export type BlogPostsResponse<Tbody = unknown, Tcover_alt = unknown, Texcerpt = unknown, Tseo = unknown, Ttags = unknown, Ttitle = unknown, Texpand = unknown> = Required<BlogPostsRecord<Tbody, Tcover_alt, Texcerpt, Tseo, Ttags, Ttitle>> & BaseSystemFields<Texpand>
+export type CampaignDeliveriesResponse<Texpand = unknown> = Required<CampaignDeliveriesRecord> & BaseSystemFields<Texpand>
 export type CategoriesResponse<Tdescription = unknown, Tname = unknown, Tseo = unknown, Texpand = unknown> = Required<CategoriesRecord<Tdescription, Tname, Tseo>> & BaseSystemFields<Texpand>
 export type CheckoutSessionsResponse<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tline_items = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<CheckoutSessionsRecord<Tapplied_discounts, Tattribution, Tbilling_address, Tline_items, Tshipping_address>> & BaseSystemFields<Texpand>
 export type CollectionProductsResponse<Texpand = unknown> = Required<CollectionProductsRecord> & BaseSystemFields<Texpand>
 export type CollectionsResponse<Tdescription = unknown, Trules = unknown, Tseo = unknown, Ttitle = unknown, Texpand = unknown> = Required<CollectionsRecord<Tdescription, Trules, Tseo, Ttitle>> & BaseSystemFields<Texpand>
 export type ContactMessagesResponse<Texpand = unknown> = Required<ContactMessagesRecord> & BaseSystemFields<Texpand>
 export type CustomerNotesResponse<Texpand = unknown> = Required<CustomerNotesRecord> & BaseSystemFields<Texpand>
+export type CustomerSegmentsResponse<Trules = unknown, Texpand = unknown> = Required<CustomerSegmentsRecord<Trules>> & BaseSystemFields<Texpand>
 export type DiscountCodesResponse<Tapplies_to = unknown, Tbuy_x_get_y = unknown, Tcombines_with = unknown, Texpand = unknown> = Required<DiscountCodesRecord<Tapplies_to, Tbuy_x_get_y, Tcombines_with>> & BaseSystemFields<Texpand>
 export type DomainsResponse<Tdns_records = unknown, Texpand = unknown> = Required<DomainsRecord<Tdns_records>> & BaseSystemFields<Texpand>
 export type DraftOrdersResponse<Tdiscount = unknown, Tlines = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<DraftOrdersRecord<Tdiscount, Tlines, Tshipping_address>> & BaseSystemFields<Texpand>
+export type EmailCampaignsResponse<Tbody = unknown, Tsubject = unknown, Texpand = unknown> = Required<EmailCampaignsRecord<Tbody, Tsubject>> & BaseSystemFields<Texpand>
 export type EmailLogResponse<Texpand = unknown> = Required<EmailLogRecord> & BaseSystemFields<Texpand>
 export type FulfillmentsResponse<Tlines = unknown, Texpand = unknown> = Required<FulfillmentsRecord<Tlines>> & BaseSystemFields<Texpand>
 export type GiftCardTransactionsResponse<Texpand = unknown> = Required<GiftCardTransactionsRecord> & BaseSystemFields<Texpand>
@@ -856,15 +898,18 @@ export type CollectionRecords = {
 	addresses: AddressesRecord
 	api_keys: ApiKeysRecord
 	blog_posts: BlogPostsRecord
+	campaign_deliveries: CampaignDeliveriesRecord
 	categories: CategoriesRecord
 	checkout_sessions: CheckoutSessionsRecord
 	collection_products: CollectionProductsRecord
 	collections: CollectionsRecord
 	contact_messages: ContactMessagesRecord
 	customer_notes: CustomerNotesRecord
+	customer_segments: CustomerSegmentsRecord
 	discount_codes: DiscountCodesRecord
 	domains: DomainsRecord
 	draft_orders: DraftOrdersRecord
+	email_campaigns: EmailCampaignsRecord
 	email_log: EmailLogRecord
 	fulfillments: FulfillmentsRecord
 	gift_card_transactions: GiftCardTransactionsRecord
@@ -903,15 +948,18 @@ export type CollectionResponses = {
 	addresses: AddressesResponse
 	api_keys: ApiKeysResponse
 	blog_posts: BlogPostsResponse
+	campaign_deliveries: CampaignDeliveriesResponse
 	categories: CategoriesResponse
 	checkout_sessions: CheckoutSessionsResponse
 	collection_products: CollectionProductsResponse
 	collections: CollectionsResponse
 	contact_messages: ContactMessagesResponse
 	customer_notes: CustomerNotesResponse
+	customer_segments: CustomerSegmentsResponse
 	discount_codes: DiscountCodesResponse
 	domains: DomainsResponse
 	draft_orders: DraftOrdersResponse
+	email_campaigns: EmailCampaignsResponse
 	email_log: EmailLogResponse
 	fulfillments: FulfillmentsResponse
 	gift_card_transactions: GiftCardTransactionsResponse

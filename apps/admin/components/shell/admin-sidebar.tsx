@@ -14,6 +14,7 @@ import {
   NewspaperIcon,
   PackageIcon,
   PaletteIcon,
+  SendIcon,
   ReceiptIcon,
   SettingsIcon,
   ShoppingCartIcon,
@@ -69,6 +70,7 @@ const NAV_ICONS: Record<AdminNavKey | AdminNavChildKey, LucideIcon> = {
   pages: FileTextIcon,
   content: ImagesIcon,
   blog: NewspaperIcon,
+  campaigns: SendIcon,
   settings: SettingsIcon,
 };
 

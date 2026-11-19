@@ -16,6 +16,8 @@ export type EmailContent = {
   subject: string;
   body: string;
   summary?: EmailSummary;
+  // Marketing emails: a link in the footer to stop them.
+  unsubscribe?: { url: string; label: string };
 };
 
 function escapeHtml(value: string): string {
@@ -94,6 +96,7 @@ export function renderEmail(content: EmailContent): { html: string; text: string
         </td></tr>
         <tr><td style="padding:18px 28px;background:#fafafa;color:#777777;font-size:12px;line-height:1.5;">
           ${escapeHtml(content.store_name)}${content.contact_line ? ` · ${escapeHtml(content.contact_line)}` : ""}
+          ${content.unsubscribe ? `<br><a href="${escapeHtml(content.unsubscribe.url)}" style="color:#777777;">${escapeHtml(content.unsubscribe.label)}</a>` : ""}
         </td></tr>
       </table>
     </td></tr>
@@ -103,6 +106,7 @@ export function renderEmail(content: EmailContent): { html: string; text: string
     content.body,
     content.summary ? `\n${summaryText(content.summary)}` : "",
     `\n—\n${content.store_name}${content.contact_line ? ` · ${content.contact_line}` : ""}`,
+    content.unsubscribe ? `${content.unsubscribe.label}: ${content.unsubscribe.url}` : "",
   ].join("\n");
   return { html, text };
 }

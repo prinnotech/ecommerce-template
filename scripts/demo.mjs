@@ -35,6 +35,7 @@ const DEMO_PERMISSIONS = [
   "pages.view",
   "files.view",
   "blog.view",
+  "campaigns.view",
 ];
 
 const CUSTOMERS = [

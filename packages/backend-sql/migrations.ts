@@ -1070,6 +1070,57 @@ const metafields: Migration = {
   },
 };
 
+// Customer segments and email campaigns, with one delivery row per recipient.
+const campaigns: Migration = {
+  name: "0025_campaigns",
+  async up(db, { dialect, supabase: is_supabase }) {
+    const t = types(dialect);
+    const base = (name: string) =>
+      db.schema
+        .createTable(name)
+        .addColumn("id", "text", (col) => col.primaryKey())
+        .addColumn("created_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+        .addColumn("updated_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now));
+    await base("customer_segments")
+      .addColumn("name", "text", (col) => col.notNull())
+      .addColumn("rules", sql.raw(t.json), (col) => col.notNull())
+      .execute();
+    await base("email_campaigns")
+      .addColumn("name", "text", (col) => col.notNull())
+      .addColumn("segment_id", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("subject", sql.raw(t.json), (col) => col.notNull())
+      .addColumn("body", sql.raw(t.json), (col) => col.notNull())
+      .addColumn("status", "text", (col) => col.notNull().defaultTo("draft"))
+      .addColumn("recipient_count", "integer", (col) => col.notNull().defaultTo(0))
+      .addColumn("sent_count", "integer", (col) => col.notNull().defaultTo(0))
+      .addColumn("failed_count", "integer", (col) => col.notNull().defaultTo(0))
+      .addColumn("sent_at", sql.raw(t.time))
+      .execute();
+    await db.schema.createIndex("idx_email_campaigns_status").on("email_campaigns").column("status").execute();
+    await base("campaign_deliveries")
+      .addColumn("campaign_id", "text", (col) => col.notNull().references("email_campaigns.id").onDelete("cascade"))
+      .addColumn("user_id", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("email", "text", (col) => col.notNull())
+      .addColumn("name", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("locale", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("status", "text", (col) => col.notNull())
+      .addColumn("error", "text", (col) => col.notNull().defaultTo(""))
+      .addUniqueConstraint("campaign_deliveries_campaign_email", ["campaign_id", "email"])
+      .execute();
+    await db.schema
+      .createIndex("idx_campaign_deliveries_status")
+      .on("campaign_deliveries")
+      .columns(["campaign_id", "status"])
+      .execute();
+    if (is_supabase) {
+      for (const table of ["customer_segments", "email_campaigns", "campaign_deliveries"]) {
+        await sql`alter table ${sql.table(table)} enable row level security`.execute(db);
+      }
+    }
+    await grantPermissions(db, { staff: ["campaigns.view", "campaigns.edit"], demo: ["campaigns.view"] });
+  },
+};
+
 export const MIGRATIONS: Migration[] = [
   initial,
   supabase,
@@ -1095,6 +1146,7 @@ export const MIGRATIONS: Migration[] = [
   files,
   blog,
   metafields,
+  campaigns,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

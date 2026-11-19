@@ -69,7 +69,10 @@
     "messaging_failed": "Twilio didn't send the message. Recent messages shows the reason.",
     "invalid_phone": "That phone number isn't valid. Include the country code, for example +39 333 123 4567.",
     "fulfillment_too_large": "That's more than is left to ship on this order. Refresh and try again.",
-    "metafield_key_taken": "Another field for the same kind of item already uses this key."
+    "metafield_key_taken": "Another field for the same kind of item already uses this key.",
+    "campaign_sent": "This campaign has already been sent and can't be changed.",
+    "campaign_no_recipients": "Nobody in this audience accepts marketing emails yet.",
+    "smtp_not_configured": "Email sending isn't set up yet (Settings → Email sending)."
   },
   "validation": {
     "required": "This field is required.",
@@ -684,5 +687,14 @@
     "analytics_hint": "Visits and how the store is used (Google).",
     "marketing": "Marketing",
     "marketing_hint": "Ads on other sites and measuring them (Meta, Google Ads)."
+  },
+  "unsubscribe": {
+    "title": "Unsubscribe",
+    "body": "Stop receiving marketing emails from us? You'll still get emails about your orders.",
+    "confirm": "Unsubscribe",
+    "done": "You won't receive marketing emails from us any more.",
+    "back": "Back to the shop",
+    "account_hint": "You can subscribe again any time from your account.",
+    "email_link": "Unsubscribe from these emails"
   }
 }

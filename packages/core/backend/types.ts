@@ -24,6 +24,7 @@ import type { DraftDiscount, DraftListFilters, DraftStatus } from "@repo/core/li
 import type { MediaFilters } from "@repo/core/lib/schemas/media";
 import type { BlogListFilters, StoreBlogFilters } from "@repo/core/lib/schemas/blog";
 import type { MetafieldOwner } from "@repo/core/lib/schemas/metafields";
+import type { CampaignListFilters } from "@repo/core/lib/schemas/campaigns";
 import type {
   BuyXGetY,
   CombinesWith,
@@ -1346,6 +1347,8 @@ export type CustomerOrderRecord = {
   id: string;
   user: string;
   email: string;
+  // The language the order was placed in (campaign emails use the latest one).
+  locale: string;
   total: number;
   currency: string;
   status: OrderStatus;
@@ -1364,6 +1367,56 @@ export type CustomersBackend = {
   getNote(customer_key: string): Promise<string>;
   setNote(customer_key: string, note: string, actor: string): Promise<void>;
   setAcceptsMarketing(user_id: string, accepts_marketing: boolean): Promise<void>; // not_found
+};
+
+// ---------- Segments and campaigns (Customers → Segments, Marketing → Campaigns) ----------
+
+export type SegmentRecord = { id: string; name: string; rules: unknown };
+
+export type SegmentsBackend = {
+  list(): Promise<SegmentRecord[]>;
+  create(fields: Omit<SegmentRecord, "id">): Promise<{ id: string }>;
+  update(id: string, fields: Omit<SegmentRecord, "id">): Promise<void>; // not_found
+  remove(id: string): Promise<void>; // not_found
+};
+
+// Subject and body are JSON per language, validated in core (actions/campaigns.ts).
+export type CampaignRecord = {
+  id: string;
+  name: string;
+  segment_id: string;
+  subject: unknown;
+  body: unknown;
+  status: string;
+  recipient_count: number;
+  sent_count: number;
+  failed_count: number;
+  sent_at: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CampaignFields = Pick<CampaignRecord, "name" | "segment_id" | "subject" | "body">;
+
+export type CampaignRecipient = { user_id: string; email: string; name: string; locale: string };
+
+export type CampaignDelivery = CampaignRecipient & { id: string };
+
+export type CampaignsBackend = {
+  // Newest first.
+  list(filters: CampaignListFilters, page_size: number): Promise<Page<CampaignRecord>>;
+  get(id: string): Promise<CampaignRecord>; // not_found
+  create(fields: CampaignFields): Promise<{ id: string }>;
+  update(id: string, fields: CampaignFields): Promise<void>; // not_found
+  remove(id: string): Promise<void>; // not_found
+  // Draft → sending: one pending delivery per recipient, and the recipient count, at once.
+  startSending(id: string, recipients: CampaignRecipient[]): Promise<void>; // not_found
+  pendingDeliveries(campaign_id: string, limit: number): Promise<CampaignDelivery[]>;
+  markDelivery(id: string, status: "sent" | "failed", error: string): Promise<void>;
+  // Counts the deliveries into sent_count / failed_count; with none pending, the campaign is sent.
+  refreshCounts(id: string): Promise<{ pending: number }>;
+  // Campaigns still sending (the cron's work list).
+  sendingIds(): Promise<string[]>;
 };
 
 // ---------- Customer account (always the signed-in customer's own data) ----------
@@ -1434,6 +1487,8 @@ export type Backend = {
   media: MediaBackend;
   blog: BlogBackend;
   metafields: MetafieldsBackend;
+  segments: SegmentsBackend;
+  campaigns: CampaignsBackend;
   email_log: EmailLogBackend;
   message_log: MessageLogBackend;
   inventory: InventoryBackend;

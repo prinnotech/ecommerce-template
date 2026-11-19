@@ -301,6 +301,30 @@ export type MetafieldValuesTable = Timestamps & {
   updated_by: string | null;
 };
 
+export type CustomerSegmentsTable = Timestamps & { name: string; rules: Json };
+
+export type EmailCampaignsTable = Timestamps & {
+  name: string;
+  segment_id: Text;
+  subject: Json;
+  body: Json;
+  status: Text;
+  recipient_count: Int;
+  sent_count: Int;
+  failed_count: Int;
+  sent_at: Time;
+};
+
+export type CampaignDeliveriesTable = Timestamps & {
+  campaign_id: string;
+  user_id: Text;
+  email: string;
+  name: Text;
+  locale: Text;
+  status: string;
+  error: Text;
+};
+
 export type MediaTable = Timestamps & {
   path: string;
   name: string;
@@ -470,6 +494,9 @@ export type Database = {
   blog_posts: BlogPostsTable;
   metafield_definitions: MetafieldDefinitionsTable;
   metafield_values: MetafieldValuesTable;
+  customer_segments: CustomerSegmentsTable;
+  email_campaigns: EmailCampaignsTable;
+  campaign_deliveries: CampaignDeliveriesTable;
   email_log: EmailLogTable;
   message_log: MessageLogTable;
   inventory_adjustments: InventoryAdjustmentsTable;

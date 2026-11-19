@@ -6,6 +6,9 @@ import type { AdminOrderRow } from "@repo/core/backend/types";
 import { fail, ok, type ActionResult } from "@repo/core/lib/action-result";
 import { logActivity } from "@repo/core/lib/activity-log";
 import { authorize } from "@repo/core/lib/auth";
+import { buildCustomers, NOT_SPENT, type AdminCustomerRow } from "@repo/core/lib/customers";
+import { matchesSegment, segment_rules_schema, type SegmentRules } from "@repo/core/lib/schemas/segments";
+import { toCsv } from "@repo/core/lib/utils/csv";
 import type { AddressFields } from "@repo/core/lib/schemas/account";
 import {
   customer_key_schema,
@@ -18,22 +21,7 @@ import {
 } from "@repo/core/lib/schemas/customers";
 
 const PAGE_SIZE = 25;
-// Orders that never turned into revenue don't count towards "total spent".
-const NOT_SPENT = new Set(["cancelled", "refunded"]);
-
-export type AdminCustomerRow = {
-  key: string;
-  name: string;
-  email: string;
-  phone: string;
-  is_registered: boolean;
-  order_count: number;
-  total_spent: number;
-  currency: string;
-  last_order_at: string;
-  created_at: string;
-  accepts_marketing: boolean;
-};
+export type { AdminCustomerRow };
 
 export type AdminCustomerPage = {
   items: AdminCustomerRow[];
@@ -50,76 +38,6 @@ export type AdminCustomer = AdminCustomerRow & {
   orders: AdminOrderRow[];
 };
 
-// Registered users plus guests (orders without a user, grouped by email), with their order stats.
-// Built in memory: one query per collection is far cheaper than one per customer, and a store's
-// customer list stays in the thousands.
-async function buildCustomers(): Promise<AdminCustomerRow[]> {
-  const backend = getBackend();
-  const [users, orders, staff] = await Promise.all([
-    backend.customers.users(),
-    backend.customers.orderRecords(),
-    backend.staff.listMembers(),
-  ]);
-  const staff_ids = new Set(staff.map((member) => member.user_id));
-
-  const customers = new Map<string, AdminCustomerRow>();
-  const key_by_email = new Map<string, string>();
-  for (const user of users) {
-    customers.set(user.id, {
-      key: user.id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      is_registered: true,
-      order_count: 0,
-      total_spent: 0,
-      currency: "",
-      last_order_at: "",
-      created_at: user.created_at,
-      accepts_marketing: user.accepts_marketing,
-    });
-    key_by_email.set(user.email.toLowerCase(), user.id);
-  }
-
-  for (const order of orders) {
-    const email = order.email.toLowerCase();
-    // A guest order placed with a registered user's email belongs to that user.
-    let key = (order.user && customers.has(order.user) ? order.user : "") || key_by_email.get(email) || "";
-    if (!key) {
-      key = `g${order.id}`;
-      key_by_email.set(email, key);
-      customers.set(key, {
-        key,
-        name: order.shipping_address?.full_name ?? "",
-        email: order.email,
-        phone: order.shipping_address?.phone ?? "",
-        is_registered: false,
-        order_count: 0,
-        total_spent: 0,
-        currency: order.currency,
-        last_order_at: "",
-        created_at: order.created_at,
-        accepts_marketing: false,
-      });
-    }
-    const customer = customers.get(key)!;
-    customer.order_count += 1;
-    if (!NOT_SPENT.has(order.status)) customer.total_spent += order.total;
-    customer.currency ||= order.currency;
-    customer.last_order_at = order.created_at;
-    customer.name ||= order.shipping_address?.full_name ?? "";
-    customer.phone ||= order.shipping_address?.phone ?? "";
-  }
-
-  // Staff accounts aren't customers, unless they bought something in the shop.
-  return [...customers.values()]
-    .filter((customer) => !staff_ids.has(customer.key) || customer.order_count > 0)
-    .sort(
-      (a, b) =>
-        (b.last_order_at || "").localeCompare(a.last_order_at || "") || b.created_at.localeCompare(a.created_at),
-    );
-}
-
 const SORT_VALUE: Record<CustomerListFilters["sort"], (customer: AdminCustomerRow) => string | number> = {
   last_order: (customer) => customer.last_order_at,
   total_spent: (customer) => customer.total_spent,
@@ -134,28 +52,44 @@ function matchesType(customer: AdminCustomerRow, type: CustomerListFilters["type
   return true;
 }
 
+// The customers the list shows for these filters (search, type, segment), sorted.
+async function filteredCustomers(filters: CustomerListFilters): Promise<AdminCustomerRow[] | null> {
+  let rules: SegmentRules | null = null;
+  if (filters.segment) {
+    const segment = (await getBackend().segments.list()).find((item) => item.id === filters.segment);
+    const parsed = segment_rules_schema.safeParse(segment?.rules);
+    if (!parsed.success) return null;
+    rules = parsed.data;
+  }
+  const now = Date.now();
+  const search = filters.search.toLowerCase();
+  const matching = (await buildCustomers()).filter(
+    (customer) =>
+      matchesType(customer, filters.type) &&
+      (!rules || matchesSegment(customer, rules, now)) &&
+      (!search ||
+        [customer.name, customer.email, customer.phone].some((value) => value.toLowerCase().includes(search))),
+  );
+  const value = SORT_VALUE[filters.sort];
+  const sign = filters.direction === "asc" ? 1 : -1;
+  // Stable: ties keep the default order (latest order first).
+  matching.sort((a, b) => {
+    const left = value(a);
+    const right = value(b);
+    if (left === right) return 0;
+    return (left < right ? -1 : 1) * sign;
+  });
+  return matching;
+}
+
 export async function getCustomers(input: Partial<CustomerListFilters>): Promise<ActionResult<AdminCustomerPage>> {
   const auth = await authorize("customers.view", "view customers");
   if (!auth.ok) return auth;
   const filters = customer_list_filters_schema.parse(input);
 
   try {
-    const search = filters.search.toLowerCase();
-    const matching = (await buildCustomers()).filter(
-      (customer) =>
-        matchesType(customer, filters.type) &&
-        (!search ||
-          [customer.name, customer.email, customer.phone].some((value) => value.toLowerCase().includes(search))),
-    );
-    const value = SORT_VALUE[filters.sort];
-    const sign = filters.direction === "asc" ? 1 : -1;
-    // Stable: ties keep the default order (latest order first).
-    matching.sort((a, b) => {
-      const left = value(a);
-      const right = value(b);
-      if (left === right) return 0;
-      return (left < right ? -1 : 1) * sign;
-    });
+    // A deleted segment shows an empty list rather than everyone.
+    const matching = (await filteredCustomers(filters)) ?? [];
     const total_pages = Math.max(1, Math.ceil(matching.length / PAGE_SIZE));
     const page = Math.min(filters.page, total_pages);
     return ok({
@@ -166,6 +100,54 @@ export async function getCustomers(input: Partial<CustomerListFilters>): Promise
     });
   } catch (error) {
     return failFrom(error, "customers", "getCustomers");
+  }
+}
+
+// The customers matching the list's current filters (segment included), as CSV text.
+export async function exportCustomersCsv(input: Partial<CustomerListFilters>): Promise<ActionResult<string>> {
+  const auth = await authorize("customers.view", "export customers");
+  if (!auth.ok) return auth;
+  const filters = customer_list_filters_schema.parse(input);
+  try {
+    const rows = (await filteredCustomers(filters)) ?? [];
+    await logActivity({
+      actor_id: auth.caller.user_id,
+      action: "export customers",
+      target_type: "customers",
+      details: { count: rows.length, filters },
+    });
+    return ok(
+      toCsv([
+        [
+          "name",
+          "email",
+          "phone",
+          "account",
+          "accepts_marketing",
+          "orders",
+          "total_spent",
+          "currency",
+          "last_order",
+          "country",
+          "customer_since",
+        ],
+        ...rows.map((row) => [
+          row.name,
+          row.email,
+          row.phone,
+          row.is_registered ? "yes" : "no",
+          row.accepts_marketing ? "yes" : "no",
+          String(row.order_count),
+          (row.total_spent / 100).toFixed(2),
+          row.currency,
+          row.last_order_at,
+          row.country,
+          row.created_at,
+        ]),
+      ]),
+    );
+  } catch (error) {
+    return failFrom(error, "customers", "exportCustomersCsv");
   }
 }
 

@@ -12,6 +12,7 @@ export const PERMISSION_GROUPS = {
   orders: ["view", "edit", "refund"],
   draft_orders: ["view", "edit"],
   discounts: ["view", "edit"],
+  campaigns: ["view", "edit"],
   customers: ["view", "edit"],
   messages: ["view"],
   settings: ["view", "edit"],

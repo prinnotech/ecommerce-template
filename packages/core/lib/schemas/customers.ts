@@ -10,6 +10,8 @@ export const customer_list_filters_schema = z.object({
   search: z.string().trim().max(100).catch(""),
   // "subscribed" = accepts marketing emails (Shopify's "Email subscribers" view).
   type: z.enum(["all", "registered", "guest", "subscribed"]).catch("all"),
+  // A saved segment (Customers → Segments); "" = none.
+  segment: z.union([id_schema, z.literal("")]).catch(""),
   sort: z.enum(["last_order", "total_spent", "order_count", "created_at"]).catch("last_order"),
   direction: z.enum(["asc", "desc"]).catch("desc"),
   page: z.coerce.number().int().min(1).max(10_000).catch(1),

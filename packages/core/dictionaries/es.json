@@ -69,7 +69,10 @@
     "messaging_failed": "Twilio no envió el mensaje. En Mensajes recientes verás el motivo.",
     "invalid_phone": "Ese número de teléfono no es válido. Incluye el prefijo de país, por ejemplo +34 612 345 678.",
     "fulfillment_too_large": "Es más de lo que queda por enviar en este pedido. Actualiza e inténtalo de nuevo.",
-    "metafield_key_taken": "Otro campo del mismo tipo de elemento ya usa esta clave."
+    "metafield_key_taken": "Otro campo del mismo tipo de elemento ya usa esta clave.",
+    "campaign_sent": "Esta campaña ya se envió y no se puede cambiar.",
+    "campaign_no_recipients": "Nadie de estos destinatarios acepta todavía emails de marketing.",
+    "smtp_not_configured": "El envío de emails aún no está configurado (Ajustes → Envío de emails)."
   },
   "validation": {
     "required": "Este campo es obligatorio.",
@@ -684,5 +687,14 @@
     "analytics_hint": "Visitas y uso de la tienda (Google).",
     "marketing": "Marketing",
     "marketing_hint": "Anuncios en otros sitios y su medición (Meta, Google Ads)."
+  },
+  "unsubscribe": {
+    "title": "Darse de baja",
+    "body": "¿Dejar de recibir nuestros emails de marketing? Seguirás recibiendo los emails sobre tus pedidos.",
+    "confirm": "Darme de baja",
+    "done": "Ya no recibirás nuestros emails de marketing.",
+    "back": "Volver a la tienda",
+    "account_hint": "Puedes volver a suscribirte cuando quieras desde tu cuenta.",
+    "email_link": "Darse de baja de estos emails"
   }
 }

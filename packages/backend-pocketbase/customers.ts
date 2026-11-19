@@ -21,12 +21,13 @@ export const customers: CustomersBackend = {
     const orders = await pb.collection("orders").getFullList<OrderRecord>({
       filter: 'deleted_at = ""',
       sort: "created_at",
-      fields: "id,user,email,total,currency,status,created_at,shipping_address",
+      fields: "id,user,email,locale,total,currency,status,created_at,shipping_address",
     });
     return orders.map((order) => ({
       id: order.id,
       user: order.user,
       email: order.email,
+      locale: order.locale,
       total: order.total,
       currency: order.currency,
       status: order.status,
