@@ -4,8 +4,9 @@ import { after } from "next/server";
 
 import { getBackend } from "@repo/core/backend/index";
 import type { AdminOrderDetail } from "@repo/core/backend/types";
-import { isLocale, LOCALES, type Locale } from "@repo/core/i18nConfig";
+import type { Locale } from "@repo/core/i18nConfig";
 import { renderEmail, type EmailSummary } from "@repo/core/lib/email/layout";
+import { orderLocale, placeholderValues } from "@repo/core/lib/email/order-values";
 import {
   fillPlaceholders,
   STAFF_TEMPLATES,
@@ -17,8 +18,8 @@ import {
 import { sendEmail } from "@repo/core/lib/email/transport";
 import { getDictionary } from "@repo/core/lib/i18n";
 import { localized } from "@repo/core/lib/localized";
+import { sendOrderMessages } from "@repo/core/lib/messaging/order-messages";
 import { reportError } from "@repo/core/lib/server-log";
-import { ADMIN_URL, SITE_URL } from "@repo/core/lib/site-config";
 import type { SiteSettings } from "@repo/core/lib/site-settings";
 import { getSiteSettings } from "@repo/core/lib/site-settings-server";
 import { getLiveTheme } from "@repo/core/lib/theme-server";
@@ -26,51 +27,10 @@ import { formatCurrency } from "@repo/core/lib/utils/format";
 
 // Order emails (Settings → Notifications): built from the order, the template in the order's
 // language and the store's look, and sent after the response, so a slow mail server never slows
-// down the checkout or an admin action.
+// down the checkout or an admin action. The same events also send the SMS/WhatsApp messages
+// (lib/messaging/order-messages.ts).
 
 export type BuiltEmail = { to: string; subject: string; html: string; text: string };
-
-function orderLocale(order: AdminOrderDetail, settings: SiteSettings): Locale {
-  return isLocale(order.locale)
-    ? order.locale
-    : isLocale(settings.DEFAULT_LOCALE)
-      ? settings.DEFAULT_LOCALE
-      : LOCALES[0];
-}
-
-function placeholderValues(
-  order: AdminOrderDetail,
-  settings: SiteSettings,
-  locale: Locale,
-  extra: Partial<Record<Placeholder, string>>,
-  is_staff: boolean,
-): Partial<Record<Placeholder, string>> {
-  const method = settings.PAYMENT_METHODS.find((item) => item.id === order.payment_method);
-  const money = (cents: number) => formatCurrency(cents, order.currency || settings.CURRENCY, locale);
-  const customer_name = order.customer?.name || order.shipping_address?.full_name || order.email;
-  // Customers follow the order in their account; guests have no page to open.
-  const order_link = is_staff
-    ? `${ADMIN_URL}/orders/${order.id}`
-    : order.customer
-      ? `${SITE_URL}/${locale}/account/orders/${order.id}`
-      : "";
-  return {
-    store_name: settings.SITE_NAME,
-    customer_name,
-    order_number: String(order.order_number),
-    order_total: money(order.total),
-    order_link,
-    payment_method: method ? localized(method.name, locale) || method.id : order.payment_method,
-    // Instructions only matter while the order still waits for the money.
-    payment_instructions: method && order.payment_status === "unpaid" ? localized(method.instructions, locale) : "",
-    shipping_method: order.shipping_method,
-    tracking_number: order.tracking_number,
-    tracking_link: order.tracking_url,
-    carrier: order.carrier,
-    refund_amount: money(order.refunds[0]?.amount ?? order.total),
-    ...extra,
-  };
-}
 
 async function orderSummary(order: AdminOrderDetail, settings: SiteSettings, locale: Locale): Promise<EmailSummary> {
   const text = (await getDictionary(locale)).checkout;
@@ -148,7 +108,7 @@ async function sendForOrder(
   if (email) await sendEmail({ ...email, template, order_id: order.id });
 }
 
-// Schedules the email(s) for an order event. A new order also tells the staff.
+// Schedules the email(s) and messages for an order event. A new order also tells the staff.
 export async function sendOrderEmails(
   template: EmailTemplate,
   order_ref: number | { id: string },
@@ -160,10 +120,15 @@ export async function sendOrderEmails(
       const id = typeof order_ref === "number" ? await orders.getIdByNumber(order_ref) : order_ref.id;
       if (!id) return;
       const order = await orders.get(id);
-      await sendForOrder(template, order, extra);
-      if (template === "order_confirmation") await sendForOrder("staff_new_order", order);
+      try {
+        await sendForOrder(template, order, extra);
+        if (template === "order_confirmation") await sendForOrder("staff_new_order", order);
+      } catch (error) {
+        await reportError("email", `order emails (${template})`, error);
+      }
+      await sendOrderMessages(template, order, extra);
     } catch (error) {
-      await reportError("email", `order emails (${template})`, error);
+      await reportError("messaging", `order notifications (${template})`, error);
     }
   });
 }

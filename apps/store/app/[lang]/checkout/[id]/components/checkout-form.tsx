@@ -101,6 +101,7 @@ export function CheckoutForm({
   // since changing it would change the amount.
   const [stripe_secret, setStripeSecret] = useState("");
   const [note, setNote] = useState("");
+  const [is_sms_opt_in, setIsSmsOptIn] = useState(false);
   const [totals, setTotals] = useState<Totals>(checkout.totals);
   const [applied_code, setAppliedCode] = useState(checkout.discount_code);
   const [is_discount_invalid, setIsDiscountInvalid] = useState(false);
@@ -180,6 +181,7 @@ export function CheckoutForm({
       discount_code: applied_code,
       gift_card_code: gift_card?.code ?? "",
       customer_note: note,
+      sms_opt_in: checkout.offers_messages && is_sms_opt_in,
       expected_total: totals.total,
     });
     const schema_errors = parsed.success ? {} : fieldErrors(parsed.error);
@@ -341,6 +343,23 @@ export function CheckoutForm({
                 phone_label={is_cod ? dictionary.phone : dictionary.phone_optional}
                 phone_hint={is_cod ? dictionary.phone_cod_hint : undefined}
               />
+              {checkout.offers_messages && (
+                <label className="flex items-start gap-2.5 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={is_sms_opt_in}
+                    onChange={(event) => setIsSmsOptIn(event.target.checked)}
+                    aria-describedby="sms-opt-in-hint"
+                    className="accent-primary mt-0.5 size-4 shrink-0"
+                  />
+                  <span className="flex flex-col gap-0.5">
+                    {dictionary.sms_opt_in}
+                    <span id="sms-opt-in-hint" className="text-muted-foreground text-xs">
+                      {dictionary.sms_opt_in_hint}
+                    </span>
+                  </span>
+                </label>
+              )}
             </Section>
 
             <Section title={dictionary.shipping_method}>

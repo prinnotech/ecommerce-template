@@ -127,7 +127,8 @@
       "profile": "Profilo",
       "tracking": "Tracciamento",
       "api_keys": "Chiavi API",
-      "ai": "IA"
+      "ai": "IA",
+      "sms": "SMS e WhatsApp"
     },
     "saved_all": "Impostazioni salvate.",
     "assets": {
@@ -300,6 +301,10 @@
       "ai": {
         "label": "IA",
         "description": "Si modifica in Impostazioni → IA."
+      },
+      "messaging": {
+        "label": "SMS e WhatsApp",
+        "description": "Si modifica in Impostazioni → SMS e WhatsApp."
       }
     },
     "groups": {
@@ -1039,7 +1044,14 @@
       "landing_page": "Pagina di arrivo",
       "referrer": "Referrer",
       "source_direct": "Diretto o sconosciuto",
-      "gift_card_paid": "Pagato con carta regalo"
+      "gift_card_paid": "Pagato con carta regalo",
+      "message_sent": "{channel} inviato a {recipient}",
+      "message_failed": "{channel} a {recipient} non riuscito",
+      "message_skipped": "{channel} a {recipient} non inviato",
+      "message_channels": {
+        "sms": "SMS",
+        "whatsapp": "WhatsApp"
+      }
     }
   },
   "messages": {
@@ -2483,5 +2495,129 @@
     "test": "Prova",
     "test_ok": "Funziona: «{text}»",
     "secrets_off": "Questo server non può ancora salvare chiavi (manca la chiave di cifratura)."
+  },
+  "sms_settings": {
+    "title": "SMS e WhatsApp",
+    "subtitle": "Aggiornamenti sugli ordini via SMS e WhatsApp, inviati tramite il tuo account Twilio.",
+    "configured": "Collegato",
+    "not_configured": "Non configurato",
+    "account_title": "Account Twilio",
+    "account_hint": "Li trovi entrambi nella home della tua Twilio Console.",
+    "account_sid": "Account SID",
+    "auth_token": "Auth token",
+    "token_saved": "Salvato. Scrivine uno nuovo per sostituirlo.",
+    "token_env": "Impostato sul server (TWILIO_AUTH_TOKEN).",
+    "token_not_set": "Non ancora impostato.",
+    "encryption_missing": "L'auth token non si può ancora salvare: imposta SETTINGS_ENCRYPTION_KEY sul server.",
+    "senders_title": "Mittenti",
+    "sms_from": "Mittente SMS",
+    "sms_from_hint": "Un numero Twilio (+39…) o il SID di un Messaging Service (MG…). Vuoto = niente SMS.",
+    "whatsapp_from": "Mittente WhatsApp",
+    "whatsapp_from_hint": "Il tuo numero Twilio abilitato a WhatsApp (+…). Vuoto = niente WhatsApp.",
+    "country_code": "Prefisso internazionale predefinito",
+    "country_code_hint": "Aggiunto ai numeri che i clienti scrivono senza prefisso, per esempio +39.",
+    "staff_title": "Telefoni dello staff",
+    "staff_hint": "Chi riceve gli avvisi per lo staff. Un numero per riga, con il prefisso internazionale.",
+    "staff_phones": "Numeri dello staff",
+    "events_title": "Messaggi",
+    "events_hint": "I clienti li ricevono solo se al checkout hanno spuntato la casella degli aggiornamenti e hanno indicato un telefono.",
+    "audience_customer": "Cliente",
+    "audience_staff": "Staff",
+    "channel_sms": "SMS",
+    "channel_whatsapp": "WhatsApp",
+    "toggle_sms": "Invia {event} via SMS",
+    "toggle_whatsapp": "Invia {event} su WhatsApp",
+    "edit": "Modifica testo",
+    "done": "Fatto",
+    "sms_text": "Testo dell'SMS",
+    "placeholders": "Segnaposto: {list}",
+    "characters": "{count} caratteri (circa {parts} SMS)",
+    "whatsapp_title": "Template WhatsApp",
+    "whatsapp_hint": "I messaggi WhatsApp avviati dal negozio devono usare un template approvato da Meta. Crealo nel Content Template Builder di Twilio e incolla qui il suo Content SID (HX…).",
+    "content_sid": "Content SID",
+    "variables": "Variabili del template",
+    "variables_hint": "Cosa riempie {{1}}, {{2}}… nel template, in quest'ordine.",
+    "variable_label": "Variabile {n}",
+    "add_variable": "Aggiungi variabile",
+    "remove_variable": "Rimuovi la variabile {n}",
+    "whatsapp_needs_template": "Aggiungi un Content SID per inviarlo su WhatsApp.",
+    "save": "Salva",
+    "saved": "Impostazioni SMS e WhatsApp salvate.",
+    "test_title": "Invia una prova",
+    "test_hint": "Invia un breve messaggio con le impostazioni salvate. Una prova su WhatsApp arriva solo se quel numero ha scritto al tuo mittente WhatsApp nelle ultime 24 ore (con la sandbox di Twilio: dopo aver inviato il codice join).",
+    "test_to": "Numero di telefono",
+    "test_channel": "Canale",
+    "test_send": "Invia prova",
+    "test_sent": "Messaggio di prova inviato a {phone}.",
+    "log_title": "Messaggi recenti",
+    "log_empty": "Ancora nessun messaggio.",
+    "log_date": "Data",
+    "log_channel": "Canale",
+    "log_event": "Messaggio",
+    "log_recipient": "A",
+    "log_status": "Stato",
+    "log_test": "Prova",
+    "status": {
+      "sent": "Inviato",
+      "failed": "Errore",
+      "skipped": "Non inviato"
+    },
+    "reasons": {
+      "not_configured": "Twilio non è configurato",
+      "invalid_phone": "Numero non valido",
+      "no_template": "Nessun template WhatsApp"
+    },
+    "field_errors": {
+      "invalid_account_sid": "Un Account SID inizia con AC, seguito da 32 caratteri.",
+      "invalid_sender": "Usa un numero con prefisso (+…) o il SID di un Messaging Service (MG…).",
+      "invalid_country_code": "Usa + e il prefisso, per esempio +39.",
+      "invalid_phone": "Usa il numero completo con prefisso, per esempio +393331234567.",
+      "invalid_content_sid": "Un Content SID inizia con HX, seguito da 32 caratteri."
+    },
+    "events": {
+      "order_confirmation": {
+        "label": "Ordine confermato",
+        "description": "Quando il cliente effettua un ordine."
+      },
+      "order_shipped": {
+        "label": "Ordine spedito",
+        "description": "Quando segni l'ordine come spedito, con il numero di tracking."
+      },
+      "order_delivered": {
+        "label": "Ordine consegnato",
+        "description": "Quando segni l'ordine come consegnato."
+      },
+      "order_cancelled": {
+        "label": "Ordine annullato",
+        "description": "Quando annulli l'ordine."
+      },
+      "order_refunded": {
+        "label": "Ordine rimborsato",
+        "description": "Quando rimborsi tutto o parte dell'ordine."
+      },
+      "staff_new_order": {
+        "label": "Nuovo ordine (staff)",
+        "description": "Ai telefoni dello staff, per ogni nuovo ordine."
+      },
+      "staff_low_stock": {
+        "label": "Scorte basse (staff)",
+        "description": "Ai telefoni dello staff, quando un ordine porta una variante al livello di scorte basse."
+      }
+    },
+    "placeholder_names": {
+      "store_name": "Nome del negozio",
+      "customer_name": "Nome del cliente",
+      "order_number": "Numero d'ordine",
+      "order_total": "Totale dell'ordine",
+      "order_link": "Link all'ordine",
+      "payment_method": "Metodo di pagamento",
+      "shipping_method": "Metodo di spedizione",
+      "tracking_number": "Numero di tracking",
+      "tracking_link": "Link di tracking",
+      "carrier": "Corriere",
+      "refund_amount": "Importo rimborsato",
+      "product_name": "Prodotto",
+      "stock_left": "Scorte rimaste"
+    }
   }
 }

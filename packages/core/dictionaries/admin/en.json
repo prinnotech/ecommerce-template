@@ -127,7 +127,8 @@
       "profile": "Profile",
       "tracking": "Tracking",
       "api_keys": "API keys",
-      "ai": "AI"
+      "ai": "AI",
+      "sms": "SMS & WhatsApp"
     },
     "saved_all": "Settings saved.",
     "assets": {
@@ -300,6 +301,10 @@
       "ai": {
         "label": "AI",
         "description": "Edited in Settings → AI."
+      },
+      "messaging": {
+        "label": "SMS & WhatsApp",
+        "description": "Edited in Settings → SMS & WhatsApp."
       }
     },
     "groups": {
@@ -1039,7 +1044,14 @@
       "landing_page": "Landing page",
       "referrer": "Referrer",
       "source_direct": "Direct or unknown",
-      "gift_card_paid": "Paid with gift card"
+      "gift_card_paid": "Paid with gift card",
+      "message_sent": "{channel} sent to {recipient}",
+      "message_failed": "{channel} to {recipient} failed",
+      "message_skipped": "{channel} to {recipient} not sent",
+      "message_channels": {
+        "sms": "SMS",
+        "whatsapp": "WhatsApp"
+      }
     }
   },
   "messages": {
@@ -2483,5 +2495,129 @@
     "test": "Test",
     "test_ok": "It works: “{text}”",
     "secrets_off": "Keys can't be saved on this server yet (no encryption key)."
+  },
+  "sms_settings": {
+    "title": "SMS & WhatsApp",
+    "subtitle": "Order updates by text message and WhatsApp, sent through your Twilio account.",
+    "configured": "Connected",
+    "not_configured": "Not set up",
+    "account_title": "Twilio account",
+    "account_hint": "Both are on your Twilio Console's home page.",
+    "account_sid": "Account SID",
+    "auth_token": "Auth token",
+    "token_saved": "Saved. Type a new one to replace it.",
+    "token_env": "Set on the server (TWILIO_AUTH_TOKEN).",
+    "token_not_set": "Not set yet.",
+    "encryption_missing": "The auth token can't be saved yet: set SETTINGS_ENCRYPTION_KEY on the server.",
+    "senders_title": "Senders",
+    "sms_from": "SMS sender",
+    "sms_from_hint": "A Twilio phone number (+1…) or a Messaging Service SID (MG…). Empty = no SMS.",
+    "whatsapp_from": "WhatsApp sender",
+    "whatsapp_from_hint": "Your WhatsApp-enabled Twilio number (+…). Empty = no WhatsApp.",
+    "country_code": "Default country code",
+    "country_code_hint": "Added to phone numbers customers type without one, for example +39.",
+    "staff_title": "Staff phones",
+    "staff_hint": "Who gets the staff alerts. One number per line, with the country code.",
+    "staff_phones": "Staff phone numbers",
+    "events_title": "Messages",
+    "events_hint": "Customers get these only if they ticked the order updates box at checkout and gave a phone number.",
+    "audience_customer": "Customer",
+    "audience_staff": "Staff",
+    "channel_sms": "SMS",
+    "channel_whatsapp": "WhatsApp",
+    "toggle_sms": "Send {event} by SMS",
+    "toggle_whatsapp": "Send {event} on WhatsApp",
+    "edit": "Edit text",
+    "done": "Done",
+    "sms_text": "SMS text",
+    "placeholders": "Placeholders: {list}",
+    "characters": "{count} characters (about {parts} SMS)",
+    "whatsapp_title": "WhatsApp template",
+    "whatsapp_hint": "WhatsApp messages the store starts must use a template Meta approved. Create it in Twilio's Content Template Builder and paste its Content SID (HX…) here.",
+    "content_sid": "Content SID",
+    "variables": "Template variables",
+    "variables_hint": "What fills {{1}}, {{2}}… in the template, in that order.",
+    "variable_label": "Variable {n}",
+    "add_variable": "Add variable",
+    "remove_variable": "Remove variable {n}",
+    "whatsapp_needs_template": "Add a Content SID to send this on WhatsApp.",
+    "save": "Save",
+    "saved": "SMS and WhatsApp settings saved.",
+    "test_title": "Send a test",
+    "test_hint": "Sends a short message with the saved settings. A WhatsApp test only arrives if that number wrote to your WhatsApp sender in the last 24 hours (with the Twilio sandbox: after sending the join code).",
+    "test_to": "Phone number",
+    "test_channel": "Channel",
+    "test_send": "Send test",
+    "test_sent": "Test message sent to {phone}.",
+    "log_title": "Recent messages",
+    "log_empty": "No messages yet.",
+    "log_date": "Date",
+    "log_channel": "Channel",
+    "log_event": "Message",
+    "log_recipient": "To",
+    "log_status": "Status",
+    "log_test": "Test",
+    "status": {
+      "sent": "Sent",
+      "failed": "Failed",
+      "skipped": "Not sent"
+    },
+    "reasons": {
+      "not_configured": "Twilio isn't set up",
+      "invalid_phone": "Invalid phone number",
+      "no_template": "No WhatsApp template"
+    },
+    "field_errors": {
+      "invalid_account_sid": "An Account SID starts with AC, followed by 32 characters.",
+      "invalid_sender": "Use a number with the country code (+…) or a Messaging Service SID (MG…).",
+      "invalid_country_code": "Use + and the code, for example +39.",
+      "invalid_phone": "Use the full number with the country code, for example +393331234567.",
+      "invalid_content_sid": "A Content SID starts with HX, followed by 32 characters."
+    },
+    "events": {
+      "order_confirmation": {
+        "label": "Order confirmed",
+        "description": "When the customer places an order."
+      },
+      "order_shipped": {
+        "label": "Order shipped",
+        "description": "When you mark the order as shipped, with the tracking number."
+      },
+      "order_delivered": {
+        "label": "Order delivered",
+        "description": "When you mark the order as delivered."
+      },
+      "order_cancelled": {
+        "label": "Order cancelled",
+        "description": "When you cancel the order."
+      },
+      "order_refunded": {
+        "label": "Order refunded",
+        "description": "When you refund all or part of the order."
+      },
+      "staff_new_order": {
+        "label": "New order (staff)",
+        "description": "To the staff phones, for every new order."
+      },
+      "staff_low_stock": {
+        "label": "Low stock (staff)",
+        "description": "To the staff phones, when an order takes a variant down to the low-stock level."
+      }
+    },
+    "placeholder_names": {
+      "store_name": "Store name",
+      "customer_name": "Customer name",
+      "order_number": "Order number",
+      "order_total": "Order total",
+      "order_link": "Order link",
+      "payment_method": "Payment method",
+      "shipping_method": "Shipping method",
+      "tracking_number": "Tracking number",
+      "tracking_link": "Tracking link",
+      "carrier": "Carrier",
+      "refund_amount": "Refund amount",
+      "product_name": "Product",
+      "stock_left": "Stock left"
+    }
   }
 }

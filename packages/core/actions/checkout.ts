@@ -21,6 +21,7 @@ import {
   type PricedLine,
 } from "@repo/core/lib/checkout/checkout-server";
 import { placeSessionOrder, viewPaymentMethod, type CheckoutPaymentMethod } from "@repo/core/lib/checkout/place-order";
+import { offersCustomerMessages } from "@repo/core/lib/schemas/messaging";
 import { computeTotals, type Totals } from "@repo/core/lib/checkout/pricing";
 import { draftForSession, draftTotals } from "@repo/core/lib/draft-orders";
 import { shippingRatesFor, taxRateFor } from "@repo/core/lib/shipping";
@@ -88,6 +89,8 @@ export type CheckoutView = {
   // The draft's address, to start the form with.
   shipping_address: AddressFields | null;
   gift_card: AppliedGiftCard | null;
+  // The store sends SMS/WhatsApp order updates: the form asks for consent.
+  offers_messages: boolean;
 };
 
 export type CheckoutState = { status: "open"; checkout: CheckoutView } | { status: "completed" };
@@ -242,6 +245,7 @@ export async function getCheckout(id: string): Promise<ActionResult<CheckoutStat
         expires_at: session.expires_at,
         is_draft: draft !== null,
         shipping_address: session.shipping_address,
+        offers_messages: offersCustomerMessages(settings.MESSAGING),
         gift_card: session.gift_card_id
           ? giftCardApplied(
               await getBackend()
@@ -426,6 +430,9 @@ export async function completeCheckout(input: CompleteCheckoutInput): Promise<Ac
       payment_method: method.id,
       discount_code: discount?.id ?? "",
       customer_note: data.customer_note,
+      // Consent only counts with a phone to send to and messages the store actually sends.
+      sms_opt_in:
+        data.sms_opt_in && Boolean(data.shipping_address.phone.trim()) && offersCustomerMessages(settings.MESSAGING),
       gift_card_id: card?.id ?? "",
       gift_card_amount: gift?.amount ?? 0,
       ...totalsFields(totals),

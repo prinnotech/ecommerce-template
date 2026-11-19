@@ -225,6 +225,7 @@ async function previewOrder(): Promise<AdminOrderDetail> {
     shipping_method: "Standard",
     customer_note: "",
     internal_note: "",
+    sms_opt_in: false,
     attribution: null,
     refunded_total: 0,
     refunds: [],

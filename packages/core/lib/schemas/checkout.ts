@@ -44,6 +44,8 @@ export const complete_checkout_schema = z
     discount_code: z.string().trim().toUpperCase().max(50),
     gift_card_code: z.string().trim().toUpperCase().max(40).catch(""),
     customer_note: z.string().trim().max(2000, "too_long"),
+    // "Send me order updates by SMS/WhatsApp" (shown only when the store sends them).
+    sms_opt_in: z.boolean().default(false),
     // The total the customer saw; the order is refused if the server's total differs.
     expected_total: z.number().int().min(0),
   })

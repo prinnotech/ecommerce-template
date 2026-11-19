@@ -14,7 +14,7 @@ import { toDiscountCode } from "@repo/backend-sql/discounts";
 import { changeStockLogged } from "@repo/backend-sql/inventory";
 import type { Database } from "@repo/backend-sql/schema";
 import { imagesFor, sellableVariant } from "@repo/backend-sql/storefront";
-import { iso, json, newId, nowIso } from "@repo/backend-sql/values";
+import { bool, iso, json, newId, nowIso } from "@repo/backend-sql/values";
 import { parseAttribution } from "@repo/core/lib/tracking/attribution";
 
 // Checkout sessions, payments and discount codes are only reachable from the server.
@@ -50,6 +50,7 @@ function toSession(row: SessionRow): CheckoutSession {
     attribution: row.attribution ? parseAttribution(json(row.attribution, null)) : null,
     gift_card_id: String(row.gift_card_id ?? ""),
     gift_card_amount: Number(row.gift_card_amount ?? 0),
+    sms_opt_in: bool(row.sms_opt_in),
   };
 }
 

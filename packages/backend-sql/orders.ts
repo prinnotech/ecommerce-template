@@ -258,6 +258,7 @@ export function createOrders(ctx: SqlContext): OrdersBackend {
         shipping_method: order.shipping_method,
         customer_note: order.customer_note,
         internal_note: order.internal_note,
+        sms_opt_in: bool(order.sms_opt_in),
         attribution: order.attribution ? parseAttribution(json(order.attribution, null)) : null,
         refunded_total: order.refunded_total,
         gift_card_total: order.gift_card_total,

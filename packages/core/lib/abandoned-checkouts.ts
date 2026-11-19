@@ -40,6 +40,7 @@ function sessionAsOrder(session: CheckoutSession, settings: SiteSettings): Admin
     shipping_method: rate ? localized(rate.name, locale) || rate.id : "",
     customer_note: "",
     internal_note: "",
+    sms_opt_in: false,
     attribution: null,
     refunded_total: 0,
     refunds: [],

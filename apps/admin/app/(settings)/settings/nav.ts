@@ -13,6 +13,7 @@ export type SettingsNavKey =
   | "taxes"
   | "notifications"
   | "email"
+  | "sms"
   | "staff"
   | "roles"
   | "activity"
@@ -49,6 +50,7 @@ export const SETTINGS_NAV_GROUPS: readonly SettingsNavGroup[] = [
     items: [
       { key: "notifications", permission: "settings.view" },
       { key: "email", permission: "settings.view" },
+      { key: "sms", permission: "settings.view" },
     ],
   },
   {

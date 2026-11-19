@@ -81,6 +81,12 @@ The rebuild plan (Supabase/PocketBase/SQLite backends, Shopify-style admin, doma
 - Edited store text is the `UI_TRANSLATIONS` setting, applied by `getDictionary()` over the shipped dictionary (English for other languages). Content is translated in place (`{ [code]: text }`), walked by `lib/content-translation.ts`.
 - "Translate with AI" uses the Vercel AI SDK (`lib/ai/translate.ts`) with the provider/model of the `AI` setting and its key from the encrypted secrets (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`; env wins). Results are drafts until saved; translations that change `{placeholders}` are dropped.
 
+### SMS and WhatsApp (`docs/sms.md`)
+- Settings → SMS & WhatsApp (`actions/messaging.ts`, `MESSAGING` setting in `lib/schemas/messaging.ts`, `TWILIO_AUTH_TOKEN` secret). Twilio's REST API through `fetch` (`lib/messaging/twilio.ts`), no SDK. Every message is logged in `message_log` (shown on the screen and on the order timeline).
+- `sendOrderEmails()` also sends the event's messages (`lib/messaging/order-messages.ts`), after the response. Customers get them only with `sms_opt_in` (the checkout box, saved on the session and the order) and a phone; `staff_new_order` / `staff_low_stock` go to `staff_phones`. `notifyLowStock()` runs after `placeSessionOrder` and alerts when an order takes a variant to `LOW_STOCK_THRESHOLD` or below.
+- SMS text per language uses the email `{{placeholders}}`; WhatsApp uses a Meta-approved Twilio Content template (`HX…` SID) with placeholders mapped to its variables. Numbers without a country code get `default_country_code` (`toE164`).
+- No messages for abandoned checkouts: the phone and the consent are only saved when the order is placed.
+
 ### UX references
 - **Checkout = Shopify's one-page checkout layout and flow**: two columns on desktop (left: contact → delivery address → shipping method → payment → "Pay now"/"Complete order"; right: sticky order summary with line items, discount field, subtotal, shipping, taxes, total). On mobile the summary collapses into a "Show order summary" bar at the top. Copy the layout, field order, spacing and behaviour. **Don't copy Shopify's logos, brand name or assets.**
 - **Admin dashboard = Stripe Dashboard style**: dense data tables with filters and search, status badges, detail pages with a timeline of events, a left sidebar, quick actions in a top-right menu.

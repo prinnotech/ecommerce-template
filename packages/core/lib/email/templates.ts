@@ -206,13 +206,16 @@ export function templateSettings(settings: NotificationSettings, template: Email
 // {{name}} → value. A line with a placeholder that has no value is left out, so
 // "Tracking number: {{tracking_number}}" disappears when there's none. Text is plain (the email
 // layout escapes it), so a value can never inject HTML.
-export function fillPlaceholders(template: string, values: Partial<Record<Placeholder, string>>): string {
+export function fillPlaceholders<P extends string = Placeholder>(
+  template: string,
+  values: Partial<Record<P, string>>,
+): string {
   return template
     .split("\n")
     .flatMap((line) => {
       let is_missing = false;
       const filled = line.replace(/\{\{\s*([a-z_]+)\s*\}\}/g, (_match, name: string) => {
-        const value = values[name as Placeholder] ?? "";
+        const value = values[name as P] ?? "";
         if (!value) is_missing = true;
         return value;
       });

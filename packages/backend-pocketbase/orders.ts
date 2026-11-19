@@ -261,6 +261,7 @@ export const orders: OrdersBackend = {
       shipping_method: order.shipping_method,
       customer_note: order.customer_note,
       internal_note: order.internal_note,
+      sms_opt_in: order.sms_opt_in ?? false,
       attribution: order.attribution ? parseAttribution(order.attribution) : null,
       refunded_total: order.refunded_total,
       gift_card_total: order.gift_card_total,

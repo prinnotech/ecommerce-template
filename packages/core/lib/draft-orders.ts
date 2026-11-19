@@ -125,6 +125,7 @@ function draftAsOrder(draft: DraftOrder, priced: PricedDraft, settings: SiteSett
     shipping_method: shipping_rate ? localized(shipping_rate.name, locale) || shipping_rate.id : "",
     customer_note: "",
     internal_note: "",
+    sms_opt_in: false,
     attribution: null,
     refunded_total: 0,
     refunds: [],

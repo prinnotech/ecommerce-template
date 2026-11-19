@@ -5,6 +5,7 @@ import { locale_code_schema, localized_text_schema } from "@repo/core/lib/locali
 import { ai_settings_schema, DEFAULT_AI_SETTINGS } from "@repo/core/lib/schemas/ai";
 import { COUNTRY_CODES } from "@repo/core/lib/locale/countries";
 import { hostname_schema } from "@repo/core/lib/schemas/domains";
+import { DEFAULT_MESSAGING, messaging_schema } from "@repo/core/lib/schemas/messaging";
 import { DEFAULT_NAVIGATION, navigation_schema } from "@repo/core/lib/schemas/navigation";
 import { DEFAULT_NOTIFICATIONS, DEFAULT_SMTP, notifications_schema, smtp_schema } from "@repo/core/lib/email/templates";
 import {
@@ -33,6 +34,8 @@ export type SettingCategory =
   // Settings → Email sending and Settings → Notifications have their own screens.
   | "email"
   | "notifications"
+  // Settings → SMS & WhatsApp (own screen; the Twilio auth token is an encrypted secret).
+  | "messaging"
   // Products → Inventory.
   | "inventory"
   // Settings → Languages (own screen): the store's languages and edited UI text.
@@ -362,6 +365,14 @@ export const SITE_SETTINGS = {
     category: "notifications",
     schema: notifications_schema,
     default_value: DEFAULT_NOTIFICATIONS,
+    is_public: false,
+    input: "json",
+  }),
+  // Twilio account, senders and which events send an SMS or WhatsApp message. Server only.
+  MESSAGING: setting({
+    category: "messaging",
+    schema: messaging_schema,
+    default_value: DEFAULT_MESSAGING,
     is_public: false,
     input: "json",
   }),

@@ -28,6 +28,7 @@ export const Collections = {
 	GiftCards: "gift_cards",
 	InventoryAdjustments: "inventory_adjustments",
 	Media: "media",
+	MessageLog: "message_log",
 	OrderEvents: "order_events",
 	OrderItems: "order_items",
 	Orders: "orders",
@@ -210,6 +211,7 @@ export type CheckoutSessionsRecord<Tattribution = unknown, Tbilling_address = un
 	shipping_address?: null | Tshipping_address
 	shipping_method?: string
 	shipping_total?: number
+	sms_opt_in?: boolean
 	status: CheckoutSessionsStatusOptions
 	subtotal?: number
 	tax_total?: number
@@ -420,6 +422,20 @@ export type MediaRecord = {
 	updated_at: IsoAutoDateString
 }
 
+export type MessageLogRecord = {
+	body?: string
+	channel: string
+	created_at: IsoAutoDateString
+	error?: string
+	event: string
+	id: string
+	order?: RecordIdString
+	provider_ref?: string
+	recipient: string
+	status: string
+	updated_at: IsoAutoDateString
+}
+
 export const OrderEventsTypeOptions = {
 	"created": "created",
 	"status_changed": "status_changed",
@@ -507,6 +523,7 @@ export type OrdersRecord<Tattribution = unknown, Tbilling_address = unknown, Tsh
 	shipping_address?: null | Tshipping_address
 	shipping_method?: string
 	shipping_total?: number
+	sms_opt_in?: boolean
 	status: OrdersStatusOptions
 	subtotal?: number
 	tax_total?: number
@@ -737,6 +754,7 @@ export type GiftCardTransactionsResponse<Texpand = unknown> = Required<GiftCardT
 export type GiftCardsResponse<Texpand = unknown> = Required<GiftCardsRecord> & BaseSystemFields<Texpand>
 export type InventoryAdjustmentsResponse<Texpand = unknown> = Required<InventoryAdjustmentsRecord> & BaseSystemFields<Texpand>
 export type MediaResponse<Texpand = unknown> = Required<MediaRecord> & BaseSystemFields<Texpand>
+export type MessageLogResponse<Texpand = unknown> = Required<MessageLogRecord> & BaseSystemFields<Texpand>
 export type OrderEventsResponse<Texpand = unknown> = Required<OrderEventsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
 export type OrdersResponse<Tattribution = unknown, Tbilling_address = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<OrdersRecord<Tattribution, Tbilling_address, Tshipping_address>> & BaseSystemFields<Texpand>
@@ -780,6 +798,7 @@ export type CollectionRecords = {
 	gift_cards: GiftCardsRecord
 	inventory_adjustments: InventoryAdjustmentsRecord
 	media: MediaRecord
+	message_log: MessageLogRecord
 	order_events: OrderEventsRecord
 	order_items: OrderItemsRecord
 	orders: OrdersRecord
@@ -822,6 +841,7 @@ export type CollectionResponses = {
 	gift_cards: GiftCardsResponse
 	inventory_adjustments: InventoryAdjustmentsResponse
 	media: MediaResponse
+	message_log: MessageLogResponse
 	order_events: OrderEventsResponse
 	order_items: OrderItemsResponse
 	orders: OrdersResponse

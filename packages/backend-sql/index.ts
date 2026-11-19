@@ -14,6 +14,7 @@ import { createDomains } from "@repo/backend-sql/domains";
 import { createThemes } from "@repo/backend-sql/themes";
 import { createMedia, createPages } from "@repo/backend-sql/pages";
 import { createEmailLog } from "@repo/backend-sql/email-log";
+import { createMessageLog } from "@repo/backend-sql/message-log";
 import { createInventory } from "@repo/backend-sql/inventory";
 import { createDraftOrders } from "@repo/backend-sql/draft-orders";
 import { createDiscounts } from "@repo/backend-sql/discounts";
@@ -43,6 +44,7 @@ export function createSqlBackend(options: {
     pages: createPages(context),
     media: createMedia(context),
     email_log: createEmailLog(context),
+    message_log: createMessageLog(context),
     inventory: createInventory(context),
     draft_orders: createDraftOrders(context),
     discounts: createDiscounts(context),

@@ -8,6 +8,7 @@ import { isLocale } from "@repo/core/i18nConfig";
 import { findShippingRate } from "@repo/core/lib/checkout/checkout-server";
 import { completeDraftForSession } from "@repo/core/lib/draft-orders";
 import { localized } from "@repo/core/lib/localized";
+import { notifyLowStock } from "@repo/core/lib/messaging/order-messages";
 import type { PaymentMethodConfig } from "@repo/core/lib/schemas/payments";
 import type { SiteSettings } from "@repo/core/lib/site-settings";
 import { SITE_URL } from "@repo/core/lib/site-config";
@@ -50,6 +51,7 @@ export function orderFromSession(
     checkout_session: session.id,
     attribution: orderAttribution(session.attribution),
     gift_card_total: session.gift_card_amount,
+    sms_opt_in: session.sms_opt_in,
     payment:
       payment.status === "paid"
         ? { provider_ref: payment.provider_ref ?? "", status: "succeeded" }
@@ -90,6 +92,7 @@ export async function placeSessionOrder(
     throw error;
   }
   await completeDraftForSession(session, placed.order_number);
+  notifyLowStock(session.line_items);
   if (payment.status === "paid") {
     after(async () => {
       const order_id = await backend.orders.getIdByNumber(placed.order_number);

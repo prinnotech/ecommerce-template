@@ -240,6 +240,34 @@ export type EmailLogBackend = {
   list(page: number, page_size: number): Promise<Page<EmailLogEntry>>;
 };
 
+// ---------- Message log (Settings → SMS & WhatsApp) ----------
+
+export type MessageChannel = "sms" | "whatsapp";
+export type MessageLogStatus = "sent" | "failed" | "skipped";
+
+export type MessageLogEntry = {
+  id: string;
+  created_at: string;
+  channel: MessageChannel;
+  // The event that sent it (order_confirmation, staff_low_stock, test…).
+  event: string;
+  recipient: string;
+  body: string;
+  status: MessageLogStatus;
+  // Why it failed or was skipped (Twilio's message, "not_configured", "invalid_phone"…).
+  error: string;
+  // Twilio's message SID.
+  provider_ref: string;
+  order_id: string;
+};
+
+export type MessageLogBackend = {
+  log(entry: Omit<MessageLogEntry, "id" | "created_at">): Promise<void>;
+  list(page: number, page_size: number): Promise<Page<MessageLogEntry>>;
+  // Every message for one order, newest first (the order timeline).
+  listForOrder(order_id: string): Promise<MessageLogEntry[]>;
+};
+
 // ---------- Inventory (Products → Inventory) ----------
 
 export type InventoryRow = {
@@ -860,6 +888,8 @@ export type CheckoutSession = CheckoutTotalsFields & {
   // A gift card applied at checkout and the part of the total it pays (0 = none).
   gift_card_id: string;
   gift_card_amount: number;
+  // Ticked "Send me order updates by SMS/WhatsApp".
+  sms_opt_in: boolean;
 };
 
 export type CheckoutSessionPatch = Partial<Omit<CheckoutSession, "id" | "expires_at">>;
@@ -887,6 +917,8 @@ export type NewOrder = CheckoutTotalsFields & {
   attribution?: Attribution | null;
   // Paid with a gift card (the rest with payment_method).
   gift_card_total?: number;
+  // The customer agreed to SMS/WhatsApp order updates (default: no).
+  sms_opt_in?: boolean;
 };
 
 export type OrderConfirmationRecord = OrderTotals & {
@@ -916,6 +948,7 @@ export type CheckoutBackend = {
       | "attribution"
       | "gift_card_id"
       | "gift_card_amount"
+      | "sms_opt_in"
     > & {
       attribution?: Attribution | null;
     },
@@ -1018,6 +1051,8 @@ export type AdminOrderDetail = OrderTotals & {
   shipping_method: string;
   customer_note: string;
   internal_note: string;
+  // The customer agreed to SMS/WhatsApp order updates.
+  sms_opt_in: boolean;
   // Where the customer came from (UTM and click ids), null when unknown.
   attribution: Attribution | null;
   refunded_total: number;
@@ -1258,6 +1293,7 @@ export type Backend = {
   pages: PagesBackend;
   media: MediaBackend;
   email_log: EmailLogBackend;
+  message_log: MessageLogBackend;
   inventory: InventoryBackend;
   draft_orders: DraftOrdersBackend;
   discounts: DiscountsBackend;

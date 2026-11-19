@@ -64,7 +64,10 @@
     "review_not_allowed": "Only customers who bought this product can review it.",
     "gift_card_unusable": "This gift card can't be used: it's used up, expired or switched off.",
     "ai_not_configured": "AI isn't set up yet: add an API key in Settings → AI.",
-    "ai_failed": "The AI service didn't answer. Check the key and model in Settings → AI, then try again."
+    "ai_failed": "The AI service didn't answer. Check the key and model in Settings → AI, then try again.",
+    "messaging_not_configured": "SMS and WhatsApp aren't set up yet: add your Twilio account and save first.",
+    "messaging_failed": "Twilio didn't send the message. Recent messages shows the reason.",
+    "invalid_phone": "That phone number isn't valid. Include the country code, for example +39 333 123 4567."
   },
   "validation": {
     "required": "This field is required.",
@@ -567,7 +570,9 @@
     "gift_card": "Gift card",
     "to_pay": "To pay",
     "remove_gift_card": "Remove gift card {code}",
-    "paid_by_gift_card": "Your gift card pays the whole order."
+    "paid_by_gift_card": "Your gift card pays the whole order.",
+    "sms_opt_in": "Text me updates about this order (SMS or WhatsApp)",
+    "sms_opt_in_hint": "We'll use the phone number in your delivery address."
   },
   "thank_you": {
     "meta_title": "Order confirmed",

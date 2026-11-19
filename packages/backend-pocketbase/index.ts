@@ -17,6 +17,7 @@ import { storefront } from "@repo/backend-pocketbase/storefront";
 import { themes } from "@repo/backend-pocketbase/themes";
 import { media, pages } from "@repo/backend-pocketbase/pages";
 import { email_log } from "@repo/backend-pocketbase/email-log";
+import { message_log } from "@repo/backend-pocketbase/message-log";
 import { inventory } from "@repo/backend-pocketbase/inventory";
 import { draft_orders } from "@repo/backend-pocketbase/draft-orders";
 import { discounts } from "@repo/backend-pocketbase/discounts";
@@ -38,6 +39,7 @@ export const pocketbase_backend: Backend = {
   pages,
   media,
   email_log,
+  message_log,
   inventory,
   draft_orders,
   discounts,

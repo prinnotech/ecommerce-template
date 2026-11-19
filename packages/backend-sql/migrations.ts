@@ -893,6 +893,38 @@ const api_keys: Migration = {
   },
 };
 
+// SMS and WhatsApp (Settings → SMS & WhatsApp): every message sent or refused, and the
+// customer's choice at checkout (messages go only to customers who ticked the box).
+const messages: Migration = {
+  name: "0019_messages",
+  async up(db, { dialect, supabase: is_supabase }) {
+    const t = types(dialect);
+    await db.schema
+      .createTable("message_log")
+      .addColumn("id", "text", (col) => col.primaryKey())
+      .addColumn("created_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("updated_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("channel", "text", (col) => col.notNull())
+      .addColumn("event", "text", (col) => col.notNull())
+      .addColumn("recipient", "text", (col) => col.notNull())
+      .addColumn("body", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("status", "text", (col) => col.notNull())
+      .addColumn("error", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("provider_ref", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("order_id", "text", (col) => col.references("orders.id").onDelete("set null"))
+      .execute();
+    await db.schema.createIndex("idx_message_log_created_at").on("message_log").column("created_at").execute();
+    await db.schema.createIndex("idx_message_log_order").on("message_log").column("order_id").execute();
+    for (const table of ["checkout_sessions", "orders"]) {
+      await db.schema
+        .alterTable(table)
+        .addColumn("sms_opt_in", sql.raw(t.bool), (col) => col.notNull().defaultTo(t.false_))
+        .execute();
+    }
+    if (is_supabase) await sql`alter table message_log enable row level security`.execute(db);
+  },
+};
+
 export const MIGRATIONS: Migration[] = [
   initial,
   supabase,
@@ -912,6 +944,7 @@ export const MIGRATIONS: Migration[] = [
   reviews,
   wishlist,
   api_keys,
+  messages,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

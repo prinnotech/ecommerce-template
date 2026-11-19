@@ -59,6 +59,7 @@ function toSession(record: SessionRecord): CheckoutSession {
     attribution: record.attribution ? parseAttribution(record.attribution) : null,
     gift_card_id: record.gift_card_id ?? "",
     gift_card_amount: record.gift_card_amount ?? 0,
+    sms_opt_in: record.sms_opt_in ?? false,
   };
 }
 

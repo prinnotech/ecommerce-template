@@ -250,6 +250,8 @@ Each step ends with lint, typecheck and build passing and a check in the browser
 
 ## 5. SMS and WhatsApp (Twilio)
 
+**Status (19 Nov 2026): built, see `docs/sms.md`.** Changes from the plan: the screen uses `settings.view` / `settings.edit` like Email sending and Notifications (no new permission group), and there's no abandoned-checkout message (the phone and consent are only saved when the order is placed).
+
 **Settings → SMS & WhatsApp:**
 - Twilio Account SID.
 - Auth token, encrypted.

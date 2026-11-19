@@ -22,6 +22,7 @@ export const SECRET_KEYS = [
   "ANTHROPIC_API_KEY",
   "OPENAI_API_KEY",
   "GOOGLE_GENERATIVE_AI_API_KEY",
+  "TWILIO_AUTH_TOKEN",
 ] as const;
 export type SecretKey = (typeof SECRET_KEYS)[number];
 

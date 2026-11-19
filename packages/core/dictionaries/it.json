@@ -64,7 +64,10 @@
     "review_not_allowed": "Solo i clienti che hanno acquistato questo prodotto possono recensirlo.",
     "gift_card_unusable": "Questa carta regalo non si può usare: è esaurita, scaduta o disattivata.",
     "ai_not_configured": "L'IA non è ancora configurata: aggiungi una chiave API in Impostazioni → IA.",
-    "ai_failed": "Il servizio di IA non ha risposto. Controlla la chiave e il modello in Impostazioni → IA e riprova."
+    "ai_failed": "Il servizio di IA non ha risposto. Controlla la chiave e il modello in Impostazioni → IA e riprova.",
+    "messaging_not_configured": "SMS e WhatsApp non sono ancora configurati: aggiungi il tuo account Twilio e salva.",
+    "messaging_failed": "Twilio non ha inviato il messaggio. In Messaggi recenti trovi il motivo.",
+    "invalid_phone": "Il numero di telefono non è valido. Includi il prefisso, per esempio +39 333 123 4567."
   },
   "validation": {
     "required": "Questo campo è obbligatorio.",
@@ -567,7 +570,9 @@
     "gift_card": "Carta regalo",
     "to_pay": "Da pagare",
     "remove_gift_card": "Rimuovi la carta regalo {code}",
-    "paid_by_gift_card": "La tua carta regalo paga tutto l'ordine."
+    "paid_by_gift_card": "La tua carta regalo paga tutto l'ordine.",
+    "sms_opt_in": "Avvisami via SMS o WhatsApp su questo ordine",
+    "sms_opt_in_hint": "Useremo il telefono dell'indirizzo di consegna."
   },
   "thank_you": {
     "meta_title": "Ordine confermato",

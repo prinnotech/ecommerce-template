@@ -144,6 +144,7 @@ export type CheckoutSessionsTable = Timestamps &
     recovery_sent_at: Time;
     gift_card_id: string | null;
     gift_card_amount: Int;
+    sms_opt_in: Bool;
   };
 export type OrdersTable = Timestamps &
   TotalsColumns & {
@@ -173,6 +174,7 @@ export type OrdersTable = Timestamps &
     deleted_at: Time;
     refunded_total: Int;
     gift_card_total: Int;
+    sms_opt_in: Bool;
   };
 export type OrderItemsTable = Timestamps & {
   order_id: string;
@@ -276,6 +278,17 @@ export type EmailLogTable = Timestamps & {
   subject: Text;
   status: string;
   error: Text;
+  order_id: string | null;
+};
+
+export type MessageLogTable = Timestamps & {
+  channel: string;
+  event: string;
+  recipient: string;
+  body: Text;
+  status: string;
+  error: Text;
+  provider_ref: Text;
   order_id: string | null;
 };
 
@@ -407,6 +420,7 @@ export type Database = {
   pages: PagesTable;
   media: MediaTable;
   email_log: EmailLogTable;
+  message_log: MessageLogTable;
   inventory_adjustments: InventoryAdjustmentsTable;
   draft_orders: DraftOrdersTable;
   refunds: RefundsTable;
