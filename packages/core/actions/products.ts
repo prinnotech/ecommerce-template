@@ -10,6 +10,10 @@ import { logActivity } from "@repo/core/lib/activity-log";
 import { authorize } from "@repo/core/lib/auth";
 import { readAdminProduct, readAdminProducts } from "@repo/core/lib/products-read";
 import {
+  add_product_images_from_media_schema,
+  type AddProductImagesFromMediaInput,
+} from "@repo/core/lib/schemas/media";
+import {
   bulk_product_category_schema,
   bulk_product_status_schema,
   bulk_products_schema,
@@ -162,6 +166,30 @@ export async function uploadProductImage(form_data: FormData): Promise<ActionRes
     return ok(images);
   } catch (error) {
     return failFrom(error, "products", "uploadProductImage");
+  }
+}
+
+// Images from Content → Files, copied into the product (each product keeps its own files).
+export async function addProductImagesFromMedia(
+  input: AddProductImagesFromMediaInput,
+): Promise<ActionResult<AdminProductImage[]>> {
+  const auth = await authorize("products.edit", "add product images from files");
+  if (!auth.ok) return auth;
+  const parsed = add_product_images_from_media_schema.safeParse(input);
+  if (!parsed.success) return fail("invalid_input");
+
+  try {
+    const backend = getBackend();
+    let images: AdminProductImage[] = [];
+    for (const media_id of parsed.data.media_ids) {
+      const file = await backend.media.read(media_id);
+      if (!(IMAGE_TYPES as readonly string[]).includes(file.type)) return fail("invalid_image");
+      images = await backend.catalog.addProductImage(parsed.data.product_id, file);
+    }
+    revalidateCatalog();
+    return ok(images);
+  } catch (error) {
+    return failFrom(error, "products", "addProductImagesFromMedia");
   }
 }
 

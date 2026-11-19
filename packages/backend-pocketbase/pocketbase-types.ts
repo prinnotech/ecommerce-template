@@ -433,11 +433,13 @@ export type InventoryAdjustmentsRecord = {
 }
 
 export type MediaRecord = {
+	alt?: string
 	created_at: IsoAutoDateString
 	file: FileNameString
 	id: string
 	name?: string
 	size?: number
+	type?: string
 	updated_at: IsoAutoDateString
 }
 

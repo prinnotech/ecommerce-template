@@ -12,6 +12,7 @@ import {
   uploadCategoryImage,
 } from "@repo/core/actions/categories";
 import {
+  addProductImagesFromMedia,
   bulkDeleteProducts,
   bulkSetProductCategory,
   bulkSetProductStatus,
@@ -32,6 +33,7 @@ import { importCategories, importProducts } from "@repo/core/actions/catalog-imp
 import { unwrap } from "@repo/core/lib/action-result";
 import { query_keys } from "@repo/core/lib/query-keys";
 import type { ImportCategoriesInput, ImportProductsInput } from "@repo/core/lib/schemas/catalog-import";
+import type { AddProductImagesFromMediaInput } from "@repo/core/lib/schemas/media";
 import type {
   BulkProductCategoryInput,
   BulkProductStatusInput,
@@ -171,6 +173,15 @@ export function useUploadProductImage(product_id: string) {
   return useMutation({
     mutationFn: async (form_data: FormData) => unwrap(await uploadProductImage(form_data)),
     onSuccess: (images) => setImages(product_id, images),
+  });
+}
+
+// Copies images from Content → Files into the product's own images.
+export function useAddProductImagesFromMedia() {
+  const setImages = useSetProductImages();
+  return useMutation({
+    mutationFn: async (input: AddProductImagesFromMediaInput) => unwrap(await addProductImagesFromMedia(input)),
+    onSuccess: (images, input) => setImages(input.product_id, images),
   });
 }
 

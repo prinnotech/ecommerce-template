@@ -31,7 +31,8 @@
       "analytics": "Analytics",
       "collections": "Collections",
       "gift_cards": "Gift cards",
-      "reviews": "Reviews"
+      "reviews": "Reviews",
+      "content": "Content"
     },
     "home": {
       "title": "Home",
@@ -410,6 +411,10 @@
     "api_keys": {
       "view": "See API keys",
       "edit": "Create and revoke API keys"
+    },
+    "files": {
+      "view": "View files",
+      "edit": "Upload, rename and delete files"
     }
   },
   "roles": {
@@ -1628,11 +1633,7 @@
         "upload": "Upload",
         "uploading": "Uploading…",
         "uploaded": "Image uploaded.",
-        "library": "Choose uploaded",
-        "library_title": "Uploaded images",
-        "library_body": "Pick an image you've uploaded before. JPG, PNG, WebP or AVIF, up to 10 MB.",
-        "library_empty": "No images uploaded yet.",
-        "choose": "Use {name}"
+        "library": "Choose from Files"
       },
       "color_scheme": "Colour scheme",
       "color_schemes": {
@@ -2705,6 +2706,66 @@
       "refund_amount": "Refund amount",
       "product_name": "Product",
       "stock_left": "Stock left"
+    }
+  },
+  "files": {
+    "title": "Files",
+    "subtitle": "Images for your themes, pages and products.",
+    "upload": "Upload files",
+    "uploading": {
+      "one": "Uploading {count} file…",
+      "other": "Uploading {count} files…"
+    },
+    "uploaded": {
+      "one": "{count} file uploaded.",
+      "other": "{count} files uploaded."
+    },
+    "search": "Search by name or alt text",
+    "no_results": "No files match “{query}”.",
+    "empty_title": "No files yet",
+    "empty_body": "Upload images here or drop them on this box. You can then use them in themes, pages and products.",
+    "empty_body_read_only": "Images uploaded for themes, pages and products show up here.",
+    "open": "Open {name}",
+    "count": {
+      "one": "{count} file",
+      "other": "{count} files"
+    },
+    "page": "Page {page} of {total}",
+    "drop_hint": "Drop JPG, PNG, WebP or AVIF images (up to 10 MB each) anywhere on this box to upload them.",
+    "name": "Name",
+    "name_required": "Enter a name.",
+    "alt": "Alt text",
+    "alt_hint": "Describes the image for screen readers and search engines.",
+    "type": "Type",
+    "size": "Size",
+    "uploaded_at": "Uploaded",
+    "link": "Link",
+    "copy_link": "Copy link",
+    "copied": "Copied",
+    "open_original": "Open",
+    "delete": "Delete file",
+    "delete_title": "Delete this file?",
+    "delete_body": "Themes and pages that use this image will show a broken image. Products keep their own copy. This can't be undone.",
+    "deleted": "File deleted.",
+    "saved": "File saved.",
+    "picker": {
+      "title_one": "Choose an image",
+      "title_many": "Choose images",
+      "body": "From Content → Files. JPG, PNG, WebP or AVIF, up to 10 MB.",
+      "search": "Search files",
+      "upload": "Upload",
+      "uploading": "Uploading…",
+      "empty": "No files yet. Upload one to start.",
+      "no_results": "No files match “{query}”.",
+      "choose": "Use {name}",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {page} of {total}",
+      "add_selected": {
+        "one": "Add {count} image",
+        "other": "Add {count} images"
+      },
+      "from_files": "Add from Files"
     }
   }
 }

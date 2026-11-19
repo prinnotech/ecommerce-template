@@ -274,6 +274,8 @@ export type MediaTable = Timestamps & {
   path: string;
   name: string;
   size: number;
+  alt: Text;
+  type: Text;
 };
 
 export type EmailLogTable = Timestamps & {

@@ -33,6 +33,7 @@ const DEMO_PERMISSIONS = [
   "audit.view",
   "themes.view",
   "pages.view",
+  "files.view",
 ];
 
 const CUSTOMERS = [

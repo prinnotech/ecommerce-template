@@ -1,10 +1,16 @@
 "use client";
 
+import { ImagesIcon } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
+import { MediaPicker } from "@/components/media-picker";
+
 import { ImageManager, type ManagedImage } from "@repo/admin-ui/components/image-manager";
+import { Button } from "@repo/ui/components/ui/button";
 import type { AdminProductImage } from "@repo/core/actions/products";
 import {
+  useAddProductImagesFromMedia,
   useRemoveProductImage,
   useReorderProductImages,
   useSetProductImageColor,
@@ -25,6 +31,7 @@ type ProductMediaProps = {
   lang: string;
   dictionary: AdminDictionary["catalog"]["editor"];
   images_dictionary: AdminDictionary["admin_ui"]["images"];
+  files_picker: AdminDictionary["files"]["picker"];
   errors: AdminDictionary["errors"];
 };
 
@@ -38,8 +45,11 @@ export function ProductMedia({
   lang,
   dictionary,
   images_dictionary,
+  files_picker,
   errors,
 }: ProductMediaProps) {
+  const [is_picker_open, setIsPickerOpen] = useState(false);
+  const add_from_files = useAddProductImagesFromMedia();
   const upload = useUploadProductImage(product_id);
   const remove = useRemoveProductImage();
   const reorder = useReorderProductImages();
@@ -79,18 +89,51 @@ export function ProductMedia({
     set_color.mutate({ product_id, image: id, color }, { onError: (error) => toast.error(errorText(errors, error)) });
   }
 
+  const room = MAX_PRODUCT_IMAGES - images.length;
   return (
-    <ImageManager
-      images={managed}
-      can_edit={can_edit}
-      is_busy={upload.isPending || remove.isPending || reorder.isPending || set_color.isPending}
-      max_images={MAX_PRODUCT_IMAGES}
-      onUpload={onUpload}
-      onRemove={onRemove}
-      onMove={onMove}
-      color_options={color_options}
-      onColorChange={onColorChange}
-      dictionary={images_dictionary}
-    />
+    <div className="flex flex-col gap-3">
+      <ImageManager
+        images={managed}
+        can_edit={can_edit}
+        is_busy={
+          upload.isPending || remove.isPending || reorder.isPending || set_color.isPending || add_from_files.isPending
+        }
+        max_images={MAX_PRODUCT_IMAGES}
+        onUpload={onUpload}
+        onRemove={onRemove}
+        onMove={onMove}
+        color_options={color_options}
+        onColorChange={onColorChange}
+        dictionary={images_dictionary}
+      />
+      {can_edit && room > 0 && (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="self-start"
+          disabled={add_from_files.isPending}
+          onClick={() => setIsPickerOpen(true)}
+        >
+          <ImagesIcon />
+          {files_picker.from_files}
+        </Button>
+      )}
+      <MediaPicker
+        is_open={is_picker_open}
+        onOpenChange={setIsPickerOpen}
+        mode="multiple"
+        onPick={(items) =>
+          add_from_files.mutate(
+            { product_id, media_ids: items.slice(0, room).map((item) => item.id) },
+            { onError: (error) => toast.error(errorText(errors, error)) },
+          )
+        }
+        can_upload={can_edit}
+        lang={lang}
+        dictionary={files_picker}
+        errors={errors}
+      />
+    </div>
   );
 }

@@ -58,3 +58,14 @@ export function formatPlural(count: number, text: PluralText, lang: string): str
   const form = new Intl.PluralRules(lang).select(count) === "one" ? text.one : text.other;
   return form.replace("{count}", formatNumber(count, lang));
 }
+
+// "820 kB", "2.4 MB" (decimal units, like file managers on the web).
+export function formatFileSize(bytes: number, lang: string): string {
+  const [value, unit] = bytes >= 1_000_000 ? [bytes / 1_000_000, "megabyte"] : [bytes / 1_000, "kilobyte"];
+  return new Intl.NumberFormat(lang, {
+    style: "unit",
+    unit,
+    unitDisplay: "short",
+    maximumFractionDigits: value < 10 ? 1 : 0,
+  }).format(value);
+}

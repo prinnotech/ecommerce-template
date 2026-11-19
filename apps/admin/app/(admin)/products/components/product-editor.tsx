@@ -15,6 +15,7 @@ type ProductEditorProps = {
   currency: string;
   dictionary: AdminDictionary["catalog"];
   images_dictionary: AdminDictionary["admin_ui"]["images"];
+  files_picker: AdminDictionary["files"]["picker"];
   common: AdminDictionary["common"];
   errors: AdminDictionary["errors"];
   validation: AdminDictionary["validation"];
@@ -70,6 +71,7 @@ function ExistingProductEditor(props: ProductEditorProps & { product_id: string 
           lang={props.lang}
           dictionary={props.dictionary.editor}
           images_dictionary={props.images_dictionary}
+          files_picker={props.files_picker}
           errors={props.errors}
         />
       }

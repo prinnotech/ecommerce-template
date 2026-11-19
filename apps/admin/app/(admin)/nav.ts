@@ -34,6 +34,8 @@ export const ADMIN_NAV = [
   // Marketing → Discounts.
   { key: "discounts", path: "/discounts", permission: "discounts.view" },
   { key: "messages", path: "/messages", permission: "messages.view" },
+  // Content → Files (the media library shared by themes, pages and products).
+  { key: "content", path: "/files", permission: "files.view" },
   // Online store → Themes (the theme editor itself is full-screen, in the (editor) route group).
   {
     key: "themes",

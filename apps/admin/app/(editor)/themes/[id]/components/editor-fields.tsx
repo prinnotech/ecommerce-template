@@ -19,6 +19,7 @@ export type EditorContext = {
   common: AdminDictionary["common"];
   errors: AdminDictionary["errors"];
   media: AdminDictionary["themes"]["editor"]["media"];
+  files_picker: AdminDictionary["files"]["picker"];
 };
 
 // Same rule as the schema: an absolute URL, a site path or nothing.

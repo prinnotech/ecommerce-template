@@ -73,7 +73,7 @@ The rebuild plan (Supabase/PocketBase/SQLite backends, Shopify-style admin, doma
 - Themes saved before page templates (`{ settings, sections }`) are upgraded when read (`parseThemeData`); the removed `ABOUT_CONTENT` setting still seeds their About text (`getLegacyThemeValues`).
 - Custom pages (Online store → Pages, `pages` table, `actions/pages.ts`) live outside themes and save directly (no draft); the store serves published ones at `/[lang]/pages/[slug]`. The editor edits their sections too (`?page=page:<id>`; `/themes/live` opens the live theme).
 - Menus and footer: the `NAVIGATION` setting (`lib/schemas/navigation.ts`, `actions/navigation.ts`), edited in the editor's Navigation tab and live on save. Empty = the automatic menu/footer.
-- Image uploads: the `media` table + each backend's file storage (`actions/media.ts`), jpg/png/webp/avif up to 10 MB.
+- Image uploads: the `media` table + each backend's file storage (`actions/media.ts`), jpg/png/webp/avif up to 10 MB. **Content → Files** (`/files`, `files.view` / `files.edit`) lists, searches (name or alt text), renames and deletes them. The shared `MediaPicker` (`apps/admin/components/media-picker.tsx`) is used by theme image fields, collection images and products ("Add from Files" copies the file into the product: `media.read()` + `addProductImage`). Anyone who can work on themes, pages, products or collections may browse and upload through the pickers; renaming and deleting need `files.edit`.
 - The home page's hero and announcement text moved from settings into the theme (`HERO_*`, `ANNOUNCEMENT` and `ABOUT_CONTENT` settings were removed).
 
 ### Languages and AI translation (`docs/languages.md`)

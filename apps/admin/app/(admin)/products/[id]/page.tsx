@@ -44,6 +44,7 @@ export default async function EditProductPage({ params }: PageProps<"/products/[
         currency={currency}
         dictionary={dictionary.catalog}
         images_dictionary={dictionary.admin_ui.images}
+        files_picker={dictionary.files.picker}
         common={dictionary.common}
         errors={dictionary.errors}
         validation={dictionary.validation}

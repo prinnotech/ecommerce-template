@@ -9,6 +9,8 @@ export type FileStorage = {
   // Stores the file under `folder` and returns its path (what the database keeps).
   upload(folder: string, file: File): Promise<string>;
   remove(paths: string[]): Promise<void>;
+  // The stored bytes (to copy a library image into a product); throws when the file is gone.
+  read(path: string): Promise<Blob>;
   // Public URL; `width` asks for a smaller rendition where the storage supports it.
   url(path: string, width?: number): string;
 };

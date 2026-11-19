@@ -99,6 +99,7 @@ export default async function ThemeEditorPage({ params, searchParams }: PageProp
         common={dictionary.common}
         errors={dictionary.errors}
         validation={dictionary.validation}
+        files_picker={dictionary.files.picker}
       />
     </HydrationBoundary>
   );

@@ -2,7 +2,7 @@ import "server-only";
 
 import { BackendError } from "@repo/core/backend/errors";
 import type { MediaBackend, MediaItem, PageRecord, PagesBackend } from "@repo/core/backend/types";
-import type { SqlContext } from "@repo/backend-sql/context";
+import { contains, paginate, toCount, type SqlContext } from "@repo/backend-sql/context";
 import { uniqueViolation } from "@repo/backend-sql/errors";
 import { bool, iso, json, newId, nowIso } from "@repo/backend-sql/values";
 
@@ -90,39 +90,92 @@ export function createPages({ db }: SqlContext): PagesBackend {
   };
 }
 
-export function createMedia({ db, storage }: SqlContext): MediaBackend {
-  const toItem = (row: { id: string; path: string; name: string; size: number; created_at: unknown }): MediaItem => ({
+type MediaRow = {
+  id: string;
+  path: string;
+  name: string;
+  alt: string;
+  type: string;
+  size: number;
+  created_at: unknown;
+};
+
+const MEDIA_COLUMNS = ["id", "path", "name", "alt", "type", "size", "created_at"] as const;
+
+export function createMedia(ctx: SqlContext): MediaBackend {
+  const { db, storage } = ctx;
+  const toItem = (row: MediaRow): MediaItem => ({
     id: row.id,
     url: storage.url(row.path),
     name: row.name,
+    alt: row.alt ?? "",
+    type: row.type ?? "",
     size: Number(row.size),
     created_at: iso(String(row.created_at)),
   });
 
+  async function row(id: string): Promise<MediaRow> {
+    const found = await db.selectFrom("media").select(MEDIA_COLUMNS).where("id", "=", id).executeTakeFirst();
+    if (!found) throw new BackendError("not_found");
+    return found;
+  }
+
   return {
-    async list() {
-      const rows = await db
-        .selectFrom("media")
-        .select(["id", "path", "name", "size", "created_at"])
-        .orderBy("created_at", "desc")
-        .limit(500)
-        .execute();
-      return rows.map(toItem);
+    async list(filters, page_size) {
+      let query = db.selectFrom("media");
+      if (filters.search) {
+        const search = filters.search;
+        query = query.where((eb) => eb.or([contains(ctx, "name", search), contains(ctx, "alt", search)]));
+      }
+      return paginate(
+        filters.page,
+        page_size,
+        async () => toCount(await query.select((eb) => eb.fn.countAll().as("count")).executeTakeFirst()),
+        async (offset, limit) =>
+          (
+            await query
+              .select(MEDIA_COLUMNS)
+              .orderBy("created_at", "desc")
+              .orderBy("id")
+              .offset(offset)
+              .limit(limit)
+              .execute()
+          ).map(toItem),
+      );
+    },
+
+    async get(id) {
+      return toItem(await row(id));
     },
 
     async upload(file) {
       const path = await storage.upload("media", file);
       const id = newId();
-      const row = { id, path, name: file.name.slice(0, 200), size: file.size };
-      await db.insertInto("media").values(row).execute();
-      return toItem({ ...row, created_at: nowIso() });
+      const values = { id, path, name: file.name.slice(0, 200), size: file.size, alt: "", type: file.type };
+      await db.insertInto("media").values(values).execute();
+      return toItem({ ...values, created_at: nowIso() });
+    },
+
+    async update(id, fields) {
+      await row(id);
+      await db
+        .updateTable("media")
+        .set({ ...fields, updated_at: nowIso() })
+        .where("id", "=", id)
+        .execute();
+      return toItem(await row(id));
     },
 
     async remove(id) {
-      const row = await db.selectFrom("media").select(["path"]).where("id", "=", id).executeTakeFirst();
-      if (!row) throw new BackendError("not_found");
+      const found = await row(id);
       await db.deleteFrom("media").where("id", "=", id).execute();
-      await storage.remove([row.path]);
+      await storage.remove([found.path]);
+    },
+
+    async read(id) {
+      const found = await row(id);
+      const blob = await storage.read(found.path);
+      return new File([blob], found.name, { type: found.type || blob.type });
     },
   };
 }

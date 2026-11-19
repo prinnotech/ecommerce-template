@@ -1,6 +1,6 @@
 import "server-only";
 
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { FileStorage } from "@repo/backend-sql/context";
@@ -27,6 +27,12 @@ export const local_storage: FileStorage = {
 
   async remove(paths) {
     await Promise.all(paths.map((relative) => rm(path.join(uploadsDir(), relative), { force: true })));
+  },
+
+  async read(relative) {
+    const extension = relative.split(".").pop() ?? "";
+    const type = Object.entries(EXTENSIONS).find(([, value]) => value === extension)?.[0] ?? "";
+    return new Blob([await readFile(path.join(uploadsDir(), relative))], { type });
   },
 
   // Relative URL: both apps serve /media, so it works on the store and in the admin.

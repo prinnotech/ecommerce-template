@@ -34,6 +34,7 @@ export default async function CollectionPage({ params }: PageProps<"/collections
       confirm={dictionary.admin_ui.confirm}
       save_bar={dictionary.admin_ui.save_bar}
       errors={dictionary.errors}
+      files_picker={dictionary.files.picker}
     />
   );
 }

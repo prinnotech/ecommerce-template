@@ -94,6 +94,7 @@ type ThemeEditorProps = {
   common: AdminDictionary["common"];
   errors: AdminDictionary["errors"];
   validation: AdminDictionary["validation"];
+  files_picker: AdminDictionary["files"]["picker"];
 };
 
 // Loads the theme, then the workspace. After "Restore" or "Discard" the server's draft replaces
@@ -142,6 +143,7 @@ function Workspace({
   common,
   errors,
   validation,
+  files_picker,
   data,
   onReloaded,
 }: ThemeEditorProps & { data: ThemeEditorData; onReloaded: () => void }) {
@@ -175,7 +177,14 @@ function Workspace({
   const [history, setHistory] = useState<UndoHistory>({ past: [], future: [] });
   const last_change_at = useRef(0);
 
-  const context: EditorContext = { lang, is_disabled: !can_edit, common, errors, media: text.media };
+  const context: EditorContext = {
+    lang,
+    is_disabled: !can_edit,
+    common,
+    errors,
+    media: text.media,
+    files_picker,
+  };
   const onError = (error: unknown) => toast.error(errorText(errors, error));
   const has_unpublished = data.has_unpublished_changes || has_local_changes;
 

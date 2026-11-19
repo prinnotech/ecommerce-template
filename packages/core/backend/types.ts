@@ -21,6 +21,7 @@ import type { AddressFields } from "@repo/core/lib/schemas/account";
 import type { Seo } from "@repo/core/lib/schemas/seo";
 import type { AdjustmentReason, InventoryFilters } from "@repo/core/lib/schemas/inventory";
 import type { DraftDiscount, DraftListFilters, DraftStatus } from "@repo/core/lib/schemas/draft-orders";
+import type { MediaFilters } from "@repo/core/lib/schemas/media";
 import type {
   BuyXGetY,
   CombinesWith,
@@ -220,12 +221,26 @@ export type PagesBackend = {
 
 // ---------- Media library (images uploaded from the theme editor) ----------
 
-export type MediaItem = { id: string; url: string; name: string; size: number; created_at: string };
+// type = the image's MIME type ("" for files uploaded before it was kept).
+export type MediaItem = {
+  id: string;
+  url: string;
+  name: string;
+  alt: string;
+  type: string;
+  size: number;
+  created_at: string;
+};
 
 export type MediaBackend = {
-  list(): Promise<MediaItem[]>;
+  // Newest first; `search` matches the name or the alt text.
+  list(filters: MediaFilters, page_size: number): Promise<Page<MediaItem>>;
+  get(id: string): Promise<MediaItem>; // not_found
   upload(file: File): Promise<MediaItem>;
+  update(id: string, fields: { name: string; alt: string }): Promise<MediaItem>; // not_found
   remove(id: string): Promise<void>; // not_found
+  // The stored file itself, to copy it into a product's images.
+  read(id: string): Promise<File>; // not_found
 };
 
 // ---------- Email log (Settings → Notifications) ----------

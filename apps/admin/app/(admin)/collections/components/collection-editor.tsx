@@ -1,10 +1,11 @@
 "use client";
 
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon, UploadIcon, XIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, ImagesIcon, PlusIcon, Trash2Icon, UploadIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
+import { MediaPicker } from "@/components/media-picker";
 import { ConfirmDialog } from "@repo/admin-ui/components/confirm-dialog";
 import { DetailLayout, SectionCard } from "@repo/admin-ui/components/detail-layout";
 import { LocalizedFields } from "@repo/admin-ui/components/localized-fields";
@@ -17,7 +18,7 @@ import type { CollectionProduct, CollectionView } from "@repo/core/actions/colle
 import { FormField } from "@repo/core/components/form-field";
 import { useAdminCategories, useAdminProducts } from "@repo/core/hooks/use-catalog";
 import { useCreateCollection, useDeleteCollection, useUpdateCollection } from "@repo/core/hooks/use-collections";
-import { useUploadMedia } from "@repo/core/hooks/use-pages";
+import { useUploadMedia } from "@repo/core/hooks/use-media";
 import type { Locale } from "@repo/core/i18nConfig";
 import { errorText } from "@repo/core/lib/action-result";
 import type { AdminDictionary } from "@repo/core/lib/i18n";
@@ -53,6 +54,7 @@ type CollectionEditorProps = {
   confirm: AdminDictionary["admin_ui"]["confirm"];
   save_bar: AdminDictionary["admin_ui"]["save_bar"];
   errors: AdminDictionary["errors"];
+  files_picker: AdminDictionary["files"]["picker"];
 };
 
 function firstText(text: LocalizedText): string {
@@ -76,7 +78,9 @@ export function CollectionEditor({
   confirm,
   save_bar,
   errors,
+  files_picker,
 }: CollectionEditorProps) {
+  const [is_picker_open, setIsPickerOpen] = useState(false);
   const router = useRouter();
   const create = useCreateCollection();
   const update = useUpdateCollection(view?.collection.id ?? "");
@@ -504,6 +508,10 @@ export function CollectionEditor({
                 {upload.isPending ? <Spinner /> : <UploadIcon />}
                 {dictionary.upload}
               </Button>
+              <Button type="button" variant="outline" size="sm" onClick={() => setIsPickerOpen(true)}>
+                <ImagesIcon />
+                {files_picker.from_files}
+              </Button>
               {form.image_url && (
                 <Button type="button" variant="ghost" size="sm" onClick={() => set({ image_url: "" })}>
                   {dictionary.remove_image}
@@ -533,6 +541,16 @@ export function CollectionEditor({
       back={{ href: "/collections", label: dictionary.title }}
     >
       <DetailLayout main={main} sidebar={sidebar} />
+      <MediaPicker
+        is_open={is_picker_open}
+        onOpenChange={setIsPickerOpen}
+        mode="single"
+        onPick={([item]) => item && set({ image_url: item.url })}
+        can_upload={!is_locked}
+        lang={lang}
+        dictionary={files_picker}
+        errors={errors}
+      />
       {view && (
         <ConfirmDialog
           is_open={is_delete_open}

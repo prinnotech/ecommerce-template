@@ -8,6 +8,7 @@ import {
   GiftIcon,
   MessageSquareQuoteIcon,
   HomeIcon,
+  ImagesIcon,
   InboxIcon,
   LayersIcon,
   PackageIcon,
@@ -65,6 +66,7 @@ const NAV_ICONS: Record<AdminNavKey | AdminNavChildKey, LucideIcon> = {
   messages: InboxIcon,
   themes: PaletteIcon,
   pages: FileTextIcon,
+  content: ImagesIcon,
   settings: SettingsIcon,
 };
 

@@ -31,7 +31,8 @@
       "analytics": "Analítica",
       "collections": "Colecciones",
       "gift_cards": "Tarjetas regalo",
-      "reviews": "Reseñas"
+      "reviews": "Reseñas",
+      "content": "Contenido"
     },
     "home": {
       "title": "Inicio",
@@ -410,6 +411,10 @@
     "api_keys": {
       "view": "Ver las claves de API",
       "edit": "Crear y revocar claves de API"
+    },
+    "files": {
+      "view": "Ver archivos",
+      "edit": "Subir, renombrar y eliminar archivos"
     }
   },
   "roles": {
@@ -1628,11 +1633,7 @@
         "upload": "Subir",
         "uploading": "Subiendo…",
         "uploaded": "Imagen subida.",
-        "library": "Elegir subida",
-        "library_title": "Imágenes subidas",
-        "library_body": "Elige una imagen que ya hayas subido. JPG, PNG, WebP o AVIF, hasta 10 MB.",
-        "library_empty": "Aún no hay imágenes subidas.",
-        "choose": "Usar {name}"
+        "library": "Elegir de Archivos"
       },
       "color_scheme": "Esquema de color",
       "color_schemes": {
@@ -2705,6 +2706,66 @@
       "refund_amount": "Importe reembolsado",
       "product_name": "Producto",
       "stock_left": "Stock restante"
+    }
+  },
+  "files": {
+    "title": "Archivos",
+    "subtitle": "Imágenes para tus temas, páginas y productos.",
+    "upload": "Subir archivos",
+    "uploading": {
+      "one": "Subiendo {count} archivo…",
+      "other": "Subiendo {count} archivos…"
+    },
+    "uploaded": {
+      "one": "{count} archivo subido.",
+      "other": "{count} archivos subidos."
+    },
+    "search": "Buscar por nombre o texto alternativo",
+    "no_results": "Ningún archivo coincide con “{query}”.",
+    "empty_title": "Aún no hay archivos",
+    "empty_body": "Sube imágenes aquí o suéltalas en este recuadro. Luego podrás usarlas en temas, páginas y productos.",
+    "empty_body_read_only": "Aquí aparecen las imágenes subidas para temas, páginas y productos.",
+    "open": "Abrir {name}",
+    "count": {
+      "one": "{count} archivo",
+      "other": "{count} archivos"
+    },
+    "page": "Página {page} de {total}",
+    "drop_hint": "Suelta imágenes JPG, PNG, WebP o AVIF (hasta 10 MB cada una) en cualquier parte de este recuadro para subirlas.",
+    "name": "Nombre",
+    "name_required": "Escribe un nombre.",
+    "alt": "Texto alternativo",
+    "alt_hint": "Describe la imagen para lectores de pantalla y buscadores.",
+    "type": "Tipo",
+    "size": "Tamaño",
+    "uploaded_at": "Subido",
+    "link": "Enlace",
+    "copy_link": "Copiar enlace",
+    "copied": "Copiado",
+    "open_original": "Abrir",
+    "delete": "Eliminar archivo",
+    "delete_title": "¿Eliminar este archivo?",
+    "delete_body": "Los temas y páginas que usan esta imagen mostrarán una imagen rota. Los productos conservan su propia copia. No se puede deshacer.",
+    "deleted": "Archivo eliminado.",
+    "saved": "Archivo guardado.",
+    "picker": {
+      "title_one": "Elige una imagen",
+      "title_many": "Elige imágenes",
+      "body": "De Contenido → Archivos. JPG, PNG, WebP o AVIF, hasta 10 MB.",
+      "search": "Buscar archivos",
+      "upload": "Subir",
+      "uploading": "Subiendo…",
+      "empty": "Aún no hay archivos. Sube uno para empezar.",
+      "no_results": "Ningún archivo coincide con “{query}”.",
+      "choose": "Usar {name}",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página {page} de {total}",
+      "add_selected": {
+        "one": "Añadir {count} imagen",
+        "other": "Añadir {count} imágenes"
+      },
+      "from_files": "Añadir desde Archivos"
     }
   }
 }

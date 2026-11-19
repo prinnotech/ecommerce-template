@@ -17,6 +17,7 @@ export const PERMISSION_GROUPS = {
   settings: ["view", "edit"],
   themes: ["view", "edit"],
   pages: ["view", "edit"],
+  files: ["view", "edit"],
   users: ["view", "invite", "edit", "deactivate"],
   roles: ["view", "edit"],
   audit: ["view"],

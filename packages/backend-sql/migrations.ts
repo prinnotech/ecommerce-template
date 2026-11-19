@@ -966,6 +966,38 @@ const fulfillments: Migration = {
   },
 };
 
+// Content → Files: alt text and MIME type on media, and the files.* permissions for the seeded
+// staff and demo roles.
+const files: Migration = {
+  name: "0022_files",
+  async up(db) {
+    await db.schema
+      .alterTable("media")
+      .addColumn("alt", "text", (col) => col.notNull().defaultTo(""))
+      .execute();
+    await db.schema
+      .alterTable("media")
+      .addColumn("type", "text", (col) => col.notNull().defaultTo(""))
+      .execute();
+    const grants: Record<string, string[]> = { staff: ["files.view", "files.edit"], demo: ["files.view"] };
+    for (const [name, added] of Object.entries(grants)) {
+      const result = await sql<{ permissions: unknown }>`select permissions from roles where name = ${name}`.execute(
+        db,
+      );
+      const row = result.rows[0];
+      if (!row) continue;
+      // jsonb comes back parsed from Postgres, as text from SQLite.
+      const parsed: unknown = typeof row.permissions === "string" ? JSON.parse(row.permissions) : row.permissions;
+      const permissions = Array.isArray(parsed) ? parsed.map(String) : [];
+      const missing = added.filter((permission) => !permissions.includes(permission));
+      if (missing.length === 0) continue;
+      await sql`update roles set permissions = ${JSON.stringify([...permissions, ...missing])} where name = ${name}`.execute(
+        db,
+      );
+    }
+  },
+};
+
 export const MIGRATIONS: Migration[] = [
   initial,
   supabase,
@@ -988,6 +1020,7 @@ export const MIGRATIONS: Migration[] = [
   messages,
   discounts_v2,
   fulfillments,
+  files,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

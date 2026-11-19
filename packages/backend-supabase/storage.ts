@@ -29,6 +29,12 @@ export const supabase_storage: FileStorage = {
     if (error) throw error;
   },
 
+  async read(path) {
+    const { data, error } = await createAdminClient().storage.from(MEDIA_BUCKET).download(path);
+    if (error) throw error;
+    return data;
+  },
+
   // Resized renditions need Supabase image transformations (paid plans); otherwise the original.
   url(path, width) {
     const encoded = path.split("/").map(encodeURIComponent).join("/");
