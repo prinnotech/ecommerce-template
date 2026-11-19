@@ -32,7 +32,8 @@
       "collections": "Collections",
       "gift_cards": "Gift cards",
       "reviews": "Reviews",
-      "content": "Content"
+      "content": "Content",
+      "blog": "Blog posts"
     },
     "home": {
       "title": "Home",
@@ -415,6 +416,10 @@
     "files": {
       "view": "View files",
       "edit": "Upload, rename and delete files"
+    },
+    "blog": {
+      "view": "View blog posts",
+      "edit": "Write, publish and delete blog posts"
     }
   },
   "roles": {
@@ -1422,7 +1427,8 @@
         "multicolumn": "Multicolumn",
         "image_banner": "Image banner",
         "testimonials": "Testimonials",
-        "product_list": "Product list"
+        "product_list": "Product list",
+        "blog_posts": "Latest posts"
       },
       "undo": "Undo",
       "redo": "Redo",
@@ -1452,7 +1458,8 @@
         "multicolumn": "Columns with an image, a heading, text and a link.",
         "image_banner": "A wide image with text and a button on top.",
         "testimonials": "Customer quotes with names and stars.",
-        "product_list": "The products with filters, sorting and pages."
+        "product_list": "The products with filters, sorting and pages.",
+        "blog_posts": "The newest blog posts as cards."
       },
       "hide": "Hide",
       "show": "Show",
@@ -1548,7 +1555,9 @@
         "author": "Name",
         "rating": "Stars (0 = none)",
         "show_filters": "Filter sidebar on the Shop page",
-        "product_list_hint": "This block shows the products of the Shop, a category or a collection. Add sections above or below it."
+        "product_list_hint": "This block shows the products of the Shop, a category or a collection. Add sections above or below it.",
+        "blog_tag": "Only posts with the tag (optional)",
+        "blog_tag_hint": "Empty = every post. Type a tag exactly as on the post, e.g. style-guide."
       },
       "settings": {
         "colors": "Colours",
@@ -1626,7 +1635,8 @@
           "contact": "Contact",
           "account": "Account",
           "privacy": "Privacy policy",
-          "terms": "Terms and conditions"
+          "terms": "Terms and conditions",
+          "blog": "Blog"
         }
       },
       "media": {
@@ -2766,6 +2776,74 @@
         "other": "Add {count} images"
       },
       "from_files": "Add from Files"
+    }
+  },
+  "blog": {
+    "title": "Blog posts",
+    "create": "Create post",
+    "all": "All",
+    "status": {
+      "published": "Published",
+      "scheduled": "Scheduled",
+      "draft": "Draft"
+    },
+    "columns": {
+      "title": "Title",
+      "status": "Status",
+      "date": "Date",
+      "author": "Author"
+    },
+    "search_placeholder": "Search by title or URL handle",
+    "results": {
+      "one": "{count} post",
+      "other": "{count} posts"
+    },
+    "empty_title": "Write your first post",
+    "empty_body": "News, style guides and stories. Posts appear on your store's blog and in the Latest posts theme section.",
+    "editor": {
+      "new_title": "New blog post",
+      "title": "Title",
+      "title_required": "Give the post a title in at least one language.",
+      "excerpt": "Excerpt",
+      "excerpt_hint": "A short summary for the blog list and search engines.",
+      "body": "Content",
+      "body_empty": "No content yet. Add a paragraph, heading, image or quote below.",
+      "blocks": {
+        "paragraph": "Paragraph",
+        "heading": "Heading",
+        "image": "Image",
+        "quote": "Quote"
+      },
+      "add_block": "Add",
+      "move_up": "Move {block} up",
+      "move_down": "Move {block} down",
+      "remove_block": "Remove {block}",
+      "paragraph_hint": "A blank line starts a new paragraph. Lines starting with “- ” become a list.",
+      "cite": "Quote author (optional)",
+      "image_alt": "Alt text",
+      "caption": "Caption (optional)",
+      "choose_image": "Choose image",
+      "change_image": "Change image",
+      "remove_image": "Remove image",
+      "cover": "Cover image",
+      "visibility": "Visibility",
+      "published": "Published",
+      "published_at": "Publish date",
+      "published_at_hint": "Empty = when you publish. A future date schedules the post. Times are in {zone}.",
+      "view_on_store": "View on store",
+      "organization": "Organization",
+      "author": "Author (optional)",
+      "tags": "Tags",
+      "tags_hint": "Press Enter or type a comma after each tag.",
+      "remove_tag": "Remove tag {tag}",
+      "slug": "URL handle",
+      "slug_hint": "Used in the address: {path}",
+      "slug_invalid": "Use lowercase letters, numbers and dashes.",
+      "updated": "Last saved {date}",
+      "delete": "Delete post",
+      "delete_title": "Delete this post?",
+      "delete_body": "It disappears from the store at once. This can't be undone.",
+      "saved": "Post saved."
     }
   }
 }

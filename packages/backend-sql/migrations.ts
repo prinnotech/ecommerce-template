@@ -966,6 +966,23 @@ const fulfillments: Migration = {
   },
 };
 
+// Adds permissions to seeded roles that exist (staff, demo…), leaving the rest of their list alone.
+async function grantPermissions(db: Kysely<unknown>, grants: Record<string, string[]>) {
+  for (const [name, added] of Object.entries(grants)) {
+    const result = await sql<{ permissions: unknown }>`select permissions from roles where name = ${name}`.execute(db);
+    const row = result.rows[0];
+    if (!row) continue;
+    // jsonb comes back parsed from Postgres, as text from SQLite.
+    const parsed: unknown = typeof row.permissions === "string" ? JSON.parse(row.permissions) : row.permissions;
+    const permissions = Array.isArray(parsed) ? parsed.map(String) : [];
+    const missing = added.filter((permission) => !permissions.includes(permission));
+    if (missing.length === 0) continue;
+    await sql`update roles set permissions = ${JSON.stringify([...permissions, ...missing])} where name = ${name}`.execute(
+      db,
+    );
+  }
+}
+
 // Content → Files: alt text and MIME type on media, and the files.* permissions for the seeded
 // staff and demo roles.
 const files: Migration = {
@@ -979,22 +996,39 @@ const files: Migration = {
       .alterTable("media")
       .addColumn("type", "text", (col) => col.notNull().defaultTo(""))
       .execute();
-    const grants: Record<string, string[]> = { staff: ["files.view", "files.edit"], demo: ["files.view"] };
-    for (const [name, added] of Object.entries(grants)) {
-      const result = await sql<{ permissions: unknown }>`select permissions from roles where name = ${name}`.execute(
-        db,
-      );
-      const row = result.rows[0];
-      if (!row) continue;
-      // jsonb comes back parsed from Postgres, as text from SQLite.
-      const parsed: unknown = typeof row.permissions === "string" ? JSON.parse(row.permissions) : row.permissions;
-      const permissions = Array.isArray(parsed) ? parsed.map(String) : [];
-      const missing = added.filter((permission) => !permissions.includes(permission));
-      if (missing.length === 0) continue;
-      await sql`update roles set permissions = ${JSON.stringify([...permissions, ...missing])} where name = ${name}`.execute(
-        db,
-      );
-    }
+    await grantPermissions(db, { staff: ["files.view", "files.edit"], demo: ["files.view"] });
+  },
+};
+
+// Content → Blog posts, and the blog.* permissions for the seeded staff and demo roles.
+const blog: Migration = {
+  name: "0023_blog",
+  async up(db, { dialect, supabase: is_supabase }) {
+    const t = types(dialect);
+    await db.schema
+      .createTable("blog_posts")
+      .addColumn("id", "text", (col) => col.primaryKey())
+      .addColumn("created_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("updated_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("title", sql.raw(t.json), (col) => col.notNull())
+      .addColumn("slug", "text", (col) => col.notNull().unique())
+      .addColumn("excerpt", sql.raw(t.json))
+      .addColumn("body", sql.raw(t.json), (col) => col.notNull().defaultTo(t.empty_array))
+      .addColumn("cover_url", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("cover_alt", sql.raw(t.json))
+      .addColumn("tags", sql.raw(t.json), (col) => col.notNull().defaultTo(t.empty_array))
+      .addColumn("author", "text", (col) => col.notNull().defaultTo(""))
+      .addColumn("seo", sql.raw(t.json))
+      .addColumn("is_published", sql.raw(t.bool), (col) => col.notNull().defaultTo(t.false_))
+      .addColumn("published_at", sql.raw(t.time))
+      .execute();
+    await db.schema
+      .createIndex("idx_blog_posts_published")
+      .on("blog_posts")
+      .columns(["is_published", "published_at"])
+      .execute();
+    if (is_supabase) await sql`alter table blog_posts enable row level security`.execute(db);
+    await grantPermissions(db, { staff: ["blog.view", "blog.edit"], demo: ["blog.view"] });
   },
 };
 
@@ -1021,6 +1055,7 @@ export const MIGRATIONS: Migration[] = [
   discounts_v2,
   fulfillments,
   files,
+  blog,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

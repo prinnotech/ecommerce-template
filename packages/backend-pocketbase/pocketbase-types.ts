@@ -14,6 +14,7 @@ export const Collections = {
 	ActivityLog: "activity_log",
 	Addresses: "addresses",
 	ApiKeys: "api_keys",
+	BlogPosts: "blog_posts",
 	Categories: "categories",
 	CheckoutSessions: "checkout_sessions",
 	CollectionProducts: "collection_products",
@@ -166,6 +167,23 @@ export type ApiKeysRecord = {
 	revoked_at?: IsoDateString
 	updated_at: IsoAutoDateString
 	user: RecordIdString
+}
+
+export type BlogPostsRecord<Tbody = unknown, Tcover_alt = unknown, Texcerpt = unknown, Tseo = unknown, Ttags = unknown, Ttitle = unknown> = {
+	author?: string
+	body?: null | Tbody
+	cover_alt?: null | Tcover_alt
+	cover_url?: string
+	created_at: IsoAutoDateString
+	excerpt?: null | Texcerpt
+	id: string
+	is_published?: boolean
+	published_at?: IsoDateString
+	seo?: null | Tseo
+	slug: string
+	tags?: null | Ttags
+	title?: null | Ttitle
+	updated_at: IsoAutoDateString
 }
 
 export type CategoriesRecord<Tdescription = unknown, Tname = unknown, Tseo = unknown> = {
@@ -764,6 +782,7 @@ export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> &
 export type ActivityLogResponse<Tdetails = unknown, Texpand = unknown> = Required<ActivityLogRecord<Tdetails>> & BaseSystemFields<Texpand>
 export type AddressesResponse<Texpand = unknown> = Required<AddressesRecord> & BaseSystemFields<Texpand>
 export type ApiKeysResponse<Texpand = unknown> = Required<ApiKeysRecord> & BaseSystemFields<Texpand>
+export type BlogPostsResponse<Tbody = unknown, Tcover_alt = unknown, Texcerpt = unknown, Tseo = unknown, Ttags = unknown, Ttitle = unknown, Texpand = unknown> = Required<BlogPostsRecord<Tbody, Tcover_alt, Texcerpt, Tseo, Ttags, Ttitle>> & BaseSystemFields<Texpand>
 export type CategoriesResponse<Tdescription = unknown, Tname = unknown, Tseo = unknown, Texpand = unknown> = Required<CategoriesRecord<Tdescription, Tname, Tseo>> & BaseSystemFields<Texpand>
 export type CheckoutSessionsResponse<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tline_items = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<CheckoutSessionsRecord<Tapplied_discounts, Tattribution, Tbilling_address, Tline_items, Tshipping_address>> & BaseSystemFields<Texpand>
 export type CollectionProductsResponse<Texpand = unknown> = Required<CollectionProductsRecord> & BaseSystemFields<Texpand>
@@ -809,6 +828,7 @@ export type CollectionRecords = {
 	activity_log: ActivityLogRecord
 	addresses: AddressesRecord
 	api_keys: ApiKeysRecord
+	blog_posts: BlogPostsRecord
 	categories: CategoriesRecord
 	checkout_sessions: CheckoutSessionsRecord
 	collection_products: CollectionProductsRecord
@@ -853,6 +873,7 @@ export type CollectionResponses = {
 	activity_log: ActivityLogResponse
 	addresses: AddressesResponse
 	api_keys: ApiKeysResponse
+	blog_posts: BlogPostsResponse
 	categories: CategoriesResponse
 	checkout_sessions: CheckoutSessionsResponse
 	collection_products: CollectionProductsResponse

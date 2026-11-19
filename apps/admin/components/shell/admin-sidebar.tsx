@@ -11,6 +11,7 @@ import {
   ImagesIcon,
   InboxIcon,
   LayersIcon,
+  NewspaperIcon,
   PackageIcon,
   PaletteIcon,
   ReceiptIcon,
@@ -67,6 +68,7 @@ const NAV_ICONS: Record<AdminNavKey | AdminNavChildKey, LucideIcon> = {
   themes: PaletteIcon,
   pages: FileTextIcon,
   content: ImagesIcon,
+  blog: NewspaperIcon,
   settings: SettingsIcon,
 };
 

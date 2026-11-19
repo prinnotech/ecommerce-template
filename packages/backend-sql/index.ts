@@ -12,6 +12,7 @@ import { createReports } from "@repo/backend-sql/reports";
 import { createStorefront } from "@repo/backend-sql/storefront";
 import { createDomains } from "@repo/backend-sql/domains";
 import { createThemes } from "@repo/backend-sql/themes";
+import { createBlog } from "@repo/backend-sql/blog";
 import { createMedia, createPages } from "@repo/backend-sql/pages";
 import { createEmailLog } from "@repo/backend-sql/email-log";
 import { createMessageLog } from "@repo/backend-sql/message-log";
@@ -43,6 +44,7 @@ export function createSqlBackend(options: {
     themes: createThemes(context),
     pages: createPages(context),
     media: createMedia(context),
+    blog: createBlog(context),
     email_log: createEmailLog(context),
     message_log: createMessageLog(context),
     inventory: createInventory(context),

@@ -10,7 +10,7 @@ import { FONT_IDS } from "@repo/core/themes/fonts";
 
 const hex_color_schema = z.string().regex(/^#[0-9a-f]{6}$/i, "invalid");
 // An image or a link: an absolute URL, a site path ("/shop?sort=newest") or nothing.
-const url_or_path_schema = z
+export const url_or_path_schema = z
   .string()
   .trim()
   .max(2000)
@@ -245,6 +245,19 @@ export const collection_list_section_schema = z.object({
   }),
 });
 
+// Content → Blog posts: the newest posts (optionally with one tag) as cards.
+export const blog_posts_section_schema = z.object({
+  ...section_base,
+  type: z.literal("blog_posts"),
+  settings: z.object({
+    heading: heading_schema,
+    limit: z.number().int().min(2).max(12),
+    // "" = every post; else only posts with this tag (lower-case words and dashes).
+    tag: z.string().trim().toLowerCase().max(40),
+    show_view_all: z.boolean(),
+  }),
+});
+
 export const multicolumn_section_schema = z.object({
   ...section_base,
   type: z.literal("multicolumn"),
@@ -346,6 +359,7 @@ export const section_schema = z.discriminatedUnion("type", [
   slideshow_section_schema,
   marquee_section_schema,
   collection_list_section_schema,
+  blog_posts_section_schema,
   multicolumn_section_schema,
   image_banner_section_schema,
   testimonials_section_schema,
@@ -370,6 +384,7 @@ export const SECTION_TYPES = [
   "related_products",
   "category_tiles",
   "collection_list",
+  "blog_posts",
   "trust_badges",
   "testimonials",
   "faq",

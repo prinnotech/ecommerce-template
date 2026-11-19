@@ -32,7 +32,8 @@
       "collections": "Collezioni",
       "gift_cards": "Carte regalo",
       "reviews": "Recensioni",
-      "content": "Contenuti"
+      "content": "Contenuti",
+      "blog": "Articoli del blog"
     },
     "home": {
       "title": "Home",
@@ -415,6 +416,10 @@
     "files": {
       "view": "Vedere i file",
       "edit": "Caricare, rinominare ed eliminare file"
+    },
+    "blog": {
+      "view": "Vedere gli articoli del blog",
+      "edit": "Scrivere, pubblicare ed eliminare articoli"
     }
   },
   "roles": {
@@ -1422,7 +1427,8 @@
         "multicolumn": "Più colonne",
         "image_banner": "Banner con immagine",
         "testimonials": "Testimonianze",
-        "product_list": "Elenco prodotti"
+        "product_list": "Elenco prodotti",
+        "blog_posts": "Ultimi articoli"
       },
       "undo": "Annulla",
       "redo": "Ripeti",
@@ -1452,7 +1458,8 @@
         "multicolumn": "Colonne con immagine, titolo, testo e link.",
         "image_banner": "Un'immagine larga con testo e pulsante sopra.",
         "testimonials": "Recensioni dei clienti con nome e stelle.",
-        "product_list": "I prodotti con filtri, ordinamento e pagine."
+        "product_list": "I prodotti con filtri, ordinamento e pagine.",
+        "blog_posts": "Gli articoli più recenti del blog in schede."
       },
       "hide": "Nascondi",
       "show": "Mostra",
@@ -1548,7 +1555,9 @@
         "author": "Nome",
         "rating": "Stelle (0 = nessuna)",
         "show_filters": "Barra dei filtri nella pagina Negozio",
-        "product_list_hint": "Questo blocco mostra i prodotti del Negozio, di una categoria o di una collezione. Aggiungi sezioni sopra o sotto."
+        "product_list_hint": "Questo blocco mostra i prodotti del Negozio, di una categoria o di una collezione. Aggiungi sezioni sopra o sotto.",
+        "blog_tag": "Solo articoli con il tag (facoltativo)",
+        "blog_tag_hint": "Vuoto = tutti gli articoli. Scrivi il tag come appare nell'articolo, es. guida-di-stile."
       },
       "settings": {
         "colors": "Colori",
@@ -1626,7 +1635,8 @@
           "contact": "Contatti",
           "account": "Account",
           "privacy": "Informativa sulla privacy",
-          "terms": "Termini e condizioni"
+          "terms": "Termini e condizioni",
+          "blog": "Blog"
         }
       },
       "media": {
@@ -2766,6 +2776,74 @@
         "other": "Aggiungi {count} immagini"
       },
       "from_files": "Aggiungi da File"
+    }
+  },
+  "blog": {
+    "title": "Articoli del blog",
+    "create": "Crea articolo",
+    "all": "Tutti",
+    "status": {
+      "published": "Pubblicato",
+      "scheduled": "Programmato",
+      "draft": "Bozza"
+    },
+    "columns": {
+      "title": "Titolo",
+      "status": "Stato",
+      "date": "Data",
+      "author": "Autore"
+    },
+    "search_placeholder": "Cerca per titolo o identificativo URL",
+    "results": {
+      "one": "{count} articolo",
+      "other": "{count} articoli"
+    },
+    "empty_title": "Scrivi il tuo primo articolo",
+    "empty_body": "Novità, guide di stile e storie. Gli articoli compaiono nel blog del negozio e nella sezione Ultimi articoli del tema.",
+    "editor": {
+      "new_title": "Nuovo articolo",
+      "title": "Titolo",
+      "title_required": "Dai un titolo all'articolo in almeno una lingua.",
+      "excerpt": "Estratto",
+      "excerpt_hint": "Un breve riassunto per l'elenco del blog e i motori di ricerca.",
+      "body": "Contenuto",
+      "body_empty": "Ancora nessun contenuto. Aggiungi un paragrafo, un titolo, un'immagine o una citazione qui sotto.",
+      "blocks": {
+        "paragraph": "Paragrafo",
+        "heading": "Titolo",
+        "image": "Immagine",
+        "quote": "Citazione"
+      },
+      "add_block": "Aggiungi",
+      "move_up": "Sposta su {block}",
+      "move_down": "Sposta giù {block}",
+      "remove_block": "Rimuovi {block}",
+      "paragraph_hint": "Una riga vuota inizia un nuovo paragrafo. Le righe che iniziano con “- ” diventano un elenco.",
+      "cite": "Autore della citazione (facoltativo)",
+      "image_alt": "Testo alternativo",
+      "caption": "Didascalia (facoltativa)",
+      "choose_image": "Scegli immagine",
+      "change_image": "Cambia immagine",
+      "remove_image": "Rimuovi immagine",
+      "cover": "Immagine di copertina",
+      "visibility": "Visibilità",
+      "published": "Pubblicato",
+      "published_at": "Data di pubblicazione",
+      "published_at_hint": "Vuoto = alla pubblicazione. Una data futura programma l'articolo. Orari in {zone}.",
+      "view_on_store": "Vedi nel negozio",
+      "organization": "Organizzazione",
+      "author": "Autore (facoltativo)",
+      "tags": "Tag",
+      "tags_hint": "Premi Invio o scrivi una virgola dopo ogni tag.",
+      "remove_tag": "Rimuovi il tag {tag}",
+      "slug": "Identificativo URL",
+      "slug_hint": "Usato nell'indirizzo: {path}",
+      "slug_invalid": "Usa lettere minuscole, numeri e trattini.",
+      "updated": "Ultimo salvataggio {date}",
+      "delete": "Elimina articolo",
+      "delete_title": "Eliminare questo articolo?",
+      "delete_body": "Scompare subito dal negozio. Non si può annullare.",
+      "saved": "Articolo salvato."
     }
   }
 }

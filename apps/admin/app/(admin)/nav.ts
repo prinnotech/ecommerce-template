@@ -34,8 +34,13 @@ export const ADMIN_NAV = [
   // Marketing → Discounts.
   { key: "discounts", path: "/discounts", permission: "discounts.view" },
   { key: "messages", path: "/messages", permission: "messages.view" },
-  // Content → Files (the media library shared by themes, pages and products).
-  { key: "content", path: "/files", permission: "files.view" },
+  // Content → Files (the media library shared by themes, pages and products) and Blog posts.
+  {
+    key: "content",
+    path: "/files",
+    permission: "files.view",
+    children: [{ key: "blog", path: "/blog", permission: "blog.view" }],
+  },
   // Online store → Themes (the theme editor itself is full-screen, in the (editor) route group).
   {
     key: "themes",
@@ -56,4 +61,13 @@ export const SETTINGS_NAV = {
 
 export type AdminNavKey = (typeof ADMIN_NAV)[number]["key"] | typeof SETTINGS_NAV.key;
 export type AdminNavChildKey =
-  "drafts" | "abandoned" | "inventory" | "collections" | "gift_cards" | "reviews" | "categories" | "import" | "pages";
+  | "drafts"
+  | "abandoned"
+  | "inventory"
+  | "collections"
+  | "gift_cards"
+  | "reviews"
+  | "categories"
+  | "import"
+  | "pages"
+  | "blog";

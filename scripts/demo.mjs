@@ -34,6 +34,7 @@ const DEMO_PERMISSIONS = [
   "themes.view",
   "pages.view",
   "files.view",
+  "blog.view",
 ];
 
 const CUSTOMERS = [

@@ -15,6 +15,7 @@ import { settings } from "@repo/backend-pocketbase/settings";
 import { saved_views, staff } from "@repo/backend-pocketbase/staff";
 import { storefront } from "@repo/backend-pocketbase/storefront";
 import { themes } from "@repo/backend-pocketbase/themes";
+import { blog } from "@repo/backend-pocketbase/blog";
 import { media, pages } from "@repo/backend-pocketbase/pages";
 import { email_log } from "@repo/backend-pocketbase/email-log";
 import { message_log } from "@repo/backend-pocketbase/message-log";
@@ -38,6 +39,7 @@ export const pocketbase_backend: Backend = {
   themes,
   pages,
   media,
+  blog,
   email_log,
   message_log,
   inventory,

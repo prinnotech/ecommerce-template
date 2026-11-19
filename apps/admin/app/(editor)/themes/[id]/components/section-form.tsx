@@ -647,6 +647,50 @@ export function SectionForm({
       );
     }
 
+    case "blog_posts": {
+      const settings = section.settings;
+      const set = (patch: Partial<SectionOf<"blog_posts">["settings"]>) => onChange({ ...settings, ...patch });
+      return (
+        <div className="flex flex-col gap-5">
+          <LocalizedField
+            id={id("heading")}
+            label={fields.heading}
+            value={settings.heading}
+            onChange={(heading) => set({ heading })}
+            context={context}
+          />
+          <NumberField
+            id={id("limit")}
+            label={fields.limit}
+            value={settings.limit}
+            min={2}
+            max={12}
+            onChange={(limit) => set({ limit })}
+            context={context}
+          />
+          <TextInputField
+            id={id("tag")}
+            label={fields.blog_tag}
+            description={fields.blog_tag_hint}
+            value={settings.tag}
+            onChange={(tag) => set({ tag })}
+            context={context}
+          />
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id={id("view-all")}
+              checked={settings.show_view_all}
+              disabled={context.is_disabled}
+              onCheckedChange={(checked) => set({ show_view_all: checked === true })}
+            />
+            <label htmlFor={id("view-all")} className="text-sm">
+              {fields.show_view_all}
+            </label>
+          </div>
+        </div>
+      );
+    }
+
     case "related_products": {
       const settings = section.settings;
       const set = (patch: Partial<SectionOf<"related_products">["settings"]>) => onChange({ ...settings, ...patch });

@@ -32,7 +32,8 @@
       "collections": "Colecciones",
       "gift_cards": "Tarjetas regalo",
       "reviews": "Reseñas",
-      "content": "Contenido"
+      "content": "Contenido",
+      "blog": "Entradas del blog"
     },
     "home": {
       "title": "Inicio",
@@ -415,6 +416,10 @@
     "files": {
       "view": "Ver archivos",
       "edit": "Subir, renombrar y eliminar archivos"
+    },
+    "blog": {
+      "view": "Ver entradas del blog",
+      "edit": "Escribir, publicar y eliminar entradas"
     }
   },
   "roles": {
@@ -1422,7 +1427,8 @@
         "multicolumn": "Varias columnas",
         "image_banner": "Banner con imagen",
         "testimonials": "Testimonios",
-        "product_list": "Lista de productos"
+        "product_list": "Lista de productos",
+        "blog_posts": "Últimas entradas"
       },
       "undo": "Deshacer",
       "redo": "Rehacer",
@@ -1452,7 +1458,8 @@
         "multicolumn": "Columnas con imagen, título, texto y enlace.",
         "image_banner": "Una imagen ancha con texto y un botón encima.",
         "testimonials": "Opiniones de clientes con nombre y estrellas.",
-        "product_list": "Los productos con filtros, orden y páginas."
+        "product_list": "Los productos con filtros, orden y páginas.",
+        "blog_posts": "Las entradas más recientes del blog en tarjetas."
       },
       "hide": "Ocultar",
       "show": "Mostrar",
@@ -1548,7 +1555,9 @@
         "author": "Nombre",
         "rating": "Estrellas (0 = ninguna)",
         "show_filters": "Barra de filtros en la página Tienda",
-        "product_list_hint": "Este bloque muestra los productos de la Tienda, de una categoría o de una colección. Añade secciones encima o debajo."
+        "product_list_hint": "Este bloque muestra los productos de la Tienda, de una categoría o de una colección. Añade secciones encima o debajo.",
+        "blog_tag": "Solo entradas con la etiqueta (opcional)",
+        "blog_tag_hint": "Vacío = todas las entradas. Escribe la etiqueta tal como aparece en la entrada, p. ej. guia-de-estilo."
       },
       "settings": {
         "colors": "Colores",
@@ -1626,7 +1635,8 @@
           "contact": "Contacto",
           "account": "Cuenta",
           "privacy": "Política de privacidad",
-          "terms": "Términos y condiciones"
+          "terms": "Términos y condiciones",
+          "blog": "Blog"
         }
       },
       "media": {
@@ -2766,6 +2776,74 @@
         "other": "Añadir {count} imágenes"
       },
       "from_files": "Añadir desde Archivos"
+    }
+  },
+  "blog": {
+    "title": "Entradas del blog",
+    "create": "Crear entrada",
+    "all": "Todas",
+    "status": {
+      "published": "Publicada",
+      "scheduled": "Programada",
+      "draft": "Borrador"
+    },
+    "columns": {
+      "title": "Título",
+      "status": "Estado",
+      "date": "Fecha",
+      "author": "Autor"
+    },
+    "search_placeholder": "Buscar por título o identificador de URL",
+    "results": {
+      "one": "{count} entrada",
+      "other": "{count} entradas"
+    },
+    "empty_title": "Escribe tu primera entrada",
+    "empty_body": "Novedades, guías de estilo e historias. Las entradas aparecen en el blog de tu tienda y en la sección Últimas entradas del tema.",
+    "editor": {
+      "new_title": "Nueva entrada",
+      "title": "Título",
+      "title_required": "Pon un título a la entrada en al menos un idioma.",
+      "excerpt": "Extracto",
+      "excerpt_hint": "Un resumen breve para la lista del blog y los buscadores.",
+      "body": "Contenido",
+      "body_empty": "Aún no hay contenido. Añade un párrafo, un título, una imagen o una cita abajo.",
+      "blocks": {
+        "paragraph": "Párrafo",
+        "heading": "Título",
+        "image": "Imagen",
+        "quote": "Cita"
+      },
+      "add_block": "Añadir",
+      "move_up": "Subir {block}",
+      "move_down": "Bajar {block}",
+      "remove_block": "Quitar {block}",
+      "paragraph_hint": "Una línea en blanco empieza un párrafo nuevo. Las líneas que empiezan con “- ” forman una lista.",
+      "cite": "Autor de la cita (opcional)",
+      "image_alt": "Texto alternativo",
+      "caption": "Pie de foto (opcional)",
+      "choose_image": "Elegir imagen",
+      "change_image": "Cambiar imagen",
+      "remove_image": "Quitar imagen",
+      "cover": "Imagen de portada",
+      "visibility": "Visibilidad",
+      "published": "Publicada",
+      "published_at": "Fecha de publicación",
+      "published_at_hint": "Vacío = al publicar. Una fecha futura programa la entrada. Horas en {zone}.",
+      "view_on_store": "Ver en la tienda",
+      "organization": "Organización",
+      "author": "Autor (opcional)",
+      "tags": "Etiquetas",
+      "tags_hint": "Pulsa Intro o escribe una coma después de cada etiqueta.",
+      "remove_tag": "Quitar la etiqueta {tag}",
+      "slug": "Identificador de URL",
+      "slug_hint": "Se usa en la dirección: {path}",
+      "slug_invalid": "Usa minúsculas, números y guiones.",
+      "updated": "Guardada por última vez el {date}",
+      "delete": "Eliminar entrada",
+      "delete_title": "¿Eliminar esta entrada?",
+      "delete_body": "Desaparece de la tienda al momento. No se puede deshacer.",
+      "saved": "Entrada guardada."
     }
   }
 }

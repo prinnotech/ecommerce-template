@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 
+import { getBlogSlugs } from "@repo/core/actions/blog";
 import { getPublishedPages } from "@repo/core/actions/pages";
 import { getCollectionSlugs, getProductSlugs, getStoreCategories } from "@repo/core/actions/storefront";
 import { publishedLocales } from "@repo/core/lib/languages";
 import { SITE_URL } from "@repo/core/lib/site-config";
 import { getSiteSetting } from "@repo/core/lib/site-settings-server";
 
-// Refreshed hourly; product, category and custom pages for every locale, with hreflang alternates.
+// Refreshed hourly; product, category, custom pages and blog posts for every locale, with hreflang
+// alternates.
 export const revalidate = 3600;
 
 function entry(locales: readonly string[], path: string, last_modified?: string): MetadataRoute.Sitemap {
@@ -19,13 +21,16 @@ function entry(locales: readonly string[], path: string, last_modified?: string)
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [products, categories, pages, collections, languages] = await Promise.all([
+  const [products, categories, pages, collections, posts, languages] = await Promise.all([
     getProductSlugs(),
     getStoreCategories(),
     getPublishedPages(),
     getCollectionSlugs(),
+    getBlogSlugs(),
     getSiteSetting("LANGUAGES"),
   ]);
+  const blog_posts = posts.ok ? posts.data : [];
+  const tags = [...new Set(blog_posts.flatMap((post) => post.tags))];
   const locales = publishedLocales(languages);
   return [
     ...entry(locales, ""),
@@ -42,5 +47,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(collections.ok ? collections.data : []).flatMap((item) =>
       entry(locales, `/collections/${item.slug}`, item.updated_at),
     ),
+    ...(blog_posts.length > 0 ? entry(locales, "/blog") : []),
+    ...blog_posts.flatMap((post) => entry(locales, `/blog/${post.slug}`, post.updated_at)),
+    ...tags.flatMap((tag) => entry(locales, `/blog/tags/${encodeURIComponent(tag)}`)),
   ];
 }

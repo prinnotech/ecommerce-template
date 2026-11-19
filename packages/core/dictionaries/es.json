@@ -480,6 +480,21 @@
     "wishlist": {
       "add": "Guardar en favoritos",
       "remove": "Quitar de favoritos"
+    },
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Historias, notas de estilo y novedades de la tienda.",
+      "by": "Por {author}",
+      "tagged": "Entradas con la etiqueta “{tag}”",
+      "all_posts": "Todas las entradas",
+      "empty": "Aún no hay entradas. Vuelve pronto.",
+      "empty_tag": "Aún no hay entradas con esta etiqueta.",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página {page} de {total}",
+      "tags": "Etiquetas",
+      "back": "Volver al blog",
+      "view_all": "Ver todas las entradas"
     }
   },
   "cart": {

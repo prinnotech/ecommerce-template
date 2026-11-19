@@ -8,6 +8,7 @@ import type { AbandonedCheckoutFilters } from "@repo/core/lib/schemas/abandoned-
 import type { GiftCardFilters } from "@repo/core/lib/schemas/gift-cards";
 import type { DiscountListFilters } from "@repo/core/lib/schemas/discounts";
 import type { MediaFilters } from "@repo/core/lib/schemas/media";
+import type { BlogListFilters } from "@repo/core/lib/schemas/blog";
 import type { DraftListFilters } from "@repo/core/lib/schemas/draft-orders";
 import type { InventoryFilters } from "@repo/core/lib/schemas/inventory";
 import type { ReviewFilters } from "@repo/core/lib/schemas/reviews";
@@ -33,6 +34,8 @@ export const query_keys = {
   navigation: ["navigation"] as const,
   pages: ["pages"] as const,
   media_all: ["media"] as const,
+  blog_posts_all: ["blog_posts"] as const,
+  blog_posts: (filters: BlogListFilters) => ["blog_posts", filters] as const,
   media: (filters: MediaFilters) => ["media", filters] as const,
   payments: ["payments"] as const,
   tracking: ["tracking"] as const,

@@ -480,6 +480,21 @@
     "wishlist": {
       "add": "Save to wishlist",
       "remove": "Remove from wishlist"
+    },
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Stories, style notes and news from the shop.",
+      "by": "By {author}",
+      "tagged": "Posts tagged “{tag}”",
+      "all_posts": "All posts",
+      "empty": "No posts yet. Check back soon.",
+      "empty_tag": "No posts with this tag yet.",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {page} of {total}",
+      "tags": "Tags",
+      "back": "Back to the blog",
+      "view_all": "View all posts"
     }
   },
   "cart": {

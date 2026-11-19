@@ -22,6 +22,7 @@ import type { Seo } from "@repo/core/lib/schemas/seo";
 import type { AdjustmentReason, InventoryFilters } from "@repo/core/lib/schemas/inventory";
 import type { DraftDiscount, DraftListFilters, DraftStatus } from "@repo/core/lib/schemas/draft-orders";
 import type { MediaFilters } from "@repo/core/lib/schemas/media";
+import type { BlogListFilters, StoreBlogFilters } from "@repo/core/lib/schemas/blog";
 import type {
   BuyXGetY,
   CombinesWith,
@@ -217,6 +218,41 @@ export type PagesBackend = {
     fields: Partial<Pick<PageRecord, "title" | "slug" | "sections" | "seo" | "is_published">>,
   ): Promise<void>; // not_found, slug_taken
   remove(id: string): Promise<void>; // not_found
+};
+
+// ---------- Blog posts (Content → Blog posts) ----------
+
+// Text fields are JSON per language and validated in core (actions/blog.ts), like pages.
+export type BlogPostRecord = {
+  id: string;
+  title: unknown;
+  slug: string;
+  excerpt: unknown;
+  body: unknown;
+  cover_url: string;
+  cover_alt: unknown;
+  tags: string[];
+  author: string;
+  seo: unknown;
+  is_published: boolean;
+  // "" until first published.
+  published_at: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type BlogPostFields = Omit<BlogPostRecord, "id" | "created_at" | "updated_at">;
+
+export type BlogBackend = {
+  // Newest first (published date, else creation). `now` decides scheduled vs published.
+  list(filters: BlogListFilters, page_size: number, now: string): Promise<Page<BlogPostRecord>>;
+  get(id: string): Promise<BlogPostRecord>; // not_found
+  create(fields: BlogPostFields): Promise<{ id: string }>; // slug_taken
+  update(id: string, fields: BlogPostFields): Promise<void>; // not_found, slug_taken
+  remove(id: string): Promise<void>; // not_found
+  // The storefront: published, with published_at <= now.
+  listPublished(filters: StoreBlogFilters, page_size: number, now: string): Promise<Page<BlogPostRecord>>;
+  getPublishedBySlug(slug: string, now: string): Promise<BlogPostRecord | null>;
 };
 
 // ---------- Media library (images uploaded from the theme editor) ----------
@@ -1365,6 +1401,7 @@ export type Backend = {
   themes: ThemesBackend;
   pages: PagesBackend;
   media: MediaBackend;
+  blog: BlogBackend;
   email_log: EmailLogBackend;
   message_log: MessageLogBackend;
   inventory: InventoryBackend;

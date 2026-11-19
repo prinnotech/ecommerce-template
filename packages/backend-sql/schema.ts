@@ -270,6 +270,20 @@ export type PagesTable = Timestamps & {
   is_published: Bool;
 };
 
+export type BlogPostsTable = Timestamps & {
+  title: Json;
+  slug: string;
+  excerpt: Json;
+  body: Json;
+  cover_url: Text;
+  cover_alt: Json;
+  tags: Json;
+  author: Text;
+  seo: Json;
+  is_published: Bool;
+  published_at: Time;
+};
+
 export type MediaTable = Timestamps & {
   path: string;
   name: string;
@@ -436,6 +450,7 @@ export type Database = {
   themes: ThemesTable;
   pages: PagesTable;
   media: MediaTable;
+  blog_posts: BlogPostsTable;
   email_log: EmailLogTable;
   message_log: MessageLogTable;
   inventory_adjustments: InventoryAdjustmentsTable;

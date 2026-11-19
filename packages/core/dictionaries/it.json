@@ -480,6 +480,21 @@
     "wishlist": {
       "add": "Salva nei preferiti",
       "remove": "Rimuovi dai preferiti"
+    },
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Storie, consigli di stile e novità dal negozio.",
+      "by": "Di {author}",
+      "tagged": "Articoli con il tag “{tag}”",
+      "all_posts": "Tutti gli articoli",
+      "empty": "Ancora nessun articolo. Torna presto.",
+      "empty_tag": "Ancora nessun articolo con questo tag.",
+      "previous": "Precedente",
+      "next": "Successiva",
+      "page": "Pagina {page} di {total}",
+      "tags": "Tag",
+      "back": "Torna al blog",
+      "view_all": "Vedi tutti gli articoli"
     }
   },
   "cart": {

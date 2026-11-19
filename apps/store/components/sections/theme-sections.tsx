@@ -1,5 +1,6 @@
 import { Fragment, type ReactNode } from "react";
 
+import { BlogPostsSection } from "./blog-posts-section";
 import { CategoryTilesSection } from "./category-tiles-section";
 import {
   ContactFormSection,
@@ -23,6 +24,7 @@ import { NewsletterSection } from "./newsletter-section";
 import { ProductGridSection } from "./product-grid-section";
 import { ProductMainSection } from "./product-main-section";
 import { RichTextSection } from "./rich-text-section";
+import { getLatestBlogPosts, type BlogPost } from "@repo/core/actions/blog";
 import {
   getCategoryProducts,
   getCollectionProducts,
@@ -37,7 +39,7 @@ import {
 import { trustBadges, TrustBadges } from "@/components/storefront/trust-badges";
 import type { ActionResult } from "@repo/core/lib/action-result";
 import { getDictionary } from "@repo/core/lib/i18n";
-import type { ThemeSection, ThemeSettings } from "@repo/core/lib/schemas/theme";
+import type { SectionOf, ThemeSection, ThemeSettings } from "@repo/core/lib/schemas/theme";
 import { getSiteSettings } from "@repo/core/lib/site-settings-server";
 import { colorSchemeClass } from "@repo/core/themes/css";
 import { PREVIEW_SECTION_ATTRIBUTE } from "@repo/core/themes/preview";
@@ -108,6 +110,11 @@ export async function ThemeSections({
   const collection_ids = visible.flatMap((section) =>
     section.type === "collection_list" ? section.settings.collection_ids : [],
   );
+  // Blog posts load alongside everything below.
+  const blog_sections = visible.filter((section): section is SectionOf<"blog_posts"> => section.type === "blog_posts");
+  const blog_loads = Promise.all(
+    blog_sections.map((section) => getLatestBlogPosts(section.settings.limit, section.settings.tag)),
+  );
   const [dictionary, settings, categories, collection_tiles, ...list_results] = await Promise.all([
     getDictionary(lang),
     getSiteSettings(),
@@ -116,6 +123,13 @@ export async function ThemeSections({
     ...lists.map((section) => productsFor(section, product)),
   ]);
   const collections = collection_tiles?.ok ? collection_tiles.data : [];
+  const blog_results = await blog_loads;
+  const blog_posts = new Map<string, BlogPost[]>(
+    blog_sections.map((section, index) => {
+      const result = blog_results[index];
+      return [section.id, result?.ok ? result.data : []];
+    }),
+  );
   const products = new Map(
     lists.map((section, index) => {
       const result = list_results[index];
@@ -224,6 +238,16 @@ export async function ThemeSections({
         return <MarqueeSection key={section.id} section={section} lang={lang} />;
       case "collection_list":
         return <CollectionListSection key={section.id} section={section} collections={collections} lang={lang} />;
+      case "blog_posts":
+        return (
+          <BlogPostsSection
+            key={section.id}
+            section={section}
+            posts={blog_posts.get(section.id) ?? []}
+            lang={lang}
+            text={dictionary.store.blog}
+          />
+        );
       case "multicolumn":
         return <MulticolumnSection key={section.id} section={section} lang={lang} />;
       case "image_banner":

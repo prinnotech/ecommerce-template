@@ -57,6 +57,7 @@ export default async function ThemeEditorPage({ params, searchParams }: PageProp
     { href: "/shop?sort=newest", label: store_links.newest },
     { href: "/about", label: store_links.about },
     { href: "/contact", label: store_links.contact },
+    { href: "/blog", label: store_links.blog },
     { href: "/account", label: store_links.account },
     { href: "/privacy", label: store_links.privacy },
     { href: "/terms", label: store_links.terms },

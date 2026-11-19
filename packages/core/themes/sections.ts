@@ -57,6 +57,7 @@ const TEXT = {
   },
   contact_form_heading: { en: "Send us a message", es: "Envíanos un mensaje", it: "Inviaci un messaggio" },
   related: { en: "You may also like", es: "También te puede gustar", it: "Potrebbe piacerti anche" },
+  latest_posts: { en: "From the journal", es: "Del blog", it: "Dal blog" },
   faq_heading: { en: "Frequently asked questions", es: "Preguntas frecuentes", it: "Domande frequenti" },
   faq_question: {
     en: "How long does delivery take?",
@@ -203,6 +204,7 @@ const DEFAULTS: { [T in SectionType]: () => SectionOf<T>["settings"] } = {
     size: "small",
   }),
   collection_list: () => ({ heading: TEXT.collections_heading, collection_ids: [], columns: 3 }),
+  blog_posts: () => ({ heading: TEXT.latest_posts, limit: 3, tag: "", show_view_all: true }),
   multicolumn: () => ({
     heading: TEXT.multicolumn_heading,
     columns: 3,
