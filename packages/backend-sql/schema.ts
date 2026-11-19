@@ -284,6 +284,23 @@ export type BlogPostsTable = Timestamps & {
   published_at: Time;
 };
 
+export type MetafieldDefinitionsTable = Timestamps & {
+  owner: string;
+  key: string;
+  name: Json;
+  description: Json;
+  type: string;
+  is_storefront: Bool;
+  position: Int;
+};
+
+export type MetafieldValuesTable = Timestamps & {
+  owner: string;
+  owner_key: string;
+  data: Json;
+  updated_by: string | null;
+};
+
 export type MediaTable = Timestamps & {
   path: string;
   name: string;
@@ -451,6 +468,8 @@ export type Database = {
   pages: PagesTable;
   media: MediaTable;
   blog_posts: BlogPostsTable;
+  metafield_definitions: MetafieldDefinitionsTable;
+  metafield_values: MetafieldValuesTable;
   email_log: EmailLogTable;
   message_log: MessageLogTable;
   inventory_adjustments: InventoryAdjustmentsTable;

@@ -23,6 +23,7 @@ import type { AdjustmentReason, InventoryFilters } from "@repo/core/lib/schemas/
 import type { DraftDiscount, DraftListFilters, DraftStatus } from "@repo/core/lib/schemas/draft-orders";
 import type { MediaFilters } from "@repo/core/lib/schemas/media";
 import type { BlogListFilters, StoreBlogFilters } from "@repo/core/lib/schemas/blog";
+import type { MetafieldOwner } from "@repo/core/lib/schemas/metafields";
 import type {
   BuyXGetY,
   CombinesWith,
@@ -253,6 +254,36 @@ export type BlogBackend = {
   // The storefront: published, with published_at <= now.
   listPublished(filters: StoreBlogFilters, page_size: number, now: string): Promise<Page<BlogPostRecord>>;
   getPublishedBySlug(slug: string, now: string): Promise<BlogPostRecord | null>;
+};
+
+// ---------- Custom data (metafields) ----------
+
+// Text fields are JSON and validated in core (actions/metafields.ts).
+export type MetafieldDefinitionRecord = {
+  id: string;
+  owner: string;
+  key: string;
+  name: unknown;
+  description: unknown;
+  type: string;
+  is_storefront: boolean;
+  position: number;
+};
+
+export type MetafieldsBackend = {
+  // In their order (position), for one owner or all.
+  listDefinitions(owner?: MetafieldOwner): Promise<MetafieldDefinitionRecord[]>;
+  createDefinition(fields: Omit<MetafieldDefinitionRecord, "id">): Promise<{ id: string }>; // metafield_key_taken
+  // The owner and key never change.
+  updateDefinition(
+    id: string,
+    fields: Pick<MetafieldDefinitionRecord, "name" | "description" | "type" | "is_storefront" | "position">,
+  ): Promise<void>; // not_found
+  // Values already saved for the field stay in their records and are ignored.
+  deleteDefinition(id: string): Promise<void>; // not_found
+  // One JSON object of values per record (product id, collection id or customer key); {} if none.
+  getValues(owner: MetafieldOwner, owner_key: string): Promise<unknown>;
+  setValues(owner: MetafieldOwner, owner_key: string, values: Record<string, unknown>, actor: string): Promise<void>;
 };
 
 // ---------- Media library (images uploaded from the theme editor) ----------
@@ -1402,6 +1433,7 @@ export type Backend = {
   pages: PagesBackend;
   media: MediaBackend;
   blog: BlogBackend;
+  metafields: MetafieldsBackend;
   email_log: EmailLogBackend;
   message_log: MessageLogBackend;
   inventory: InventoryBackend;

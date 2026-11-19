@@ -8,6 +8,7 @@ export type SettingsNavKey =
   | "ai"
   | "domains"
   | "tracking"
+  | "custom_data"
   | "payments"
   | "shipping"
   | "taxes"
@@ -35,6 +36,7 @@ export const SETTINGS_NAV_GROUPS: readonly SettingsNavGroup[] = [
       { key: "ai", permission: "settings.view" },
       { key: "domains", permission: "settings.view" },
       { key: "tracking", permission: "settings.view" },
+      { key: "custom_data", permission: "settings.view" },
     ],
   },
   {

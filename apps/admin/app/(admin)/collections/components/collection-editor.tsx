@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { MediaPicker } from "@/components/media-picker";
+import { MetafieldsCard } from "@/components/metafields-card";
 import { ConfirmDialog } from "@repo/admin-ui/components/confirm-dialog";
 import { DetailLayout, SectionCard } from "@repo/admin-ui/components/detail-layout";
 import { LocalizedFields } from "@repo/admin-ui/components/localized-fields";
@@ -55,6 +56,8 @@ type CollectionEditorProps = {
   save_bar: AdminDictionary["admin_ui"]["save_bar"];
   errors: AdminDictionary["errors"];
   files_picker: AdminDictionary["files"]["picker"];
+  custom_data: AdminDictionary["custom_data"];
+  can_manage_fields: boolean;
 };
 
 function firstText(text: LocalizedText): string {
@@ -79,6 +82,8 @@ export function CollectionEditor({
   save_bar,
   errors,
   files_picker,
+  custom_data,
+  can_manage_fields,
 }: CollectionEditorProps) {
   const [is_picker_open, setIsPickerOpen] = useState(false);
   const router = useRouter();
@@ -521,6 +526,19 @@ export function CollectionEditor({
           </div>
         )}
       </SectionCard>
+      {view && (
+        <MetafieldsCard
+          owner="collection"
+          owner_key={view.collection.id}
+          can_edit={can_edit}
+          can_manage={can_manage_fields}
+          lang={lang}
+          dictionary={custom_data}
+          files_picker={files_picker}
+          common={common}
+          errors={errors}
+        />
+      )}
       {view && can_edit && (
         <Button
           type="button"

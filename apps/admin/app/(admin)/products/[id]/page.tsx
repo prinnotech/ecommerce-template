@@ -45,6 +45,8 @@ export default async function EditProductPage({ params }: PageProps<"/products/[
         dictionary={dictionary.catalog}
         images_dictionary={dictionary.admin_ui.images}
         files_picker={dictionary.files.picker}
+        custom_data={dictionary.custom_data}
+        can_manage_fields={callerShows(caller, "settings.view")}
         common={dictionary.common}
         errors={dictionary.errors}
         validation={dictionary.validation}

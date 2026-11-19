@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { CustomerNoteCard, MarketingConsentCard } from "./components/customer-side-cards";
 import { OrderRows } from "@/components/dashboard/order-rows";
+import { MetafieldsCard } from "@/components/metafields-card";
 import { DetailLayout, SectionCard } from "@repo/admin-ui/components/detail-layout";
 import { Page } from "@repo/admin-ui/components/page";
 import { StatusBadge } from "@repo/admin-ui/components/status-badge";
@@ -146,6 +147,18 @@ export default async function CustomerPage({ params }: PageProps<"/customers/[ke
                 errors={dictionary.errors}
               />
             )}
+
+            <MetafieldsCard
+              owner="customer"
+              owner_key={customer.key}
+              can_edit={can_edit}
+              can_manage={callerShows(caller, "settings.view")}
+              lang={lang}
+              dictionary={dictionary.custom_data}
+              files_picker={dictionary.files.picker}
+              common={dictionary.common}
+              errors={dictionary.errors}
+            />
 
             <CustomerNoteCard
               customer_key={customer.key}

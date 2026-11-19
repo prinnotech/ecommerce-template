@@ -35,6 +35,8 @@ export default async function CollectionPage({ params }: PageProps<"/collections
       save_bar={dictionary.admin_ui.save_bar}
       errors={dictionary.errors}
       files_picker={dictionary.files.picker}
+      custom_data={dictionary.custom_data}
+      can_manage_fields={callerShows(caller, "settings.view")}
     />
   );
 }

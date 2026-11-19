@@ -18,7 +18,12 @@ export default async function SettingsPanelLayout({ children }: LayoutProps<"/se
     label: dictionary.settings.groups[group.key],
     items: group.items
       .filter((item) => item.permission === null || callerShows(caller, item.permission))
-      .map((item) => ({ key: item.key, href: `/settings/${item.key}`, label: dictionary.settings.sections[item.key] })),
+      // Keys use underscores, folders use dashes (api_keys → /settings/api-keys).
+      .map((item) => ({
+        key: item.key,
+        href: `/settings/${item.key.replace(/_/g, "-")}`,
+        label: dictionary.settings.sections[item.key],
+      })),
   })).filter((group) => group.items.length > 0);
 
   return (

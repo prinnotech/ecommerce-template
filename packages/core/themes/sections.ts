@@ -58,6 +58,7 @@ const TEXT = {
   contact_form_heading: { en: "Send us a message", es: "Envíanos un mensaje", it: "Inviaci un messaggio" },
   related: { en: "You may also like", es: "También te puede gustar", it: "Potrebbe piacerti anche" },
   latest_posts: { en: "From the journal", es: "Del blog", it: "Dal blog" },
+  details: { en: "Details", es: "Detalles", it: "Dettagli" },
   faq_heading: { en: "Frequently asked questions", es: "Preguntas frecuentes", it: "Domande frequenti" },
   faq_question: {
     en: "How long does delivery take?",
@@ -177,6 +178,7 @@ const DEFAULTS: { [T in SectionType]: () => SectionOf<T>["settings"] } = {
   product_main: () => ({ show_assurances: true }),
   product_list: () => ({ columns: 3, show_filters: true }),
   related_products: () => ({ heading: TEXT.related, limit: 4 }),
+  custom_fields: () => ({ heading: TEXT.details, keys: "" }),
   slideshow: () => ({
     slides: [
       {

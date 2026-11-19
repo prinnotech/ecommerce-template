@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { CollectionEditor } from "../components/collection-editor";
 import { buildAdminMetadata, getAdminLocale } from "@repo/core/lib/admin-locale";
-import { requirePermission } from "@repo/core/lib/auth";
+import { callerShows, requirePermission } from "@repo/core/lib/auth";
 import { getAdminDictionary } from "@repo/core/lib/i18n";
 import { getSiteSetting } from "@repo/core/lib/site-settings-server";
 
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function NewCollectionPage() {
   const lang = await getAdminLocale();
-  await requirePermission("collections.edit");
+  const caller = await requirePermission("collections.edit");
   const [dictionary, currency] = await Promise.all([getAdminDictionary(lang), getSiteSetting("CURRENCY")]);
   return (
     <CollectionEditor
@@ -28,6 +28,8 @@ export default async function NewCollectionPage() {
       save_bar={dictionary.admin_ui.save_bar}
       errors={dictionary.errors}
       files_picker={dictionary.files.picker}
+      custom_data={dictionary.custom_data}
+      can_manage_fields={callerShows(caller, "settings.view")}
     />
   );
 }

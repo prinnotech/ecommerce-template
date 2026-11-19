@@ -691,6 +691,30 @@ export function SectionForm({
       );
     }
 
+    case "custom_fields": {
+      const settings = section.settings;
+      const set = (patch: Partial<SectionOf<"custom_fields">["settings"]>) => onChange({ ...settings, ...patch });
+      return (
+        <div className="flex flex-col gap-5">
+          <LocalizedField
+            id={id("heading")}
+            label={fields.heading}
+            value={settings.heading}
+            onChange={(heading) => set({ heading })}
+            context={context}
+          />
+          <TextInputField
+            id={id("keys")}
+            label={fields.custom_field_keys}
+            description={fields.custom_field_keys_hint}
+            value={settings.keys}
+            onChange={(keys) => set({ keys })}
+            context={context}
+          />
+        </div>
+      );
+    }
+
     case "related_products": {
       const settings = section.settings;
       const set = (patch: Partial<SectionOf<"related_products">["settings"]>) => onChange({ ...settings, ...patch });

@@ -1032,6 +1032,44 @@ const blog: Migration = {
   },
 };
 
+// Settings → Custom data: field definitions, and one JSON object of values per record.
+const metafields: Migration = {
+  name: "0024_metafields",
+  async up(db, { dialect, supabase: is_supabase }) {
+    const t = types(dialect);
+    await db.schema
+      .createTable("metafield_definitions")
+      .addColumn("id", "text", (col) => col.primaryKey())
+      .addColumn("created_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("updated_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("owner", "text", (col) => col.notNull())
+      .addColumn("key", "text", (col) => col.notNull())
+      .addColumn("name", sql.raw(t.json), (col) => col.notNull())
+      .addColumn("description", sql.raw(t.json))
+      .addColumn("type", "text", (col) => col.notNull())
+      .addColumn("is_storefront", sql.raw(t.bool), (col) => col.notNull().defaultTo(t.false_))
+      .addColumn("position", "integer", (col) => col.notNull().defaultTo(0))
+      .addUniqueConstraint("metafield_definitions_owner_key", ["owner", "key"])
+      .execute();
+    await db.schema
+      .createTable("metafield_values")
+      .addColumn("id", "text", (col) => col.primaryKey())
+      .addColumn("created_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("updated_at", sql.raw(t.time), (col) => col.notNull().defaultTo(t.now))
+      .addColumn("owner", "text", (col) => col.notNull())
+      .addColumn("owner_key", "text", (col) => col.notNull())
+      .addColumn("data", sql.raw(t.json), (col) => col.notNull())
+      .addColumn("updated_by", "text")
+      .addUniqueConstraint("metafield_values_owner_key", ["owner", "owner_key"])
+      .execute();
+    if (is_supabase) {
+      for (const table of ["metafield_definitions", "metafield_values"]) {
+        await sql`alter table ${sql.table(table)} enable row level security`.execute(db);
+      }
+    }
+  },
+};
+
 export const MIGRATIONS: Migration[] = [
   initial,
   supabase,
@@ -1056,6 +1094,7 @@ export const MIGRATIONS: Migration[] = [
   fulfillments,
   files,
   blog,
+  metafields,
 ];
 
 // Applies the migrations that haven't run yet, in order, each in its own transaction.

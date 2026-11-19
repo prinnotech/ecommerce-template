@@ -130,7 +130,8 @@
       "tracking": "Tracking",
       "api_keys": "API keys",
       "ai": "AI",
-      "sms": "SMS & WhatsApp"
+      "sms": "SMS & WhatsApp",
+      "custom_data": "Custom data"
     },
     "saved_all": "Settings saved.",
     "assets": {
@@ -1428,7 +1429,8 @@
         "image_banner": "Image banner",
         "testimonials": "Testimonials",
         "product_list": "Product list",
-        "blog_posts": "Latest posts"
+        "blog_posts": "Latest posts",
+        "custom_fields": "Custom fields"
       },
       "undo": "Undo",
       "redo": "Redo",
@@ -1459,7 +1461,8 @@
         "image_banner": "A wide image with text and a button on top.",
         "testimonials": "Customer quotes with names and stars.",
         "product_list": "The products with filters, sorting and pages.",
-        "blog_posts": "The newest blog posts as cards."
+        "blog_posts": "The newest blog posts as cards.",
+        "custom_fields": "The product's custom fields shown on the store (Settings → Custom data)."
       },
       "hide": "Hide",
       "show": "Show",
@@ -1557,7 +1560,9 @@
         "show_filters": "Filter sidebar on the Shop page",
         "product_list_hint": "This block shows the products of the Shop, a category or a collection. Add sections above or below it.",
         "blog_tag": "Only posts with the tag (optional)",
-        "blog_tag_hint": "Empty = every post. Type a tag exactly as on the post, e.g. style-guide."
+        "blog_tag_hint": "Empty = every post. Type a tag exactly as on the post, e.g. style-guide.",
+        "custom_field_keys": "Only these fields (optional)",
+        "custom_field_keys_hint": "Field keys separated by commas, in the order to show them. Empty = every field shown on the store."
       },
       "settings": {
         "colors": "Colours",
@@ -2845,5 +2850,68 @@
       "delete_body": "It disappears from the store at once. This can't be undone.",
       "saved": "Post saved."
     }
+  },
+  "custom_data": {
+    "title": "Custom data",
+    "subtitle": "Extra fields for products, collections and customers, like fabric, care instructions or a birthday.",
+    "add": "Add field",
+    "owners": {
+      "product": "Products",
+      "collection": "Collections",
+      "customer": "Customers"
+    },
+    "owner_hints": {
+      "product": "Filled in on each product page. Fields shown on the store appear in the product page's Custom fields section.",
+      "collection": "Filled in on each collection page.",
+      "customer": "Filled in on each customer page. Only staff see them."
+    },
+    "empty": "No fields yet.",
+    "on_store": "On store",
+    "types": {
+      "text": "Text",
+      "multiline": "Text (several lines)",
+      "number": "Number",
+      "boolean": "Yes / no",
+      "date": "Date",
+      "url": "Link",
+      "color": "Colour",
+      "file": "Image or file"
+    },
+    "move_up": "Move {name} up",
+    "move_down": "Move {name} down",
+    "edit": "Edit {name}",
+    "delete": "Delete {name}",
+    "delete_title": "Delete this field?",
+    "delete_body": "It disappears from every page and from the store. Values already filled in are kept, so creating the field again with the same key brings them back.",
+    "delete_confirm": "Delete field",
+    "deleted": "Field deleted.",
+    "add_title": "New field for {owner}",
+    "edit_title": "Edit field",
+    "dialog_hint": "The name is what staff and customers see; the key is how themes and integrations find the field.",
+    "name": "Name",
+    "name_required": "Give the field a name in at least one language.",
+    "key": "Key",
+    "key_hint": "Lowercase letters, numbers and _, starting with a letter. It can't change later.",
+    "key_fixed": "The key can't change.",
+    "key_invalid": "Use lowercase letters, numbers and _, starting with a letter.",
+    "type": "Type",
+    "type_change_hint": "Values that don't fit a new type are hidden until you fill them in again.",
+    "description": "Help text (optional)",
+    "description_hint": "Shown under the field when staff fill it in.",
+    "storefront": "Show on the store",
+    "storefront_hint": "Products: in the Custom fields section of the product page.",
+    "saved": "Field saved.",
+    "card_title": "Custom fields",
+    "card_empty": "No custom fields yet.",
+    "card_manage": "Add them in Settings → Custom data.",
+    "not_set": "Not set",
+    "yes": "Yes",
+    "no": "No",
+    "change_file": "Change",
+    "choose_file": "Choose from Files",
+    "clear": "Clear {name}",
+    "discard": "Discard",
+    "save_values": "Save fields",
+    "values_saved": "Custom fields saved."
   }
 }

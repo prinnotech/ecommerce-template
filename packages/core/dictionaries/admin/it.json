@@ -130,7 +130,8 @@
       "tracking": "Tracciamento",
       "api_keys": "Chiavi API",
       "ai": "IA",
-      "sms": "SMS e WhatsApp"
+      "sms": "SMS e WhatsApp",
+      "custom_data": "Dati personalizzati"
     },
     "saved_all": "Impostazioni salvate.",
     "assets": {
@@ -1428,7 +1429,8 @@
         "image_banner": "Banner con immagine",
         "testimonials": "Testimonianze",
         "product_list": "Elenco prodotti",
-        "blog_posts": "Ultimi articoli"
+        "blog_posts": "Ultimi articoli",
+        "custom_fields": "Campi personalizzati"
       },
       "undo": "Annulla",
       "redo": "Ripeti",
@@ -1459,7 +1461,8 @@
         "image_banner": "Un'immagine larga con testo e pulsante sopra.",
         "testimonials": "Recensioni dei clienti con nome e stelle.",
         "product_list": "I prodotti con filtri, ordinamento e pagine.",
-        "blog_posts": "Gli articoli più recenti del blog in schede."
+        "blog_posts": "Gli articoli più recenti del blog in schede.",
+        "custom_fields": "I campi personalizzati del prodotto visibili nel negozio (Impostazioni → Dati personalizzati)."
       },
       "hide": "Nascondi",
       "show": "Mostra",
@@ -1557,7 +1560,9 @@
         "show_filters": "Barra dei filtri nella pagina Negozio",
         "product_list_hint": "Questo blocco mostra i prodotti del Negozio, di una categoria o di una collezione. Aggiungi sezioni sopra o sotto.",
         "blog_tag": "Solo articoli con il tag (facoltativo)",
-        "blog_tag_hint": "Vuoto = tutti gli articoli. Scrivi il tag come appare nell'articolo, es. guida-di-stile."
+        "blog_tag_hint": "Vuoto = tutti gli articoli. Scrivi il tag come appare nell'articolo, es. guida-di-stile.",
+        "custom_field_keys": "Solo questi campi (facoltativo)",
+        "custom_field_keys_hint": "Chiavi dei campi separate da virgole, nell'ordine in cui mostrarle. Vuoto = tutti quelli visibili nel negozio."
       },
       "settings": {
         "colors": "Colori",
@@ -2845,5 +2850,68 @@
       "delete_body": "Scompare subito dal negozio. Non si può annullare.",
       "saved": "Articolo salvato."
     }
+  },
+  "custom_data": {
+    "title": "Dati personalizzati",
+    "subtitle": "Campi extra per prodotti, collezioni e clienti, come il tessuto, le istruzioni di lavaggio o un compleanno.",
+    "add": "Aggiungi campo",
+    "owners": {
+      "product": "Prodotti",
+      "collection": "Collezioni",
+      "customer": "Clienti"
+    },
+    "owner_hints": {
+      "product": "Si compilano nella pagina di ogni prodotto. I campi visibili nel negozio compaiono nella sezione Campi personalizzati della pagina prodotto.",
+      "collection": "Si compilano nella pagina di ogni collezione.",
+      "customer": "Si compilano nella pagina di ogni cliente. Li vede solo lo staff."
+    },
+    "empty": "Ancora nessun campo.",
+    "on_store": "Nel negozio",
+    "types": {
+      "text": "Testo",
+      "multiline": "Testo (più righe)",
+      "number": "Numero",
+      "boolean": "Sì / no",
+      "date": "Data",
+      "url": "Link",
+      "color": "Colore",
+      "file": "Immagine o file"
+    },
+    "move_up": "Sposta su {name}",
+    "move_down": "Sposta giù {name}",
+    "edit": "Modifica {name}",
+    "delete": "Elimina {name}",
+    "delete_title": "Eliminare questo campo?",
+    "delete_body": "Scompare da tutte le pagine e dal negozio. I valori già compilati restano: ricreando il campo con la stessa chiave ricompaiono.",
+    "delete_confirm": "Elimina campo",
+    "deleted": "Campo eliminato.",
+    "add_title": "Nuovo campo per {owner}",
+    "edit_title": "Modifica campo",
+    "dialog_hint": "Il nome è ciò che vedono staff e clienti; la chiave è come lo trovano temi e integrazioni.",
+    "name": "Nome",
+    "name_required": "Dai un nome al campo in almeno una lingua.",
+    "key": "Chiave",
+    "key_hint": "Lettere minuscole, numeri e _, iniziando con una lettera. Non si può cambiare in seguito.",
+    "key_fixed": "La chiave non si può cambiare.",
+    "key_invalid": "Usa lettere minuscole, numeri e _, iniziando con una lettera.",
+    "type": "Tipo",
+    "type_change_hint": "I valori che non corrispondono al nuovo tipo restano nascosti finché non li compili di nuovo.",
+    "description": "Testo di aiuto (facoltativo)",
+    "description_hint": "Compare sotto il campo quando lo staff lo compila.",
+    "storefront": "Mostra nel negozio",
+    "storefront_hint": "Prodotti: nella sezione Campi personalizzati della pagina prodotto.",
+    "saved": "Campo salvato.",
+    "card_title": "Campi personalizzati",
+    "card_empty": "Ancora nessun campo personalizzato.",
+    "card_manage": "Aggiungili in Impostazioni → Dati personalizzati.",
+    "not_set": "Non impostato",
+    "yes": "Sì",
+    "no": "No",
+    "change_file": "Cambia",
+    "choose_file": "Scegli da File",
+    "clear": "Svuota {name}",
+    "discard": "Annulla",
+    "save_values": "Salva campi",
+    "values_saved": "Campi personalizzati salvati."
   }
 }

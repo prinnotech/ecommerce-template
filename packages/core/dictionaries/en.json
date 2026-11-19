@@ -68,7 +68,8 @@
     "messaging_not_configured": "SMS and WhatsApp aren't set up yet: add your Twilio account and save first.",
     "messaging_failed": "Twilio didn't send the message. Recent messages shows the reason.",
     "invalid_phone": "That phone number isn't valid. Include the country code, for example +39 333 123 4567.",
-    "fulfillment_too_large": "That's more than is left to ship on this order. Refresh and try again."
+    "fulfillment_too_large": "That's more than is left to ship on this order. Refresh and try again.",
+    "metafield_key_taken": "Another field for the same kind of item already uses this key."
   },
   "validation": {
     "required": "This field is required.",
@@ -495,6 +496,11 @@
       "tags": "Tags",
       "back": "Back to the blog",
       "view_all": "View all posts"
+    },
+    "custom_fields": {
+      "yes": "Yes",
+      "no": "No",
+      "open_file": "Open file"
     }
   },
   "cart": {

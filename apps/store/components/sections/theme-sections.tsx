@@ -2,6 +2,7 @@ import { Fragment, type ReactNode } from "react";
 
 import { BlogPostsSection } from "./blog-posts-section";
 import { CategoryTilesSection } from "./category-tiles-section";
+import { CustomFieldsSection } from "./custom-fields-section";
 import {
   ContactFormSection,
   FaqSection,
@@ -25,6 +26,7 @@ import { ProductGridSection } from "./product-grid-section";
 import { ProductMainSection } from "./product-main-section";
 import { RichTextSection } from "./rich-text-section";
 import { getLatestBlogPosts, type BlogPost } from "@repo/core/actions/blog";
+import { getStoreMetafields } from "@repo/core/actions/metafields";
 import {
   getCategoryProducts,
   getCollectionProducts,
@@ -115,6 +117,11 @@ export async function ThemeSections({
   const blog_loads = Promise.all(
     blog_sections.map((section) => getLatestBlogPosts(section.settings.limit, section.settings.tag)),
   );
+  // The product's custom fields, when a section shows them.
+  const fields_load =
+    product && visible.some((section) => section.type === "custom_fields")
+      ? getStoreMetafields("product", product.id)
+      : null;
   const [dictionary, settings, categories, collection_tiles, ...list_results] = await Promise.all([
     getDictionary(lang),
     getSiteSettings(),
@@ -124,6 +131,8 @@ export async function ThemeSections({
   ]);
   const collections = collection_tiles?.ok ? collection_tiles.data : [];
   const blog_results = await blog_loads;
+  const fields_result = fields_load ? await fields_load : null;
+  const custom_fields = fields_result?.ok ? fields_result.data : [];
   const blog_posts = new Map<string, BlogPost[]>(
     blog_sections.map((section, index) => {
       const result = blog_results[index];
@@ -238,6 +247,16 @@ export async function ThemeSections({
         return <MarqueeSection key={section.id} section={section} lang={lang} />;
       case "collection_list":
         return <CollectionListSection key={section.id} section={section} collections={collections} lang={lang} />;
+      case "custom_fields":
+        return (
+          <CustomFieldsSection
+            key={section.id}
+            section={section}
+            fields={custom_fields}
+            lang={lang}
+            text={dictionary.store.custom_fields}
+          />
+        );
       case "blog_posts":
         return (
           <BlogPostsSection

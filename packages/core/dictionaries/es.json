@@ -68,7 +68,8 @@
     "messaging_not_configured": "SMS y WhatsApp aún no están configurados: añade tu cuenta de Twilio y guarda primero.",
     "messaging_failed": "Twilio no envió el mensaje. En Mensajes recientes verás el motivo.",
     "invalid_phone": "Ese número de teléfono no es válido. Incluye el prefijo de país, por ejemplo +34 612 345 678.",
-    "fulfillment_too_large": "Es más de lo que queda por enviar en este pedido. Actualiza e inténtalo de nuevo."
+    "fulfillment_too_large": "Es más de lo que queda por enviar en este pedido. Actualiza e inténtalo de nuevo.",
+    "metafield_key_taken": "Otro campo del mismo tipo de elemento ya usa esta clave."
   },
   "validation": {
     "required": "Este campo es obligatorio.",
@@ -495,6 +496,11 @@
       "tags": "Etiquetas",
       "back": "Volver al blog",
       "view_all": "Ver todas las entradas"
+    },
+    "custom_fields": {
+      "yes": "Sí",
+      "no": "No",
+      "open_file": "Abrir archivo"
     }
   },
   "cart": {

@@ -3,6 +3,7 @@
 import { ProductDetailsForm } from "./product-details-form";
 import { ProductMedia } from "./product-media";
 import { ProductVariants } from "./product-variants";
+import { MetafieldsCard } from "@/components/metafields-card";
 import { Skeleton } from "@repo/ui/components/ui/skeleton";
 import { useAdminProduct } from "@repo/core/hooks/use-catalog";
 import { errorText } from "@repo/core/lib/action-result";
@@ -16,6 +17,9 @@ type ProductEditorProps = {
   dictionary: AdminDictionary["catalog"];
   images_dictionary: AdminDictionary["admin_ui"]["images"];
   files_picker: AdminDictionary["files"]["picker"];
+  custom_data: AdminDictionary["custom_data"];
+  // Settings → Custom data can be opened (the card links to it when there are no fields).
+  can_manage_fields: boolean;
   common: AdminDictionary["common"];
   errors: AdminDictionary["errors"];
   validation: AdminDictionary["validation"];
@@ -72,6 +76,19 @@ function ExistingProductEditor(props: ProductEditorProps & { product_id: string 
           dictionary={props.dictionary.editor}
           images_dictionary={props.images_dictionary}
           files_picker={props.files_picker}
+          errors={props.errors}
+        />
+      }
+      custom_fields={
+        <MetafieldsCard
+          owner="product"
+          owner_key={data.id}
+          can_edit={props.can_edit}
+          can_manage={props.can_manage_fields}
+          lang={props.lang}
+          dictionary={props.custom_data}
+          files_picker={props.files_picker}
+          common={props.common}
           errors={props.errors}
         />
       }

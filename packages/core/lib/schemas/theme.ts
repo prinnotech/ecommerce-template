@@ -332,6 +332,17 @@ export const product_list_section_schema = z.object({
   }),
 });
 
+// Product page only: the product's custom fields (Settings → Custom data) shown on the store.
+export const custom_fields_section_schema = z.object({
+  ...section_base,
+  type: z.literal("custom_fields"),
+  settings: z.object({
+    heading: heading_schema,
+    // Field keys to show, comma-separated, in this order; empty = every field shown on the store.
+    keys: z.string().trim().max(500),
+  }),
+});
+
 // Product page only: products from the same category.
 export const related_products_section_schema = z.object({
   ...section_base,
@@ -355,6 +366,7 @@ export const section_schema = z.discriminatedUnion("type", [
   contact_form_section_schema,
   product_main_section_schema,
   related_products_section_schema,
+  custom_fields_section_schema,
   product_list_section_schema,
   slideshow_section_schema,
   marquee_section_schema,
@@ -382,6 +394,7 @@ export const SECTION_TYPES = [
   "video",
   "product_grid",
   "related_products",
+  "custom_fields",
   "category_tiles",
   "collection_list",
   "blog_posts",
@@ -402,7 +415,7 @@ export const THEME_PAGES = ["home", "product", "collection", "about", "contact"]
 export type ThemePage = (typeof THEME_PAGES)[number];
 export type PageKind = ThemePage | "custom";
 
-const PRODUCT_ONLY: readonly SectionType[] = ["product_main", "related_products"];
+const PRODUCT_ONLY: readonly SectionType[] = ["product_main", "related_products", "custom_fields"];
 // The block each template is built around: on the page once, never removed or added by hand.
 export const FIXED_SECTION: Partial<Record<PageKind, SectionType>> = {
   product: "product_main",

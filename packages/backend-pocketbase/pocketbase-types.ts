@@ -31,6 +31,8 @@ export const Collections = {
 	InventoryAdjustments: "inventory_adjustments",
 	Media: "media",
 	MessageLog: "message_log",
+	MetafieldDefinitions: "metafield_definitions",
+	MetafieldValues: "metafield_values",
 	OrderEvents: "order_events",
 	OrderItems: "order_items",
 	Orders: "orders",
@@ -475,6 +477,29 @@ export type MessageLogRecord = {
 	updated_at: IsoAutoDateString
 }
 
+export type MetafieldDefinitionsRecord<Tdescription = unknown, Tname = unknown> = {
+	created_at: IsoAutoDateString
+	description?: null | Tdescription
+	id: string
+	is_storefront?: boolean
+	key: string
+	name?: null | Tname
+	owner: string
+	position?: number
+	type: string
+	updated_at: IsoAutoDateString
+}
+
+export type MetafieldValuesRecord<Tdata = unknown> = {
+	created_at: IsoAutoDateString
+	data?: null | Tdata
+	id: string
+	owner: string
+	owner_key: string
+	updated_at: IsoAutoDateString
+	updated_by?: string
+}
+
 export const OrderEventsTypeOptions = {
 	"created": "created",
 	"status_changed": "status_changed",
@@ -799,6 +824,8 @@ export type GiftCardsResponse<Texpand = unknown> = Required<GiftCardsRecord> & B
 export type InventoryAdjustmentsResponse<Texpand = unknown> = Required<InventoryAdjustmentsRecord> & BaseSystemFields<Texpand>
 export type MediaResponse<Texpand = unknown> = Required<MediaRecord> & BaseSystemFields<Texpand>
 export type MessageLogResponse<Texpand = unknown> = Required<MessageLogRecord> & BaseSystemFields<Texpand>
+export type MetafieldDefinitionsResponse<Tdescription = unknown, Tname = unknown, Texpand = unknown> = Required<MetafieldDefinitionsRecord<Tdescription, Tname>> & BaseSystemFields<Texpand>
+export type MetafieldValuesResponse<Tdata = unknown, Texpand = unknown> = Required<MetafieldValuesRecord<Tdata>> & BaseSystemFields<Texpand>
 export type OrderEventsResponse<Texpand = unknown> = Required<OrderEventsRecord> & BaseSystemFields<Texpand>
 export type OrderItemsResponse<Texpand = unknown> = Required<OrderItemsRecord> & BaseSystemFields<Texpand>
 export type OrdersResponse<Tapplied_discounts = unknown, Tattribution = unknown, Tbilling_address = unknown, Tshipping_address = unknown, Texpand = unknown> = Required<OrdersRecord<Tapplied_discounts, Tattribution, Tbilling_address, Tshipping_address>> & BaseSystemFields<Texpand>
@@ -845,6 +872,8 @@ export type CollectionRecords = {
 	inventory_adjustments: InventoryAdjustmentsRecord
 	media: MediaRecord
 	message_log: MessageLogRecord
+	metafield_definitions: MetafieldDefinitionsRecord
+	metafield_values: MetafieldValuesRecord
 	order_events: OrderEventsRecord
 	order_items: OrderItemsRecord
 	orders: OrdersRecord
@@ -890,6 +919,8 @@ export type CollectionResponses = {
 	inventory_adjustments: InventoryAdjustmentsResponse
 	media: MediaResponse
 	message_log: MessageLogResponse
+	metafield_definitions: MetafieldDefinitionsResponse
+	metafield_values: MetafieldValuesResponse
 	order_events: OrderEventsResponse
 	order_items: OrderItemsResponse
 	orders: OrdersResponse

@@ -83,6 +83,8 @@ type ProductDetailsFormProps = {
   currency: string;
   media: ReactNode;
   variants: ReactNode;
+  // The Custom fields card (existing products only).
+  custom_fields?: ReactNode;
   dictionary: AdminDictionary["catalog"];
   common: AdminDictionary["common"];
   errors: AdminDictionary["errors"];
@@ -97,6 +99,7 @@ export function ProductDetailsForm({
   currency,
   media,
   variants,
+  custom_fields,
   dictionary,
   common,
   errors,
@@ -438,6 +441,8 @@ export function ProductDetailsForm({
         </CardHeader>
         <CardContent>{variants ?? <p className="text-muted-foreground text-sm">{text.after_create}</p>}</CardContent>
       </Card>
+
+      {custom_fields}
 
       <Card>
         <CardHeader>

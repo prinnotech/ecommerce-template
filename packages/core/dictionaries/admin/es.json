@@ -130,7 +130,8 @@
       "tracking": "Seguimiento",
       "api_keys": "Claves de API",
       "ai": "IA",
-      "sms": "SMS y WhatsApp"
+      "sms": "SMS y WhatsApp",
+      "custom_data": "Datos personalizados"
     },
     "saved_all": "Ajustes guardados.",
     "assets": {
@@ -1428,7 +1429,8 @@
         "image_banner": "Banner con imagen",
         "testimonials": "Testimonios",
         "product_list": "Lista de productos",
-        "blog_posts": "Últimas entradas"
+        "blog_posts": "Últimas entradas",
+        "custom_fields": "Campos personalizados"
       },
       "undo": "Deshacer",
       "redo": "Rehacer",
@@ -1459,7 +1461,8 @@
         "image_banner": "Una imagen ancha con texto y un botón encima.",
         "testimonials": "Opiniones de clientes con nombre y estrellas.",
         "product_list": "Los productos con filtros, orden y páginas.",
-        "blog_posts": "Las entradas más recientes del blog en tarjetas."
+        "blog_posts": "Las entradas más recientes del blog en tarjetas.",
+        "custom_fields": "Los campos personalizados del producto visibles en la tienda (Ajustes → Datos personalizados)."
       },
       "hide": "Ocultar",
       "show": "Mostrar",
@@ -1557,7 +1560,9 @@
         "show_filters": "Barra de filtros en la página Tienda",
         "product_list_hint": "Este bloque muestra los productos de la Tienda, de una categoría o de una colección. Añade secciones encima o debajo.",
         "blog_tag": "Solo entradas con la etiqueta (opcional)",
-        "blog_tag_hint": "Vacío = todas las entradas. Escribe la etiqueta tal como aparece en la entrada, p. ej. guia-de-estilo."
+        "blog_tag_hint": "Vacío = todas las entradas. Escribe la etiqueta tal como aparece en la entrada, p. ej. guia-de-estilo.",
+        "custom_field_keys": "Solo estos campos (opcional)",
+        "custom_field_keys_hint": "Claves de los campos separadas por comas, en el orden en que se muestran. Vacío = todos los visibles en la tienda."
       },
       "settings": {
         "colors": "Colores",
@@ -2845,5 +2850,68 @@
       "delete_body": "Desaparece de la tienda al momento. No se puede deshacer.",
       "saved": "Entrada guardada."
     }
+  },
+  "custom_data": {
+    "title": "Datos personalizados",
+    "subtitle": "Campos extra para productos, colecciones y clientes, como el tejido, las instrucciones de cuidado o un cumpleaños.",
+    "add": "Añadir campo",
+    "owners": {
+      "product": "Productos",
+      "collection": "Colecciones",
+      "customer": "Clientes"
+    },
+    "owner_hints": {
+      "product": "Se rellenan en la página de cada producto. Los campos visibles en la tienda aparecen en la sección Campos personalizados de la página de producto.",
+      "collection": "Se rellenan en la página de cada colección.",
+      "customer": "Se rellenan en la página de cada cliente. Solo los ve el personal."
+    },
+    "empty": "Aún no hay campos.",
+    "on_store": "En la tienda",
+    "types": {
+      "text": "Texto",
+      "multiline": "Texto (varias líneas)",
+      "number": "Número",
+      "boolean": "Sí / no",
+      "date": "Fecha",
+      "url": "Enlace",
+      "color": "Color",
+      "file": "Imagen o archivo"
+    },
+    "move_up": "Subir {name}",
+    "move_down": "Bajar {name}",
+    "edit": "Editar {name}",
+    "delete": "Eliminar {name}",
+    "delete_title": "¿Eliminar este campo?",
+    "delete_body": "Desaparece de todas las páginas y de la tienda. Los valores ya rellenados se conservan: si vuelves a crear el campo con la misma clave, reaparecen.",
+    "delete_confirm": "Eliminar campo",
+    "deleted": "Campo eliminado.",
+    "add_title": "Nuevo campo para {owner}",
+    "edit_title": "Editar campo",
+    "dialog_hint": "El nombre es lo que ven el personal y los clientes; la clave es cómo lo encuentran los temas y las integraciones.",
+    "name": "Nombre",
+    "name_required": "Pon un nombre al campo en al menos un idioma.",
+    "key": "Clave",
+    "key_hint": "Minúsculas, números y _, empezando por una letra. No se puede cambiar después.",
+    "key_fixed": "La clave no se puede cambiar.",
+    "key_invalid": "Usa minúsculas, números y _, empezando por una letra.",
+    "type": "Tipo",
+    "type_change_hint": "Los valores que no encajan en el nuevo tipo se ocultan hasta que los vuelvas a rellenar.",
+    "description": "Texto de ayuda (opcional)",
+    "description_hint": "Se muestra bajo el campo cuando el personal lo rellena.",
+    "storefront": "Mostrar en la tienda",
+    "storefront_hint": "Productos: en la sección Campos personalizados de la página de producto.",
+    "saved": "Campo guardado.",
+    "card_title": "Campos personalizados",
+    "card_empty": "Aún no hay campos personalizados.",
+    "card_manage": "Añádelos en Ajustes → Datos personalizados.",
+    "not_set": "Sin definir",
+    "yes": "Sí",
+    "no": "No",
+    "change_file": "Cambiar",
+    "choose_file": "Elegir de Archivos",
+    "clear": "Vaciar {name}",
+    "discard": "Descartar",
+    "save_values": "Guardar campos",
+    "values_saved": "Campos personalizados guardados."
   }
 }
